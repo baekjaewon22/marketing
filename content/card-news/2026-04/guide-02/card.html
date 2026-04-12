@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홈파티 인생샷 찍는 법</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #111;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Slide 1 */
+  .slide-1 {
+    background: #0D0D1A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .slide-1::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,107,53,0.2) 0%, transparent 70%);
+  }
+  .slide-1 .camera { font-size: 120px; margin-bottom: 40px; z-index: 1; }
+  .slide-1 h1 {
+    font-size: 84px;
+    font-weight: 900;
+    line-height: 1.2;
+    z-index: 1;
+    margin-bottom: 24px;
+  }
+  .slide-1 h1 em {
+    color: #FF6B35;
+    font-style: normal;
+  }
+  .slide-1 .sub {
+    font-size: 36px;
+    opacity: 0.6;
+    z-index: 1;
+  }
+  .slide-1 .brand {
+    position: absolute;
+    bottom: 60px;
+    font-size: 28px;
+    opacity: 0.4;
+    z-index: 1;
+  }
+
+  /* Tip slides common */
+  .tip-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+    color: white;
+  }
+  .tip-slide .tip-num {
+    font-size: 180px;
+    font-weight: 900;
+    opacity: 0.08;
+    position: absolute;
+    top: 20px;
+    right: 60px;
+  }
+  .tip-slide .tip-tag {
+    font-size: 28px;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 40px;
+    display: inline-block;
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+  .tip-slide h2 {
+    font-size: 64px;
+    font-weight: 900;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+  .tip-slide p {
+    font-size: 34px;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+  .tip-slide .example {
+    margin-top: 40px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 28px 36px;
+    font-size: 30px;
+    border-left: 4px solid;
+  }
+
+  .slide-2 { background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%); }
+  .slide-2 .tip-tag { background: rgba(255,183,77,0.2); color: #FFB74D; }
+  .slide-2 .example { border-color: #FFB74D; }
+
+  .slide-3 { background: linear-gradient(135deg, #16213E 0%, #0F3460 100%); }
+  .slide-3 .tip-tag { background: rgba(129,212,250,0.2); color: #81D4FA; }
+  .slide-3 .example { border-color: #81D4FA; }
+
+  .slide-4 { background: linear-gradient(135deg, #0F3460 0%, #533483 100%); }
+  .slide-4 .tip-tag { background: rgba(206,147,216,0.2); color: #CE93D8; }
+  .slide-4 .example { border-color: #CE93D8; }
+
+  .slide-5 { background: linear-gradient(135deg, #533483 0%, #E94560 100%); }
+  .slide-5 .tip-tag { background: rgba(255,138,128,0.2); color: #FF8A80; }
+  .slide-5 .example { border-color: #FF8A80; }
+
+  /* Slide 6 - CTA */
+  .slide-6 {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 50%, #FFD23F 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 100px;
+  }
+  .slide-6 .emoji-big { font-size: 100px; margin-bottom: 32px; }
+  .slide-6 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  .slide-6 p {
+    font-size: 34px;
+    opacity: 0.9;
+    margin-bottom: 48px;
+  }
+  .slide-6 .cta-btn {
+    background: white;
+    color: #FF6B35;
+    font-size: 40px;
+    font-weight: 900;
+    padding: 32px 80px;
+    border-radius: 60px;
+    margin-bottom: 40px;
+  }
+  .slide-6 .url { font-size: 32px; opacity: 0.8; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: 타이틀 -->
+<div class="card slide-1">
+  <div class="camera">📸</div>
+  <h1>홈파티<br><em>인생샷</em><br>찍는 법</h1>
+  <div class="sub">4가지만 기억하세요</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- Slide 2: 조명 -->
+<div class="card slide-2 tip-slide">
+  <div class="tip-num">01</div>
+  <div class="tip-tag">💡 TIP 1</div>
+  <h2>조명이<br>전부다</h2>
+  <p>천장 불 끄고<br>간접 조명 + 캔들로 분위기 만들기<br>따뜻한 조명 = 따뜻한 사진</p>
+  <div class="example">📱 카메라 필터보다 실제 조명이 10배 효과적!</div>
+</div>
+
+<!-- Slide 3: 배경 -->
+<div class="card slide-3 tip-slide">
+  <div class="tip-num">02</div>
+  <div class="tip-tag">🖼️ TIP 2</div>
+  <h2>배경 한 곳만<br>꾸며도 OK</h2>
+  <p>전체를 꾸밀 필요 없어요<br>벽 한 면에 풍선 + 가랜드만 달면<br>그곳이 포토존!</p>
+  <div class="example">🎈 배경색은 단색이 깔끔 — 화이트, 베이지 추천</div>
+</div>
+
+<!-- Slide 4: 구도 -->
+<div class="card slide-4 tip-slide">
+  <div class="tip-num">03</div>
+  <div class="tip-tag">📐 TIP 3</div>
+  <h2>플랫레이로<br>테이블 찍기</h2>
+  <p>음식, 소품을 테이블에 예쁘게 배치하고<br>위에서 내려다보며 촬영<br>인스타 감성 완성!</p>
+  <div class="example">🍕 음식 사이사이에 소품(꽃, 냅킨) 넣으면 프로급</div>
+</div>
+
+<!-- Slide 5: 순간 포착 -->
+<div class="card slide-5 tip-slide">
+  <div class="tip-num">04</div>
+  <div class="tip-tag">⚡ TIP 4</div>
+  <h2>연출보다<br>자연스러운 순간</h2>
+  <p>건배하는 순간, 웃는 순간, 케이크 자르는 순간<br>자연스러운 모습이 가장 예쁜 사진</p>
+  <div class="example">📷 연사 모드로 찍고 베스트 컷 골라내기!</div>
+</div>
+
+<!-- Slide 6: CTA -->
+<div class="card slide-6">
+  <div class="emoji-big">📸✨</div>
+  <h2>인생샷 나오는<br>파티 하러 가자</h2>
+  <p>포토제닉한 파티 아이디어 가득</p>
+  <div class="cta-btn">party.it.kr 보러가기</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5월 파티 미리보기</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Playfair+Display:wght@700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #111;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Slide 1 */
+  .slide-1 {
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 50%, #A5D6A7 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .slide-1 .month {
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: #2E7D32;
+    opacity: 0.15;
+    position: absolute;
+    top: 60px;
+    right: 80px;
+  }
+  .slide-1 .flower { font-size: 80px; margin-bottom: 32px; z-index: 1; }
+  .slide-1 h1 {
+    font-size: 88px;
+    font-weight: 900;
+    color: #1B5E20;
+    line-height: 1.2;
+    z-index: 1;
+    margin-bottom: 24px;
+  }
+  .slide-1 .sub {
+    font-size: 36px;
+    color: #4CAF50;
+    font-weight: 700;
+    z-index: 1;
+  }
+  .slide-1 .brand {
+    position: absolute;
+    bottom: 60px;
+    font-size: 28px;
+    color: #81C784;
+  }
+
+  /* Event slides */
+  .event-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+  }
+  .event-slide .date-badge {
+    font-size: 28px;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 40px;
+    display: inline-block;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .event-slide h2 {
+    font-size: 68px;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .event-slide p {
+    font-size: 34px;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+  .event-slide .ideas {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .event-slide .idea {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 32px;
+  }
+
+  /* Slide 2 - 어린이날 */
+  .slide-2 {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+  .slide-2 .date-badge { background: #BBDEFB; color: #1565C0; }
+  .slide-2 .idea .bullet { color: #42A5F5; }
+
+  /* Slide 3 - 어버이날 */
+  .slide-3 {
+    background: #FCE4EC;
+    color: #C62828;
+  }
+  .slide-3 .date-badge { background: #F8BBD0; color: #C62828; }
+  .slide-3 h2 { color: #C62828; }
+  .slide-3 p { color: #880E4F; }
+  .slide-3 .idea { color: #880E4F; }
+
+  /* Slide 4 - 스승의날 */
+  .slide-4 {
+    background: #FFF8E1;
+    color: #F57F17;
+  }
+  .slide-4 .date-badge { background: #FFECB3; color: #F57F17; }
+  .slide-4 h2 { color: #F57F17; }
+  .slide-4 p { color: #FF8F00; }
+  .slide-4 .idea { color: #FF8F00; }
+
+  /* Slide 5 - 가정의달 */
+  .slide-5 {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+  .slide-5 .header-text {
+    font-size: 36px;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 40px;
+  }
+  .slide-5 h2 {
+    font-size: 64px;
+    font-weight: 900;
+    color: #1B5E20;
+    margin-bottom: 40px;
+    line-height: 1.3;
+  }
+  .slide-5 .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .slide-5 .stat-card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+  }
+  .slide-5 .stat-card .num {
+    font-size: 56px;
+    font-weight: 900;
+    color: #2E7D32;
+  }
+  .slide-5 .stat-card .label {
+    font-size: 26px;
+    color: #888;
+    margin-top: 8px;
+  }
+
+  /* Slide 6 - CTA */
+  .slide-6 {
+    background: linear-gradient(135deg, #66BB6A 0%, #43A047 50%, #2E7D32 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 100px;
+  }
+  .slide-6 .emoji-row { font-size: 72px; margin-bottom: 40px; letter-spacing: 16px; }
+  .slide-6 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  .slide-6 p { font-size: 34px; opacity: 0.9; margin-bottom: 48px; }
+  .slide-6 .cta-btn {
+    background: white;
+    color: #2E7D32;
+    font-size: 40px;
+    font-weight: 900;
+    padding: 32px 80px;
+    border-radius: 60px;
+    margin-bottom: 40px;
+  }
+  .slide-6 .url { font-size: 32px; opacity: 0.8; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: 타이틀 -->
+<div class="card slide-1">
+  <div class="month">MAY</div>
+  <div class="flower">🌷</div>
+  <h1>5월 파티<br>미리보기</h1>
+  <div class="sub">가정의 달, 특별한 순간을 파티로</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- Slide 2: 어린이날 -->
+<div class="card slide-2 event-slide">
+  <div class="date-badge">5월 5일</div>
+  <h2>어린이날 파티 🎈</h2>
+  <p>아이들의 최고의 하루를<br>특별한 파티로 만들어 주세요</p>
+  <div class="ideas">
+    <div class="idea"><span class="bullet">→</span> 캐릭터 테마 코스튬 파티</div>
+    <div class="idea"><span class="bullet">→</span> 보물찾기 + 풍선 아치</div>
+    <div class="idea"><span class="bullet">→</span> 쿠키 데코레이션 체험</div>
+    <div class="idea"><span class="bullet">→</span> 포토부스로 추억 남기기</div>
+  </div>
+</div>
+
+<!-- Slide 3: 어버이날 -->
+<div class="card slide-3 event-slide">
+  <div class="date-badge">5월 8일</div>
+  <h2>어버이날<br>서프라이즈 파티 💐</h2>
+  <p>감사한 마음을 파티로 전하세요<br>부모님이 주인공이 되는 특별한 날</p>
+  <div class="ideas">
+    <div class="idea">→ 가족 브런치 파티</div>
+    <div class="idea">→ 편지 + 케이크 서프라이즈</div>
+    <div class="idea">→ 가족 사진 촬영회</div>
+    <div class="idea">→ 부모님 취미 테마 파티</div>
+  </div>
+</div>
+
+<!-- Slide 4: 스승의날 -->
+<div class="card slide-4 event-slide">
+  <div class="date-badge">5월 15일</div>
+  <h2>스승의날<br>감사 파티 📚</h2>
+  <p>선생님께 감사를 전하는<br>작지만 따뜻한 파티</p>
+  <div class="ideas">
+    <div class="idea">→ 학급 단위 감사 파티</div>
+    <div class="idea">→ 수제 카드 + 다과회</div>
+    <div class="idea">→ 감사 영상 상영회</div>
+    <div class="idea">→ 선생님 추억 퀴즈</div>
+  </div>
+</div>
+
+<!-- Slide 5: 가정의 달 통계 -->
+<div class="card slide-5 event-slide">
+  <div class="header-text">📊 가정의 달 파티 트렌드</div>
+  <h2>5월은 파티의 달</h2>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">+180%</div>
+      <div class="label">5월 파티 검색량 증가</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">67%</div>
+      <div class="label">가족 파티 비율</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">TOP 1</div>
+      <div class="label">어린이날 파티 인기</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3배</div>
+      <div class="label">서프라이즈 파티 증가</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: CTA -->
+<div class="card slide-6">
+  <div class="emoji-row">🌷👨‍👩‍👧‍👦🎂</div>
+  <h2>5월 파티,<br>미리 준비하세요</h2>
+  <p>가정의 달 파티 아이디어 모음</p>
+  <div class="cta-btn">party.it.kr에서 보기</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>

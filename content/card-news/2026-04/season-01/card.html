@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>어린이날 파티 기획 가이드</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #111;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Slide 1 - 타이틀 */
+  .slide-1 {
+    background: linear-gradient(135deg, #42A5F5 0%, #7E57C2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .slide-1 .deco {
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.25;
+  }
+  .slide-1 .d1 { top: 80px; left: 100px; transform: rotate(-15deg); }
+  .slide-1 .d2 { top: 120px; right: 80px; transform: rotate(20deg); }
+  .slide-1 .d3 { bottom: 160px; left: 60px; transform: rotate(10deg); }
+  .slide-1 .d4 { bottom: 100px; right: 120px; transform: rotate(-25deg); }
+  .slide-1 .d5 { top: 280px; left: 260px; transform: rotate(35deg); font-size: 40px; }
+  .slide-1 .date-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 16px 48px;
+    border-radius: 40px;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    z-index: 1;
+  }
+  .slide-1 h1 {
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 1.2;
+    z-index: 1;
+    margin-bottom: 24px;
+  }
+  .slide-1 .sub {
+    font-size: 36px;
+    opacity: 0.85;
+    z-index: 1;
+  }
+  .slide-1 .brand {
+    position: absolute;
+    bottom: 60px;
+    font-size: 28px;
+    opacity: 0.5;
+  }
+
+  /* Content slides */
+  .content-slide {
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+  .content-slide .header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .content-slide .header-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+  }
+  .content-slide .header-title {
+    font-size: 52px;
+    font-weight: 900;
+  }
+
+  /* Slide 2 - 테마 선정 */
+  .slide-2 .header-icon { background: #42A5F5; }
+  .slide-2 .header-title { color: #1565C0; }
+  .slide-2 .theme-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .slide-2 .theme-card {
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+  }
+  .slide-2 .theme-card .emoji { font-size: 64px; margin-bottom: 16px; }
+  .slide-2 .theme-card .name { font-size: 32px; font-weight: 700; }
+  .slide-2 .theme-card .desc { font-size: 24px; color: #888; margin-top: 8px; }
+  .slide-2 .t1 { background: #E3F2FD; }
+  .slide-2 .t1 .name { color: #1565C0; }
+  .slide-2 .t2 { background: #FCE4EC; }
+  .slide-2 .t2 .name { color: #C62828; }
+  .slide-2 .t3 { background: #E8F5E9; }
+  .slide-2 .t3 .name { color: #2E7D32; }
+  .slide-2 .t4 { background: #FFF3E0; }
+  .slide-2 .t4 .name { color: #E65100; }
+
+  /* Slide 3 - 필수 준비물 */
+  .slide-3 .header-icon { background: #FF7043; }
+  .slide-3 .header-title { color: #E65100; }
+  .slide-3 .prep-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .slide-3 .prep-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: #FFF3E0;
+    border-radius: 16px;
+    padding: 24px 32px;
+  }
+  .slide-3 .prep-item .emoji { font-size: 40px; }
+  .slide-3 .prep-item .text { font-size: 32px; color: #333; }
+  .slide-3 .prep-item .text strong { color: #E65100; }
+
+  /* Slide 4 - 게임/활동 */
+  .slide-4 .header-icon { background: #66BB6A; }
+  .slide-4 .header-title { color: #2E7D32; }
+  .slide-4 .game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .slide-4 .game-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .slide-4 .game-num {
+    width: 60px;
+    height: 60px;
+    background: #E8F5E9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #2E7D32;
+    flex-shrink: 0;
+  }
+  .slide-4 .game-content h3 {
+    font-size: 38px;
+    font-weight: 900;
+    color: #2E7D32;
+    margin-bottom: 8px;
+  }
+  .slide-4 .game-content p {
+    font-size: 28px;
+    color: #888;
+  }
+
+  /* Slide 5 - 안전 주의사항 */
+  .slide-5 {
+    background: #FFF8E1;
+  }
+  .slide-5 .header-icon { background: #FFB300; }
+  .slide-5 .header-title { color: #F57F17; }
+  .slide-5 .safety-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .slide-5 .safety-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .slide-5 .safety-icon { font-size: 40px; flex-shrink: 0; }
+  .slide-5 .safety-text {
+    font-size: 34px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .slide-5 .safety-text strong { color: #F57F17; }
+
+  /* Slide 6 - CTA */
+  .slide-6 {
+    background: linear-gradient(135deg, #42A5F5 0%, #7E57C2 50%, #FF7043 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 100px;
+  }
+  .slide-6 .emoji-row { font-size: 80px; margin-bottom: 40px; letter-spacing: 16px; }
+  .slide-6 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  .slide-6 p { font-size: 34px; opacity: 0.9; margin-bottom: 48px; }
+  .slide-6 .cta-btn {
+    background: white;
+    color: #7E57C2;
+    font-size: 40px;
+    font-weight: 900;
+    padding: 32px 80px;
+    border-radius: 60px;
+    margin-bottom: 40px;
+  }
+  .slide-6 .url { font-size: 32px; opacity: 0.8; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: 타이틀 -->
+<div class="card slide-1">
+  <span class="deco d1">🎈</span>
+  <span class="deco d2">🎁</span>
+  <span class="deco d3">🎪</span>
+  <span class="deco d4">🧸</span>
+  <span class="deco d5">⭐</span>
+  <div class="date-badge">5월 5일 어린이날</div>
+  <h1>어린이날<br>파티 기획<br>가이드</h1>
+  <div class="sub">우리 아이 최고의 하루 만들기</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- Slide 2: 테마 선정 -->
+<div class="card slide-2 content-slide">
+  <div class="header">
+    <div class="header-icon">1</div>
+    <div class="header-title">테마 선정하기 🎨</div>
+  </div>
+  <div class="theme-grid">
+    <div class="theme-card t1">
+      <div class="emoji">🦸</div>
+      <div class="name">슈퍼히어로</div>
+      <div class="desc">마블/DC 코스튬 파티</div>
+    </div>
+    <div class="theme-card t2">
+      <div class="emoji">👸</div>
+      <div class="name">프린세스</div>
+      <div class="desc">디즈니 공주 파티</div>
+    </div>
+    <div class="theme-card t3">
+      <div class="emoji">🦖</div>
+      <div class="name">공룡 탐험</div>
+      <div class="desc">공룡 테마 어드벤처</div>
+    </div>
+    <div class="theme-card t4">
+      <div class="emoji">🎪</div>
+      <div class="name">서커스</div>
+      <div class="desc">알록달록 서커스 무드</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: 필수 준비물 -->
+<div class="card slide-3 content-slide">
+  <div class="header">
+    <div class="header-icon">2</div>
+    <div class="header-title">필수 준비물 🎁</div>
+  </div>
+  <div class="prep-list">
+    <div class="prep-item">
+      <span class="emoji">🎂</span>
+      <span class="text"><strong>캐릭터 케이크</strong> — 아이가 좋아하는 캐릭터로</span>
+    </div>
+    <div class="prep-item">
+      <span class="emoji">🎈</span>
+      <span class="text"><strong>풍선 아치</strong> — 입구에 설치하면 WOW 효과</span>
+    </div>
+    <div class="prep-item">
+      <span class="emoji">🎁</span>
+      <span class="text"><strong>구디백</strong> — 참석 아이들에게 선물 세트</span>
+    </div>
+    <div class="prep-item">
+      <span class="emoji">🎵</span>
+      <span class="text"><strong>동요 플레이리스트</strong> — 분위기 메이커</span>
+    </div>
+    <div class="prep-item">
+      <span class="emoji">📸</span>
+      <span class="text"><strong>포토부스</strong> — 소품 + 배경으로 추억 사진</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: 게임/활동 -->
+<div class="card slide-4 content-slide">
+  <div class="header">
+    <div class="header-icon">3</div>
+    <div class="header-title">추천 게임 & 활동 🎮</div>
+  </div>
+  <div class="game-list">
+    <div class="game-item">
+      <div class="game-num">1</div>
+      <div class="game-content">
+        <h3>보물찾기 🔍</h3>
+        <p>집 안 곳곳에 미션 카드 숨기기</p>
+      </div>
+    </div>
+    <div class="game-item">
+      <div class="game-num">2</div>
+      <div class="game-content">
+        <h3>페이스 페인팅 🎨</h3>
+        <p>아이들이 직접 서로 그려주기</p>
+      </div>
+    </div>
+    <div class="game-item">
+      <div class="game-num">3</div>
+      <div class="game-content">
+        <h3>풍선 터뜨리기 💥</h3>
+        <p>풍선 안에 미션/경품 넣기</p>
+      </div>
+    </div>
+    <div class="game-item">
+      <div class="game-num">4</div>
+      <div class="game-content">
+        <h3>쿠키 데코레이션 🍪</h3>
+        <p>밀키트로 간편하게 준비</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: 안전 주의사항 -->
+<div class="card slide-5 content-slide">
+  <div class="header">
+    <div class="header-icon">⚠️</div>
+    <div class="header-title">안전 체크리스트</div>
+  </div>
+  <div class="safety-list">
+    <div class="safety-item">
+      <span class="safety-icon">🚫</span>
+      <div class="safety-text"><strong>작은 소품 주의</strong><br>3세 이하 삼킬 수 있는 소품 금지</div>
+    </div>
+    <div class="safety-item">
+      <span class="safety-icon">🍽️</span>
+      <div class="safety-text"><strong>알레르기 확인</strong><br>참석 아이들 음식 알레르기 사전 체크</div>
+    </div>
+    <div class="safety-item">
+      <span class="safety-icon">🧯</span>
+      <div class="safety-text"><strong>촛불 대신 LED</strong><br>케이크 촛불은 LED 캔들로 대체</div>
+    </div>
+    <div class="safety-item">
+      <span class="safety-icon">👀</span>
+      <div class="safety-text"><strong>보호자 동반</strong><br>아이 3~4명당 어른 1명 배치</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: CTA -->
+<div class="card slide-6">
+  <div class="emoji-row">🎈🎂🎁</div>
+  <h2>우리 아이<br>최고의 파티,<br>지금 준비하세요</h2>
+  <p>어린이날 파티 아이디어 더 보기</p>
+  <div class="cta-btn">party.it.kr에서 시작</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>

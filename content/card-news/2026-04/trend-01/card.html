@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 봄 파티 트렌드 TOP 5</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Playfair+Display:wght@700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Slide 1 - 타이틀 */
+  .slide-1 {
+    background: #FFF5F0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+    position: relative;
+  }
+  .slide-1::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #FFB7C5 0%, transparent 70%);
+    opacity: 0.5;
+  }
+  .slide-1::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #B8E6C8 0%, transparent 70%);
+    opacity: 0.4;
+  }
+  .slide-1 .year {
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    font-weight: 900;
+    color: #FFB7C5;
+    line-height: 0.9;
+    z-index: 1;
+  }
+  .slide-1 h1 {
+    font-size: 100px;
+    font-weight: 900;
+    color: #2D1B42;
+    line-height: 1.15;
+    z-index: 1;
+    margin: 16px 0;
+  }
+  .slide-1 .top5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 140px;
+    font-weight: 900;
+    color: #FF6B8A;
+    z-index: 1;
+  }
+  .slide-1 .brand {
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+    font-size: 28px;
+    color: #999;
+    font-weight: 700;
+    z-index: 1;
+  }
+
+  /* Slide 2 - 벚꽃 피크닉 */
+  .slide-2 {
+    background: linear-gradient(180deg, #FFE4EC 0%, #FFF0F5 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+  }
+  .slide-2 .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: #FF6B8A;
+    opacity: 0.15;
+    position: absolute;
+    top: 40px;
+    right: 80px;
+  }
+  .slide-2 .tag {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FF6B8A;
+    background: rgba(255,107,138,0.12);
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 40px;
+    margin-bottom: 32px;
+  }
+  .slide-2 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    color: #2D1B42;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .slide-2 p {
+    font-size: 34px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .slide-2 .emoji-row {
+    font-size: 64px;
+    margin-top: 40px;
+    letter-spacing: 16px;
+  }
+
+  /* Slide 3 - 미니멀 홈파티 */
+  .slide-3 {
+    background: #F5FAF7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+  }
+  .slide-3 .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: #7BC89C;
+    opacity: 0.15;
+    position: absolute;
+    top: 40px;
+    right: 80px;
+  }
+  .slide-3 .tag {
+    font-size: 28px;
+    font-weight: 700;
+    color: #4CAF82;
+    background: rgba(76,175,130,0.12);
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 40px;
+    margin-bottom: 32px;
+  }
+  .slide-3 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    color: #2D1B42;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .slide-3 p {
+    font-size: 34px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .slide-3 .keywords {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .slide-3 .keyword {
+    background: white;
+    border: 2px solid #B8E6C8;
+    border-radius: 40px;
+    padding: 16px 36px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #4CAF82;
+  }
+
+  /* Slide 4 - 브런치 & 가드닝 */
+  .slide-4 {
+    background: #FFF8F0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+  }
+  .slide-4 .dual {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+  .slide-4 .trend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .slide-4 .trend-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: #FFB347;
+    min-width: 100px;
+  }
+  .slide-4 .trend-content h3 {
+    font-size: 52px;
+    font-weight: 900;
+    color: #2D1B42;
+    margin-bottom: 12px;
+  }
+  .slide-4 .trend-content p {
+    font-size: 30px;
+    color: #888;
+    line-height: 1.6;
+  }
+  .slide-4 .divider {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #FFD9A0, transparent);
+  }
+
+  /* Slide 5 - 필름카메라 파티 */
+  .slide-5 {
+    background: linear-gradient(135deg, #FFF5E6 0%, #F0E6FF 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+  }
+  .slide-5 .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    color: #C4A0FF;
+    opacity: 0.15;
+    position: absolute;
+    top: 40px;
+    right: 80px;
+  }
+  .slide-5 .tag {
+    font-size: 28px;
+    font-weight: 700;
+    color: #9B6FD4;
+    background: rgba(155,111,212,0.12);
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 40px;
+    margin-bottom: 32px;
+  }
+  .slide-5 h2 {
+    font-size: 72px;
+    font-weight: 900;
+    color: #2D1B42;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+  .slide-5 p {
+    font-size: 34px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .slide-5 .vibe {
+    margin-top: 48px;
+    font-size: 42px;
+    font-weight: 900;
+    color: #9B6FD4;
+    font-style: italic;
+  }
+
+  /* Slide 6 - CTA */
+  .slide-6 {
+    background: linear-gradient(135deg, #FF6B8A 0%, #FF8E53 50%, #FFD23F 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 100px;
+  }
+  .slide-6 h2 {
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 48px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .slide-6 .cta-btn {
+    background: white;
+    color: #FF6B8A;
+    font-size: 40px;
+    font-weight: 900;
+    padding: 32px 80px;
+    border-radius: 60px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  }
+  .slide-6 .url {
+    font-size: 36px;
+    opacity: 0.9;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: 타이틀 -->
+<div class="card slide-1">
+  <div class="year">2026</div>
+  <h1>봄 파티<br>트렌드</h1>
+  <div class="top5">TOP 5</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- Slide 2: 벚꽃 피크닉 -->
+<div class="card slide-2">
+  <div class="number">01</div>
+  <div class="tag">TREND #1</div>
+  <h2>벚꽃<br>피크닉 파티</h2>
+  <p>야외에서 즐기는 봄 감성 파티<br>벚꽃 아래에서 즐기는 특별한 순간<br>간단한 핑거푸드와 와인이면 충분해요</p>
+  <div class="emoji-row">🌸🧺🥂🌿</div>
+</div>
+
+<!-- Slide 3: 미니멀 홈파티 -->
+<div class="card slide-3">
+  <div class="number">02</div>
+  <div class="tag">TREND #2</div>
+  <h2>미니멀<br>홈파티</h2>
+  <p>적을수록 세련된 파티<br>화이트 & 그린 무드로 꾸미는<br>감각적인 우리집 파티</p>
+  <div class="keywords">
+    <span class="keyword">#화이트무드</span>
+    <span class="keyword">#미니멀데코</span>
+    <span class="keyword">#그린인테리어</span>
+    <span class="keyword">#홈파티</span>
+  </div>
+</div>
+
+<!-- Slide 4: 브런치 & 가드닝 -->
+<div class="card slide-4">
+  <div class="dual">
+    <div class="trend-item">
+      <div class="trend-num">03</div>
+      <div class="trend-content">
+        <h3>브런치 파티 🥐</h3>
+        <p>늦은 아침, 여유로운 모임<br>에그베네딕트와 미모사 한 잔이면<br>완벽한 주말 브런치 파티</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="trend-item">
+      <div class="trend-num">04</div>
+      <div class="trend-content">
+        <h3>가드닝 파티 🌱</h3>
+        <p>식물과 함께하는 힐링 모임<br>함께 화분을 만들고<br>자연 속에서 대화하는 시간</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: 필름카메라 파티 -->
+<div class="card slide-5">
+  <div class="number">05</div>
+  <div class="tag">TREND #5</div>
+  <h2>필름 카메라<br>파티</h2>
+  <p>레트로 감성 포토타임<br>일회용 필름 카메라로 남기는<br>아날로그 감성의 파티 기록</p>
+  <div class="vibe">"현상할 때까지 설레는 파티"</div>
+</div>
+
+<!-- Slide 6: CTA -->
+<div class="card slide-6">
+  <h2>올봄,<br>어떤 파티<br>할래?</h2>
+  <div class="cta-btn">party.it.kr에서 시작하기</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>

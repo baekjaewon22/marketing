@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>파티원 9가지 카테고리 소개</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:#111; display:flex; flex-wrap:wrap; justify-content:center; gap:24px; padding:40px; }
+  .card { width:1080px; height:1080px; position:relative; overflow:hidden; flex-shrink:0; }
+
+  /* 1: 타이틀 */
+  .s1 {
+    background:linear-gradient(135deg,#FF6B35 0%,#FF8E53 50%,#FFD23F 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:white; padding:80px;
+  }
+  .s1 h1 { font-size:80px; font-weight:900; line-height:1.25; margin-bottom:24px;
+    text-shadow:0 4px 20px rgba(0,0,0,0.15); }
+  .s1 .sub { font-size:40px; opacity:0.9; font-weight:700; margin-bottom:40px; }
+  .s1 .badge { background:rgba(255,255,255,0.25); padding:16px 40px;
+    border-radius:40px; font-size:30px; font-weight:700; }
+  .s1 .brand { position:absolute; bottom:60px; font-size:28px; opacity:0.6; }
+
+  /* Category detail slides */
+  .cat-detail {
+    display:flex; flex-direction:column; justify-content:center; padding:80px;
+  }
+  .cat-detail .cat-group-title {
+    font-size:28px; font-weight:700; padding:10px 28px; border-radius:30px;
+    display:inline-block; margin-bottom:32px; width:fit-content;
+  }
+  .cat-detail .cat-row {
+    display:flex; flex-direction:column; gap:28px;
+  }
+  .cat-detail .cat-item {
+    display:flex; align-items:flex-start; gap:28px;
+    border-radius:24px; padding:32px;
+  }
+  .cat-detail .cat-emoji { font-size:56px; flex-shrink:0; }
+  .cat-detail .cat-info h3 { font-size:40px; font-weight:900; margin-bottom:8px; }
+  .cat-detail .cat-info p { font-size:28px; color:#666; line-height:1.5; }
+  .cat-detail .cat-info .for { font-size:24px; color:#999; margin-top:8px; }
+  .cat-detail .cat-info .for strong { color:#FF6B35; }
+
+  /* Slide 2: 만남 계열 */
+  .s2 { background:#FFF5F5; }
+  .s2 .cat-group-title { background:#FFCDD2; color:#C62828; }
+  .s2 .cat-item { background:white; }
+  .s2 .cat-info h3 { color:#C62828; }
+
+  /* Slide 3: 분위기 계열 */
+  .s3 { background:#F3E5F5; }
+  .s3 .cat-group-title { background:#CE93D8; color:white; }
+  .s3 .cat-item { background:white; }
+  .s3 .cat-info h3 { color:#7B1FA2; }
+
+  /* Slide 4: 음주 계열 */
+  .s4 { background:#E8F5E9; }
+  .s4 .cat-group-title { background:#81C784; color:white; }
+  .s4 .cat-item { background:white; }
+  .s4 .cat-info h3 { color:#2E7D32; }
+
+  /* Slide 5: 나에게 맞는 파티 */
+  .s5 {
+    background:#1a1a2e; display:flex; flex-direction:column;
+    justify-content:center; padding:80px; color:white;
+  }
+  .s5 h2 { font-size:56px; font-weight:900; margin-bottom:40px; }
+  .s5 h2 em { color:#FF6B35; font-style:normal; }
+  .s5 .match-list { display:flex; flex-direction:column; gap:20px; }
+  .s5 .match-item {
+    display:flex; align-items:center; justify-content:space-between;
+    background:rgba(255,255,255,0.06); border-radius:16px; padding:24px 32px;
+  }
+  .s5 .match-if { font-size:30px; opacity:0.8; }
+  .s5 .match-then {
+    font-size:28px; font-weight:700; color:#FF6B35;
+    background:rgba(255,107,53,0.15); padding:10px 24px; border-radius:30px;
+  }
+
+  /* 6: CTA */
+  .s6 {
+    background:linear-gradient(135deg,#FF6B35 0%,#FF8E53 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:white; padding:80px;
+  }
+  .s6 h2 { font-size:72px; font-weight:900; line-height:1.3; margin-bottom:32px; }
+  .s6 .sub { font-size:34px; opacity:0.9; margin-bottom:48px; }
+  .s6 .cta {
+    background:white; color:#FF6B35; font-size:40px; font-weight:900;
+    padding:32px 80px; border-radius:60px; margin-bottom:32px;
+  }
+  .s6 .url { font-size:32px; opacity:0.7; font-weight:700; }
+</style>
+</head>
+<body>
+
+<!-- 1: 타이틀 -->
+<div class="card s1">
+  <h1>어떤 파티<br>갈래요?</h1>
+  <div class="sub">파티원 9가지 카테고리</div>
+  <div class="badge">전부 무료 참가</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- 2: 만남 계열 -->
+<div class="card s2 cat-detail">
+  <div class="cat-group-title">💕 만남이 목적이라면</div>
+  <div class="cat-row">
+    <div class="cat-item">
+      <div class="cat-emoji">✨</div>
+      <div class="cat-info">
+        <h3>비주얼파티</h3>
+        <p>외모에 자신 있는 사람들이 모이는 파티. 첫인상이 중요한 자리.</p>
+        <div class="for"><strong>이런 분:</strong> 셀카에 자신 있고, 설레는 만남을 원하는 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">💕</div>
+      <div class="cat-info">
+        <h3>소개팅 (로테이션)</h3>
+        <p>여러 사람과 순환하며 대화하는 소개팅. 한 자리에서 다양한 만남.</p>
+        <div class="for"><strong>이런 분:</strong> 효율적으로 여러 사람 만나보고 싶은 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">🍲</div>
+      <div class="cat-info">
+        <h3>포틀럭</h3>
+        <p>각자 음식을 가져와 나눠 먹는 파티. 음식이 대화의 시작.</p>
+        <div class="for"><strong>이런 분:</strong> 자연스럽고 편안한 분위기를 좋아하는 분</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3: 분위기 계열 -->
+<div class="card s3 cat-detail">
+  <div class="cat-group-title">🎭 분위기가 중요하다면</div>
+  <div class="cat-row">
+    <div class="cat-item">
+      <div class="cat-emoji">🎭</div>
+      <div class="cat-info">
+        <h3>컨셉파티</h3>
+        <p>특정 테마와 콘셉트가 있는 파티. 매번 새로운 경험.</p>
+        <div class="for"><strong>이런 분:</strong> "색다른 거 해보고 싶다" 하는 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">⚡</div>
+      <div class="cat-info">
+        <h3>도파민파티</h3>
+        <p>에너지 넘치는 텐션 높은 파티. 신나게 놀고 싶을 때.</p>
+        <div class="for"><strong>이런 분:</strong> "오늘은 미친 듯이 놀고 싶다" 하는 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">🌙</div>
+      <div class="cat-info">
+        <h3>내향인파티</h3>
+        <p>조용하고 편안한 소규모 모임. 깊은 대화 위주.</p>
+        <div class="for"><strong>이런 분:</strong> 시끄러운 건 싫지만 사람은 만나고 싶은 분</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4: 음주 계열 -->
+<div class="card s4 cat-detail">
+  <div class="cat-group-title">🥂 한 잔 하면서</div>
+  <div class="cat-row">
+    <div class="cat-item">
+      <div class="cat-emoji">🍷</div>
+      <div class="cat-info">
+        <h3>혼술바</h3>
+        <p>혼자 왔다가 자연스럽게 어울리는 파티. 부담 없이.</p>
+        <div class="for"><strong>이런 분:</strong> "혼자인데 오늘 술 한 잔 하고 싶다" 하는 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">🍇</div>
+      <div class="cat-info">
+        <h3>와인파티</h3>
+        <p>와인과 함께하는 프리미엄 모임. 고급스러운 분위기.</p>
+        <div class="for"><strong>이런 분:</strong> 와인 좋아하고 세련된 분위기 선호하는 분</div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-emoji">🍺</div>
+      <div class="cat-info">
+        <h3>소맥파티</h3>
+        <p>캐주얼하게 소맥 한 잔! 가볍고 편한 분위기.</p>
+        <div class="for"><strong>이런 분:</strong> 격식 없이 편하게 놀고 싶은 분</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5: 매칭 가이드 -->
+<div class="card s5">
+  <h2><em>나에게 맞는</em> 파티는?</h2>
+  <div class="match-list">
+    <div class="match-item"><span class="match-if">설레는 만남을 원한다면</span><span class="match-then">→ 비주얼·소개팅</span></div>
+    <div class="match-item"><span class="match-if">새로운 경험이 하고 싶다면</span><span class="match-then">→ 컨셉·도파민</span></div>
+    <div class="match-item"><span class="match-if">조용하게 만나고 싶다면</span><span class="match-then">→ 내향인·포틀럭</span></div>
+    <div class="match-item"><span class="match-if">술 한 잔 하고 싶다면</span><span class="match-then">→ 혼술바·소맥</span></div>
+    <div class="match-item"><span class="match-if">고급스럽게 즐기고 싶다면</span><span class="match-then">→ 와인파티</span></div>
+  </div>
+</div>
+
+<!-- 6: CTA -->
+<div class="card s6">
+  <h2>9가지 중<br>하나는 내 취향</h2>
+  <div class="sub">전부 무료 · 전국 어디서나</div>
+  <div class="cta">내 파티 찾으러 가기</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>

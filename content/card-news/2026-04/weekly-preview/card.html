@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>이번 주 파티 미리보기 — 파티원 위클리</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:#111; display:flex; flex-wrap:wrap; justify-content:center; gap:24px; padding:40px; }
+  .card { width:1080px; height:1080px; position:relative; overflow:hidden; flex-shrink:0; }
+
+  /* 1: 타이틀 */
+  .s1 {
+    background:linear-gradient(135deg,#FF6B35 0%,#FFD23F 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:white; padding:80px;
+  }
+  .s1 .week-badge {
+    background:rgba(255,255,255,0.25); padding:16px 48px;
+    border-radius:40px; font-size:32px; font-weight:700; margin-bottom:40px;
+  }
+  .s1 h1 { font-size:80px; font-weight:900; line-height:1.25; margin-bottom:24px;
+    text-shadow:0 4px 20px rgba(0,0,0,0.15); }
+  .s1 .sub { font-size:36px; opacity:0.9; }
+  .s1 .brand { position:absolute; bottom:60px; font-size:28px; opacity:0.5; }
+
+  /* Party list slides */
+  .party-list {
+    background:#FAFAFA; display:flex; flex-direction:column;
+    padding:60px 80px;
+  }
+  .party-list .day-header {
+    font-size:36px; font-weight:900; margin-bottom:28px;
+    display:flex; align-items:center; gap:16px;
+  }
+  .party-list .day-badge {
+    padding:8px 24px; border-radius:30px; font-size:28px; font-weight:700; color:white;
+  }
+  .party-list .day-name { color:#333; }
+  .party-list .party-items { display:flex; flex-direction:column; gap:20px; }
+  .party-list .party-item {
+    background:white; border-radius:20px; padding:28px 32px;
+    display:flex; align-items:center; gap:24px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.06);
+  }
+  .party-list .p-cat {
+    font-size:14px; font-weight:700; padding:8px 16px;
+    border-radius:20px; white-space:nowrap;
+  }
+  .party-list .p-info { flex:1; }
+  .party-list .p-info .p-title { font-size:30px; font-weight:900; color:#333; }
+  .party-list .p-info .p-detail { font-size:24px; color:#999; margin-top:6px; }
+  .party-list .p-free {
+    background:#FFF3E0; color:#FF6B35; font-size:24px; font-weight:900;
+    padding:8px 20px; border-radius:20px; white-space:nowrap;
+  }
+
+  /* Color variations */
+  .fri .day-badge { background:#FF6B35; }
+  .sat .day-badge { background:#7C4DFF; }
+  .sun .day-badge { background:#42A5F5; }
+  .weekday .day-badge { background:#66BB6A; }
+
+  .cat-visual { background:#FCE4EC; color:#C62828; }
+  .cat-concept { background:#F3E5F5; color:#7B1FA2; }
+  .cat-wine { background:#EDE7F6; color:#4527A0; }
+  .cat-solo { background:#E0F7FA; color:#00838F; }
+  .cat-introvert { background:#E8F5E9; color:#2E7D32; }
+  .cat-dopamine { background:#FFFDE7; color:#F57F17; }
+  .cat-somac { background:#FBE9E7; color:#BF360C; }
+  .cat-matching { background:#FFEBEE; color:#C62828; }
+  .cat-potluck { background:#FFF3E0; color:#E65100; }
+
+  /* 5: 신청 방법 */
+  .s5 {
+    background:white; display:flex; flex-direction:column;
+    justify-content:center; padding:80px;
+  }
+  .s5 h2 { font-size:52px; font-weight:900; color:#333; margin-bottom:48px; }
+  .s5 .how-list { display:flex; flex-direction:column; gap:24px; }
+  .s5 .how-item {
+    display:flex; align-items:center; gap:24px;
+  }
+  .s5 .how-num {
+    width:64px; height:64px; background:#FF6B35; color:white; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:32px; font-weight:900; flex-shrink:0;
+  }
+  .s5 .how-text { font-size:34px; color:#333; }
+  .s5 .how-text strong { color:#FF6B35; }
+  .s5 .reminder {
+    margin-top:48px; background:#FFF3E0; border-radius:16px;
+    padding:24px 32px; font-size:30px; color:#E65100;
+    text-align:center;
+  }
+
+  /* 6: CTA */
+  .s6 {
+    background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:white; padding:80px;
+  }
+  .s6 h2 { font-size:72px; font-weight:900; line-height:1.3; margin-bottom:24px; }
+  .s6 h2 em { color:#FF6B35; font-style:normal; }
+  .s6 .sub { font-size:34px; opacity:0.7; margin-bottom:48px; }
+  .s6 .cta {
+    background:linear-gradient(135deg,#FF6B35,#FFD23F); color:white;
+    font-size:40px; font-weight:900; padding:32px 80px; border-radius:60px;
+    margin-bottom:32px; box-shadow:0 8px 40px rgba(255,107,53,0.3);
+  }
+  .s6 .url { font-size:32px; opacity:0.5; font-weight:700; }
+</style>
+</head>
+<body>
+
+<!-- 1: 타이틀 -->
+<div class="card s1">
+  <div class="week-badge">4월 3주차</div>
+  <h1>이번 주<br>어떤 파티<br>갈까?</h1>
+  <div class="sub">파티원 위클리 미리보기</div>
+  <div class="brand">party.it.kr</div>
+</div>
+
+<!-- 2: 금요일 파티 -->
+<div class="card party-list fri">
+  <div class="day-header">
+    <span class="day-badge">FRI</span>
+    <span class="day-name">금요일 — 불금 파티 🔥</span>
+  </div>
+  <div class="party-items">
+    <div class="party-item">
+      <span class="p-cat cat-visual">비주얼</span>
+      <div class="p-info">
+        <div class="p-title">강남 비주얼파티</div>
+        <div class="p-detail">📍 강남역 · 🕗 20:00 · 👤 95~01년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-dopamine">도파민</span>
+      <div class="p-info">
+        <div class="p-title">홍대 도파민파티</div>
+        <div class="p-detail">📍 홍대입구역 · 🕗 21:00 · 👤 97~03년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-wine">와인</span>
+      <div class="p-info">
+        <div class="p-title">이태원 와인파티</div>
+        <div class="p-detail">📍 이태원역 · 🕗 19:30 · 👤 93~99년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+  </div>
+</div>
+
+<!-- 3: 토요일 파티 -->
+<div class="card party-list sat">
+  <div class="day-header">
+    <span class="day-badge">SAT</span>
+    <span class="day-name">토요일 — 주말 파티 🎉</span>
+  </div>
+  <div class="party-items">
+    <div class="party-item">
+      <span class="p-cat cat-matching">소개팅</span>
+      <div class="p-info">
+        <div class="p-title">강남 로테이션 소개팅</div>
+        <div class="p-detail">📍 신논현역 · 🕗 18:00 · 👤 95~01년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-concept">컨셉</span>
+      <div class="p-info">
+        <div class="p-title">성수 컨셉파티 (Y2K)</div>
+        <div class="p-detail">📍 성수역 · 🕗 20:00 · 👤 97~03년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-introvert">내향인</span>
+      <div class="p-info">
+        <div class="p-title">합정 내향인 소규모 모임</div>
+        <div class="p-detail">📍 합정역 · 🕗 17:00 · 👤 94~00년생 · 8명 한정</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+  </div>
+</div>
+
+<!-- 4: 평일 파티 -->
+<div class="card party-list weekday">
+  <div class="day-header">
+    <span class="day-badge">WEEK</span>
+    <span class="day-name">평일에도 파티 있어요 ✨</span>
+  </div>
+  <div class="party-items">
+    <div class="party-item">
+      <span class="p-cat cat-solo">혼술바</span>
+      <div class="p-info">
+        <div class="p-title">수요일 혼술바 (강남)</div>
+        <div class="p-detail">📍 역삼역 · 🕗 20:00 · 👤 93~99년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-somac">소맥</span>
+      <div class="p-info">
+        <div class="p-title">목요일 소맥파티 (건대)</div>
+        <div class="p-detail">📍 건대입구역 · 🕗 19:30 · 👤 96~02년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+    <div class="party-item">
+      <span class="p-cat cat-potluck">포틀럭</span>
+      <div class="p-info">
+        <div class="p-title">화요일 포틀럭 (연남)</div>
+        <div class="p-detail">📍 홍대입구역 · 🕗 19:00 · 👤 95~01년생</div>
+      </div>
+      <span class="p-free">무료</span>
+    </div>
+  </div>
+</div>
+
+<!-- 5: 신청 방법 -->
+<div class="card s5">
+  <h2>신청 방법 (30초면 끝)</h2>
+  <div class="how-list">
+    <div class="how-item">
+      <div class="how-num">1</div>
+      <div class="how-text"><strong>party.it.kr</strong> 접속</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">2</div>
+      <div class="how-text">지역 · 요일 · 연령대로 <strong>필터</strong></div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">3</div>
+      <div class="how-text">마음에 드는 파티 <strong>신청 버튼</strong> 클릭</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">4</div>
+      <div class="how-text"><strong>무료로 참가</strong> — 끝!</div>
+    </div>
+  </div>
+  <div class="reminder">⏰ 인기 파티는 빨리 마감됩니다 — 서두르세요!</div>
+</div>
+
+<!-- 6: CTA -->
+<div class="card s6">
+  <h2>이번 주<br><em>무료 파티</em><br>놓치지 마세요</h2>
+  <div class="sub">매주 새로운 파티가 업데이트됩니다</div>
+  <div class="cta">이번 주 파티 보기</div>
+  <div class="url">party.it.kr</div>
+</div>
+
+</body>
+</html>
