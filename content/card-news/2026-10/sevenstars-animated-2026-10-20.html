@@ -28,13 +28,11 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
   background:#A8D678; border-radius:50% 50% 0 0 / 56px 56px 0 0;
 }
 
-/* Typography */
 .t-blue {
   background:linear-gradient(135deg,#0D47A1 0%,#1565C0 35%,#1E88E5 70%,#42A5F5 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
 
-/* Card */
 .card {
   background:rgba(255,255,255,0.97);
   border-radius:48px;
@@ -43,31 +41,27 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
   width:920px;
 }
 
-/* Info row */
 .info-row {
   display:flex; align-items:center; gap:32px;
   background:rgba(13,43,94,0.04); border-radius:24px;
-  padding:40px 52px;
+  padding:44px 52px;
 }
-.info-ic { font-size:56px; flex-shrink:0; }
+.info-ic    { font-size:56px; flex-shrink:0; }
 .info-label { font-size:30px; color:rgba(13,43,94,0.42); margin-bottom:8px; font-weight:700; }
-.info-val   { font-size:42px; font-weight:900; color:#0D2B5E; line-height:1.3; }
+.info-val   { font-size:42px; font-weight:900; color:#0D2B5E; line-height:1.35; }
 .info-val .em { color:#E91E8C; }
 
-/* CTA */
 .cta-btn {
   background:linear-gradient(90deg,#1565C0,#1E88E5,#42A5F5);
   border-radius:80px;
-  padding:44px 108px;
-  font-size:54px; font-weight:900; color:white;
+  padding:48px 108px;
+  font-size:52px; font-weight:900; color:white;
   box-shadow:0 24px 64px rgba(21,101,192,0.45);
-  text-align:center; width:900px;
+  text-align:center; width:920px;
 }
 
-/* Animated element base */
 .ae { will-change:transform,opacity; opacity:0; }
 
-/* Slide counter */
 .slide-no {
   position:absolute; top:56px; right:64px;
   font-size:26px; color:rgba(13,43,94,0.22); font-weight:700;
@@ -94,7 +88,6 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
     <ellipse cx="710" cy="134" rx="88"  ry="46" opacity=".62"/>
   </svg>
 
-  <!-- Korean building scene -->
   <svg style="position:absolute;bottom:130px;left:0;width:100%;" viewBox="0 0 1080 530" fill="none">
     <ellipse cx="98"  cy="304" rx="88"  ry="108" fill="#5D9B3A" opacity=".95"/>
     <ellipse cx="52"  cy="330" rx="62"  ry="78"  fill="#4A8A2A" opacity=".85"/>
@@ -137,36 +130,37 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
 
   <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:180px;gap:0;">
 
-    <!-- Brand -->
-    <div class="ae" data-slide="0" data-t="300,900,0"
+    <!-- ① Brand — 0.4s 등장 -->
+    <div class="ae" data-slide="0" data-t="400,1800,0"
          style="font-size:30px;font-weight:700;letter-spacing:8px;color:rgba(13,43,94,0.38);margin-bottom:52px;">
       S E V E N S T A R S
     </div>
 
-    <!-- Location badge -->
-    <div class="ae" data-slide="0" data-t="800,900,1"
+    <!-- ② Location badge — 1.2s 등장 -->
+    <div class="ae" data-slide="0" data-t="1200,1800,1"
          style="background:white;border-radius:60px;box-shadow:0 6px 24px rgba(13,43,94,0.12);
                 padding:22px 56px;font-size:36px;font-weight:700;color:#1565C0;
                 display:inline-flex;align-items:center;gap:16px;margin-bottom:72px;">
       <span>📍</span> 서교동 394-23 · 합정역 도보 1분
     </div>
 
-    <!-- ← 로테이션 소개팅 → -->
-    <div class="ae" data-slide="0" data-t="1400,1000,5"
+    <!-- ③ ← 로테이션 소개팅 → — 2.4s 등장 -->
+    <div class="ae" data-slide="0" data-t="2400,2000,5"
          style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
       <span style="font-size:80px;font-weight:900;color:#1565C0;">←</span>
       <span class="t-blue" style="font-size:120px;font-weight:900;line-height:1.0;">로테이션</span>
       <span style="font-size:80px;font-weight:900;color:#1565C0;">→</span>
     </div>
 
-    <div class="ae" data-slide="0" data-t="1600,900,1"
+    <!-- ④ 소개팅♥ — 3.4s 등장 -->
+    <div class="ae" data-slide="0" data-t="3400,1800,1"
          style="font-size:140px;font-weight:900;line-height:1.0;margin-bottom:64px;">
       <span class="t-blue">소개팅</span>
       <span style="color:#E91E8C;font-size:100px;">♥</span>
     </div>
 
-    <!-- Schedule badge -->
-    <div class="ae" data-slide="0" data-t="2400,900,0"
+    <!-- ⑤ Schedule badge — 4.8s 등장 -->
+    <div class="ae" data-slide="0" data-t="4800,1800,0"
          style="background:linear-gradient(90deg,#1565C0,#42A5F5);border-radius:24px;
                 padding:32px 72px;text-align:center;">
       <div style="font-size:42px;font-weight:900;color:white;">🗓️ 매주 토·일 오후 3시 / 6시</div>
@@ -191,23 +185,27 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
   <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
               padding:160px 80px 0;width:100%;gap:0;">
 
-    <!-- Header -->
-    <div class="ae" data-slide="1" data-t="200,900,2"
+    <!-- ① 헤더 — 0.3s 등장 -->
+    <div class="ae" data-slide="1" data-t="300,1800,2"
          style="font-size:76px;font-weight:900;color:#0D2B5E;margin-bottom:72px;text-align:center;">
       📋 행사 정보
     </div>
 
     <div class="card" style="display:flex;flex-direction:column;gap:32px;">
 
-      <div class="ae info-row" data-slide="1" data-t="600,900,1">
+      <!-- ② 장소 — 1.6s 등장 -->
+      <div class="ae info-row" data-slide="1" data-t="1600,1800,1">
         <div class="info-ic">📍</div>
         <div>
           <div class="info-label">장소</div>
-          <div class="info-val">서교동 394-23<br><span style="font-size:34px;font-weight:700;color:rgba(13,43,94,0.5);">합정역 도보 1분</span></div>
+          <div class="info-val">서교동 394-23<br>
+            <span style="font-size:34px;font-weight:700;color:rgba(13,43,94,0.5);">합정역 도보 1분</span>
+          </div>
         </div>
       </div>
 
-      <div class="ae info-row" data-slide="1" data-t="1100,900,1">
+      <!-- ③ 일정 — 3.0s 등장 -->
+      <div class="ae info-row" data-slide="1" data-t="3000,1800,1">
         <div class="info-ic">🗓️</div>
         <div>
           <div class="info-label">일정</div>
@@ -215,21 +213,24 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
         </div>
       </div>
 
-      <div class="ae info-row" data-slide="1" data-t="1600,900,1">
+      <!-- ④ 참가비 — 4.6s 등장 -->
+      <div class="ae info-row" data-slide="1" data-t="4600,1800,1">
         <div class="info-ic">💰</div>
         <div>
           <div class="info-label">참가비</div>
           <div class="info-val">
             여성 <span class="em">15,000원</span> · 남성 30,000원
-            <div style="font-size:28px;font-weight:700;color:rgba(13,43,94,0.4);margin-top:6px;">정가 54,000원 → 선착순 할인</div>
+            <div style="font-size:28px;font-weight:700;color:rgba(13,43,94,0.4);margin-top:6px;">
+              정가 54,000원 → 선착순 할인 적용
+            </div>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Urgency strip -->
-    <div class="ae" data-slide="1" data-t="2400,900,5"
+    <!-- ⑤ 마감 강조 — 6.4s 등장 -->
+    <div class="ae" data-slide="1" data-t="6400,1800,5"
          style="margin-top:48px;width:920px;
                 background:linear-gradient(90deg,#E91E8C,#FF6090);
                 border-radius:24px;padding:36px 64px;
@@ -244,7 +245,7 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
   </div>
 </div>
 
-<!-- ══════════════ SLIDE 3: 신청 CTA (엔딩) ══════════════ -->
+<!-- ══════════════ SLIDE 3: 신청 CTA 엔딩 ══════════════ -->
 <div class="slide" id="s3">
   <div class="slide-no">3 / 3</div>
 
@@ -258,7 +259,6 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
     <ellipse cx="522" cy="56"  rx="76"  ry="38" opacity=".76"/>
   </svg>
 
-  <!-- Same building (smaller) -->
   <svg style="position:absolute;bottom:130px;left:0;width:100%;" viewBox="0 0 1080 480" fill="none">
     <ellipse cx="100" cy="290" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
     <ellipse cx="980" cy="285" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
@@ -283,38 +283,38 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
   <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
               padding:170px 80px 0;">
 
-    <!-- Brand -->
-    <div class="ae" data-slide="2" data-t="300,900,0"
+    <!-- ① Brand — 0.4s 등장 -->
+    <div class="ae" data-slide="2" data-t="400,1800,0"
          style="font-size:30px;font-weight:700;letter-spacing:7px;color:rgba(13,43,94,0.32);margin-bottom:48px;">
       S E V E N S T A R S
     </div>
 
-    <!-- Heart -->
-    <div class="ae" data-slide="2" data-t="700,900,5"
+    <!-- ② Heart — 1.4s 등장 -->
+    <div class="ae" data-slide="2" data-t="1400,1800,5"
          style="font-size:120px;margin-bottom:48px;">💜</div>
 
-    <!-- Headline -->
-    <div class="ae" data-slide="2" data-t="1200,1000,1"
-         style="font-size:96px;font-weight:900;line-height:1.2;text-align:center;margin-bottom:32px;">
+    <!-- ③ 자리가 한정 — 2.8s 등장 -->
+    <div class="ae" data-slide="2" data-t="2800,2000,1"
+         style="font-size:96px;font-weight:900;line-height:1.2;text-align:center;margin-bottom:36px;">
       <span class="t-blue">자리가</span><br>
       <span class="t-blue">한정돼 있어요!</span>
     </div>
 
-    <!-- Sub copy -->
-    <div class="ae" data-slide="2" data-t="1900,900,0"
+    <!-- ④ 서브 카피 — 4.4s 등장 -->
+    <div class="ae" data-slide="2" data-t="4400,1800,0"
          style="font-size:40px;color:rgba(13,43,94,0.6);line-height:1.9;text-align:center;margin-bottom:80px;">
       선착순 할인가로<br>
       서교동 394-23 프리미엄 공간에서<br>
       <strong style="color:#E91E8C;">특별한 첫 만남</strong>을 경험하세요
     </div>
 
-    <!-- CTA button -->
-    <div class="ae cta-btn" data-slide="2" data-t="2600,1000,5">
+    <!-- ⑤ CTA 버튼 — 6.0s 등장 -->
+    <div class="ae cta-btn" data-slide="2" data-t="6000,2000,5">
       🔗 지금 신청하기 · sevenstars.kr
     </div>
 
-    <!-- Hashtags -->
-    <div class="ae" data-slide="2" data-t="3200,800,1"
+    <!-- ⑥ 해시태그 — 7.6s 등장 -->
+    <div class="ae" data-slide="2" data-t="7600,1800,1"
          style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
       <span style="background:rgba(21,101,192,0.1);border:2px solid rgba(21,101,192,0.22);
                    border-radius:40px;padding:16px 34px;font-size:30px;color:#1565C0;font-weight:700;">
@@ -331,7 +331,7 @@ body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; 
 
 <!-- ══════════════ ANIMATION ENGINE ══════════════ -->
 <script>
-const SLIDE_DUR = 5000;
+const SLIDE_DUR = 10000;  // 10s per slide → 30s total
 const N_SLIDES  = 3;
 const slides    = Array.from(document.querySelectorAll('.slide'));
 const aeAll     = Array.from(document.querySelectorAll('.ae'));
@@ -345,35 +345,23 @@ function easeOutBack(t)  {
 function applyAnim(el, anim, rawP) {
   const p = Math.max(0, Math.min(1, rawP));
   switch (anim) {
-    case 0: // fadeIn
+    case 0:
       el.style.opacity = easeOutCubic(p);
       el.style.transform = '';
       break;
-    case 1: { // slideUp
+    case 1: {
       const ep = easeOutCubic(p);
       el.style.opacity = p;
       el.style.transform = `translateY(${(1 - ep) * 80}px)`;
       break;
     }
-    case 2: { // slideDown
+    case 2: {
       const ep = easeOutCubic(p);
       el.style.opacity = p;
       el.style.transform = `translateY(${-(1 - ep) * 80}px)`;
       break;
     }
-    case 3: { // slideLeft
-      const ep = easeOutCubic(p);
-      el.style.opacity = p;
-      el.style.transform = `translateX(${-(1 - ep) * 90}px)`;
-      break;
-    }
-    case 4: { // slideRight
-      const ep = easeOutCubic(p);
-      el.style.opacity = p;
-      el.style.transform = `translateX(${(1 - ep) * 90}px)`;
-      break;
-    }
-    case 5: { // bounceIn
+    case 5: {
       const ep = p < 1 ? easeOutBack(p) : 1;
       el.style.opacity = Math.min(1, p * 2.5);
       el.style.transform = `scale(${ep})`;
@@ -383,7 +371,7 @@ function applyAnim(el, anim, rawP) {
 }
 
 function parseT(el) {
-  const parts = (el.dataset.t || '0,800,0').split(',');
+  const parts = (el.dataset.t || '0,1800,0').split(',');
   return { delay: +parts[0], dur: +parts[1], anim: +parts[2] };
 }
 
