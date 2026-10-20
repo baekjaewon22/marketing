@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>세븐스타즈 로테이션소개팅</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; }
+
+/* ── SKY BACKGROUND ────────────────────────── */
+.slide {
+  width:1080px; height:1920px;
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#4EAFD4 0%,#7DC4DE 18%,#A8D9EC 45%,#CAE9F5 72%,#DCF0F8 100%);
+  display:none;
+}
+.slide.active { display:flex; flex-direction:column; align-items:center; }
+
+/* ── CLOUD LAYER ───────────────────────────── */
+.cloud-svg { position:absolute; top:0; left:0; width:100%; pointer-events:none; }
+
+/* ── GROUND STRIP ──────────────────────────── */
+.ground {
+  position:absolute; bottom:0; left:0; width:100%;
+  height:220px;
+  background:linear-gradient(180deg,#A8D678 0%,#7CBF45 60%,#5A9E2A 100%);
+}
+.ground::before {
+  content:''; position:absolute; top:-30px; left:0; width:110%; height:60px;
+  background:#A8D678; border-radius:50% 50% 0 0 / 60px 60px 0 0;
+}
+
+/* ── TYPOGRAPHY TOKENS ─────────────────────── */
+.t-blue {
+  background:linear-gradient(135deg,#0D47A1 0%,#1565C0 40%,#1E88E5 75%,#42A5F5 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.t-navy  { color:#0D2B5E; }
+.t-white { color:#ffffff; }
+.t-muted { color:rgba(13,43,94,0.5); }
+
+/* ── CARD ──────────────────────────────────── */
+.card {
+  background:rgba(255,255,255,0.96);
+  border-radius:44px;
+  box-shadow:0 16px 60px rgba(13,43,94,0.14), 0 4px 16px rgba(13,43,94,0.08);
+  padding:72px 80px;
+  width:900px;
+}
+.card-sm { padding:52px 64px; width:900px; border-radius:36px; }
+
+/* ── WHITE BADGE ───────────────────────────── */
+.badge {
+  background:white;
+  border-radius:60px;
+  box-shadow:0 6px 24px rgba(13,43,94,0.12);
+  display:inline-flex; align-items:center; gap:16px;
+}
+
+/* ── ROTATION BANNER ───────────────────────── */
+.rot-banner {
+  display:flex; align-items:center; gap:12px;
+  font-size:100px; font-weight:900; line-height:1.05;
+}
+.rot-arrow {
+  font-size:80px; font-weight:900; color:#1565C0;
+  display:inline-block;
+}
+
+/* ── STEP ITEM ─────────────────────────────── */
+.step { display:flex; align-items:flex-start; gap:32px; }
+.step-num {
+  width:72px; height:72px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,#1565C0,#42A5F5);
+  display:flex; align-items:center; justify-content:center;
+  font-size:34px; font-weight:900; color:white;
+  box-shadow:0 6px 20px rgba(21,101,192,0.35);
+}
+.step-text h3 { font-size:40px; font-weight:900; color:#0D2B5E; margin-bottom:10px; }
+.step-text p  { font-size:30px; color:rgba(13,43,94,0.55); line-height:1.6; }
+
+/* ── WHY CARD ──────────────────────────────── */
+.why-c {
+  background:white; border-radius:28px;
+  box-shadow:0 8px 32px rgba(13,43,94,0.1);
+  padding:44px 48px;
+  display:flex; align-items:center; gap:32px;
+}
+.why-icon { font-size:64px; flex-shrink:0; }
+.why-h  { font-size:38px; font-weight:900; color:#0D2B5E; margin-bottom:8px; }
+.why-p  { font-size:28px; color:rgba(13,43,94,0.5); line-height:1.5; }
+.why-p strong { color:#E91E8C; font-weight:700; }
+
+/* ── INFO ROW ──────────────────────────────── */
+.info-row {
+  display:flex; align-items:center; gap:28px;
+  background:white; border-radius:20px;
+  padding:36px 48px;
+  box-shadow:0 6px 20px rgba(13,43,94,0.08);
+}
+.info-ic { font-size:52px; flex-shrink:0; }
+.info-label { font-size:26px; color:rgba(13,43,94,0.45); margin-bottom:6px; }
+.info-val   { font-size:36px; font-weight:900; color:#0D2B5E; }
+.info-val .em { color:#E91E8C; }
+
+/* ── SLIDE COUNTER ─────────────────────────── */
+.slide-no {
+  position:absolute; top:56px; right:64px;
+  font-size:26px; color:rgba(13,43,94,0.25);
+}
+
+/* ── ANIMATED ELEMENT BASE ─────────────────── */
+.ae { will-change:transform,opacity; opacity:0; }
+
+/* ── CTA BUTTON ────────────────────────────── */
+.cta-btn {
+  background:linear-gradient(90deg,#1565C0,#1E88E5,#42A5F5);
+  border-radius:70px;
+  padding:36px 100px;
+  font-size:48px; font-weight:900; color:white;
+  box-shadow:0 20px 60px rgba(21,101,192,0.4);
+  text-align:center;
+}
+.cta-url {
+  font-size:38px; font-weight:700; color:rgba(13,43,94,0.5);
+  letter-spacing:2px; margin-top:32px;
+}
+
+/* ── SECTION HEADER ────────────────────────── */
+.sec-header {
+  font-size:72px; font-weight:900; color:#0D2B5E;
+  margin-bottom:64px; text-align:center;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ SLIDE 1: COVER ════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="slide-no">1 / 6</div>
+
+  <!-- Clouds SVG -->
+  <svg class="cloud-svg" viewBox="0 0 1080 420" fill="white">
+    <ellipse cx="130" cy="110" rx="130" ry="65" opacity=".92"/>
+    <ellipse cx="60"  cy="130" rx="90"  ry="52" opacity=".85"/>
+    <ellipse cx="210" cy="130" rx="90"  ry="52" opacity=".85"/>
+    <ellipse cx="910" cy="80"  rx="150" ry="72" opacity=".9"/>
+    <ellipse cx="820" cy="100" rx="100" ry="56" opacity=".82"/>
+    <ellipse cx="990" cy="105" rx="95"  ry="52" opacity=".82"/>
+    <ellipse cx="520" cy="55"  rx="75"  ry="36" opacity=".75"/>
+    <ellipse cx="460" cy="70"  rx="55"  ry="32" opacity=".68"/>
+    <ellipse cx="585" cy="70"  rx="55"  ry="32" opacity=".68"/>
+    <ellipse cx="380" cy="140" rx="80"  ry="42" opacity=".6"/>
+    <ellipse cx="700" cy="130" rx="85"  ry="44" opacity=".6"/>
+  </svg>
+
+  <!-- Korean building + scene SVG -->
+  <svg style="position:absolute;bottom:140px;left:0;width:100%;" viewBox="0 0 1080 520" fill="none">
+    <!-- Trees left -->
+    <ellipse cx="100" cy="300" rx="85" ry="105" fill="#5D9B3A" opacity=".95"/>
+    <ellipse cx="55"  cy="325" rx="60" ry="75"  fill="#4A8A2A" opacity=".85"/>
+    <rect x="90" y="375" width="22" height="80" rx="5" fill="#6B4C1A"/>
+    <!-- Trees right -->
+    <ellipse cx="980" cy="295" rx="85" ry="105" fill="#5D9B3A" opacity=".95"/>
+    <ellipse cx="1025" cy="320" rx="60" ry="75" fill="#4A8A2A" opacity=".85"/>
+    <rect x="970" y="370" width="22" height="80" rx="5" fill="#6B4C1A"/>
+    <!-- Building base steps -->
+    <rect x="170" y="400" width="740" height="22" rx="5" fill="#C8A040"/>
+    <rect x="148" y="422" width="784" height="16" rx="4" fill="#A08030"/>
+    <!-- Building body -->
+    <rect x="200" y="295" width="680" height="108" fill="#F0D080"/>
+    <!-- Columns -->
+    <rect x="244" y="295" width="22" height="108" rx="4" fill="#D4A838"/>
+    <rect x="346" y="295" width="22" height="108" rx="4" fill="#D4A838"/>
+    <rect x="712" y="295" width="22" height="108" rx="4" fill="#D4A838"/>
+    <rect x="814" y="295" width="22" height="108" rx="4" fill="#D4A838"/>
+    <!-- Door -->
+    <rect x="450" y="320" width="180" height="83" rx="10" fill="#8B5E14" opacity=".55"/>
+    <!-- Roof (curved path) -->
+    <path d="M120,295 Q540,170 960,295 L930,316 Q540,198 150,316 Z" fill="#8B4513"/>
+    <path d="M145,293 Q540,174 935,293" stroke="#A86030" stroke-width="5" fill="none" opacity=".5"/>
+    <!-- Roof top ornament -->
+    <rect x="508" y="198" width="64" height="90" rx="6" fill="#6B3410"/>
+    <path d="M488,198 L540,148 L592,198 Z" fill="#8B4513"/>
+    <rect x="530" y="148" width="20" height="56" rx="4" fill="#6B3410"/>
+    <!-- Ground green strip -->
+    <rect x="0" y="438" width="1080" height="82" fill="#7CBF45" opacity=".7"/>
+    <!-- People left: picnic group -->
+    <circle cx="210" cy="446" r="24" fill="#5D3A1A"/>
+    <ellipse cx="210" cy="488" rx="26" ry="32" fill="#E91E8C" opacity=".85"/>
+    <circle cx="280" cy="440" r="24" fill="#3A2010"/>
+    <ellipse cx="280" cy="482" rx="26" ry="32" fill="#1565C0" opacity=".85"/>
+    <!-- People right: celebrating -->
+    <circle cx="800" cy="435" r="24" fill="#5D3A1A"/>
+    <ellipse cx="800" cy="477" rx="26" ry="32" fill="#E91E8C" opacity=".85"/>
+    <line x1="800" y1="450" x2="768" y2="415" stroke="#5D3A1A" stroke-width="12" stroke-linecap="round"/>
+    <line x1="800" y1="450" x2="832" y2="415" stroke="#5D3A1A" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="870" cy="428" r="24" fill="#3A2010"/>
+    <ellipse cx="870" cy="470" rx="26" ry="32" fill="#1565C0" opacity=".85"/>
+    <line x1="870" y1="443" x2="838" y2="408" stroke="#3A2010" stroke-width="12" stroke-linecap="round"/>
+    <line x1="870" y1="443" x2="902" y2="408" stroke="#3A2010" stroke-width="12" stroke-linecap="round"/>
+    <!-- Floating hearts -->
+    <text x="540" y="424" text-anchor="middle" font-size="68" fill="#E91E8C" opacity=".9">♥</text>
+    <text x="440" y="390" text-anchor="middle" font-size="36" fill="#F06292" opacity=".65">♥</text>
+    <text x="645" y="382" text-anchor="middle" font-size="36" fill="#F06292" opacity=".65">♥</text>
+  </svg>
+
+  <!-- Ground strip -->
+  <div class="ground"></div>
+
+  <!-- Content stack -->
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:160px;gap:0;">
+
+    <!-- Brand -->
+    <div class="ae" data-slide="0" data-t="200,500,0"
+         style="font-size:28px;font-weight:700;letter-spacing:6px;color:rgba(13,43,94,0.38);margin-bottom:44px;">
+      SEVENSTARS
+    </div>
+
+    <!-- Location badge -->
+    <div class="ae badge" data-slide="0" data-t="400,600,1"
+         style="padding:20px 52px;font-size:34px;font-weight:700;color:#1565C0;margin-bottom:60px;">
+      <span>📍</span> 합정역 도보 1분
+    </div>
+
+    <!-- Eyebrow copy -->
+    <div class="ae" data-slide="0" data-t="700,500,0"
+         style="font-size:46px;font-weight:700;color:rgba(13,43,94,0.6);margin-bottom:16px;text-align:center;">
+      성균인이지만 연애는 하고 싶어:
+    </div>
+
+    <!-- Main title: ← 로테이션 → -->
+    <div class="ae rot-banner" data-slide="0" data-t="900,700,5">
+      <span class="rot-arrow ae" data-slide="0" data-t="1100,550,3">←</span>
+      <span class="t-blue" style="font-size:110px;font-weight:900;">로테이션</span>
+      <span class="rot-arrow ae" data-slide="0" data-t="1100,550,4">→</span>
+    </div>
+
+    <!-- 소개팅 -->
+    <div class="ae" data-slide="0" data-t="1200,600,1"
+         style="font-size:130px;font-weight:900;line-height:1.0;margin-bottom:52px;" >
+      <span class="t-blue">소개팅</span>
+      <span style="color:#E91E8C;font-size:96px;">♥</span>
+    </div>
+
+    <!-- CTA button -->
+    <div class="ae cta-btn" data-slide="0" data-t="2000,600,5"
+         style="font-size:42px;padding:28px 80px;">
+      🔗 지금 바로 신청하기
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ SLIDE 2: 행사 소개 ════════════════════ -->
+<div class="slide" id="s2">
+  <div class="slide-no">2 / 6</div>
+  <svg class="cloud-svg" viewBox="0 0 1080 380" fill="white">
+    <ellipse cx="160" cy="95"  rx="125" ry="60" opacity=".88"/>
+    <ellipse cx="80"  cy="115" rx="85"  ry="48" opacity=".8"/>
+    <ellipse cx="940" cy="75"  rx="140" ry="66" opacity=".88"/>
+    <ellipse cx="1020" cy="100" rx="85" ry="48" opacity=".8"/>
+    <ellipse cx="550" cy="50"  rx="70"  ry="34" opacity=".7"/>
+  </svg>
+  <div class="ground"></div>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:160px 90px 0;width:100%;">
+
+    <!-- Header -->
+    <div class="ae sec-header" data-slide="1" data-t="200,600,2">행사 소개</div>
+
+    <!-- Card -->
+    <div class="ae card" data-slide="1" data-t="500,700,1">
+      <!-- Card title -->
+      <div class="ae rot-banner" data-slide="1" data-t="800,600,5"
+           style="justify-content:center;margin-bottom:40px;">
+        <span style="color:#1565C0;font-size:68px;">←</span>
+        <span class="t-blue" style="font-size:72px;font-weight:900;">로테이션소개팅</span>
+        <span style="color:#1565C0;font-size:68px;">→</span>
+      </div>
+
+      <!-- Text paragraphs -->
+      <div class="ae" data-slide="1" data-t="1100,500,0"
+           style="font-size:35px;color:rgba(13,43,94,0.65);line-height:1.9;text-align:center;margin-bottom:48px;">
+        새로운 인연과의 설레는 만남을 기다려온<br>
+        여러분을 위해<br>
+        <strong style="color:#0D2B5E;">세븐스타즈 로테이션소개팅</strong>을 진행합니다.
+      </div>
+
+      <div class="ae" data-slide="1" data-t="1600,500,0"
+           style="font-size:34px;color:rgba(13,43,94,0.55);line-height:1.8;text-align:center;margin-bottom:48px;">
+        마음을 콩닥이게 할 이번 행사에<br>
+        여러분의 많은 관심과 신청 부탁드립니다 💙
+      </div>
+
+      <!-- Free badge -->
+      <div class="ae" data-slide="1" data-t="2000,600,5"
+           style="background:linear-gradient(90deg,#1565C0,#42A5F5);border-radius:20px;padding:28px 48px;text-align:center;">
+        <div style="font-size:40px;font-weight:900;color:white;">🎉 여성 참가비 <span style="font-size:52px;">0원</span> 무료</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ SLIDE 3: 이용 방법 ════════════════════ -->
+<div class="slide" id="s3">
+  <div class="slide-no">3 / 6</div>
+  <svg class="cloud-svg" viewBox="0 0 1080 380" fill="white">
+    <ellipse cx="200" cy="90"  rx="120" ry="58" opacity=".85"/>
+    <ellipse cx="120" cy="110" rx="80"  ry="46" opacity=".78"/>
+    <ellipse cx="880" cy="80"  rx="135" ry="64" opacity=".88"/>
+    <ellipse cx="960" cy="105" rx="80"  ry="46" opacity=".78"/>
+  </svg>
+  <div class="ground"></div>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:160px 90px 0;width:100%;">
+
+    <div class="ae sec-header" data-slide="2" data-t="200,600,2">이용 방법</div>
+
+    <!-- Icon -->
+    <div class="ae" data-slide="2" data-t="500,600,5"
+         style="font-size:120px;margin-bottom:60px;">💬</div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:44px;">
+
+      <div class="ae step" data-slide="2" data-t="700,550,3">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h3>닉네임 기반 1:1 대화</h3>
+          <p>개인 닉네임으로만 진행되어<br>편안한 분위기에서 대화해요</p>
+        </div>
+      </div>
+
+      <div class="ae step" data-slide="2" data-t="1000,550,3">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h3>가림막 설치 프리미엄 공간</h3>
+          <p>좌우 가림막이 설치된 공간에서<br>오직 상대방에게만 집중해요</p>
+        </div>
+      </div>
+
+      <div class="ae step" data-slide="2" data-t="1300,550,3">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h3>로테이션으로 여러 명과 대화</h3>
+          <p>순차적으로 자리를 옮기며<br>각 이성과 <strong style="color:#E91E8C;">6분간</strong> 대화할 수 있어요</p>
+        </div>
+      </div>
+
+      <div class="ae step" data-slide="2" data-t="1600,550,3">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h3>호감 표시 & 매칭!</h3>
+          <p>마음에 드는 분께 호감을 표시하면<br>서로 매칭 시 연락처를 교환해요 💙</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ SLIDE 4: 이런 분께 ════════════════════ -->
+<div class="slide" id="s4">
+  <div class="slide-no">4 / 6</div>
+  <svg class="cloud-svg" viewBox="0 0 1080 380" fill="white">
+    <ellipse cx="150" cy="100" rx="130" ry="62" opacity=".88"/>
+    <ellipse cx="930" cy="85"  rx="140" ry="65" opacity=".88"/>
+    <ellipse cx="540" cy="55"  rx="75"  ry="36" opacity=".72"/>
+  </svg>
+  <div class="ground"></div>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:160px 90px 0;width:100%;">
+
+    <div class="ae sec-header" data-slide="3" data-t="200,600,2">이런 분께 딱! ✨</div>
+
+    <div style="display:flex;flex-direction:column;gap:32px;width:900px;">
+
+      <div class="ae why-c" data-slide="3" data-t="500,600,3">
+        <div class="why-icon">😅</div>
+        <div>
+          <div class="why-h">처음이라 어색할 것 같아요</div>
+          <div class="why-p">로테이션 방식이라 <strong>자연스럽게 대화</strong>가 이어져요</div>
+        </div>
+      </div>
+
+      <div class="ae why-c" data-slide="3" data-t="800,600,3">
+        <div class="why-icon">🙋‍♀️</div>
+        <div>
+          <div class="why-h">혼자 가도 괜찮을까요?</div>
+          <div class="why-p"><strong>혼자 오시는 분이 대부분</strong>이에요. 걱정 NO!</div>
+        </div>
+      </div>
+
+      <div class="ae why-c" data-slide="3" data-t="1100,600,3">
+        <div class="why-icon">🔒</div>
+        <div>
+          <div class="why-h">안전한지 걱정돼요</div>
+          <div class="why-p">운영진 상주 · <strong>합정역 1분</strong> · 검증된 프리미엄 공간</div>
+        </div>
+      </div>
+
+      <div class="ae why-c" data-slide="3" data-t="1400,600,3">
+        <div class="why-icon">💸</div>
+        <div>
+          <div class="why-h">비용이 부담돼요</div>
+          <div class="why-p"><strong>여성 참가비 완전 무료!</strong> 부담 없이 신청하세요</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom badge -->
+    <div class="ae" data-slide="3" data-t="1800,600,1"
+         style="margin-top:40px;background:linear-gradient(90deg,#E91E8C,#FF6090);border-radius:20px;padding:28px 60px;text-align:center;width:900px;">
+      <div style="font-size:40px;font-weight:900;color:white;">💜 여성이라면 누구나 무료 참가!</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ SLIDE 5: 신청 안내 ════════════════════ -->
+<div class="slide" id="s5">
+  <div class="slide-no">5 / 6</div>
+  <svg class="cloud-svg" viewBox="0 0 1080 380" fill="white">
+    <ellipse cx="170" cy="95"  rx="125" ry="60" opacity=".88"/>
+    <ellipse cx="90"  cy="115" rx="85"  ry="48" opacity=".80"/>
+    <ellipse cx="910" cy="80"  rx="140" ry="66" opacity=".88"/>
+    <ellipse cx="540" cy="52"  rx="70"  ry="34" opacity=".70"/>
+  </svg>
+  <div class="ground"></div>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:160px 90px 0;width:100%;">
+
+    <div class="ae sec-header" data-slide="4" data-t="200,600,2">신청 안내</div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:28px;">
+
+      <div class="ae info-row" data-slide="4" data-t="500,550,1">
+        <div class="info-ic">📍</div>
+        <div>
+          <div class="info-label">장소</div>
+          <div class="info-val">세븐스타즈 · 합정역 <span class="em">도보 1분</span></div>
+        </div>
+      </div>
+
+      <div class="ae info-row" data-slide="4" data-t="750,550,1">
+        <div class="info-ic">💰</div>
+        <div>
+          <div class="info-label">참가비</div>
+          <div class="info-val">여성 <span class="em">0원 무료</span> · 남성 별도 안내</div>
+        </div>
+      </div>
+
+      <div class="ae info-row" data-slide="4" data-t="1000,550,1">
+        <div class="info-ic">👥</div>
+        <div>
+          <div class="info-label">인원</div>
+          <div class="info-val">소수 정예 · <span class="em">선착순 마감</span></div>
+        </div>
+      </div>
+
+      <div class="ae info-row" data-slide="4" data-t="1250,550,1">
+        <div class="info-ic">🗓️</div>
+        <div>
+          <div class="info-label">일정</div>
+          <div class="info-val">매주 진행 · 일정 앱에서 확인</div>
+        </div>
+      </div>
+
+      <div class="ae info-row" data-slide="4" data-t="1500,550,1">
+        <div class="info-ic">💌</div>
+        <div>
+          <div class="info-label">신청</div>
+          <div class="info-val" style="color:#1565C0;">sevenstars.kr</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Urgency -->
+    <div class="ae" data-slide="4" data-t="2000,600,5"
+         style="margin-top:40px;width:900px;background:white;border-radius:20px;border:3px solid #E91E8C;padding:28px 48px;display:flex;align-items:center;gap:24px;box-shadow:0 8px 28px rgba(233,30,140,0.15);">
+      <span style="font-size:52px;">⏰</span>
+      <div style="font-size:38px;font-weight:900;color:#C2185B;">자리가 빠르게 마감되고 있어요!</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ SLIDE 6: CTA ════════════════════ -->
+<div class="slide" id="s6">
+  <div class="slide-no">6 / 6</div>
+  <svg class="cloud-svg" viewBox="0 0 1080 420" fill="white">
+    <ellipse cx="130" cy="110" rx="130" ry="65" opacity=".92"/>
+    <ellipse cx="60"  cy="130" rx="90"  ry="52" opacity=".85"/>
+    <ellipse cx="210" cy="130" rx="90"  ry="52" opacity=".85"/>
+    <ellipse cx="910" cy="80"  rx="150" ry="72" opacity=".90"/>
+    <ellipse cx="840" cy="100" rx="100" ry="56" opacity=".82"/>
+    <ellipse cx="990" cy="105" rx="95"  ry="52" opacity=".82"/>
+    <ellipse cx="520" cy="55"  rx="75"  ry="36" opacity=".75"/>
+  </svg>
+  <div class="ground"></div>
+
+  <!-- Same building SVG as cover (mirrored feel) -->
+  <svg style="position:absolute;bottom:130px;left:0;width:100%;" viewBox="0 0 1080 480" fill="none">
+    <ellipse cx="100" cy="290" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
+    <ellipse cx="980" cy="285" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
+    <rect x="175" y="380" width="730" height="20" rx="5" fill="#C8A040"/>
+    <rect x="155" y="400" width="770" height="14" rx="4" fill="#A08030"/>
+    <rect x="200" y="290" width="680" height="92" fill="#F0D080"/>
+    <rect x="244" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
+    <rect x="346" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
+    <rect x="714" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
+    <rect x="816" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
+    <path d="M125,290 Q540,175 955,290 L925,310 Q540,198 155,310 Z" fill="#8B4513"/>
+    <rect x="510" y="200" width="60" height="82" rx="5" fill="#6B3410"/>
+    <path d="M490,200 L540,152 L590,200 Z" fill="#8B4513"/>
+    <text x="540" y="420" text-anchor="middle" font-size="72" fill="#E91E8C" opacity=".9">♥</text>
+    <text x="410" y="380" text-anchor="middle" font-size="40" fill="#F06292" opacity=".7">♥</text>
+    <text x="665" y="375" text-anchor="middle" font-size="40" fill="#F06292" opacity=".7">♥</text>
+    <rect x="0" y="415" width="1080" height="65" fill="#7CBF45" opacity=".7"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:150px 80px 0;">
+
+    <!-- Brand -->
+    <div class="ae" data-slide="5" data-t="200,500,0"
+         style="font-size:28px;font-weight:700;letter-spacing:6px;color:rgba(13,43,94,0.35);margin-bottom:40px;">
+      SEVENSTARS
+    </div>
+
+    <!-- Heart emoji -->
+    <div class="ae" data-slide="5" data-t="400,600,5"
+         style="font-size:110px;margin-bottom:40px;">💜</div>
+
+    <!-- Big headline -->
+    <div class="ae" data-slide="5" data-t="700,700,1"
+         style="font-size:100px;font-weight:900;line-height:1.15;text-align:center;margin-bottom:24px;">
+      <span class="t-blue">자리가</span><br>
+      <span class="t-blue">한정돼</span><br>
+      <span class="t-blue">있어요!</span>
+    </div>
+
+    <!-- Sub copy -->
+    <div class="ae" data-slide="5" data-t="1200,500,0"
+         style="font-size:38px;color:rgba(13,43,94,0.6);line-height:1.8;text-align:center;margin-bottom:72px;">
+      <strong style="color:#0D2B5E;">여성 참가비 0원</strong>으로<br>
+      합정역 1분 프리미엄 공간에서<br>
+      <strong style="color:#E91E8C;">특별한 첫 만남</strong>을 경험하세요
+    </div>
+
+    <!-- CTA button (animated scale pulse) -->
+    <div class="ae cta-btn" data-slide="5" data-t="1700,700,5">
+      🔗 지금 자리 확인하기
+    </div>
+
+    <div class="ae cta-url" data-slide="5" data-t="2200,500,0">
+      sevenstars.kr
+    </div>
+
+    <!-- Tags -->
+    <div class="ae" data-slide="5" data-t="2500,500,1"
+         style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:32px;">
+      <span style="background:rgba(21,101,192,0.1);border:1.5px solid rgba(21,101,192,0.25);border-radius:40px;padding:14px 32px;font-size:28px;color:#1565C0;font-weight:700;"># 합정역소개팅</span>
+      <span style="background:rgba(21,101,192,0.1);border:1.5px solid rgba(21,101,192,0.25);border-radius:40px;padding:14px 32px;font-size:28px;color:#1565C0;font-weight:700;"># 여성무료</span>
+      <span style="background:rgba(21,101,192,0.1);border:1.5px solid rgba(21,101,192,0.25);border-radius:40px;padding:14px 32px;font-size:28px;color:#1565C0;font-weight:700;"># 로테이션소개팅</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════ ANIMATION ENGINE ════════════════════ -->
+<script>
+const SLIDE_DUR = 5000;  // ms per slide
+const N_SLIDES  = 6;
+const slides    = Array.from(document.querySelectorAll('.slide'));
+const aeAll     = Array.from(document.querySelectorAll('.ae'));
+
+// Easing functions
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+function easeOutBack(t)  {
+  const c1 = 1.70158, c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+}
+
+// Apply animation at progress p ∈ [0,1]
+// anim: 0=fadeIn 1=slideUp 2=slideDown 3=slideLeft 4=slideRight 5=bounceIn
+function applyAnim(el, anim, rawP) {
+  const p = Math.max(0, Math.min(1, rawP));
+  switch (anim) {
+    case 0: // fadeIn
+      el.style.opacity = easeOutCubic(p);
+      el.style.transform = '';
+      break;
+    case 1: { // slideUp
+      const ep = easeOutCubic(p);
+      el.style.opacity = p;
+      el.style.transform = `translateY(${(1 - ep) * 70}px)`;
+      break;
+    }
+    case 2: { // slideDown
+      const ep = easeOutCubic(p);
+      el.style.opacity = p;
+      el.style.transform = `translateY(${-(1 - ep) * 70}px)`;
+      break;
+    }
+    case 3: { // slideLeft (from left)
+      const ep = easeOutCubic(p);
+      el.style.opacity = p;
+      el.style.transform = `translateX(${-(1 - ep) * 80}px)`;
+      break;
+    }
+    case 4: { // slideRight (from right)
+      const ep = easeOutCubic(p);
+      el.style.opacity = p;
+      el.style.transform = `translateX(${(1 - ep) * 80}px)`;
+      break;
+    }
+    case 5: { // bounceIn
+      const ep = p < 1 ? easeOutBack(p) : 1;
+      el.style.opacity = Math.min(1, p * 2.5);
+      el.style.transform = `scale(${ep})`;
+      break;
+    }
+  }
+}
+
+// Parse data-t="delay,duration,animType"
+function parseT(el) {
+  const parts = (el.dataset.t || '0,500,0').split(',');
+  return { delay: +parts[0], dur: +parts[1], anim: +parts[2] };
+}
+
+// ── MAIN SEEK FUNCTION (called by Playwright) ────────────
+window.seekTo = function(totalMs) {
+  const si = Math.min(N_SLIDES - 1, Math.floor(totalMs / SLIDE_DUR));
+  const sMs = totalMs - si * SLIDE_DUR;
+
+  // Show active slide
+  slides.forEach((s, i) => {
+    if (i === si) {
+      s.style.display = 'flex';
+      s.style.flexDirection = 'column';
+      s.style.alignItems = 'center';
+    } else {
+      s.style.display = 'none';
+    }
+  });
+
+  // Animate elements in active slide
+  aeAll.forEach(el => {
+    if (parseInt(el.dataset.slide) !== si) return;
+    const { delay, dur, anim } = parseT(el);
+    const elapsed = sMs - delay;
+    const progress = elapsed <= 0 ? 0 : elapsed >= dur ? 1 : elapsed / dur;
+    applyAnim(el, anim, progress);
+  });
+};
+
+// ── AUTO-PLAY for live preview ───────────────────────────
+let _raf, _startTime;
+function autoPlay() {
+  _startTime = performance.now();
+  function tick() {
+    const ms = (performance.now() - _startTime) % (N_SLIDES * SLIDE_DUR);
+    window.seekTo(ms);
+    _raf = requestAnimationFrame(tick);
+  }
+  _raf = requestAnimationFrame(tick);
+}
+
+// Initialize: seek to frame 0, then auto-play
+window.seekTo(0);
+autoPlay();
+</script>
+</body>
+</html>
