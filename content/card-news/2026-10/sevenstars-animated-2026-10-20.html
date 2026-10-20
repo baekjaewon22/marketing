@@ -4,406 +4,678 @@
 <meta charset="UTF-8">
 <title>세븐스타즈 로테이션소개팅</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 400; font-display: block;
+  src: local('Noto Sans KR'),
+       url('file:///home/user/marketing/assets/fonts/NotoSansKR-400.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700; font-display: block;
+  src: local('Noto Sans KR Bold'),
+       url('file:///home/user/marketing/assets/fonts/NotoSansKR-700.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 900; font-display: block;
+  src: local('Noto Sans KR Black'),
+       url('file:///home/user/marketing/assets/fonts/NotoSansKR-900.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Color Emoji'; font-display: block;
+  src: local('Noto Color Emoji'),
+       url('file:///usr/share/fonts/truetype/noto/NotoColorEmoji.ttf') format('truetype');
+}
+
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Noto Sans KR',sans-serif; width:1080px; background:#5BB8D4; }
+body {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  width: 1080px; background: #3A9BC0;
+}
 
 .slide {
-  width:1080px; height:1920px;
-  position:relative; overflow:hidden;
-  background:linear-gradient(180deg,#3FA3C8 0%,#6DBDDA 20%,#A0D4EC 50%,#C8EAF7 78%,#DCF2FA 100%);
-  display:none;
+  width: 1080px; height: 1920px;
+  position: relative; overflow: hidden; display: none;
 }
-.slide.active { display:flex; flex-direction:column; align-items:center; }
+.slide.active { display: block; }
 
-.cloud-svg { position:absolute; top:0; left:0; width:100%; pointer-events:none; }
-
-.ground {
-  position:absolute; bottom:0; left:0; width:100%;
-  height:200px;
-  background:linear-gradient(180deg,#A8D678 0%,#7CBF45 60%,#5A9E2A 100%);
+/* 고품질 하늘 그라데이션 */
+.sky {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 900px 700px at 80% 6%,
+      rgba(255,230,120,0.16) 0%, transparent 65%),
+    linear-gradient(180deg,
+      #1868A4 0%, #2C84BE 7%, #4D9ECE 16%,
+      #70B6DC 30%, #96CCEA 48%,
+      #BADFF4 66%, #D5EDF9 82%,
+      #E8F5FC 93%, #F4FAFE 100%);
 }
-.ground::before {
-  content:''; position:absolute; top:-28px; left:0; width:110%; height:56px;
-  background:#A8D678; border-radius:50% 50% 0 0 / 56px 56px 0 0;
-}
 
+.ae { will-change: transform, opacity; opacity: 0; }
+
+/* 블루 그라데이션 텍스트 */
 .t-blue {
-  background:linear-gradient(135deg,#0D47A1 0%,#1565C0 35%,#1E88E5 70%,#42A5F5 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  background: linear-gradient(140deg,#0B3D8F 0%,#1455B2 28%,#1976D2 58%,#2196F3 82%,#42A5F5 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
+/* 카드 */
 .card {
-  background:rgba(255,255,255,0.97);
-  border-radius:48px;
-  box-shadow:0 20px 72px rgba(13,43,94,0.16), 0 4px 18px rgba(13,43,94,0.08);
-  padding:80px 88px;
-  width:920px;
+  background: rgba(255,255,255,0.98);
+  border-radius: 44px;
+  box-shadow: 0 2px 4px rgba(13,43,94,0.06),
+              0 8px 24px rgba(13,43,94,0.10),
+              0 28px 72px rgba(13,43,94,0.15);
+  padding: 72px 80px; width: 920px;
 }
 
+/* 섹션 헤더 */
+.sec-h {
+  font-size: 72px; font-weight: 900; color: #0D2B5E;
+  margin-bottom: 60px; text-align: center;
+  text-shadow: 0 2px 8px rgba(13,43,94,0.10);
+}
+
+/* 이런분께 카드 */
+.why-c {
+  display: flex; align-items: flex-start; gap: 28px;
+  background: rgba(255,255,255,0.96); border-radius: 28px;
+  box-shadow: 0 4px 20px rgba(13,43,94,0.09); padding: 40px 44px;
+}
+.why-ic { font-family:'Noto Color Emoji',sans-serif; font-size: 56px; flex-shrink:0; line-height:1; margin-top:4px; }
+.why-h  { font-size: 38px; font-weight: 900; color: #0D2B5E; margin-bottom: 8px; }
+.why-p  { font-size: 28px; color: rgba(13,43,94,0.55); line-height: 1.55; }
+.why-p strong { color: #1565C0; }
+
+/* 스텝 아이템 */
+.step { display: flex; align-items: flex-start; gap: 32px; }
+.step-num {
+  width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg,#1255C0,#42A5F5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 900; color: white;
+  box-shadow: 0 6px 20px rgba(18,85,192,0.30);
+}
+.step-text h3 { font-size: 38px; font-weight: 900; color: #0D2B5E; margin-bottom: 8px; }
+.step-text p  { font-size: 28px; color: rgba(13,43,94,0.52); line-height: 1.6; }
+.step-text p strong { color: #D81B60; }
+
+/* 인포 로우 */
 .info-row {
-  display:flex; align-items:center; gap:32px;
-  background:rgba(13,43,94,0.04); border-radius:24px;
-  padding:44px 52px;
+  display: flex; align-items: center; gap: 30px;
+  background: rgba(13,43,94,0.038); border-radius: 22px; padding: 42px 50px;
 }
-.info-ic    { font-size:56px; flex-shrink:0; }
-.info-label { font-size:30px; color:rgba(13,43,94,0.42); margin-bottom:8px; font-weight:700; }
-.info-val   { font-size:42px; font-weight:900; color:#0D2B5E; line-height:1.35; }
-.info-val .em { color:#E91E8C; }
+.info-ic    { font-family:'Noto Color Emoji',sans-serif; font-size: 52px; flex-shrink:0; }
+.info-label { font-size: 28px; color: rgba(13,43,94,0.42); margin-bottom: 7px; font-weight: 700; letter-spacing: 1px; }
+.info-val   { font-size: 40px; font-weight: 900; color: #0D2B5E; line-height: 1.35; }
+.info-val .em { color: #D81B60; }
 
+/* 리뷰 카드 */
+.review-c {
+  background: rgba(255,255,255,0.97); border-radius: 28px;
+  box-shadow: 0 4px 20px rgba(13,43,94,0.09); padding: 44px 48px;
+}
+.review-stars { font-size: 36px; margin-bottom: 14px; color: #FFA726; letter-spacing: 4px; }
+.review-text  { font-size: 32px; color: #0D2B5E; line-height: 1.7; font-weight: 400; }
+.review-tag   { font-size: 26px; color: rgba(13,43,94,0.40); font-weight: 700; margin-top: 14px; }
+
+/* CTA 버튼 */
 .cta-btn {
-  background:linear-gradient(90deg,#1565C0,#1E88E5,#42A5F5);
-  border-radius:80px;
-  padding:48px 108px;
-  font-size:52px; font-weight:900; color:white;
-  box-shadow:0 24px 64px rgba(21,101,192,0.45);
-  text-align:center; width:920px;
+  background: linear-gradient(95deg,#1255C0 0%,#1976D2 40%,#2196F3 75%,#42A5F5 100%);
+  border-radius: 80px; padding: 48px 0;
+  font-size: 50px; font-weight: 900; color: white;
+  box-shadow: 0 8px 24px rgba(18,85,192,0.30),
+              0 24px 64px rgba(18,85,192,0.38),
+              inset 0 1px 0 rgba(255,255,255,0.18);
+  text-align: center; width: 920px; letter-spacing: -0.5px;
 }
-
-.ae { will-change:transform,opacity; opacity:0; }
 
 .slide-no {
-  position:absolute; top:56px; right:64px;
-  font-size:26px; color:rgba(13,43,94,0.22); font-weight:700;
+  position: absolute; top: 56px; right: 64px; z-index: 10;
+  font-size: 26px; color: rgba(255,255,255,0.45); font-weight: 700;
+}
+
+/* 잔디 (공통) */
+.ground-wrap {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+}
+.ground-fill {
+  height: 200px;
+  background: linear-gradient(180deg,#94C857 0%,#7CC040 35%,#5A9E2A 70%,#4A8820 100%);
+}
+.ground-bump {
+  position: absolute; bottom: 178px; left: -5%; width: 110%; height: 52px;
+  background: #94C857; border-radius: 50% 50% 0 0 / 52px 52px 0 0;
+}
+
+/* 전환 오버레이 */
+#fade-overlay {
+  position: fixed; top: 0; left: 0; width: 1080px; height: 1920px;
+  background: linear-gradient(180deg,#CEEAF8 0%,#ffffff 100%);
+  z-index: 999; opacity: 0; pointer-events: none;
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
 </head>
 <body>
+<div id="fade-overlay"></div>
 
-<!-- ══════════════ SLIDE 1: COVER ══════════════ -->
+<!-- 공통 구름 SVG 템플릿 (각 슬라이드에 인라인) -->
+
+<!-- ══════════════════════════════════════
+  SLIDE 1 · COVER
+══════════════════════════════════════ -->
 <div class="slide active" id="s1">
-  <div class="slide-no">1 / 3</div>
+  <div class="slide-no">1 / 6</div>
+  <div class="sky"></div>
 
-  <svg class="cloud-svg" viewBox="0 0 1080 440" fill="white">
-    <ellipse cx="130" cy="112" rx="138" ry="68" opacity=".94"/>
-    <ellipse cx="55"  cy="134" rx="96"  ry="56" opacity=".86"/>
-    <ellipse cx="220" cy="132" rx="96"  ry="56" opacity=".86"/>
-    <ellipse cx="920" cy="82"  rx="155" ry="76" opacity=".92"/>
-    <ellipse cx="830" cy="104" rx="104" ry="60" opacity=".84"/>
-    <ellipse cx="1005" cy="108" rx="98" ry="56" opacity=".84"/>
-    <ellipse cx="525" cy="54"  rx="78"  ry="38" opacity=".76"/>
-    <ellipse cx="462" cy="72"  rx="58"  ry="34" opacity=".70"/>
-    <ellipse cx="592" cy="72"  rx="58"  ry="34" opacity=".70"/>
-    <ellipse cx="385" cy="144" rx="84"  ry="44" opacity=".62"/>
-    <ellipse cx="710" cy="134" rx="88"  ry="46" opacity=".62"/>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 500" fill="none">
+    <defs>
+      <filter id="cb"><feGaussianBlur stdDeviation="4"/></filter>
+    </defs>
+    <!-- 원거리 구름 -->
+    <g opacity=".52" filter="url(#cb)">
+      <ellipse cx="540" cy="42" rx="88" ry="28" fill="white"/>
+      <ellipse cx="310" cy="60" rx="70" ry="22" fill="white"/>
+      <ellipse cx="780" cy="56" rx="74" ry="22" fill="white"/>
+    </g>
+    <!-- 왼쪽 큰 구름 -->
+    <g opacity=".95">
+      <ellipse cx="148" cy="128" rx="148" ry="64" fill="white"/>
+      <ellipse cx="92"  cy="146" rx="100" ry="54" fill="white"/>
+      <ellipse cx="202" cy="108" rx="88"  ry="50" fill="white"/>
+      <ellipse cx="148" cy="85"  rx="70"  ry="42" fill="white"/>
+      <ellipse cx="226" cy="148" rx="78"  ry="46" fill="white"/>
+      <ellipse cx="148" cy="158" rx="130" ry="20" fill="rgba(172,206,230,.32)"/>
+    </g>
+    <!-- 오른쪽 큰 구름 -->
+    <g opacity=".95">
+      <ellipse cx="930" cy="92"  rx="155" ry="68" fill="white"/>
+      <ellipse cx="852" cy="110" rx="106" ry="56" fill="white"/>
+      <ellipse cx="992" cy="114" rx="98"  ry="52" fill="white"/>
+      <ellipse cx="920" cy="68"  rx="84"  ry="44" fill="white"/>
+      <ellipse cx="880" cy="120" rx="92"  ry="52" fill="white"/>
+      <ellipse cx="930" cy="128" rx="136" ry="22" fill="rgba(172,206,230,.32)"/>
+    </g>
+    <!-- 중앙/좌중/우중 구름 -->
+    <g opacity=".78"><ellipse cx="525" cy="76" rx="78" ry="36" fill="white"/><ellipse cx="493" cy="86" rx="52" ry="30" fill="white"/><ellipse cx="558" cy="84" rx="52" ry="30" fill="white"/></g>
+    <g opacity=".66"><ellipse cx="372" cy="152" rx="94" ry="37" fill="white"/><ellipse cx="342" cy="160" rx="58" ry="29" fill="white"/><ellipse cx="404" cy="146" rx="58" ry="29" fill="white"/></g>
+    <g opacity=".66"><ellipse cx="720" cy="146" rx="90" ry="36" fill="white"/><ellipse cx="692" cy="154" rx="56" ry="28" fill="white"/><ellipse cx="750" cy="142" rx="56" ry="28" fill="white"/></g>
   </svg>
 
-  <svg style="position:absolute;bottom:130px;left:0;width:100%;" viewBox="0 0 1080 530" fill="none">
-    <ellipse cx="98"  cy="304" rx="88"  ry="108" fill="#5D9B3A" opacity=".95"/>
-    <ellipse cx="52"  cy="330" rx="62"  ry="78"  fill="#4A8A2A" opacity=".85"/>
-    <rect x="88" y="380" width="22" height="82" rx="5" fill="#6B4C1A"/>
-    <ellipse cx="982" cy="298" rx="88"  ry="108" fill="#5D9B3A" opacity=".95"/>
-    <ellipse cx="1028" cy="324" rx="62" ry="78"  fill="#4A8A2A" opacity=".85"/>
-    <rect x="972" y="374" width="22" height="82" rx="5" fill="#6B4C1A"/>
-    <rect x="170" y="404" width="740" height="22" rx="5" fill="#C8A040"/>
-    <rect x="148" y="426" width="784" height="16" rx="4" fill="#A08030"/>
-    <rect x="200" y="298" width="680" height="108" fill="#F0D080"/>
-    <rect x="244" y="298" width="22" height="108" rx="4" fill="#D4A838"/>
-    <rect x="348" y="298" width="22" height="108" rx="4" fill="#D4A838"/>
-    <rect x="714" y="298" width="22" height="108" rx="4" fill="#D4A838"/>
-    <rect x="818" y="298" width="22" height="108" rx="4" fill="#D4A838"/>
-    <rect x="450" y="322" width="180" height="84" rx="10" fill="#8B5E14" opacity=".55"/>
-    <path d="M118,298 Q540,172 962,298 L932,318 Q540,194 148,318 Z" fill="#8B4513"/>
-    <path d="M144,296 Q540,176 936,296" stroke="#A86030" stroke-width="5" fill="none" opacity=".5"/>
-    <rect x="508" y="200" width="64" height="92" rx="6" fill="#6B3410"/>
-    <path d="M488,200 L540,150 L592,200 Z" fill="#8B4513"/>
-    <rect x="530" y="150" width="20" height="56" rx="4" fill="#6B3410"/>
-    <rect x="0" y="442" width="1080" height="82" fill="#7CBF45" opacity=".7"/>
-    <circle cx="212" cy="448" r="24" fill="#5D3A1A"/>
-    <ellipse cx="212" cy="490" rx="26" ry="32" fill="#E91E8C" opacity=".85"/>
-    <circle cx="284" cy="442" r="24" fill="#3A2010"/>
-    <ellipse cx="284" cy="484" rx="26" ry="32" fill="#1565C0" opacity=".85"/>
-    <circle cx="802" cy="438" r="24" fill="#5D3A1A"/>
-    <ellipse cx="802" cy="480" rx="26" ry="32" fill="#E91E8C" opacity=".85"/>
-    <line x1="802" y1="452" x2="770" y2="418" stroke="#5D3A1A" stroke-width="12" stroke-linecap="round"/>
-    <line x1="802" y1="452" x2="834" y2="418" stroke="#5D3A1A" stroke-width="12" stroke-linecap="round"/>
-    <circle cx="874" cy="430" r="24" fill="#3A2010"/>
-    <ellipse cx="874" cy="472" rx="26" ry="32" fill="#1565C0" opacity=".85"/>
-    <line x1="874" y1="445" x2="842" y2="410" stroke="#3A2010" stroke-width="12" stroke-linecap="round"/>
-    <line x1="874" y1="445" x2="906" y2="410" stroke="#3A2010" stroke-width="12" stroke-linecap="round"/>
-    <text x="540" y="428" text-anchor="middle" font-size="68" fill="#E91E8C" opacity=".9">♥</text>
-    <text x="442" y="392" text-anchor="middle" font-size="36" fill="#F06292" opacity=".65">♥</text>
-    <text x="648" y="386" text-anchor="middle" font-size="36" fill="#F06292" opacity=".65">♥</text>
+  <!-- 원경 산 -->
+  <svg style="position:absolute;bottom:200px;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 280" preserveAspectRatio="none" fill="none">
+    <path d="M0,280 L0,158 Q120,98 222,128 Q322,78 422,108 Q522,48 622,93 Q702,43 802,78 Q882,28 962,63 Q1022,38 1080,58 L1080,280 Z" fill="rgba(150,196,226,.33)"/>
+    <path d="M0,280 L0,198 Q102,153 202,173 Q302,138 402,160 Q482,126 562,146 Q642,116 742,136 Q822,106 922,126 Q982,106 1080,118 L1080,280 Z" fill="rgba(168,208,234,.28)"/>
   </svg>
 
-  <div class="ground"></div>
+  <!-- 한옥 건물 -->
+  <svg style="position:absolute;bottom:138px;left:0;width:100%;" viewBox="0 0 1080 560" fill="none">
+    <!-- 나무 좌 -->
+    <g><rect x="74" y="374" width="24" height="132" rx="6" fill="#5C3D15"/>
+    <ellipse cx="86" cy="328" rx="72" ry="90" fill="#3E7A24"/><ellipse cx="66" cy="358" rx="52" ry="68" fill="#4D9130"/>
+    <ellipse cx="106" cy="354" rx="52" ry="68" fill="#4D9130"/><ellipse cx="86" cy="292" rx="52" ry="68" fill="#5AA83A"/>
+    <ellipse cx="86" cy="265" rx="36" ry="50" fill="#6BBF48"/></g>
+    <g opacity=".82"><rect x="36" y="390" width="18" height="110" rx="5" fill="#5C3D15"/>
+    <ellipse cx="45" cy="348" rx="52" ry="68" fill="#3E7A24"/><ellipse cx="45" cy="316" rx="38" ry="52" fill="#5AA83A"/></g>
+    <!-- 나무 우 -->
+    <g><rect x="982" y="374" width="24" height="132" rx="6" fill="#5C3D15"/>
+    <ellipse cx="994" cy="328" rx="72" ry="90" fill="#3E7A24"/><ellipse cx="974" cy="358" rx="52" ry="68" fill="#4D9130"/>
+    <ellipse cx="1014" cy="354" rx="52" ry="68" fill="#4D9130"/><ellipse cx="994" cy="292" rx="52" ry="68" fill="#5AA83A"/>
+    <ellipse cx="994" cy="265" rx="36" ry="50" fill="#6BBF48"/></g>
+    <g opacity=".82"><rect x="1026" y="390" width="18" height="110" rx="5" fill="#5C3D15"/>
+    <ellipse cx="1035" cy="348" rx="52" ry="68" fill="#3E7A24"/><ellipse cx="1035" cy="316" rx="38" ry="52" fill="#5AA83A"/></g>
+    <!-- 기단 -->
+    <rect x="148" y="452" width="784" height="14" rx="4" fill="#C4B48A"/>
+    <rect x="130" y="466" width="820" height="12" rx="3" fill="#B4A47A"/>
+    <rect x="112" y="478" width="856" height="10" rx="3" fill="#A49468"/>
+    <!-- 건물 본체 -->
+    <rect x="195" y="328" width="690" height="122" fill="#F5DFA0"/>
+    <rect x="195" y="328" width="690" height="18" fill="rgba(0,0,0,.06)"/>
+    <!-- 기둥 -->
+    <rect x="230" y="330" width="22" height="120" rx="5" fill="#D4A838"/><rect x="227" y="440" width="28" height="10" rx="3" fill="#C09020"/>
+    <rect x="350" y="330" width="22" height="120" rx="5" fill="#D4A838"/><rect x="347" y="440" width="28" height="10" rx="3" fill="#C09020"/>
+    <rect x="708" y="330" width="22" height="120" rx="5" fill="#D4A838"/><rect x="705" y="440" width="28" height="10" rx="3" fill="#C09020"/>
+    <rect x="828" y="330" width="22" height="120" rx="5" fill="#D4A838"/><rect x="825" y="440" width="28" height="10" rx="3" fill="#C09020"/>
+    <!-- 창살 좌 -->
+    <rect x="270" y="348" width="68" height="90" rx="3" fill="#8B5E14" opacity=".20"/>
+    <line x1="270" y1="365" x2="338" y2="365" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="270" y1="383" x2="338" y2="383" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <line x1="270" y1="401" x2="338" y2="401" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="288" y1="348" x2="288" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <line x1="306" y1="348" x2="306" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="324" y1="348" x2="324" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <!-- 대문 -->
+    <rect x="460" y="352" width="160" height="98" rx="8" fill="#7A4E10" opacity=".62"/>
+    <rect x="468" y="358" width="68" height="92" rx="5" fill="#6A4010" opacity=".72"/>
+    <rect x="544" y="358" width="68" height="92" rx="5" fill="#6A4010" opacity=".72"/>
+    <circle cx="534" cy="404" r="6" fill="#D4A838"/><circle cx="546" cy="404" r="6" fill="#D4A838"/>
+    <rect x="462" y="344" width="156" height="14" rx="4" fill="#C8A040" opacity=".75"/>
+    <!-- 창살 우 -->
+    <rect x="742" y="348" width="68" height="90" rx="3" fill="#8B5E14" opacity=".20"/>
+    <line x1="742" y1="365" x2="810" y2="365" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="742" y1="383" x2="810" y2="383" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <line x1="742" y1="401" x2="810" y2="401" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="760" y1="348" x2="760" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <line x1="778" y1="348" x2="778" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/><line x1="796" y1="348" x2="796" y2="438" stroke="#8B5E14" stroke-width="2" opacity=".38"/>
+    <!-- 처마/지붕 -->
+    <path d="M155,328 Q540,215 925,328 L898,346 Q540,237 182,346 Z" fill="#8B4513"/>
+    <path d="M155,328 Q540,215 925,328" stroke="#A86030" stroke-width="3" fill="none" opacity=".48"/>
+    <path d="M215,270 Q540,165 865,270 L840,288 Q540,185 240,288 Z" fill="#A35020"/>
+    <path d="M215,270 Q540,165 865,270" stroke="#C06030" stroke-width="3" fill="none" opacity=".48"/>
+    <!-- 용마루 -->
+    <rect x="398" y="212" width="284" height="18" rx="6" fill="#7A3010"/>
+    <rect x="395" y="208" width="290" height="10" rx="5" fill="#6B2A0A"/>
+    <path d="M395,210 Q380,195 370,200 Q365,205 380,215 Q390,212 395,210 Z" fill="#8B4513"/>
+    <path d="M685,210 Q700,195 710,200 Q715,205 700,215 Q690,212 685,210 Z" fill="#8B4513"/>
+    <!-- 상단 장식 -->
+    <rect x="526" y="170" width="28" height="44" rx="5" fill="#6B3410"/>
+    <path d="M510,170 L540,134 L570,170 Z" fill="#8B4513"/>
+    <rect x="532" y="134" width="16" height="42" rx="4" fill="#6B3410"/>
+    <circle cx="540" cy="128" r="9" fill="#C8A040"/>
+    <!-- 공포 -->
+    <rect x="230" y="320" width="36" height="12" rx="3" fill="#C09020" opacity=".68"/>
+    <rect x="350" y="320" width="36" height="12" rx="3" fill="#C09020" opacity=".68"/>
+    <rect x="708" y="320" width="36" height="12" rx="3" fill="#C09020" opacity=".68"/>
+    <rect x="828" y="320" width="36" height="12" rx="3" fill="#C09020" opacity=".68"/>
+    <!-- 잔디 -->
+    <rect x="0" y="486" width="1080" height="74" fill="#7CC040" opacity=".72"/>
+    <!-- 커플 좌 -->
+    <circle cx="210" cy="460" r="26" fill="#5C3A1A"/><ellipse cx="210" cy="504" rx="28" ry="34" fill="#D81B60" opacity=".88"/>
+    <circle cx="290" cy="452" r="26" fill="#3A2010"/><ellipse cx="290" cy="496" rx="28" ry="34" fill="#1565C0" opacity=".88"/>
+    <path d="M236,488 Q260,494 264,488" stroke="#5C3A1A" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- 커플 우 -->
+    <circle cx="792" cy="454" r="26" fill="#5C3A1A"/><ellipse cx="792" cy="498" rx="28" ry="34" fill="#D81B60" opacity=".88"/>
+    <circle cx="872" cy="448" r="26" fill="#3A2010"/><ellipse cx="872" cy="492" rx="28" ry="34" fill="#1565C0" opacity=".88"/>
+    <path d="M818,484 Q842,490 846,484" stroke="#5C3A1A" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- 하트 -->
+    <text x="250" y="432" text-anchor="middle" font-size="30" fill="#F48FB1" opacity=".78">♥</text>
+    <text x="540" y="430" text-anchor="middle" font-size="70" fill="#E91E8C" opacity=".90">♥</text>
+    <text x="838" y="426" text-anchor="middle" font-size="30" fill="#F48FB1" opacity=".78">♥</text>
+  </svg>
 
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:180px;gap:0;">
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
 
-    <!-- ① Brand — 0.4s 등장 -->
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding-top:178px;">
     <div class="ae" data-slide="0" data-t="400,1800,0"
-         style="font-size:30px;font-weight:700;letter-spacing:8px;color:rgba(13,43,94,0.38);margin-bottom:52px;">
+         style="font-size:28px;font-weight:700;letter-spacing:10px;color:rgba(255,255,255,0.74);margin-bottom:48px;text-shadow:0 2px 12px rgba(0,60,120,.28);">
       S E V E N S T A R S
     </div>
-
-    <!-- ② Location badge — 1.2s 등장 -->
     <div class="ae" data-slide="0" data-t="1200,1800,1"
-         style="background:white;border-radius:60px;box-shadow:0 6px 24px rgba(13,43,94,0.12);
-                padding:22px 56px;font-size:36px;font-weight:700;color:#1565C0;
-                display:inline-flex;align-items:center;gap:16px;margin-bottom:72px;">
-      <span>📍</span> 서교동 394-23 · 합정역 도보 1분
+         style="background:rgba(255,255,255,0.96);border-radius:60px;box-shadow:0 6px 28px rgba(13,43,94,.18);
+                padding:22px 56px;font-size:36px;font-weight:700;color:#1255C0;
+                display:inline-flex;align-items:center;gap:14px;margin-bottom:68px;">
+      <span style="font-family:'Noto Color Emoji',sans-serif;">📍</span>
+      서교동 394-23 · 합정역 도보 1분
     </div>
-
-    <!-- ③ ← 로테이션 소개팅 → — 2.4s 등장 -->
     <div class="ae" data-slide="0" data-t="2400,2000,5"
-         style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
-      <span style="font-size:80px;font-weight:900;color:#1565C0;">←</span>
-      <span class="t-blue" style="font-size:120px;font-weight:900;line-height:1.0;">로테이션</span>
-      <span style="font-size:80px;font-weight:900;color:#1565C0;">→</span>
+         style="display:flex;align-items:center;gap:16px;margin-bottom:18px;">
+      <span style="font-size:76px;font-weight:900;color:#1255C0;">←</span>
+      <span class="t-blue" style="font-size:116px;font-weight:900;line-height:1.0;">로테이션</span>
+      <span style="font-size:76px;font-weight:900;color:#1255C0;">→</span>
     </div>
-
-    <!-- ④ 소개팅♥ — 3.4s 등장 -->
     <div class="ae" data-slide="0" data-t="3400,1800,1"
-         style="font-size:140px;font-weight:900;line-height:1.0;margin-bottom:64px;">
-      <span class="t-blue">소개팅</span>
-      <span style="color:#E91E8C;font-size:100px;">♥</span>
+         style="font-size:136px;font-weight:900;line-height:1.0;margin-bottom:60px;">
+      <span class="t-blue">소개팅</span><span style="color:#D81B60;font-size:94px;">♥</span>
     </div>
-
-    <!-- ⑤ Schedule badge — 4.8s 등장 -->
     <div class="ae" data-slide="0" data-t="4800,1800,0"
-         style="background:linear-gradient(90deg,#1565C0,#42A5F5);border-radius:24px;
-                padding:32px 72px;text-align:center;">
-      <div style="font-size:42px;font-weight:900;color:white;">🗓️ 매주 토·일 오후 3시 / 6시</div>
+         style="background:linear-gradient(90deg,#1255C0,#2196F3);border-radius:28px;padding:32px 76px;
+                box-shadow:0 16px 48px rgba(18,85,192,.36);">
+      <div style="font-size:42px;font-weight:900;color:white;">
+        <span style="font-family:'Noto Color Emoji',sans-serif;">🗓️</span> 매주 토·일 오후 3시 / 6시
+      </div>
     </div>
-
   </div>
 </div>
 
-<!-- ══════════════ SLIDE 2: 행사 정보 ══════════════ -->
+<!-- ══════════════════════════════════════
+  SLIDE 2 · 이런 분께!
+══════════════════════════════════════ -->
 <div class="slide" id="s2">
-  <div class="slide-no">2 / 3</div>
-
-  <svg class="cloud-svg" viewBox="0 0 1080 380" fill="white">
-    <ellipse cx="162" cy="96"  rx="128" ry="62" opacity=".88"/>
-    <ellipse cx="82"  cy="118" rx="88"  ry="50" opacity=".80"/>
-    <ellipse cx="948" cy="78"  rx="144" ry="68" opacity=".88"/>
-    <ellipse cx="1025" cy="104" rx="88" ry="50" opacity=".80"/>
-    <ellipse cx="552" cy="52"  rx="72"  ry="36" opacity=".72"/>
+  <div class="slide-no">2 / 6</div>
+  <div class="sky"></div>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 400" fill="none">
+    <g opacity=".50"><ellipse cx="540" cy="38" rx="80" ry="26" fill="white"/><ellipse cx="780" cy="52" rx="66" ry="20" fill="white"/></g>
+    <g opacity=".92"><ellipse cx="155" cy="110" rx="142" ry="62" fill="white"/><ellipse cx="93" cy="128" rx="96" ry="50" fill="white"/><ellipse cx="213" cy="92" rx="84" ry="46" fill="white"/><ellipse cx="153" cy="78" rx="65" ry="40" fill="white"/><ellipse cx="216" cy="138" rx="76" ry="44" fill="white"/><ellipse cx="154" cy="148" rx="124" ry="18" fill="rgba(172,206,230,.30)"/></g>
+    <g opacity=".92"><ellipse cx="932" cy="86" rx="148" ry="65" fill="white"/><ellipse cx="856" cy="104" rx="100" ry="54" fill="white"/><ellipse cx="994" cy="110" rx="92" ry="50" fill="white"/><ellipse cx="922" cy="64" rx="80" ry="42" fill="white"/><ellipse cx="932" cy="120" rx="128" ry="20" fill="rgba(172,206,230,.30)"/></g>
+    <g opacity=".70"><ellipse cx="520" cy="70" rx="74" ry="34" fill="white"/><ellipse cx="488" cy="80" rx="48" ry="28" fill="white"/><ellipse cx="554" cy="78" rx="50" ry="28" fill="white"/></g>
   </svg>
-  <div class="ground"></div>
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
 
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
-              padding:160px 80px 0;width:100%;gap:0;">
-
-    <!-- ① 헤더 — 0.3s 등장 -->
-    <div class="ae" data-slide="1" data-t="300,1800,2"
-         style="font-size:76px;font-weight:900;color:#0D2B5E;margin-bottom:72px;text-align:center;">
-      📋 행사 정보
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding:160px 80px 0;width:100%;">
+    <div class="ae sec-h" data-slide="1" data-t="300,1800,2">✨ 이런 분께 딱!</div>
+    <div style="display:flex;flex-direction:column;gap:28px;width:920px;">
+      <div class="ae why-c" data-slide="1" data-t="1400,1800,3">
+        <div class="why-ic">😅</div>
+        <div><div class="why-h">처음이라 어색할 것 같아요</div>
+        <div class="why-p">로테이션 방식이라 <strong>자연스럽게 대화</strong>가 이어져요</div></div>
+      </div>
+      <div class="ae why-c" data-slide="1" data-t="2700,1800,3">
+        <div class="why-ic">🙋</div>
+        <div><div class="why-h">혼자 가도 괜찮을까요?</div>
+        <div class="why-p"><strong>혼자 오시는 분이 대부분</strong>이에요. 걱정 NO!</div></div>
+      </div>
+      <div class="ae why-c" data-slide="1" data-t="4000,1800,3">
+        <div class="why-ic">🔒</div>
+        <div><div class="why-h">안전한지 걱정돼요</div>
+        <div class="why-p">운영진 상주 · 합정역 1분 · <strong>검증된 프리미엄 공간</strong></div></div>
+      </div>
+      <div class="ae why-c" data-slide="1" data-t="5300,1800,3">
+        <div class="why-ic">💸</div>
+        <div><div class="why-h">비용이 부담돼요</div>
+        <div class="why-p">선착순 할인 · 여성 <strong>15,000원</strong>으로 참가 가능해요</div></div>
+      </div>
     </div>
+    <div class="ae" data-slide="1" data-t="6800,1800,5"
+         style="margin-top:36px;width:920px;background:linear-gradient(90deg,#1255C0,#2196F3);
+                border-radius:24px;padding:30px 56px;text-align:center;box-shadow:0 16px 48px rgba(18,85,192,.36);">
+      <div style="font-size:38px;font-weight:900;color:white;">💙 해당되신다면 지금 바로 신청하세요!</div>
+    </div>
+  </div>
+</div>
 
-    <div class="card" style="display:flex;flex-direction:column;gap:32px;">
+<!-- ══════════════════════════════════════
+  SLIDE 3 · 이용 방법
+══════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="slide-no">3 / 6</div>
+  <div class="sky"></div>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 400" fill="none">
+    <g opacity=".48"><ellipse cx="540" cy="40" rx="82" ry="27" fill="white"/><ellipse cx="300" cy="58" rx="62" ry="22" fill="white"/></g>
+    <g opacity=".90"><ellipse cx="200" cy="90" rx="120" ry="58" fill="white"/><ellipse cx="132" cy="108" rx="80" ry="46" fill="white"/><ellipse cx="260" cy="76" rx="78" ry="44" fill="white"/><ellipse cx="200" cy="68" rx="60" ry="38" fill="white"/><ellipse cx="200" cy="136" rx="105" ry="16" fill="rgba(172,206,230,.28)"/></g>
+    <g opacity=".90"><ellipse cx="880" cy="88" rx="138" ry="62" fill="white"/><ellipse cx="808" cy="106" rx="94" ry="52" fill="white"/><ellipse cx="940" cy="108" rx="88" ry="48" fill="white"/><ellipse cx="870" cy="66" rx="76" ry="40" fill="white"/><ellipse cx="880" cy="120" rx="118" ry="18" fill="rgba(172,206,230,.28)"/></g>
+    <g opacity=".68"><ellipse cx="525" cy="72" rx="76" ry="34" fill="white"/><ellipse cx="493" cy="82" rx="50" ry="28" fill="white"/><ellipse cx="558" cy="80" rx="52" ry="28" fill="white"/></g>
+  </svg>
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
 
-      <!-- ② 장소 — 1.6s 등장 -->
-      <div class="ae info-row" data-slide="1" data-t="1600,1800,1">
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding:160px 80px 0;width:100%;">
+    <div class="ae sec-h" data-slide="2" data-t="300,1800,2">💬 이용 방법</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:44px;">
+      <div class="ae step" data-slide="2" data-t="1400,1800,4">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h3>닉네임 기반 1:1 대화</h3>
+          <p>개인 닉네임으로만 진행되어<br>편안한 분위기에서 대화해요</p>
+        </div>
+      </div>
+      <div class="ae step" data-slide="2" data-t="2800,1800,4">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h3>가림막 설치 프리미엄 공간</h3>
+          <p>좌우 가림막이 설치된 공간에서<br>오직 상대방에게만 집중해요</p>
+        </div>
+      </div>
+      <div class="ae step" data-slide="2" data-t="4200,1800,4">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h3>로테이션으로 여러 명과 대화</h3>
+          <p>순차적으로 자리를 옮기며<br>각 이성과 <strong>6분간</strong> 대화할 수 있어요</p>
+        </div>
+      </div>
+      <div class="ae step" data-slide="2" data-t="5600,1800,4">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h3>호감 표시 &amp; 매칭!</h3>
+          <p>마음에 드는 분께 호감을 표시하면<br>서로 매칭 시 연락처를 교환해요 💙</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+  SLIDE 4 · 행사 정보
+══════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="slide-no">4 / 6</div>
+  <div class="sky"></div>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 380" fill="none">
+    <g opacity=".50"><ellipse cx="540" cy="38" rx="80" ry="26" fill="white"/><ellipse cx="780" cy="52" rx="66" ry="20" fill="white"/></g>
+    <g opacity=".92"><ellipse cx="158" cy="112" rx="142" ry="62" fill="white"/><ellipse cx="96" cy="130" rx="96" ry="50" fill="white"/><ellipse cx="216" cy="94" rx="84" ry="46" fill="white"/><ellipse cx="155" cy="80" rx="65" ry="40" fill="white"/><ellipse cx="218" cy="140" rx="76" ry="44" fill="white"/></g>
+    <g opacity=".92"><ellipse cx="934" cy="88" rx="148" ry="65" fill="white"/><ellipse cx="858" cy="106" rx="100" ry="54" fill="white"/><ellipse cx="996" cy="112" rx="92" ry="50" fill="white"/><ellipse cx="924" cy="66" rx="80" ry="42" fill="white"/></g>
+    <g opacity=".70"><ellipse cx="522" cy="70" rx="74" ry="34" fill="white"/><ellipse cx="490" cy="80" rx="48" ry="28" fill="white"/><ellipse cx="556" cy="78" rx="50" ry="28" fill="white"/></g>
+  </svg>
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
+
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding:160px 80px 0;width:100%;">
+    <div class="ae sec-h" data-slide="3" data-t="300,1800,2">📋 행사 정보</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:28px;">
+      <div class="ae info-row" data-slide="3" data-t="1600,1800,1">
         <div class="info-ic">📍</div>
-        <div>
-          <div class="info-label">장소</div>
-          <div class="info-val">서교동 394-23<br>
-            <span style="font-size:34px;font-weight:700;color:rgba(13,43,94,0.5);">합정역 도보 1분</span>
+        <div><div class="info-label">장소</div>
+          <div class="info-val">서교동 394-23
+            <div style="font-size:33px;font-weight:700;color:rgba(13,43,94,.46);margin-top:4px;">합정역 도보 1분</div>
           </div>
         </div>
       </div>
-
-      <!-- ③ 일정 — 3.0s 등장 -->
-      <div class="ae info-row" data-slide="1" data-t="3000,1800,1">
+      <div class="ae info-row" data-slide="3" data-t="3000,1800,1">
         <div class="info-ic">🗓️</div>
-        <div>
-          <div class="info-label">일정</div>
+        <div><div class="info-label">일정</div>
           <div class="info-val">매주 토·일 / 오후 <span class="em">3시</span>, <span class="em">6시</span></div>
         </div>
       </div>
-
-      <!-- ④ 참가비 — 4.6s 등장 -->
-      <div class="ae info-row" data-slide="1" data-t="4600,1800,1">
+      <div class="ae info-row" data-slide="3" data-t="4400,1800,1">
         <div class="info-ic">💰</div>
-        <div>
-          <div class="info-label">참가비</div>
-          <div class="info-val">
-            여성 <span class="em">15,000원</span> · 남성 30,000원
-            <div style="font-size:28px;font-weight:700;color:rgba(13,43,94,0.4);margin-top:6px;">
-              정가 54,000원 → 선착순 할인 적용
-            </div>
+        <div><div class="info-label">참가비</div>
+          <div class="info-val">여성 <span class="em">15,000원</span> · 남성 30,000원
+            <div style="font-size:27px;font-weight:700;color:rgba(13,43,94,.38);margin-top:6px;">정가 54,000원 → 선착순 할인 적용</div>
           </div>
         </div>
       </div>
-
-    </div>
-
-    <!-- ⑤ 마감 강조 — 6.4s 등장 -->
-    <div class="ae" data-slide="1" data-t="6400,1800,5"
-         style="margin-top:48px;width:920px;
-                background:linear-gradient(90deg,#E91E8C,#FF6090);
-                border-radius:24px;padding:36px 64px;
-                display:flex;align-items:center;gap:28px;">
-      <span style="font-size:56px;">⚡</span>
-      <div style="font-size:42px;font-weight:900;color:white;line-height:1.4;">
-        선착순 마감!<br>
-        <span style="font-size:34px;font-weight:700;opacity:.92;">자리가 빠르게 채워지고 있어요</span>
+      <div class="ae info-row" data-slide="3" data-t="5800,1800,1">
+        <div class="info-ic">👥</div>
+        <div><div class="info-label">인원</div>
+          <div class="info-val">소수 정예 · <span class="em">선착순 마감</span></div>
+        </div>
       </div>
     </div>
-
+    <div class="ae" data-slide="3" data-t="7400,1800,5"
+         style="margin-top:40px;width:920px;background:linear-gradient(95deg,#C2185B,#E91E8C,#FF4081);
+                border-radius:28px;padding:36px 60px;display:flex;align-items:center;gap:26px;
+                box-shadow:0 16px 48px rgba(194,24,91,.32);">
+      <span style="font-size:52px;font-family:'Noto Color Emoji',sans-serif;">⚡</span>
+      <div style="font-size:40px;font-weight:900;color:white;line-height:1.45;">
+        선착순 마감!<br><span style="font-size:32px;font-weight:700;opacity:.90;">자리가 빠르게 채워지고 있어요</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════ SLIDE 3: 신청 CTA 엔딩 ══════════════ -->
-<div class="slide" id="s3">
-  <div class="slide-no">3 / 3</div>
-
-  <svg class="cloud-svg" viewBox="0 0 1080 440" fill="white">
-    <ellipse cx="130" cy="114" rx="136" ry="68" opacity=".94"/>
-    <ellipse cx="58"  cy="136" rx="94"  ry="56" opacity=".86"/>
-    <ellipse cx="218" cy="134" rx="94"  ry="56" opacity=".86"/>
-    <ellipse cx="916" cy="84"  rx="152" ry="76" opacity=".92"/>
-    <ellipse cx="826" cy="106" rx="102" ry="60" opacity=".84"/>
-    <ellipse cx="1002" cy="110" rx="96" ry="56" opacity=".84"/>
-    <ellipse cx="522" cy="56"  rx="76"  ry="38" opacity=".76"/>
+<!-- ══════════════════════════════════════
+  SLIDE 5 · 사용자 후기
+══════════════════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="slide-no">5 / 6</div>
+  <div class="sky"></div>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 400" fill="none">
+    <g opacity=".48"><ellipse cx="540" cy="36" rx="78" ry="26" fill="white"/><ellipse cx="300" cy="54" rx="60" ry="20" fill="white"/></g>
+    <g opacity=".90"><ellipse cx="152" cy="108" rx="140" ry="62" fill="white"/><ellipse cx="90" cy="126" rx="94" ry="50" fill="white"/><ellipse cx="210" cy="90" rx="82" ry="46" fill="white"/><ellipse cx="150" cy="76" rx="63" ry="38" fill="white"/><ellipse cx="152" cy="146" rx="120" ry="17" fill="rgba(172,206,230,.28)"/></g>
+    <g opacity=".90"><ellipse cx="930" cy="86" rx="146" ry="64" fill="white"/><ellipse cx="854" cy="104" rx="98" ry="53" fill="white"/><ellipse cx="992" cy="110" rx="90" ry="49" fill="white"/><ellipse cx="920" cy="63" rx="78" ry="41" fill="white"/><ellipse cx="930" cy="118" rx="126" ry="19" fill="rgba(172,206,230,.28)"/></g>
+    <g opacity=".68"><ellipse cx="523" cy="68" rx="74" ry="34" fill="white"/><ellipse cx="491" cy="78" rx="48" ry="28" fill="white"/><ellipse cx="556" cy="76" rx="50" ry="28" fill="white"/></g>
   </svg>
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
 
-  <svg style="position:absolute;bottom:130px;left:0;width:100%;" viewBox="0 0 1080 480" fill="none">
-    <ellipse cx="100" cy="290" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
-    <ellipse cx="980" cy="285" rx="80" ry="100" fill="#5D9B3A" opacity=".9"/>
-    <rect x="175" y="380" width="730" height="20" rx="5" fill="#C8A040"/>
-    <rect x="155" y="400" width="770" height="14" rx="4" fill="#A08030"/>
-    <rect x="200" y="290" width="680" height="92" fill="#F0D080"/>
-    <rect x="244" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
-    <rect x="346" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
-    <rect x="714" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
-    <rect x="816" y="290" width="20" height="92" rx="3" fill="#D4A838"/>
-    <path d="M125,290 Q540,175 955,290 L925,310 Q540,198 155,310 Z" fill="#8B4513"/>
-    <rect x="510" y="200" width="60" height="82" rx="5" fill="#6B3410"/>
-    <path d="M490,200 L540,152 L590,200 Z" fill="#8B4513"/>
-    <text x="540" y="420" text-anchor="middle" font-size="72" fill="#E91E8C" opacity=".9">♥</text>
-    <text x="410" y="380" text-anchor="middle" font-size="40" fill="#F06292" opacity=".7">♥</text>
-    <text x="665" y="375" text-anchor="middle" font-size="40" fill="#F06292" opacity=".7">♥</text>
-    <rect x="0" y="415" width="1080" height="65" fill="#7CBF45" opacity=".7"/>
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding:160px 80px 0;width:100%;">
+    <div class="ae sec-h" data-slide="4" data-t="300,1800,2">⭐ 참가자 후기</div>
+    <div style="display:flex;flex-direction:column;gap:28px;width:920px;">
+
+      <div class="ae review-c" data-slide="4" data-t="1400,1800,1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">
+          "처음 혼자 가서 걱정했는데 진행이 자연스러워서<br>
+          너무 즐거웠어요! 좋은 인연도 만났답니다 😊"
+        </div>
+        <div class="review-tag">— 20대 직장인 여성</div>
+      </div>
+
+      <div class="ae review-c" data-slide="4" data-t="3000,1800,1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">
+          "가림막 덕분에 1:1 집중이 잘 됐고 공간 분위기가<br>
+          정말 편안했어요. 적극 추천합니다!"
+        </div>
+        <div class="review-tag">— 30대 남성</div>
+      </div>
+
+      <div class="ae review-c" data-slide="4" data-t="4600,1800,1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">
+          "여러 명과 짧게 대화하다 보니 어색함이 금방<br>
+          사라졌어요. 벌써 두 번째 참가 중이에요 💙"
+        </div>
+        <div class="review-tag">— 20대 여성, 재참가</div>
+      </div>
+
+    </div>
+    <div class="ae" data-slide="4" data-t="6200,1800,0"
+         style="margin-top:36px;font-size:34px;font-weight:700;color:rgba(13,43,94,.50);text-align:center;">
+      많은 분들이 이미 특별한 인연을 만났어요 ✨
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+  SLIDE 6 · CTA 엔딩
+══════════════════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="slide-no">6 / 6</div>
+  <div class="sky"></div>
+  <svg style="position:absolute;top:0;left:0;width:100%;pointer-events:none;" viewBox="0 0 1080 460" fill="none">
+    <g opacity=".46"><ellipse cx="540" cy="40" rx="78" ry="28" fill="white"/><ellipse cx="300" cy="58" rx="62" ry="22" fill="white"/><ellipse cx="780" cy="54" rx="66" ry="22" fill="white"/></g>
+    <g opacity=".94"><ellipse cx="148" cy="118" rx="144" ry="66" fill="white"/><ellipse cx="84" cy="138" rx="98" ry="54" fill="white"/><ellipse cx="208" cy="100" rx="86" ry="48" fill="white"/><ellipse cx="146" cy="86" rx="67" ry="42" fill="white"/><ellipse cx="215" cy="148" rx="78" ry="46" fill="white"/><ellipse cx="148" cy="156" rx="126" ry="18" fill="rgba(172,206,230,.30)"/></g>
+    <g opacity=".94"><ellipse cx="930" cy="100" rx="152" ry="68" fill="white"/><ellipse cx="852" cy="118" rx="104" ry="56" fill="white"/><ellipse cx="994" cy="118" rx="94" ry="52" fill="white"/><ellipse cx="920" cy="74" rx="82" ry="44" fill="white"/><ellipse cx="930" cy="132" rx="130" ry="20" fill="rgba(172,206,230,.30)"/></g>
+    <g opacity=".74"><ellipse cx="528" cy="76" rx="76" ry="36" fill="white"/><ellipse cx="496" cy="86" rx="50" ry="30" fill="white"/><ellipse cx="562" cy="84" rx="52" ry="30" fill="white"/></g>
+    <g opacity=".64"><ellipse cx="375" cy="158" rx="90" ry="36" fill="white"/><ellipse cx="348" cy="166" rx="58" ry="28" fill="white"/></g>
+    <g opacity=".64"><ellipse cx="724" cy="150" rx="88" ry="34" fill="white"/><ellipse cx="752" cy="146" rx="56" ry="27" fill="white"/></g>
   </svg>
+  <svg style="position:absolute;bottom:138px;left:0;width:100%;" viewBox="0 0 1080 480" fill="none">
+    <g opacity=".80">
+      <ellipse cx="98" cy="292" rx="76" ry="96" fill="#3E7A24"/><ellipse cx="68" cy="320" rx="52" ry="66" fill="#4D9130"/>
+      <ellipse cx="98" cy="266" rx="48" ry="62" fill="#5AA83A"/><rect x="88" y="372" width="20" height="108" rx="5" fill="#5C3D15"/>
+      <ellipse cx="984" cy="290" rx="76" ry="96" fill="#3E7A24"/><ellipse cx="1014" cy="318" rx="52" ry="66" fill="#4D9130"/>
+      <ellipse cx="984" cy="264" rx="48" ry="62" fill="#5AA83A"/><rect x="976" y="370" width="20" height="108" rx="5" fill="#5C3D15"/>
+    </g>
+    <rect x="148" y="420" width="784" height="14" rx="4" fill="#C4B48A"/>
+    <rect x="130" y="434" width="820" height="10" rx="3" fill="#B4A47A"/>
+    <rect x="200" y="330" width="680" height="92" fill="#F0D080"/>
+    <rect x="232" y="332" width="20" height="90" rx="4" fill="#D4A838"/><rect x="348" y="332" width="20" height="90" rx="4" fill="#D4A838"/>
+    <rect x="712" y="332" width="20" height="90" rx="4" fill="#D4A838"/><rect x="828" y="332" width="20" height="90" rx="4" fill="#D4A838"/>
+    <rect x="452" y="350" width="176" height="72" rx="7" fill="#7A4E10" opacity=".60"/>
+    <path d="M125,330 Q540,218 955,330 L928,348 Q540,238 152,348 Z" fill="#8B4513"/>
+    <path d="M215,276 Q540,175 865,276 L842,292 Q540,192 238,292 Z" fill="#A35020"/>
+    <rect x="400" y="222" width="280" height="16" rx="5" fill="#7A3010"/>
+    <rect x="524" y="182" width="32" height="42" rx="5" fill="#6B3410"/>
+    <path d="M506,182 L540,146 L574,182 Z" fill="#8B4513"/>
+    <circle cx="540" cy="140" r="9" fill="#C8A040"/>
+    <rect x="0" y="444" width="1080" height="74" fill="#7CC040" opacity=".70"/>
+    <text x="540" y="424" text-anchor="middle" font-size="68" fill="#E91E8C" opacity=".90">♥</text>
+    <text x="415" y="384" text-anchor="middle" font-size="34" fill="#F48FB1" opacity=".70">♥</text>
+    <text x="665" y="380" text-anchor="middle" font-size="34" fill="#F48FB1" opacity=".70">♥</text>
+  </svg>
+  <div class="ground-wrap"><div class="ground-fill"></div><div class="ground-bump"></div></div>
 
-  <div class="ground"></div>
-
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
-              padding:170px 80px 0;">
-
-    <!-- ① Brand — 0.4s 등장 -->
-    <div class="ae" data-slide="2" data-t="400,1800,0"
-         style="font-size:30px;font-weight:700;letter-spacing:7px;color:rgba(13,43,94,0.32);margin-bottom:48px;">
+  <div style="position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;padding:170px 80px 0;">
+    <div class="ae" data-slide="5" data-t="400,1800,0"
+         style="font-size:28px;font-weight:700;letter-spacing:9px;color:rgba(255,255,255,.70);margin-bottom:44px;text-shadow:0 2px 10px rgba(0,60,120,.26);">
       S E V E N S T A R S
     </div>
-
-    <!-- ② Heart — 1.4s 등장 -->
-    <div class="ae" data-slide="2" data-t="1400,1800,5"
-         style="font-size:120px;margin-bottom:48px;">💜</div>
-
-    <!-- ③ 자리가 한정 — 2.8s 등장 -->
-    <div class="ae" data-slide="2" data-t="2800,2000,1"
-         style="font-size:96px;font-weight:900;line-height:1.2;text-align:center;margin-bottom:36px;">
-      <span class="t-blue">자리가</span><br>
-      <span class="t-blue">한정돼 있어요!</span>
+    <div class="ae" data-slide="5" data-t="1400,1800,5"
+         style="font-size:114px;margin-bottom:42px;filter:drop-shadow(0 8px 24px rgba(216,27,96,.42));">💜</div>
+    <div class="ae" data-slide="5" data-t="2800,2000,1"
+         style="font-size:92px;font-weight:900;line-height:1.22;text-align:center;margin-bottom:30px;">
+      <span class="t-blue">자리가</span><br><span class="t-blue">한정돼 있어요!</span>
     </div>
-
-    <!-- ④ 서브 카피 — 4.4s 등장 -->
-    <div class="ae" data-slide="2" data-t="4400,1800,0"
-         style="font-size:40px;color:rgba(13,43,94,0.6);line-height:1.9;text-align:center;margin-bottom:80px;">
+    <div class="ae" data-slide="5" data-t="4400,1800,0"
+         style="font-size:38px;color:rgba(13,43,94,.65);line-height:1.95;text-align:center;margin-bottom:68px;
+                background:rgba(255,255,255,.74);border-radius:24px;padding:34px 52px;">
       선착순 할인가로<br>
       서교동 394-23 프리미엄 공간에서<br>
-      <strong style="color:#E91E8C;">특별한 첫 만남</strong>을 경험하세요
+      <strong style="color:#D81B60;">특별한 첫 만남</strong>을 경험하세요
     </div>
-
-    <!-- ⑤ CTA 버튼 — 6.0s 등장 -->
-    <div class="ae cta-btn" data-slide="2" data-t="6000,2000,5">
+    <div class="ae cta-btn" data-slide="5" data-t="6000,2000,5">
       🔗 지금 신청하기 · sevenstars.kr
     </div>
-
-    <!-- ⑥ 해시태그 — 7.6s 등장 -->
-    <div class="ae" data-slide="2" data-t="7600,1800,1"
-         style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
-      <span style="background:rgba(21,101,192,0.1);border:2px solid rgba(21,101,192,0.22);
-                   border-radius:40px;padding:16px 34px;font-size:30px;color:#1565C0;font-weight:700;">
-        #합정역소개팅
-      </span>
-      <span style="background:rgba(21,101,192,0.1);border:2px solid rgba(21,101,192,0.22);
-                   border-radius:40px;padding:16px 34px;font-size:30px;color:#1565C0;font-weight:700;">
-        #로테이션소개팅
-      </span>
+    <div class="ae" data-slide="5" data-t="7600,1800,1"
+         style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:36px;">
+      <span style="background:rgba(255,255,255,.82);border:2px solid rgba(21,101,192,.28);border-radius:40px;padding:16px 32px;font-size:29px;color:#1255C0;font-weight:700;">#합정역소개팅</span>
+      <span style="background:rgba(255,255,255,.82);border:2px solid rgba(21,101,192,.28);border-radius:40px;padding:16px 32px;font-size:29px;color:#1255C0;font-weight:700;">#로테이션소개팅</span>
+      <span style="background:rgba(255,255,255,.82);border:2px solid rgba(21,101,192,.28);border-radius:40px;padding:16px 32px;font-size:29px;color:#1255C0;font-weight:700;">#세븐스타즈</span>
     </div>
-
   </div>
 </div>
 
-<!-- ══════════════ ANIMATION ENGINE ══════════════ -->
+<!-- ══════════════════════════════════════
+  ANIMATION ENGINE
+══════════════════════════════════════ -->
 <script>
-const SLIDE_DUR = 10000;  // 10s per slide → 30s total
-const N_SLIDES  = 3;
-const slides    = Array.from(document.querySelectorAll('.slide'));
-const aeAll     = Array.from(document.querySelectorAll('.ae'));
+const SLIDE_DUR  = 10000;
+const N_SLIDES   = 6;
+const FADE_OUT_T = 1200;
+const FADE_IN_T  = 900;
+const TOTAL_DUR  = N_SLIDES * SLIDE_DUR;
 
-function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-function easeOutBack(t)  {
-  const c1 = 1.70158, c3 = c1 + 1;
-  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+const slides  = Array.from(document.querySelectorAll('.slide'));
+const aeAll   = Array.from(document.querySelectorAll('.ae'));
+const overlay = document.getElementById('fade-overlay');
+
+function easeOutCubic(t)   { return 1 - Math.pow(1-t, 3); }
+function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+function easeOutBack(t) {
+  const c1=1.70158, c3=c1+1;
+  return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2);
 }
 
 function applyAnim(el, anim, rawP) {
   const p = Math.max(0, Math.min(1, rawP));
-  switch (anim) {
-    case 0:
-      el.style.opacity = easeOutCubic(p);
-      el.style.transform = '';
-      break;
-    case 1: {
-      const ep = easeOutCubic(p);
-      el.style.opacity = p;
-      el.style.transform = `translateY(${(1 - ep) * 80}px)`;
-      break;
-    }
-    case 2: {
-      const ep = easeOutCubic(p);
-      el.style.opacity = p;
-      el.style.transform = `translateY(${-(1 - ep) * 80}px)`;
-      break;
-    }
-    case 5: {
-      const ep = p < 1 ? easeOutBack(p) : 1;
-      el.style.opacity = Math.min(1, p * 2.5);
-      el.style.transform = `scale(${ep})`;
-      break;
-    }
+  switch(anim) {
+    case 0: el.style.opacity=easeOutCubic(p); el.style.transform=''; break;
+    case 1: { const ep=easeOutCubic(p); el.style.opacity=Math.min(1,p*1.6); el.style.transform=`translateY(${(1-ep)*90}px)`; break; }
+    case 2: { const ep=easeOutCubic(p); el.style.opacity=Math.min(1,p*1.6); el.style.transform=`translateY(${-(1-ep)*90}px)`; break; }
+    case 3: { const ep=easeOutCubic(p); el.style.opacity=Math.min(1,p*1.6); el.style.transform=`translateX(${-(1-ep)*90}px)`; break; }
+    case 4: { const ep=easeOutCubic(p); el.style.opacity=Math.min(1,p*1.6); el.style.transform=`translateX(${(1-ep)*90}px)`; break; }
+    case 5: { const ep=p<1?easeOutBack(p):1; el.style.opacity=Math.min(1,p*2.8); el.style.transform=`scale(${ep})`; break; }
   }
 }
 
 function parseT(el) {
-  const parts = (el.dataset.t || '0,1800,0').split(',');
-  return { delay: +parts[0], dur: +parts[1], anim: +parts[2] };
+  const p=(el.dataset.t||'0,1800,0').split(',');
+  return {delay:+p[0], dur:+p[1], anim:+p[2]};
 }
 
 window.seekTo = function(totalMs) {
-  const si  = Math.min(N_SLIDES - 1, Math.floor(totalMs / SLIDE_DUR));
-  const sMs = totalMs - si * SLIDE_DUR;
+  const clamped = Math.min(totalMs, TOTAL_DUR);
+  const si  = Math.min(N_SLIDES-1, Math.floor(clamped / SLIDE_DUR));
+  const sMs = clamped - si * SLIDE_DUR;
 
-  slides.forEach((s, i) => {
-    if (i === si) {
-      s.style.display = 'flex';
-      s.style.flexDirection = 'column';
-      s.style.alignItems = 'center';
-    } else {
-      s.style.display = 'none';
-    }
-  });
+  slides.forEach((s,i) => { s.style.display = i===si ? 'block' : 'none'; });
 
   aeAll.forEach(el => {
     if (parseInt(el.dataset.slide) !== si) return;
-    const { delay, dur, anim } = parseT(el);
+    const {delay, dur, anim} = parseT(el);
     const elapsed  = sMs - delay;
-    const progress = elapsed <= 0 ? 0 : elapsed >= dur ? 1 : elapsed / dur;
+    const progress = elapsed<=0 ? 0 : elapsed>=dur ? 1 : elapsed/dur;
     applyAnim(el, anim, progress);
   });
+
+  // 전환 페이드 (마지막 슬라이드 끝은 페이드 없음)
+  let op = 0;
+  if (sMs <= FADE_IN_T) {
+    op = 1 - easeInOutCubic(sMs / FADE_IN_T);
+  } else if (sMs >= SLIDE_DUR - FADE_OUT_T && si < N_SLIDES - 1) {
+    op = easeInOutCubic((sMs - (SLIDE_DUR - FADE_OUT_T)) / FADE_OUT_T);
+  }
+  overlay.style.opacity = op;
 };
 
+// 자동 재생 (마지막 슬라이드 끝에서 정지)
 let _startTime;
 function autoPlay() {
   _startTime = performance.now();
   function tick() {
-    const ms = (performance.now() - _startTime) % (N_SLIDES * SLIDE_DUR);
-    window.seekTo(ms);
+    const elapsed = performance.now() - _startTime;
+    if (elapsed >= TOTAL_DUR) {
+      window.seekTo(TOTAL_DUR);  // 마지막 프레임 유지
+      return;                     // 루프 없이 종료
+    }
+    window.seekTo(elapsed);
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
