@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 도파민파티 소개</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(145deg, #0d0d1a 0%, #1a0533 40%, #2d0a5c 70%, #1a0533 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(255,0,200,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(80,0,255,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 60% 15%, rgba(0,255,200,0.15) 0%, transparent 50%);
+  }
+  .s1-badge {
+    position: relative;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    margin-bottom: 48px;
+  }
+  .s1-tag {
+    position: relative;
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff00cc, #7700ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+  }
+  .s1-title {
+    position: relative;
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, #ff66ff 0%, #aa44ff 50%, #44ddff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s1-sub {
+    position: relative;
+    font-size: 38px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+  .s1-cta {
+    position: relative;
+    background: linear-gradient(90deg, #ff00cc, #7700ff);
+    padding: 20px 60px;
+    border-radius: 50px;
+    font-size: 32px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 1px;
+  }
+  .s1-brand {
+    position: absolute;
+    bottom: 48px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 26px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+  }
+  .s1-num {
+    position: absolute;
+    top: 48px;
+    right: 60px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.3);
+  }
+  .s1-emoji {
+    position: relative;
+    font-size: 80px;
+    margin-bottom: 20px;
+  }
+
+  /* ─── SLIDE 2: WHAT IS ─── */
+  .s2 {
+    background: #0f0f1e;
+    color: white;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(120,0,255,0.2) 0%, transparent 60%);
+  }
+  .slide-num {
+    position: absolute;
+    top: 48px;
+    right: 60px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.25);
+  }
+  .slide-label {
+    position: relative;
+    font-size: 26px;
+    font-weight: 700;
+    color: #aa44ff;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+  }
+  .s2-title {
+    position: relative;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 56px;
+    color: white;
+  }
+  .s2-title span {
+    background: linear-gradient(90deg, #ff44cc, #9922ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .keyword-row {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .keyword-chip {
+    background: rgba(170,68,255,0.15);
+    border: 1.5px solid rgba(170,68,255,0.4);
+    border-radius: 40px;
+    padding: 14px 32px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #cc88ff;
+  }
+  .s2-desc {
+    position: relative;
+    font-size: 34px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.7);
+  }
+  .s2-desc strong {
+    color: white;
+    font-weight: 900;
+  }
+  .s2-highlight-box {
+    position: relative;
+    margin-top: 40px;
+    background: linear-gradient(135deg, rgba(255,0,200,0.15), rgba(120,0,255,0.15));
+    border: 1px solid rgba(255,100,255,0.3);
+    border-radius: 24px;
+    padding: 36px 44px;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
+  }
+  .s2-highlight-box .accent { color: #ff66ff; }
+
+  /* ─── SLIDE 3: TARGET ─── */
+  .s3 {
+    background: linear-gradient(160deg, #0a001a 0%, #1a0040 50%, #0a0020 100%);
+    color: white;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s3-title {
+    position: relative;
+    font-size: 68px;
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 56px;
+  }
+  .s3-title span {
+    background: linear-gradient(90deg, #ff44cc, #44ddff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .target-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .target-item {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px 40px;
+    transition: all 0.2s;
+  }
+  .target-icon {
+    font-size: 52px;
+    flex-shrink: 0;
+  }
+  .target-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.5;
+  }
+  .target-text .sub {
+    display: block;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin-top: 6px;
+  }
+  .s3-free-badge {
+    position: relative;
+    margin-top: 40px;
+    background: linear-gradient(90deg, #ff00cc, #7700ff);
+    border-radius: 20px;
+    padding: 28px 40px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  /* ─── SLIDE 4: EXPERIENCE ─── */
+  .s4 {
+    background: #07070f;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+  .s4-header {
+    padding: 60px 80px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .s4-header .label {
+    font-size: 26px;
+    font-weight: 700;
+    color: #aa44ff;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .s4-header h2 {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+  .s4-header h2 span {
+    background: linear-gradient(90deg, #ff44cc, #9922ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    flex: 1;
+  }
+  .exp-cell {
+    padding: 44px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .exp-cell:nth-child(2n) { border-right: none; }
+  .exp-cell:nth-child(3), .exp-cell:nth-child(4) { border-bottom: none; }
+  .exp-cell .icon { font-size: 48px; }
+  .exp-cell h3 {
+    font-size: 32px;
+    font-weight: 900;
+    color: white;
+  }
+  .exp-cell p {
+    font-size: 26px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+  .exp-cell .tag {
+    display: inline-block;
+    background: rgba(170,68,255,0.2);
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #cc88ff;
+    width: fit-content;
+  }
+
+  /* ─── SLIDE 5: REVIEW ─── */
+  .s5 {
+    background: linear-gradient(145deg, #0f0020 0%, #200040 60%, #0a0030 100%);
+    color: white;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s5-title {
+    position: relative;
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  .s5-title span {
+    background: linear-gradient(90deg, #ff66ff, #66aaff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .review-cards {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 36px 44px;
+  }
+  .review-card .quote {
+    font-size: 30px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 16px;
+  }
+  .review-card .quote .em { color: #ff88ff; font-weight: 700; }
+  .review-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .review-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff00cc, #7700ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .review-name { font-size: 24px; color: rgba(255,255,255,0.45); }
+  .review-stars { font-size: 22px; margin-left: auto; color: #ffcc00; }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #0d0d1a 0%, #1a0030 50%, #0d0d1a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(140,0,255,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,0,150,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(0,200,255,0.1) 0%, transparent 50%);
+  }
+  .s6-pretag {
+    position: relative;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+  }
+  .s6-main {
+    position: relative;
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #ff88ff 0%, #aa44ff 50%, #44ddff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-sub {
+    position: relative;
+    font-size: 36px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+  .s6-sub strong { color: white; font-weight: 900; }
+  .s6-url {
+    position: relative;
+    background: linear-gradient(90deg, #ff00cc, #7700ff, #00ccff);
+    padding: 28px 80px;
+    border-radius: 60px;
+    font-size: 44px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 2px;
+    margin-bottom: 48px;
+  }
+  .s6-chips {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .s6-chip {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 14px 32px;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ SLIDE 1: COVER ═══════════════════════════ -->
+<div class="card s1">
+  <div class="s1-num">1 / 6</div>
+  <div class="s1-badge">PartyOne 카테고리 소개</div>
+  <div class="s1-emoji">⚡</div>
+  <div class="s1-tag"># 도파민파티</div>
+  <h1 class="s1-title">자극이<br>필요한 밤</h1>
+  <p class="s1-sub">지루한 일상 탈출<br>에너지 폭발 파티가 왔다</p>
+  <div class="s1-cta">도파민파티 완전 해부</div>
+  <div class="s1-brand">party.it.kr</div>
+</div>
+
+<!-- ═══════════════════════════ SLIDE 2: WHAT IS ═══════════════════════════ -->
+<div class="card s2">
+  <div class="slide-num">2 / 6</div>
+  <div class="slide-label">WHAT IS</div>
+  <h2 class="s2-title">도파민파티란?<br><span>뇌를 깨우는 파티</span></h2>
+  <div class="keyword-row">
+    <div class="keyword-chip">⚡ 고에너지</div>
+    <div class="keyword-chip">🎯 미션/게임</div>
+    <div class="keyword-chip">🎤 퍼포먼스</div>
+    <div class="keyword-chip">🔥 텐션 MAX</div>
+  </div>
+  <p class="s2-desc">
+    조용히 앉아서 하는 파티는 NO.<br>
+    <strong>몸이 반응하고, 웃음이 터지고<br>
+    잊고 있던 흥이 살아나는 파티</strong>
+  </p>
+  <div class="s2-highlight-box">
+    💡 도파민 분비를 극대화하는<br>
+    <span class="accent">게임 · 챌린지 · 퍼포먼스</span>로<br>
+    처음 만난 사람과도 금방 친해져요
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SLIDE 3: TARGET ═══════════════════════════ -->
+<div class="card s3">
+  <div class="slide-num">3 / 6</div>
+  <div class="slide-label" style="position:relative;font-size:26px;font-weight:700;color:#aa44ff;letter-spacing:3px;margin-bottom:24px;">FOR YOU</div>
+  <h2 class="s3-title">이런 사람에게<br><span>딱 맞아요</span> ✨</h2>
+  <div class="target-list">
+    <div class="target-item">
+      <div class="target-icon">😮‍💨</div>
+      <div class="target-text">
+        퇴근 후 스트레스를 확 날리고 싶은 분
+        <span class="sub">일상의 답답함을 시원하게 해소하세요</span>
+      </div>
+    </div>
+    <div class="target-item">
+      <div class="target-icon">🙋‍♀️</div>
+      <div class="target-text">
+        활동적이고 에너지 넘치는 분
+        <span class="sub">나의 에너지를 맘껏 발산할 공간</span>
+      </div>
+    </div>
+    <div class="target-item">
+      <div class="target-icon">👥</div>
+      <div class="target-text">
+        새로운 사람들과 빠르게 친해지고 싶은 분
+        <span class="sub">게임과 미션으로 어색함이 사라져요</span>
+      </div>
+    </div>
+  </div>
+  <div class="s3-free-badge">
+    🎉 여성 참가비 0원 — 무료로 즐기세요!
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SLIDE 4: EXPERIENCE ═══════════════════════════ -->
+<div class="card s4">
+  <div class="slide-num" style="position:absolute;top:48px;right:60px;font-size:24px;color:rgba(255,255,255,0.25);">4 / 6</div>
+  <div class="s4-header">
+    <div class="label">EXPERIENCE</div>
+    <h2>도파민파티에서<br><span>이런 걸 해요</span></h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-cell">
+      <div class="icon">🎯</div>
+      <div class="tag">미션 게임</div>
+      <h3>스피드 미션</h3>
+      <p>팀 대항 게임으로<br>순식간에 친해져요</p>
+    </div>
+    <div class="exp-cell">
+      <div class="icon">🎤</div>
+      <div class="tag">퍼포먼스</div>
+      <h3>댄스 챌린지</h3>
+      <p>유행하는 챌린지로<br>같이 텐션 올리기</p>
+    </div>
+    <div class="exp-cell">
+      <div class="icon">🃏</div>
+      <div class="tag">아이스브레이킹</div>
+      <h3>밸런스 게임</h3>
+      <p>웃기고 공감되는<br>밸런스 토크</p>
+    </div>
+    <div class="exp-cell">
+      <div class="icon">🥂</div>
+      <div class="tag">자유 시간</div>
+      <h3>자유 교류</h3>
+      <p>게임 후 자연스럽게<br>이어지는 대화</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SLIDE 5: REVIEW ═══════════════════════════ -->
+<div class="card s5">
+  <div class="slide-num" style="position:absolute;top:48px;right:60px;font-size:24px;color:rgba(255,255,255,0.25);">5 / 6</div>
+  <h2 class="s5-title">다녀온 사람들의<br><span>솔직 후기</span> 💬</h2>
+  <div class="review-cards">
+    <div class="review-card">
+      <p class="quote">
+        "처음에 어색할 줄 알았는데 게임 시작하자마자<br>
+        <span class="em">분위기가 완전 달아올랐어요!</span> 5시간이 순삭"
+      </p>
+      <div class="review-meta">
+        <div class="review-avatar">지</div>
+        <span class="review-name">지유님 · 27세</span>
+        <div class="review-stars">★★★★★</div>
+      </div>
+    </div>
+    <div class="review-card">
+      <p class="quote">
+        "혼자 갔는데 <span class="em">팀 게임 덕분에 친구처럼</span> 됐어요.<br>
+        같이 간 사람들이랑 연락도 하고 있어요 😆"
+      </p>
+      <div class="review-meta">
+        <div class="review-avatar">수</div>
+        <span class="review-name">수민님 · 25세</span>
+        <div class="review-stars">★★★★★</div>
+      </div>
+    </div>
+    <div class="review-card">
+      <p class="quote">
+        "여성 무료인데 이 퀄리티? <span class="em">안 갈 이유가 없잖아요 🔥</span>"
+      </p>
+      <div class="review-meta">
+        <div class="review-avatar">채</div>
+        <span class="review-name">채원님 · 29세</span>
+        <div class="review-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SLIDE 6: CTA ═══════════════════════════ -->
+<div class="card s6">
+  <div class="slide-num" style="position:absolute;top:48px;right:60px;font-size:24px;color:rgba(255,255,255,0.25);">6 / 6</div>
+  <p class="s6-pretag">파티원 · PartyOne</p>
+  <h2 class="s6-main">지금 바로<br>신청하세요</h2>
+  <p class="s6-sub">
+    <strong>여성 참가비 0원</strong>으로<br>
+    전국 60곳+ 검증된 호스트와 함께<br>
+    특별한 만남을 경험하세요 ⚡
+  </p>
+  <div class="s6-url">🔗 party.it.kr</div>
+  <div class="s6-chips">
+    <div class="s6-chip">⚡ 도파민파티</div>
+    <div class="s6-chip">🎉 여성 무료</div>
+    <div class="s6-chip">🗺 전국 60곳+</div>
+    <div class="s6-chip">🔒 검증된 호스트</div>
+  </div>
+</div>
+
+</body>
+</html>
