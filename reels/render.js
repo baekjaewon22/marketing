@@ -26,30 +26,35 @@ const THEME_MUSIC = {
 };
 
 function hash(s) { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; }
+/* no repeated track inside one week when the pool allows it */
+const USED = new Set();
 function pickTrack(script) {
   if (script.music) { const t = MANIFEST.find(m => m.file === script.music); if (t) return t; }
   const moods = THEME_MUSIC[script.theme] || ['calm'];
   let pool = MANIFEST.filter(m => (m.mood || []).some(x => moods.includes(x)));
   if (!pool.length) pool = MANIFEST;
-  return pool[hash(script.date + script.concept) % pool.length];
+  const fresh = pool.filter(m => !USED.has(m.file));
+  const list = fresh.length ? fresh : pool;
+  const t = list[hash(script.date + script.concept) % list.length];
+  USED.add(t.file);
+  return t;
 }
 
+let WEEK = 0;
 const PHOTO_DIR = path.join(ROOT, 'assets/images/sevenstars');
 const PHOTOS = fs.readdirSync(PHOTO_DIR).filter(f => /\.jpe?g$/i.test(f)).sort();
 /* one photo per video, rotating: consecutive days differ and the cycle continues week to week */
 function pickPhoto(script, index) {
   if (script.photo && PHOTOS.includes(script.photo)) return script.photo;
-  const week = Math.floor(Date.parse(script.date) / (7 * 86400000));
-  return PHOTOS[(week * 7 + index) % PHOTOS.length];
+  return PHOTOS[(WEEK * 7 + index) % PHOTOS.length];
 }
 
 function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'] }).toString(); }
 
-async function renderOne(browser, file, swoosh, index) {
+async function renderOne(browser, file, swoosh, index, track) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
   script.photo = pickPhoto(script, index);
   const base = path.basename(file, '.json');
-  const track = pickTrack(script);
   const frames = fs.mkdtempSync(path.join(os.tmpdir(), `reel-${base}-`));
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
   const errors = [];
@@ -66,7 +71,7 @@ async function renderOne(browser, file, swoosh, index) {
   const stills = [];
   for (let i = 0; i < meta.T_ON.length; i++) {
     const last = i === meta.T_ON.length - 1;
-    await page.evaluate(ms => window.seekTo(ms), meta.T_ON[i] + (last ? meta.STEP : meta.STEP - 600));
+    await page.evaluate(ms => window.seekTo(ms), last ? meta.TOTAL - 50 : meta.T_ON[i] + meta.STEP - 600);
     const p = path.join(frames, `still_${i}.png`); await page.screenshot({ path: p }); stills.push(p);
   }
 
@@ -113,15 +118,18 @@ async function renderOne(browser, file, swoosh, index) {
   sh('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'anoisesrc=color=pink:duration=0.5:amplitude=0.9:sample_rate=48000',
     '-af', 'highpass=f=500,lowpass=f=4500,afade=t=in:d=0.28:curve=exp,afade=t=out:st=0.28:d=0.22:curve=qsin,volume=0.9', '-ac', '2', swoosh]);
   let files = fs.readdirSync(SCRIPTS).filter(f => f.endsWith('.json')).sort();
+  const first = JSON.parse(fs.readFileSync(path.join(SCRIPTS, files[0]), 'utf8'));
+  WEEK = Math.round(Date.parse(first.date) / (7 * 86400000));
   if (ONLY) files = files.filter(f => f === ONLY);
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const tracks = files.map(f => pickTrack(JSON.parse(fs.readFileSync(path.join(SCRIPTS, f), 'utf8'))));
   const results = [], queue = files.map((f, i) => [f, i]);
   await Promise.all(Array.from({ length: Math.min(JOBS, files.length) }, async () => {
     while (queue.length) {
       const [f, idx] = queue.shift();
       const t0 = Date.now();
       try {
-        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, idx);
+        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, idx, tracks[idx]);
         results.push(r);
         console.log(`OK   ${r.base} ${r.seconds}s ${r.track} ${r.photo} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
           (r.qa.length ? `\n  QA 경고 ${r.qa.length}건: ${JSON.stringify(r.qa)}` : ''));

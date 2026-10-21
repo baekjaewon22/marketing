@@ -32,7 +32,8 @@ fc-list | grep -i pretendard || true
 ## 2. 지난 성과 반영 (가능할 때만)
 Supermetrics 커넥터가 켜져 있으면 `sevenstars-marketing-check` 스킬 방식으로 지난 2주 릴스 성과를 보고, 반응 좋은 훅 유형을 이번 주에 1~2개 더 배치한다. 커넥터가 없으면 건너뛴다(실패 아님).
 
-## 3. 대본 7개 작성 → `reels/weeks/<월요일날짜>/NN-요일-컨셉.json`
+## 3. 대본 7개 작성 → `reels/weeks/<월요일날짜>/YYYY-MM-DD_요일_컨셉.json`
+파일 이름이 그대로 MP4·캡션 파일 이름이 된다 (예: `2026-10-26_월_공감형훅.json` → `2026-10-26_월_공감형훅.mp4`). 컨셉에는 띄어쓰기를 넣지 않는다.
 요일별 기본 유형(`reels/config.json` weekday_plan): 월 공감형 훅 · 화 진행 방식 · 수 참가자 후기 · 목 자주 묻는 질문 · 금 시즌·이벤트 · 토 가격 혜택 · 일 공간·분위기. 시즌 주간에는 2~3개를 시즌 주제로 바꿔도 된다.
 
 ### 구조 (모든 영상 공통)
@@ -76,7 +77,12 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날�
 1. Google Drive 커넥터 도구를 ToolSearch로 불러온다(`google drive`). 파일을 만들기 전에 `google-workspace` 스킬을 읽는다.
 2. `세븐스타즈 릴스` 폴더를 찾고(없으면 만든다) 그 안에 `<월요일날짜> 주` 폴더를 만든다.
 3. 7개 `.mp4`와 `.txt`를 올린다. 업로드 후 파일 목록을 다시 조회해 14개가 모두 있는지 확인한다.
-4. **드라이브를 쓸 수 없으면:** 7개 MP4를 Artifact 한 페이지(영상 플레이어 + 캡션)로 게시해 다운로드할 수 있게 하고, 알림에 "드라이브 업로드 실패, 아티팩트 링크로 대체"라고 적는다.
+4. **드라이브를 쓸 수 없으면** (ToolSearch에 드라이브 도구가 없거나 업로드가 실패하면) Artifact 페이지로 대신 전달한다:
+   ```bash
+   cp -r /tmp/reels-out/<월요일날짜> <스크래치패드>/delivery-<월요일날짜>
+   node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/delivery-<월요일날짜>
+   ```
+   출력된 `delivery.html`을 `file_path`로, 출력된 `videos/<날짜>.mp4` 7개를 `files`로 넣어 Artifact를 게시한다(`icon: "video"`). 알림 첫 문장에 "드라이브 업로드 실패, 아티팩트 링크로 대체"를 쓰고 실패 이유를 적는다.
 
 ## 8. 기록
 ```bash

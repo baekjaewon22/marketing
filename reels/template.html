@@ -314,9 +314,8 @@ const DISSOLVE = 600;
 let N, BPM, BEAT, STEP, TAIL, TOTAL, T_ON = [], ELS = [], PHOTOS = [], DRIFTS = [];
 function setTempo(bpm) {
   BPM = bpm; BEAT = 60000 / bpm;
-  const opts = [4, 6, 8].map(n => ({ n, d: n * BEAT }));
-  const ok = opts.filter(o => o.d >= 2600 && o.d <= 3300);
-  STEP = (ok.length ? ok : opts).sort((a, b) => Math.abs(a.d - 2900) - Math.abs(b.d - 2900))[0].d;
+  /* shortest phrase (4/6/8 beats) that still leaves ≥2.55s per slide for reading */
+  STEP = ([4, 6, 8].map(n => n * BEAT).find(d => d >= 2550)) || 8 * BEAT;
   TAIL = Math.ceil(1400 / BEAT) * BEAT;
   T_ON = Array.from({ length: N }, (_, i) => i * STEP);
   TOTAL = T_ON[N - 1] + STEP + TAIL;
@@ -436,7 +435,7 @@ window.seekTo = function(ms) {
 window.qa = function() {
   const out = [];
   for (let i = 0; i < N; i++) {
-    window.seekTo(T_ON[i] + (i === N - 1 ? STEP : STEP - DISSOLVE));
+    window.seekTo(i === N - 1 ? TOTAL - 50 : T_ON[i] + STEP - DISSOLVE);
     SLIDES[i].querySelectorAll('.ae').forEach(el => {
       const r = el.getBoundingClientRect();
       if (r.left < 30 || r.right > 1050 || r.top < 150 || r.bottom > 1700)
