@@ -1,7 +1,7 @@
 [
-  "christmas-chores_rkvc.mp3",
-  "cosmetic-cosmos_verified-picasso.mp3",
-  "country-blues_silent-partner.mp3",
-  "mourning-dove_zachariah-hickman.mp3",
-  "music-box-1.mp3"
+  { "file": "christmas-chores_rkvc.mp3",            "bpm": 153.0,  "start": 0.128, "title": "Christmas Chores", "artist": "RKVC" },
+  { "file": "cosmetic-cosmos_verified-picasso.mp3", "bpm": 80.0,   "start": 0.673, "title": "Cosmetic Cosmos", "artist": "Verified Picasso" },
+  { "file": "country-blues_silent-partner.mp3",     "bpm": 124.0,  "start": 1.673, "title": "Country Blues", "artist": "Silent Partner" },
+  { "file": "mourning-dove_zachariah-hickman.mp3",  "bpm": 85.25,  "start": 0.29,  "title": "Mourning Dove", "artist": "Zachariah Hickman" },
+  { "file": "music-box-1.mp3",                      "bpm": 102.25, "start": 0.139, "title": "Music Box 1", "artist": "" }
 ]
