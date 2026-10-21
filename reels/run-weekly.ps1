@@ -1,4 +1,4 @@
-# 세븐스타즈 릴스 예약 실행 (Windows 작업 스케줄러가 부른다. 등록은 reels/register-tasks.ps1)
+﻿# 세븐스타즈 릴스 예약 실행 (Windows 작업 스케줄러가 부른다. 등록은 reels/register-tasks.ps1)
 #   -Mode weekly : 금요일 12:00, 다음 주 월~일 릴스 7개 제작 → 저장 폴더 복사 → Slack 알림
 #   -Mode check  : 목요일 12:00, 브랜드 정보 확인 요청을 Slack에 올림(답글은 금요일 실행이 읽어 반영)
 # 무인 실행 권한은 아래 $allow 목록만: node/git/python/ffmpeg/codex 명령, 저장소 reels/·assets/ 파일 수정, Slack.
