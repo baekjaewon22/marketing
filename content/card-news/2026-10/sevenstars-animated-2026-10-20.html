@@ -705,7 +705,7 @@ window.seekTo = function(totalMs) {
     }
 
     if (op > 0.001) {
-      if (slide.style.display === 'none') slide.style.display = 'block';
+      slide.style.display   = 'block';
       slide.style.opacity   = op.toFixed(4);
       slide.style.transform = `translateX(${tx.toFixed(2)}px)`;
     } else {
