@@ -1,23 +1,34 @@
 # 예약(스케줄러) 등록 안내
 
-Claude 데스크탑 앱의 스케줄러(또는 claude.ai/code Routines)에 아래 예약을 **새로** 만든다.
-기존 "파티원 카드뉴스 자동생성" 예약은 그대로 둔다. 그 예약의 프롬프트를 바꾸면 카드뉴스가 멈춘다.
-대화 중에 작업 내용을 바꿔도 예약에 저장된 프롬프트는 바뀌지 않는다. 예약은 등록된 프롬프트대로만 돈다.
+운영 방식(2026-10-21 확정): **운영 PC(Windows, 상시 켜짐)의 작업 스케줄러**가 `claude -p`를 무인 실행한다.
+결과는 `D:\세븐스타즈 릴스\<월요일날짜> 주`(구글 드라이브 앱으로 동기화), 알림은 Slack(세븐스타즈 워크스페이스).
+기존 "파티원 카드뉴스 자동생성" 예약은 그대로 둔다.
 
-| 항목 | 금요일 제작 예약 (필수) | 목요일 정보 확인 예약 (선택) |
+| 항목 | 금요일 제작 (필수) | 목요일 정보 확인 |
 |---|---|---|
-| 이름 | 세븐스타즈 주간 릴스 | 세븐스타즈 정보 확인 |
-| 일정 | 매주 금요일 12:00 (한국 시간) | 매주 목요일 12:00 |
-| 모델 | **Opus** | Opus |
-| 저장소 | baekjaewon22/marketing | baekjaewon22/marketing |
-| 커넥터 | **Google Drive**, Google Calendar, Supermetrics | 없음 |
-| 프롬프트 | `reels/PROMPTS.md` 2번 | `reels/PROMPTS.md` 3번 |
+| 작업 이름 | SevenStars Weekly Reels | SevenStars Brand Check |
+| 일정 | 매주 금요일 12:00 | 매주 목요일 12:00 |
+| 실행 | `reels/run-weekly.ps1 -Mode weekly` | `reels/run-weekly.ps1 -Mode check` |
+| 하는 일 | SKILL.md 4장 전체 | SKILL.md 4-11 |
+| 모델 | Opus | Opus |
 
-등록 직후 **"지금 실행"**으로 한 번 돌려 확인한다:
-- 드라이브에 실제로 올라가는지 (안 되면 알림에 대체 아티팩트 링크가 온다)
-- 7개 30fps 렌더가 시간 안에 끝나는지 (약 70분)
-- 알림이 오는지
+## 등록 (한 번만)
+```powershell
+powershell -ExecutionPolicy Bypass -File reels/register-tasks.ps1
+```
+로그인한 사용자 계정으로 돈다(claude·codex·git·Slack 로그인 정보가 이 계정에 있음). PC가 켜져 있고 로그인돼 있어야 한다(화면 잠금은 괜찮음).
+지금 한 번 돌려 보기: 작업 스케줄러에서 작업 우클릭 → 실행, 또는 `Start-ScheduledTask "SevenStars Brand Check"`.
 
-실행 위치에 따라 저장 방식이 달라진다 (`reels/SKILL.md` 12장):
-- 클라우드 실행 → 구글 드라이브 커넥터, 안 되면 Artifact 대체
-- 내 PC 실행 → PC의 구글 드라이브 동기화 폴더에 바로 저장 가능 (PC가 켜져 있어야 함, FFmpeg·Chromium 필요)
+## 무인 실행 권한 범위 (`run-weekly.ps1`의 `$allow`)
+`--permission-mode dontAsk`라 목록 밖 도구는 묻지 않고 거부된다.
+- 셸 명령: `node`, `git`, `python`, `ffmpeg`, `ffprobe`, `codex`만 (파일 복사·삭제는 node로)
+- 파일 수정: 저장소 `reels/`, `assets/` 안만 (`D:\세븐스타즈 릴스` 복사는 `reels/deliver-local.js`가 함)
+- 읽기: Read, Glob, Grep
+- Slack: 메시지 보내기, 스레드 읽기(목요일 확인 답글)
+- 쓰지 않음: Google Calendar, Supermetrics(4-2·4-3은 건너뜀, 실패 아님)
+범위를 바꾸려면 `$allow`를 고치고 이 표도 같이 고친다.
+
+## 로그와 문제 확인
+- 실행 로그: `reels/out/logs/<날짜>_<시각>-<모드>.log` (60일 보관)
+- 알림이 안 왔으면 로그 마지막 줄의 종료 코드와 그 앞 내용을 본다. 거부된 도구가 있으면 로그에 남는다.
+- 대화 중에 작업 내용을 바꿔도 예약은 SKILL.md를 매번 새로 읽으므로, 절차 변경은 SKILL.md에 반영하고 푸시하면 된다.

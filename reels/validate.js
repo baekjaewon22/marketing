@@ -10,7 +10,7 @@ const THEMES = ['night', 'christmas', 'newyear', 'valentine', 'spring', 'summer'
 function strings(o, out = []) {
   if (typeof o === 'string') out.push(o);
   else if (Array.isArray(o)) o.forEach(v => strings(v, out));
-  else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => { if (k !== 'photo') strings(v, out); });
+  else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => { if (k !== 'photo' && k !== 'photos') strings(v, out); });
   return out;
 }
 
