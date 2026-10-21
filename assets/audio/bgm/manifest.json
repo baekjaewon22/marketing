@@ -3,5 +3,14 @@
   { "file": "cosmetic-cosmos_verified-picasso.mp3", "bpm": 80.0,   "start": 0.673, "mood": ["calm"],                "title": "Cosmetic Cosmos", "artist": "Verified Picasso" },
   { "file": "country-blues_silent-partner.mp3",     "bpm": 124.0,  "start": 1.673, "mood": ["upbeat"],              "title": "Country Blues", "artist": "Silent Partner" },
   { "file": "mourning-dove_zachariah-hickman.mp3",  "bpm": 85.25,  "start": 0.29,  "mood": ["calm"],                "title": "Mourning Dove", "artist": "Zachariah Hickman" },
-  { "file": "music-box-1.mp3",                      "bpm": 102.25, "start": 0.139, "mood": ["calm", "christmas"],   "title": "Music Box 1", "artist": "" }
+  { "file": "music-box.mp3",                        "bpm": 104.5,  "start": 0.366, "mood": ["calm", "christmas"],   "title": "Music Box", "artist": "" },
+  { "file": "music-box-1.mp3",                      "bpm": 102.25, "start": 0.139, "mood": ["calm", "christmas"],   "title": "Music Box 1", "artist": "" },
+  { "file": "music-box-2.mp3",                      "bpm": 156.75, "start": 0.221, "mood": ["upbeat", "christmas"], "title": "Music Box 2", "artist": "" },
+  { "file": "music-box-3.mp3",                      "bpm": 147.75, "start": 0.389, "mood": ["upbeat"],              "title": "Music Box 3", "artist": "" },
+  { "file": "music-box-4.mp3",                      "bpm": 120.25, "start": 0.244, "mood": ["upbeat", "christmas"], "title": "Music Box 4", "artist": "" },
+  { "file": "music-box-5.mp3",                      "bpm": 132.5,  "start": 0.221, "mood": ["upbeat"],              "title": "Music Box 5", "artist": "" },
+  { "file": "music-box-6.mp3",                      "bpm": 103.5,  "start": 0.151, "mood": ["calm"],                "title": "Music Box 6", "artist": "" },
+  { "file": "music-box-7.mp3",                      "bpm": 90.0,   "start": 0.041, "mood": ["calm", "christmas"],   "title": "Music Box 7", "artist": "" },
+  { "file": "music-box-lyrics.mp3",                 "bpm": 94.0,   "start": 9.858, "mood": ["calm", "vocal"],       "title": "Music Box (Lyrics)", "artist": "" },
+  { "file": "music-box-lyrics-1.mp3",               "bpm": 139.75, "start": 0.029, "mood": ["upbeat", "vocal"],     "title": "Music Box (Lyrics) 1", "artist": "" }
 ]
