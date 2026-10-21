@@ -1,0 +1,97 @@
+---
+name: sevenstars-weekly-reels
+description: 세븐스타즈 인스타 릴스 7개(다음 주 월~일)를 매주 금요일에 대본 작성 → 렌더링 → 구글 드라이브 업로드까지 자동으로 만들 때 사용.
+---
+
+# 세븐스타즈 주간 릴스 제작
+
+매주 금요일 12:00 루틴이 이 파일을 읽고 처음부터 끝까지 그대로 수행한다. 사람은 중간에 없다.
+모든 작업은 Opus 모델로 한다.
+
+## 결과물
+- 다음 주 월~일 7개: `YYYY-MM-DD_요일_컨셉.mp4` (1080×1920, 30fps, 15~21초, BGM + 전환 효과음)
+- 같은 이름 `.txt`: 캡션, 해시태그, 음원 출처
+- 업로드 위치: 구글 드라이브 `세븐스타즈 릴스/YYYY-MM-DD 주` (월요일 날짜). `reels/config.json`의 `drive_root_folder_url`이 있으면 그 폴더 아래.
+
+## 0. 준비
+```bash
+cd <repo> && git pull origin master
+ls /opt/pw-browsers || true   # Playwright Chromium 위치 확인
+fc-list | grep -i pretendard || true
+```
+폰트는 `assets/fonts/`를 템플릿이 직접 읽으므로 설치는 필요 없다.
+
+## 1. 날짜와 테마 정하기
+- 실행일(금) 기준 **다음 주 월요일~일요일** 7일.
+- 기념일·시즌에 맞춰 테마 선택. 사용 가능한 테마: `night`(기본 네이비), `christmas`(눈), `newyear`(금빛 반짝임), `valentine`(하트), `spring`(벚꽃), `summer`, `autumn`(낙엽), `minimal`(밝은 크림), `cinematic`(흑갈색 필름).
+- 기준: 12/1~12/25 → christmas 2~3개 / 12/26~1/7 → newyear / 2/1~2/14 → valentine 2개 / 3/1~3/14 → valentine 또는 spring / 3/15~4/30 → spring / 6~8월 → summer / 9/15~11/20 → autumn. 나머지 날은 night·minimal·cinematic을 섞는다.
+- **한 주에 같은 테마는 최대 3개.** 매주 같은 조합이 반복되지 않게 직전 주 `reels/weeks/` 기록을 확인한다.
+- **10월 말 할로윈 파티 콘셉트는 쓰지 않는다** (10·29 참사 이후 국내 정서 고려).
+- Google Calendar 커넥터가 켜져 있으면 공휴일·이벤트를 확인해 반영한다.
+
+## 2. 지난 성과 반영 (가능할 때만)
+Supermetrics 커넥터가 켜져 있으면 `sevenstars-marketing-check` 스킬 방식으로 지난 2주 릴스 성과를 보고, 반응 좋은 훅 유형을 이번 주에 1~2개 더 배치한다. 커넥터가 없으면 건너뛴다(실패 아님).
+
+## 3. 대본 7개 작성 → `reels/weeks/<월요일날짜>/NN-요일-컨셉.json`
+요일별 기본 유형(`reels/config.json` weekday_plan): 월 공감형 훅 · 화 진행 방식 · 수 참가자 후기 · 목 자주 묻는 질문 · 금 시즌·이벤트 · 토 가격 혜택 · 일 공간·분위기. 시즌 주간에는 2~3개를 시즌 주제로 바꿔도 된다.
+
+### 구조 (모든 영상 공통)
+1. **훅** (`hook-rows` 또는 `hook-statement`) — 스크롤을 멈추게 하는 한 줄. 공감·질문·반전.
+2. **안내** 2~4장 (`cover`, `steps`, `info`, `reviews`, `quote` 중 선택)
+3. **전환** (`cta`) — 항상 마지막. 부담 없는 초대 말투.
+
+슬라이드 총 4~7장. 스키마 예시는 `reels/samples/*.json`을 그대로 따른다. 사진은 `assets/images/sevenstars/`의 4장(모두 얼굴 모자이크 처리본)만 쓴다: `venue-wide.jpg`, `venue-closeup.jpg`, `venue-bright.jpg`, `venue-candle.jpg`. 사진 없이 테마 배경만 쓰려면 `"photo": null`.
+
+### 사실 (반드시 `reels/brand-facts.json` 값만)
+- 장소·시간·가격·URL은 대본에 직접 쓰지 말고 `info`/`cta` 슬라이드가 brand-facts에서 자동으로 채우게 둔다. 문구에 가격을 쓸 때는 brand-facts의 값만.
+- **진행 방식:** 참가자는 서로 얼굴을 보고 1:1로 대화한다. 가림막은 **옆 테이블과의 사이**만 가린다. "얼굴 안 보고", "외모 안 보고", "가림막 너머" 같은 표현은 사실과 다르다(검증기가 막는다).
+- 만족도·매칭률 같은 수치는 쓰지 않는다.
+
+### 말투 규칙 (AI 같은 문장 금지)
+- 실제 20~30대가 쓰는 반말 섞인 존댓말. 짧게. 한 줄 18자 안쪽 권장.
+- 쓰지 말 것: "지금 바로", "놓치지 마세요", "망설이지 마세요", "특별한 경험", "완벽한", "최고의", "~해보세요!" 남발, 느낌표 연속, ✓ 장식, 문장마다 이모지.
+- 이모지는 `hook-rows`의 행 아이콘에만.
+- 후기(`reviews`)는 참가자 A님/B님 형식의 짧은 문장으로 작성해도 된다(운영자 승인 사항). 실명·나이·수치는 넣지 않는다.
+- 캡션은 3줄 이내 + 마지막 줄에 신청 방법. 해시태그 4~6개(`세븐스타즈`, `로테이션소개팅`, `합정역소개팅` 고정 + 주제 태그).
+
+## 4. 검증
+```bash
+node reels/validate.js reels/weeks/<월요일날짜>
+```
+FAIL이 하나라도 있으면 대본을 고치고 다시 돌린다. 통과할 때까지 렌더링하지 않는다.
+
+## 5. 렌더링
+```bash
+node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날짜> --fps 30 --jobs 3
+```
+- 7개 기준 30~60분. 백그라운드로 돌리고 완료를 기다린다.
+- 출력에 `QA 경고`가 있으면 해당 슬라이드 문구를 줄여 그 파일만 `--only NN-....json`으로 다시 렌더링한다.
+
+## 6. 눈으로 검수
+각 `*_contact.jpg`(슬라이드별 완성 화면)를 Read 도구로 열어 확인한다: 글자 잘림·겹침, 오탈자, 사실 오류, 테마와 문구의 어울림. 문제가 있으면 고쳐서 그 파일만 다시 렌더링한다.
+
+## 7. 구글 드라이브 업로드
+1. Google Drive 커넥터 도구를 ToolSearch로 불러온다(`google drive`). 파일을 만들기 전에 `google-workspace` 스킬을 읽는다.
+2. `세븐스타즈 릴스` 폴더를 찾고(없으면 만든다) 그 안에 `<월요일날짜> 주` 폴더를 만든다.
+3. 7개 `.mp4`와 `.txt`를 올린다. 업로드 후 파일 목록을 다시 조회해 14개가 모두 있는지 확인한다.
+4. **드라이브를 쓸 수 없으면:** 7개 MP4를 Artifact 한 페이지(영상 플레이어 + 캡션)로 게시해 다운로드할 수 있게 하고, 알림에 "드라이브 업로드 실패, 아티팩트 링크로 대체"라고 적는다.
+
+## 8. 기록
+```bash
+git add reels/weeks/<월요일날짜>
+git commit -m "reels: <월요일날짜> 주 대본 7개"
+git push -u origin master
+```
+MP4는 커밋하지 않는다(드라이브가 원본 보관소).
+
+## 9. 알림 (PushNotification, 반드시)
+`<routine_summary>` 안에, 첫 문장은 결과 한 줄. 이어서:
+- 드라이브 폴더 링크(또는 대체 아티팩트 링크)
+- 7개 목록: 날짜·요일·컨셉·테마
+- **이번 주 사용한 브랜드 정보**(장소, 일정, 가격) — "바뀐 게 있으면 알려주세요"
+- 실패·경고가 있었다면 무엇이 왜
+
+## 운영 메모
+- 브랜드 정보가 바뀌면 `reels/brand-facts.json`만 수정한다.
+- 새 음원: `assets/audio/bgm/`에 넣고 `manifest.json`에 `bpm`(분석: `python3.13 <beats 스크립트>` 또는 추정), `start`, `mood`(calm/upbeat/christmas) 추가.
+- 새 사진: 인물 얼굴은 전부 모자이크한 뒤에만 `assets/images/sevenstars/`에 넣는다. 원본은 레포에 올리지 않는다.
