@@ -25,8 +25,9 @@ body{
 .slide{
   position:absolute;top:0;left:0;
   width:1080px;height:1920px;
-  opacity:0;visibility:hidden;   /* visibility로 깜빡임 제거 */
-  will-change:opacity,transform,visibility
+  display:none;          /* display:none → GPU 레이어 미생성 → 초기 플래시 없음 */
+  opacity:0;
+  will-change:opacity,transform
 }
 
 /* 모든 animated element 초기 숨김 */
@@ -613,10 +614,14 @@ window.seekTo = function(totalMs) {
       }
     }
 
-    slide.style.opacity    = op.toFixed(4);
-    slide.style.transform  = `translateX(${tx.toFixed(2)}px)`;
-    /* visibility로 전환 (display:none보다 깜빡임 없음) */
-    slide.style.visibility = op > 0.002 ? 'visible' : 'hidden';
+    if (op > 0.001) {
+      if (slide.style.display === 'none') slide.style.display = 'block';
+      slide.style.opacity   = op.toFixed(4);
+      slide.style.transform = `translateX(${tx.toFixed(2)}px)`;
+    } else {
+      slide.style.opacity   = '0';
+      slide.style.display   = 'none';
+    }
   });
 
   /* ── Typography: local time from each slide's STEP start ── */
@@ -631,16 +636,21 @@ window.seekTo = function(totalMs) {
 };
 
 /* ── Autoplay (no loop, stops at last frame) ── */
-let _start;
+let _start, _rafId = null;
 function autoPlay() {
+  if (_rafId) cancelAnimationFrame(_rafId);
   _start = performance.now();
   (function tick() {
     const elapsed = performance.now() - _start;
-    if (elapsed >= TOTAL) { window.seekTo(TOTAL); return; }
+    if (elapsed >= TOTAL) { window.seekTo(TOTAL); _rafId = null; return; }
     window.seekTo(elapsed);
-    requestAnimationFrame(tick);
+    _rafId = requestAnimationFrame(tick);
   })();
 }
+/* Playwright capture용: rAF 루프를 완전히 정지 */
+window.stopAnim = function() {
+  if (_rafId) { cancelAnimationFrame(_rafId); _rafId = null; }
+};
 
 window.addEventListener('load', () => {
   window.seekTo(0);
