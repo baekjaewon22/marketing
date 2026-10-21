@@ -187,7 +187,7 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-qa/<월요일날�
 node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날짜> --fps 30 --jobs 3
 ```
 - 60~70분 걸린다. 백그라운드로 돌리고 끝날 때까지 기다린다(중간에 프레임 폴더 `/tmp/reel-*`의 파일 수로 진행률 확인 가능).
-- 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json`. `--only`로 돌려도 음원·사진은 전체 렌더와 같다.
+- 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json` (여러 개는 쉼표로). `--only`로 돌려도 음원·사진은 전체 렌더와 같다.
 - 결과: `<이름>.mp4`, `<이름>.txt`(캡션·해시태그·음원 출처), `<이름>_contact.jpg`, `render-report.json`.
 - **로컬 예약 실행(Windows, `claude -p`)에서는** 명령 하나가 10분을 넘기면 끊기므로, 7개를 한 번에 돌리지 말고 파일마다 `--only`로 하나씩 foreground로 돌린다(timeout 600000, 한 개 4~5분):
   `node reels/render.js reels/weeks/<월요일날짜> reels/out/<월요일날짜> --fps 30 --jobs 1 --only <파일>.json`
