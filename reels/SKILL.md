@@ -23,6 +23,7 @@ fc-list | grep -i pretendard || true
 
 ## 1. 날짜와 테마 정하기
 - 실행일(금) 기준 **다음 주 월요일~일요일** 7일.
+- **중복 방지:** `reels/weeks/<월요일날짜>/DELIVERED` 파일이 이미 있으면 그 주는 제작이 끝난 것이다. 아무것도 만들지 말고 "이미 제작된 주라 이번 실행은 건너뜀"이라는 알림만 보내고 끝낸다.
 - 기념일·시즌에 맞춰 테마 선택. 사용 가능한 테마: `night`(기본 네이비), `christmas`(눈), `newyear`(금빛 반짝임), `valentine`(하트), `spring`(벚꽃), `summer`, `autumn`(낙엽), `minimal`(밝은 크림), `cinematic`(흑갈색 필름).
 - 기준: 12/1~12/25 → christmas 2~3개 / 12/26~1/7 → newyear / 2/1~2/14 → valentine 2개 / 3/1~3/14 → valentine 또는 spring / 3/15~4/30 → spring / 6~8월 → summer / 9/15~11/20 → autumn. 나머지 날은 night·minimal·cinematic을 섞는다.
 - **한 주에 같은 테마는 최대 3개.** 매주 같은 조합이 반복되지 않게 직전 주 `reels/weeks/` 기록을 확인한다.
@@ -85,7 +86,9 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날�
    출력된 `delivery.html`을 `file_path`로, 출력된 `videos/<날짜>.mp4` 7개를 `files`로 넣어 Artifact를 게시한다(`icon: "video"`). 알림 첫 문장에 "드라이브 업로드 실패, 아티팩트 링크로 대체"를 쓰고 실패 이유를 적는다.
 
 ## 8. 기록
+업로드(또는 대체 페이지 게시)가 끝났으면 전달 링크를 담아 완료 표시를 남긴다.
 ```bash
+echo "<드라이브 폴더 또는 아티팩트 링크>" > reels/weeks/<월요일날짜>/DELIVERED
 git add reels/weeks/<월요일날짜>
 git commit -m "reels: <월요일날짜> 주 대본 7개"
 git push -u origin master
