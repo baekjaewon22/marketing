@@ -42,18 +42,30 @@ function pickTrack(script) {
 
 let WEEK = 0;
 const PHOTO_DIR = path.join(ROOT, 'assets/images/sevenstars');
-const PHOTOS = fs.readdirSync(PHOTO_DIR).filter(f => /\.jpe?g$/i.test(f)).sort();
-/* one photo per video, rotating: consecutive days differ and the cycle continues week to week */
-function pickPhoto(script, index) {
-  if (script.photo && PHOTOS.includes(script.photo)) return script.photo;
-  return PHOTOS[(WEEK * 7 + index) % PHOTOS.length];
+const jpgs = dir => fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => /\.jpe?g$/i.test(f)).sort() : [];
+/* real (mosaicked) photos + Codex-generated ones in ai/, interleaved so a 2-photo video gets one of each */
+const REAL = jpgs(PHOTO_DIR), AI = jpgs(path.join(PHOTO_DIR, 'ai')).map(f => 'ai/' + f);
+const PHOTOS = [];
+for (let i = 0; i < Math.max(REAL.length, AI.length); i++) { if (AI[i]) PHOTOS.push(AI[i]); if (REAL[i]) PHOTOS.push(REAL[i]); }
+const PHOTO_TYPES = ['cover', 'steps', 'info', 'reviews', 'quote'];
+/* 1~2 photos per video (2 when it has 2+ photo slides), rotating through the pool for the whole week
+   so the same photo doesn't repeat inside a week and the cycle continues week to week */
+function assignPhotos(scripts) {
+  let c = WEEK * 10;
+  return scripts.map(s => {
+    if (Array.isArray(s.photos) && s.photos.length) return s.photos.filter(p => PHOTOS.includes(p)).slice(0, 2);
+    if (s.photo && PHOTOS.includes(s.photo)) return [s.photo];
+    const slots = s.slides.filter(sl => PHOTO_TYPES.includes(sl.type) && sl.photo !== null).length;
+    const k = Math.min(slots >= 2 ? 2 : 1, PHOTOS.length);
+    return Array.from({ length: k }, () => PHOTOS[c++ % PHOTOS.length]);
+  });
 }
 
 function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'] }).toString(); }
 
-async function renderOne(browser, file, swoosh, index, track) {
+async function renderOne(browser, file, swoosh, photos, track) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
-  script.photo = pickPhoto(script, index);
+  script.photos = photos;
   const base = path.basename(file, '.json');
   for (const d of fs.readdirSync(os.tmpdir()).filter(d => d.startsWith(`reel-${base}-`))) fs.rmSync(path.join(os.tmpdir(), d), { recursive: true, force: true });
   const frames = fs.mkdtempSync(path.join(os.tmpdir(), `reel-${base}-`));
@@ -116,7 +128,7 @@ async function renderOne(browser, file, swoosh, index, track) {
   fs.writeFileSync(path.join(OUT, `${base}.txt`),
     `[${script.date} ${script.day}] ${script.concept} / 테마: ${script.theme}\n\n${script.caption}\n\n${tags}\n\n🎵 Music: ${credit}\n`);
   fs.rmSync(frames, { recursive: true, force: true });
-  return { base, seconds: Number(total), track: track.file, photo: script.photo, qa };
+  return { base, seconds: Number(total), track: track.file, photo: photos.join('+'), qa };
 }
 
 (async () => {
@@ -124,19 +136,21 @@ async function renderOne(browser, file, swoosh, index, track) {
   const swoosh = path.join(OUT, '.swoosh.wav');
   sh('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'anoisesrc=color=pink:duration=0.5:amplitude=0.9:sample_rate=48000',
     '-af', 'highpass=f=500,lowpass=f=4500,afade=t=in:d=0.28:curve=exp,afade=t=out:st=0.28:d=0.22:curve=qsin,volume=0.9', '-ac', '2', swoosh]);
-  let files = fs.readdirSync(SCRIPTS).filter(f => f.endsWith('.json')).sort();
-  const first = JSON.parse(fs.readFileSync(path.join(SCRIPTS, files[0]), 'utf8'));
-  WEEK = Math.round(Date.parse(first.date) / (7 * 86400000));
-  if (ONLY) files = files.filter(f => f === ONLY);
+  const files = fs.readdirSync(SCRIPTS).filter(f => f.endsWith('.json')).sort();
+  const scripts = files.map(f => JSON.parse(fs.readFileSync(path.join(SCRIPTS, f), 'utf8')));
+  WEEK = Math.round(Date.parse(scripts[0].date) / (7 * 86400000));
+  // music and photos are assigned over the whole week, so --only re-renders get the same ones as the full run
+  const tracks = scripts.map(pickTrack);
+  const photos = assignPhotos(scripts);
+  const queue = files.map((f, i) => [f, i]).filter(([f]) => !ONLY || f === ONLY);
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-  const tracks = files.map(f => pickTrack(JSON.parse(fs.readFileSync(path.join(SCRIPTS, f), 'utf8'))));
-  const results = [], queue = files.map((f, i) => [f, i]);
-  await Promise.all(Array.from({ length: Math.min(JOBS, files.length) }, async () => {
+  const results = [], jobs = Math.min(JOBS, queue.length);
+  await Promise.all(Array.from({ length: jobs }, async () => {
     while (queue.length) {
       const [f, idx] = queue.shift();
       const t0 = Date.now();
       try {
-        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, idx, tracks[idx]);
+        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, photos[idx], tracks[idx]);
         results.push(r);
         console.log(`OK   ${r.base} ${r.seconds}s ${r.track} ${r.photo} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
           (r.qa.length ? `\n  QA 경고 ${r.qa.length}건: ${JSON.stringify(r.qa)}` : ''));

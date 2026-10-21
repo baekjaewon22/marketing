@@ -1,6 +1,9 @@
 {
   "drive_root_folder_name": "세븐스타즈 릴스",
   "drive_root_folder_url": "",
+  "local_output_root": "",
+  "slack_channel": "",
+  "ai_images_per_week": 4,
   "videos_per_week": 7,
   "fps": 30,
   "jobs": 3,

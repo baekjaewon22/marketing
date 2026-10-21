@@ -108,6 +108,10 @@ node reels/render.js reels/samples ./reels/out/test --fps 5 --jobs 1   # 시험 
 - 로컬에서는 render.js의 `CHROME` 경로가 없으니 Playwright 기본 Chromium을 쓴다(자동).
 - 이모지 폰트는 리눅스의 Noto Color Emoji를 먼저 찾고, 없으면 OS 이모지(Windows Segoe, Apple)로 나온다. 모양이 조금 다를 수 있다.
 - 한글 폰트는 `assets/fonts/`의 Pretendard를 상대 경로로 읽으므로 설치할 필요가 없다.
+- Windows: winget으로 설치한 ffmpeg는 `%LOCALAPPDATA%\Microsoft\WinGet\Links`에 있다. 설치 직후 열려 있던 터미널·VS Code·예약 작업은 PATH에 없을 수 있으니 이 경로를 PATH에 붙여서 실행한다.
+- 생성 사진을 쓰려면 Codex CLI: `npm i -g @openai/codex` (로그인은 Codex 데스크톱 앱과 공유).
+- `npm i playwright`로 생기는 `package.json`·`node_modules/`는 `.gitignore`에 있다(PC마다 따로 설치).
+- 운영 PC(Windows, 상시 켜짐) 경로: 저장소 `C:\Users\260209\git\sevens shorts\marketing`.
 
 ---
 
@@ -143,6 +147,9 @@ node reels/validate.js reels/samples   # 환경 확인
 
 ### 4-3. 성과 반영 (가능할 때만)
 Supermetrics 커넥터가 있으면 `sevenstars-marketing-check` 스킬 방식으로 지난 2주 릴스 성과(조회·저장·공유·프로필 방문)를 보고, 반응 좋은 훅 유형을 이번 주에 1~2개 더 배치한다. 없으면 건너뛴다(실패 아님).
+
+### 4-3b. 생성 사진 추가 (Codex, 가능할 때만)
+`node reels/tools/gen-images.js <ai_images_per_week>` → 새 사진을 한 장씩 Read로 열어 검수하고 불량은 지운다(10장 '생성 사진'). 실패하면 건너뛴다(실패 아님, 알림에 적음).
 
 ### 4-4. 대본 7개 작성
 요일별 기본 유형 (`reels/config.json`의 `weekday_plan`):
@@ -268,7 +275,8 @@ git add reels/weeks/<월요일날짜> && git commit -m "reels: <월요일날짜>
 | `slides` | O | 나머지 슬라이드 배열, **마지막은 `cta`** |
 | `caption` | O | 인스타 캡션 (`\n` 줄바꿈) |
 | `hashtags` | | `#` 없이 문자열 배열 |
-| `photo` | | 특정 사진 강제 (`"couple-table.jpg"`). 보통 비워 두면 자동 순환 |
+| `photo` | | 특정 사진 1장 강제 (`"couple-table.jpg"`). 보통 비워 두면 자동 순환 |
+| `photos` | | 특정 사진 2장 강제 (`["ai/20261021-light.jpg", "venue-wide.jpg"]`). 사진 슬라이드가 번갈아 씀 |
 | `music` | | 특정 BGM 파일 강제. 보통 비움 |
 
 슬라이드 타입 (`<br>`로 줄바꿈, 다른 HTML은 이스케이프됨)
@@ -359,11 +367,20 @@ git add reels/weeks/<월요일날짜> && git commit -m "reels: <월요일날짜>
 
 ## 10. 사진
 
-- 위치: `assets/images/sevenstars/` — **얼굴 모자이크 처리본만**. 원본은 레포에 절대 올리지 않는다.
-- 현재 6장: `venue-wide`(넓은 홀), `venue-closeup`(가림막 테이블 근접), `venue-bright`(밝은 홀), `venue-candle`(캔들 조명), `couple-closeup`(남녀 클로즈업, 세로), `couple-table`(테이블 마주 앉은 남녀, 가로).
-- **영상 하나 = 사진 한 장.** 그 영상의 사진 슬라이드는 모두 같은 사진을 다른 구도(object-position)와 다른 움직임으로 보여 준다.
-- 순환: `PHOTOS[(주번호×7 + 요일순서) % 사진수]`. 주번호는 그 주 첫 대본 날짜로 한 번만 계산(날짜마다 계산하면 순서가 어긋남 - 실제로 겪은 버그).
+- 위치: `assets/images/sevenstars/` — 실제 사진은 **얼굴 모자이크 처리본만**. 원본은 레포에 절대 올리지 않는다.
+- 실제 사진 6장: `venue-wide`(넓은 홀), `venue-closeup`(가림막 테이블 근접), `venue-bright`(밝은 홀), `venue-candle`(캔들 조명), `couple-closeup`(남녀 클로즈업, 세로), `couple-table`(테이블 마주 앉은 남녀, 가로).
+- Codex 생성 사진: `assets/images/sevenstars/ai/YYYYMMDD-장면.jpg` (1080×1920). 실제 사진을 참고로 만든 공간 컷이라 얼굴이 없다(아래 '생성 사진').
+- **영상 하나 = 사진 1~2장.** 사진 슬라이드가 2개 이상이면 2장, 아니면 1장. 사진 슬라이드들이 그 사진을 번갈아 다른 구도·움직임으로 보여 준다.
+- 순환: 생성 사진과 실제 사진을 번갈아 섞은 목록을 그 주 전체에 대해 한 번에 배정한다(2장짜리 영상은 보통 생성 1장 + 실제 1장). 주번호는 그 주 첫 대본 날짜로 한 번만 계산(날짜마다 계산하면 순서가 어긋남 - 실제로 겪은 버그). `--only`로 다시 렌더해도 전체 렌더 때와 같은 사진·음원이 나온다.
 - 가로 사진은 9:16으로 잘리므로 `template.html`의 `FOCUS`에 초점 좌표(%)를 넣는다 (예: `couple-table.jpg: [42,50]`).
+- 얼굴이 크게 나온 사진(`couple-closeup`, `couple-table`)은 `quote`처럼 글자가 화면 가운데 오는 슬라이드에서 모자이크가 글자 뒤에 겹쳐 지저분해 보일 수 있다. 검수 시트에서 그렇게 보이면 대본에 `"photo"`로 공간 사진을 지정한다.
+
+생성 사진 (Codex)
+- `node reels/tools/gen-images.js <장수>` → 실제 사진을 하나씩 참고로 붙여 Codex CLI(`codex exec`, 이미지 생성)로 세로 사진을 만들고 1080×1920 JPG로 `ai/`에 저장. 한 장에 1~2분.
+- 장면 목록(테이블·가림막·캔들·홀·쪽지·의자·조명·손)은 **실제 공간에 있는 것만** 쓴다. 시즌 장식처럼 실제로 없는 것은 그리지 않는다(5-4 사실 규칙).
+- 만든 뒤 **한 장씩 Read로 열어** 얼굴, 글자·로고, 뭉개진 손·물건, 실제 공간과 너무 다른 분위기가 있으면 그 파일을 지운다. 남은 것만 커밋.
+- 주간 루틴에서는 `reels/config.json`의 `ai_images_per_week`장(기본 4)을 4-4 대본 작성 전에 만든다. Codex가 실패해도 실제 사진만으로 계속 진행한다(실패 아님, 알림에 적음).
+- 필요: `npm i -g @openai/codex` + Codex 로그인(`~/.codex/auth.json`, Codex 데스크톱 앱과 공유).
 
 새 사진 추가 (얼굴 모자이크 필수)
 1. `python3.13 reels/tools/mosaic.py grid <원본> /tmp/grid.jpg` → Read로 열어 **모든 사람**(뒷모습·옆모습·멀리 있는 사람 포함)의 머리 좌표를 읽는다
@@ -405,9 +422,13 @@ node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/d
 출력된 `delivery.html`을 `file_path`로, `videos/<날짜>.mp4` 7개를 `files`로 Artifact 게시(`icon: "video"`). Artifact에 올릴 파일은 작업 폴더나 스크래치패드 안에 있어야 한다. 알림 첫 문장에 "드라이브 업로드 실패, 아티팩트 링크로 대체"와 이유.
 주의: Artifact 안에서는 다운로드 링크가 막혀 있어 영상 확인용이다. 원본 파일이 필요하면 별도 경로(15장) 결정이 필요하다.
 
-**VS Code 로컬에서 실행할 때:** 결과 폴더를 PC의 구글 드라이브 동기화 폴더(예: `G:/내 드라이브/세븐스타즈 릴스/<월요일날짜> 주`)로 바로 지정하면 커넥터 없이 저장된다:
-`node reels/render.js reels/weeks/<월요일날짜> "G:/내 드라이브/세븐스타즈 릴스/<월요일날짜> 주" --fps 30 --jobs 3`
-(이 경우 render-report.json·*_contact.jpg·.swoosh 임시 파일도 같이 생기니, 필요 없으면 지운다.)
+**로컬 예약 실행 (운영 방식, 확정):** 운영 PC에서 돌고, 결과는 PC의 구글 드라이브 동기화 폴더에 저장, 알림은 Slack.
+1. 저장 위치: `reels/config.json`의 `local_output_root`(예: `G:/내 드라이브/세븐스타즈 릴스`) 아래 `<월요일날짜> 주` 폴더.
+   본 렌더(4-7)는 `reels/out/<월요일날짜>`에 하고, 검수가 끝나면 MP4 7개 + txt 7개만 그 폴더로 복사한다(render-report.json·*_contact.jpg는 복사하지 않음).
+   복사 후 파일 수(14개)를 다시 확인한다. 동기화 앱이 올리는 것은 PC가 켜져 있으면 자동.
+2. `local_output_root`가 비어 있거나 그 경로가 없으면(드라이브 앱 미설치·로그아웃) `reels/out/<월요일날짜>`에 그대로 두고, 알림 첫 문장에 "드라이브 폴더 없음, PC의 reels/out에 저장"과 경로를 쓴다.
+3. 알림(4-10)은 Slack `slack_send_message`로 `reels/config.json`의 `slack_channel`에 보낸다. 비어 있으면 알림을 건너뛰고 로그에만 남긴다.
+4. DELIVERED에는 드라이브 폴더 경로를 적는다.
 
 ---
 
@@ -446,14 +467,20 @@ node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/d
 | 스킬이 레포에 안 올라감 | `.claude/`가 gitignore | `reels/SKILL.md`에 둠 |
 | 드라이브 업로드 불가 | 이 세션에 Drive 커넥터가 붙지 않음(`enabledInChat:false`) | 예약 설정에 커넥터 포함, 안 되면 대체 경로 |
 | 렌더링이 느림 | PNG 캡처 + 블러 카드 | 7개 30fps에 약 70분. 개선 후보: JPEG 캡처, 블러 축소 |
+| `--only`로 다시 렌더하니 음원·사진이 전체 렌더 때와 달라짐 | 걸러진 목록(1개) 기준으로 곡·사진을 골랐음 | 그 주 전체 기준으로 먼저 배정한 뒤 거름 |
+| 4장짜리 대본이 13초로 짧음 (2026-10-31 토) | 슬라이드 4장 + 빠른 곡 | 15초 미만이면 사실만으로 된 슬라이드(cover 등)를 하나 더 넣는다 |
+| 모자이크 얼굴이 quote 글자 바로 뒤에 겹쳐 지저분 | 얼굴이 큰 사진(couple-closeup·couple-table) | 대본에 `"photo"`로 공간 사진 지정 |
+| `codex exec -i 사진 "프롬프트"`가 프롬프트를 못 받음 | `-i`가 뒤따르는 인자를 모두 이미지로 받음 | 프롬프트는 표준입력으로 넘기고 마지막 인자에 `-` |
 | 병렬 렌더 중 일부 영상만 중간에 멈추고 MP4가 없음 | CPU가 붐벼 캡처가 Playwright 기본 30초 제한을 넘김 | 대기 180초 + 프레임당 3번 재시도. 렌더 중에는 다른 무거운 작업을 같이 돌리지 않는다. 실패한 영상은 `--only`로 다시 |
 
 ---
 
 ## 15. 아직 정해지지 않은 것 (운영자 확인 필요)
 
-1. **예약 등록:** 데스크탑 스케줄러에 "세븐스타즈 주간 릴스" 예약이 아직 없다. 기존 "파티원 카드뉴스" 예약과 별도로 만든다(`reels/ROUTINES.md`). 예약이 클라우드에서 도는지, 내 PC에서 도는지에 따라 12장의 저장 방식이 달라진다.
-2. **결과물 받을 곳:** A 구글 드라이브(커넥터) / B PC의 드라이브 동기화 폴더(로컬 실행 시) / C GitHub 중 하나로 확정 필요. 확정되면 12장을 그 방식 하나로 정리한다.
-3. **실제 후기 문장:** 있으면 받아서 `reviews`에 그대로 쓴다.
-4. **사진·음원 추가:** 매주 7개면 6장·14곡이 금방 반복된다.
-5. **첫 주차(2026-10-26) 전달:** 30fps 렌더 후 대체 페이지로 전달 예정. 전달되면 DELIVERED가 생겨 10/23 금요일 예약은 건너뛴다.
+결정됨(2026-10-21): 실행은 운영 PC(Windows, 상시 켜짐)의 작업 스케줄러, 저장은 구글 드라이브 동기화 폴더(12장 '로컬 예약 실행'), 알림은 Slack, 사진은 Codex 생성 사진 + 실제 사진을 영상당 1~2장.
+
+1. **예약 등록:** Windows 작업 스케줄러 등록 방식(무인 실행 권한 범위)이 아직 확정되지 않았다.
+2. **구글 드라이브 데스크톱 앱:** 운영 PC에 아직 설치되지 않았다. 설치 후 `local_output_root`에 경로를 넣는다.
+3. **Slack 채널:** `slack_channel`에 받을 채널(또는 본인 DM)을 넣는다.
+4. **실제 후기 문장:** 있으면 받아서 `reviews`에 그대로 쓴다.
+5. **음원 추가:** 14곡이라 몇 주 지나면 반복된다.

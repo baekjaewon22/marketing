@@ -3,3 +3,6 @@
 .DS_Store
 Thumbs.db
 reels/out/
+node_modules/
+package.json
+package-lock.json
