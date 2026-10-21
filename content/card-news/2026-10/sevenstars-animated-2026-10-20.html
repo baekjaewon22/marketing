@@ -4,357 +4,541 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1080">
 <title>세븐스타즈 로테이션소개팅</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'Noto Sans KR';font-weight:400;src:local('Noto Sans KR'),url('file:///home/user/marketing/assets/fonts/NotoSansKR-400.ttf') format('truetype')}
-@font-face{font-family:'Noto Sans KR';font-weight:700;src:local('Noto Sans KR Bold'),url('file:///home/user/marketing/assets/fonts/NotoSansKR-700.ttf') format('truetype')}
-@font-face{font-family:'Noto Sans KR';font-weight:900;src:local('Noto Sans KR Black'),url('file:///home/user/marketing/assets/fonts/NotoSansKR-900.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:400;font-style:normal;src:local('Pretendard'),url('file:///home/user/marketing/assets/fonts/Pretendard-Regular.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:700;font-style:normal;src:local('Pretendard Bold'),url('file:///home/user/marketing/assets/fonts/Pretendard-Bold.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:800;font-style:normal;src:local('Pretendard ExtraBold'),url('file:///home/user/marketing/assets/fonts/Pretendard-ExtraBold.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:900;font-style:normal;src:local('Pretendard Black'),url('file:///home/user/marketing/assets/fonts/Pretendard-Black.ttf') format('truetype')}
 @font-face{font-family:'Noto Color Emoji';src:url('file:///usr/share/fonts/truetype/noto/NotoColorEmoji.ttf') format('truetype')}
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{width:1080px;height:1920px;overflow:hidden;font-family:'Noto Sans KR','Noto Color Emoji',sans-serif;background:#1a8fd1}
+body{width:1080px;height:1920px;overflow:hidden;font-family:'Pretendard','Noto Color Emoji',sans-serif;background:#080C20}
 #stage{position:relative;width:1080px;height:1920px;overflow:hidden}
-.slide{position:absolute;top:0;left:0;width:1080px;height:1920px;opacity:0;display:none}
-.ae{opacity:0}
+.slide{position:absolute;top:0;left:0;width:1080px;height:1920px;opacity:0;display:none;will-change:opacity,transform}
+.ae{opacity:0;will-change:opacity,transform,clip-path}
+
+/* glass card */
+.gc{background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.14);border-radius:28px}
+.gc-warm{background:rgba(255,200,80,0.1);border:1px solid rgba(255,200,80,0.22);border-radius:28px}
 </style>
 </head>
 <body>
 <div id="stage">
 
-<!-- ═══════════════════ SLIDE 0: COVER ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 0  |  커버  |  밤하늘 + 한옥
+══════════════════════════════════════ -->
 <div class="slide" id="s0">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg0" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0e6daa"/>
-        <stop offset="55%" stop-color="#3fa8d8"/>
-        <stop offset="100%" stop-color="#8dd5ef"/>
-      </linearGradient>
-      <radialGradient id="sun0" cx="50%" cy="25%" r="30%">
-        <stop offset="0%" stop-color="#fff7a0" stop-opacity="0.45"/>
-        <stop offset="100%" stop-color="#fff7a0" stop-opacity="0"/>
-      </radialGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg0)"/>
-    <rect width="1080" height="1920" fill="url(#sun0)"/>
-    <!-- Clouds -->
-    <g fill="white" opacity="0.88">
-      <ellipse cx="180" cy="310" rx="130" ry="58"/><ellipse cx="110" cy="335" rx="85" ry="48"/><ellipse cx="260" cy="328" rx="95" ry="44"/>
-      <ellipse cx="860" cy="260" rx="140" ry="62"/><ellipse cx="795" cy="285" rx="88" ry="50"/><ellipse cx="930" cy="278" rx="100" ry="46"/>
-      <ellipse cx="540" cy="460" rx="160" ry="65"/><ellipse cx="440" cy="485" rx="100" ry="52"/><ellipse cx="640" cy="480" rx="115" ry="50"/>
-    </g>
-    <!-- Mountain layers -->
-    <polygon points="0,1600 200,1200 400,1380 540,1180 680,1360 880,1220 1080,1580 1080,1920 0,1920" fill="#2a7a2a" opacity="0.55"/>
-    <polygon points="0,1680 150,1400 350,1550 540,1350 730,1540 900,1420 1080,1650 1080,1920 0,1920" fill="#3d8a3d" opacity="0.65"/>
-    <!-- Hanok building -->
-    <rect x="380" y="1560" width="320" height="360" fill="#1e5a1e" rx="6"/>
-    <polygon points="320,1560 540,1430 760,1560" fill="#164e16"/>
-    <polygon points="350,1540 540,1420 730,1540" fill="#1e5e1e"/>
-    <rect x="340" y="1530" width="400" height="40" fill="#0f400f" rx="3"/>
-    <rect x="430" y="1380" width="220" height="200" fill="#2a6e2a" rx="5"/>
-    <polygon points="390,1380 540,1290 690,1380" fill="#1a5e1a"/>
-    <rect x="400" y="1360" width="280" height="32" fill="#0f450f" rx="3"/>
-    <!-- Windows with warm light -->
-    <rect x="420" y="1590" width="70" height="90" fill="#ffd97a" rx="5" opacity="0.75"/>
-    <rect x="595" y="1590" width="70" height="90" fill="#ffc84a" rx="5" opacity="0.65"/>
-    <rect x="420" y="1720" width="70" height="80" fill="#ffd97a" rx="5" opacity="0.7"/>
-    <rect x="595" y="1720" width="70" height="80" fill="#ffc84a" rx="5" opacity="0.6"/>
-    <!-- Door -->
-    <rect x="498" y="1830" width="84" height="90" fill="#0f400f" rx="4"/>
-  </svg>
-  <!-- Content -->
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:340px">
-    <div class="ae" data-slide="0" data-t="0,480,2" style="background:rgba(255,255,255,0.22);backdrop-filter:blur(8px);border-radius:44px;padding:18px 56px;margin-bottom:36px;border:2px solid rgba(255,255,255,0.35)">
-      <span style="font-size:46px;font-weight:700;color:white;letter-spacing:8px;text-shadow:0 2px 10px rgba(0,0,0,0.25)">SEVEN STARS</span>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="sky0" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#04071A"/>
+      <stop offset="55%"  stop-color="#101650"/>
+      <stop offset="82%"  stop-color="#3B1E06"/>
+      <stop offset="100%" stop-color="#1A0A00"/>
+    </linearGradient>
+    <radialGradient id="hl0" cx="50%" cy="78%" r="35%">
+      <stop offset="0%"   stop-color="#E8820A" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#E8820A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow0" cx="50%" cy="40%" r="50%">
+      <stop offset="0%"   stop-color="#2540C8" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#2540C8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky0)"/>
+  <rect width="1080" height="1920" fill="url(#hl0)"/>
+  <rect width="1080" height="1920" fill="url(#glow0)"/>
+  <!-- Stars -->
+  <g fill="white">
+    <circle cx="120"  cy="90"  r="2.2" opacity="0.9"/>
+    <circle cx="250"  cy="55"  r="1.6" opacity="0.75"/>
+    <circle cx="400"  cy="120" r="2.8" opacity="0.85"/>
+    <circle cx="540"  cy="40"  r="1.4" opacity="0.7"/>
+    <circle cx="680"  cy="100" r="2.0" opacity="0.9"/>
+    <circle cx="820"  cy="65"  r="1.8" opacity="0.8"/>
+    <circle cx="960"  cy="130" r="2.4" opacity="0.85"/>
+    <circle cx="80"   cy="220" r="1.5" opacity="0.6"/>
+    <circle cx="320"  cy="200" r="1.2" opacity="0.65"/>
+    <circle cx="620"  cy="180" r="1.9" opacity="0.7"/>
+    <circle cx="780"  cy="240" r="1.4" opacity="0.6"/>
+    <circle cx="1000" cy="200" r="1.7" opacity="0.75"/>
+    <circle cx="160"  cy="350" r="1.1" opacity="0.5"/>
+    <circle cx="480"  cy="310" r="1.6" opacity="0.6"/>
+    <circle cx="860"  cy="340" r="1.3" opacity="0.55"/>
+    <!-- Brighter stars -->
+    <circle cx="200"  cy="150" r="3.2" opacity="0.95"/>
+    <circle cx="900"  cy="110" r="2.8" opacity="0.90"/>
+    <circle cx="70"   cy="140" r="1.8" opacity="0.85"/>
+  </g>
+  <!-- Moon -->
+  <circle cx="830" cy="160" r="60" fill="#FFF9D6" opacity="0.92"/>
+  <circle cx="855" cy="145" r="52" fill="#100C30" opacity="0.88"/>
+  <!-- Mountain silhouette -->
+  <polygon points="0,1400 220,1100 420,1280 540,1060 660,1270 840,1080 1080,1350 1080,1920 0,1920" fill="#0A0E25"/>
+  <polygon points="0,1500 180,1300 360,1420 540,1200 720,1410 900,1290 1080,1450 1080,1920 0,1920" fill="#080B1E"/>
+  <!-- Hanok main building -->
+  <rect x="330" y="1540" width="420" height="380" fill="#0D1128"/>
+  <!-- Roof layers -->
+  <polygon points="270,1540 540,1410 810,1540" fill="#07091A"/>
+  <rect x="290" y="1528" width="500" height="28" fill="#E8820A" opacity="0.35"/>
+  <polygon points="350,1430 540,1335 730,1430" fill="#0A0C20"/>
+  <rect x="365" y="1420" width="350" height="22" fill="#E8820A" opacity="0.30"/>
+  <!-- Columns -->
+  <rect x="360" y="1540" width="22" height="380" fill="#060818"/>
+  <rect x="700" y="1540" width="22" height="380" fill="#060818"/>
+  <!-- Windows with warm lantern glow -->
+  <rect x="405" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.70"/>
+  <rect x="500" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.55"/>
+  <rect x="595" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.65"/>
+  <rect x="405" y="1720" width="80" height="90"  fill="#F5A623" rx="6" opacity="0.60"/>
+  <rect x="595" y="1720" width="80" height="90"  fill="#F5A623" rx="6" opacity="0.50"/>
+  <!-- Door -->
+  <rect x="490" y="1840" width="100" height="80" fill="#E8820A" rx="4" opacity="0.45"/>
+  <!-- Ground lanterns -->
+  <circle cx="280" cy="1580" r="18" fill="#F5A623" opacity="0.7"/>
+  <circle cx="800" cy="1560" r="18" fill="#F5A623" opacity="0.65"/>
+  <!-- Lantern glow on ground -->
+  <ellipse cx="280" cy="1598" rx="40" ry="12" fill="#F5A623" opacity="0.20"/>
+  <ellipse cx="800" cy="1578" rx="40" ry="12" fill="#F5A623" opacity="0.18"/>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:280px">
+  <!-- Brand -->
+  <div class="ae" data-slide="0" data-t="0,480,6"
+    style="border:1.5px solid rgba(232,130,10,0.55);border-radius:50px;padding:16px 52px;margin-bottom:48px">
+    <span style="font-size:42px;font-weight:800;letter-spacing:10px;color:#E8A835">SEVEN STARS</span>
+  </div>
+  <!-- Main title -->
+  <div style="text-align:center;margin-bottom:52px;overflow:hidden">
+    <div class="ae" data-slide="0" data-t="160,460,6"
+      style="font-size:118px;font-weight:900;color:#E8A835;line-height:1.0;letter-spacing:-2px;text-shadow:0 0 60px rgba(232,168,53,0.45)">
+      로테이션
     </div>
-    <div class="ae" data-slide="0" data-t="120,480,1" style="text-align:center;margin-bottom:44px">
-      <div style="font-size:104px;font-weight:900;color:white;line-height:1.0;text-shadow:0 6px 24px rgba(0,0,0,0.35)">로테이션</div>
-      <div style="font-size:104px;font-weight:900;color:#FFF176;line-height:1.0;text-shadow:0 6px 24px rgba(0,0,0,0.35)">소개팅</div>
-    </div>
-    <div class="ae" data-slide="0" data-t="280,450,1" style="background:rgba(0,0,0,0.28);backdrop-filter:blur(6px);border-radius:24px;padding:28px 60px;text-align:center">
-      <div style="font-size:50px;color:white;font-weight:700;margin-bottom:12px">📍 합정역 도보 1분</div>
-      <div style="font-size:44px;color:#B3E5FF;font-weight:400">매주 토·일 오후 3시 / 6시</div>
+    <div class="ae" data-slide="0" data-t="360,440,6"
+      style="font-size:118px;font-weight:900;color:#FFFFFF;line-height:1.0;letter-spacing:-2px;text-shadow:0 0 60px rgba(255,255,255,0.20)">
+      소개팅
     </div>
   </div>
+  <!-- Info badge -->
+  <div class="ae" data-slide="0" data-t="820,420,1"
+    style="background:rgba(232,168,53,0.12);border:1px solid rgba(232,168,53,0.30);border-radius:20px;padding:28px 56px;text-align:center">
+    <div style="font-size:48px;font-weight:700;color:#E8C87A;margin-bottom:12px">📍 합정역 도보 1분</div>
+    <div style="font-size:42px;font-weight:400;color:rgba(255,255,255,0.75)">매주 토·일 &nbsp;오후 3시 / 6시</div>
+  </div>
+</div>
 </div>
 
-<!-- ═══════════════════ SLIDE 1: 이런분께 ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 1  |  이런분께  |  딥 인디고
+══════════════════════════════════════ -->
 <div class="slide" id="s1">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0b6aaa"/><stop offset="100%" stop-color="#6bbfe0"/>
-      </linearGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg1)"/>
-    <circle cx="80" cy="380" r="200" fill="rgba(255,255,255,0.06)"/>
-    <circle cx="1000" cy="1500" r="240" fill="rgba(255,255,255,0.05)"/>
-    <circle cx="540" cy="960" r="460" fill="rgba(255,255,255,0.035)"/>
-    <!-- wave at bottom -->
-    <path d="M0,1800 Q270,1720 540,1800 Q810,1880 1080,1800 L1080,1920 L0,1920 Z" fill="rgba(255,255,255,0.07)"/>
-  </svg>
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-    <div class="ae" data-slide="1" data-t="0,430,2" style="margin-bottom:64px;text-align:center">
-      <div style="font-size:64px;font-weight:900;color:#FFF176;letter-spacing:2px;text-shadow:0 4px 16px rgba(0,0,0,0.3)">이런 분께 딱!</div>
-      <div style="width:140px;height:7px;background:#FFF176;margin:18px auto 0;border-radius:4px;opacity:0.8"></div>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#060A20"/>
+      <stop offset="100%" stop-color="#0E1A52"/>
+    </linearGradient>
+    <radialGradient id="ac1" cx="80%" cy="15%" r="40%">
+      <stop offset="0%"   stop-color="#4A22E0" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#4A22E0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ac1b" cx="15%" cy="85%" r="40%">
+      <stop offset="0%"   stop-color="#0A8080" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0A8080" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg1)"/>
+  <rect width="1080" height="1920" fill="url(#ac1)"/>
+  <rect width="1080" height="1920" fill="url(#ac1b)"/>
+  <!-- Decorative circles -->
+  <circle cx="540" cy="960" r="580" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  <circle cx="540" cy="960" r="400" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
+  <div class="ae" data-slide="1" data-t="0,460,6" style="margin-bottom:60px;text-align:center">
+    <div style="font-size:66px;font-weight:900;color:#E8C87A;letter-spacing:-1px">이런 분께 딱!</div>
+    <div style="width:100px;height:4px;background:linear-gradient(90deg,#E8C87A,transparent);margin:18px auto 0;border-radius:2px"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%">
+    <div class="ae gc" data-slide="1" data-t="120,420,1" style="padding:46px 24px;text-align:center">
+      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">😊</div>
+      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">처음이라도<br>걱정 없어요</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;width:100%">
-      <div class="ae" data-slide="1" data-t="100,430,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:32px;padding:48px 28px;text-align:center;border:1.5px solid rgba(255,255,255,0.25)">
-        <div style="font-size:66px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">😊</div>
-        <div style="font-size:42px;font-weight:700;color:white;line-height:1.35">처음이라도<br>걱정 없어요</div>
-      </div>
-      <div class="ae" data-slide="1" data-t="200,430,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:32px;padding:48px 28px;text-align:center;border:1.5px solid rgba(255,255,255,0.25)">
-        <div style="font-size:66px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🙋</div>
-        <div style="font-size:42px;font-weight:700;color:white;line-height:1.35">혼자 오셔도<br>대환영!</div>
-      </div>
-      <div class="ae" data-slide="1" data-t="300,430,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:32px;padding:48px 28px;text-align:center;border:1.5px solid rgba(255,255,255,0.25)">
-        <div style="font-size:66px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🔒</div>
-        <div style="font-size:42px;font-weight:700;color:white;line-height:1.35">안전하고<br>편안한 환경</div>
-      </div>
-      <div class="ae" data-slide="1" data-t="400,430,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:32px;padding:48px 28px;text-align:center;border:1.5px solid rgba(255,255,255,0.25)">
-        <div style="font-size:66px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">💝</div>
-        <div style="font-size:42px;font-weight:700;color:white;line-height:1.35">합리적인<br>참가비</div>
-      </div>
+    <div class="ae gc" data-slide="1" data-t="230,420,1" style="padding:46px 24px;text-align:center">
+      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🙋</div>
+      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">혼자 오셔도<br>대환영!</div>
+    </div>
+    <div class="ae gc" data-slide="1" data-t="340,420,1" style="padding:46px 24px;text-align:center">
+      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🔒</div>
+      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">안전하고<br>편안한 환경</div>
+    </div>
+    <div class="ae gc" data-slide="1" data-t="450,420,1" style="padding:46px 24px;text-align:center">
+      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">💝</div>
+      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">합리적인<br>참가비</div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ═══════════════════ SLIDE 2: 이용방법 ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 2  |  이용방법  |  다크 틸
+══════════════════════════════════════ -->
 <div class="slide" id="s2">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#1255a0"/><stop offset="100%" stop-color="#38a8d0"/>
-      </linearGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg2)"/>
-    <circle cx="950" cy="180" r="320" fill="rgba(255,255,255,0.05)"/>
-    <circle cx="130" cy="1720" r="270" fill="rgba(255,255,255,0.055)"/>
-    <path d="M0,1820 Q270,1740 540,1820 Q810,1900 1080,1820 L1080,1920 L0,1920 Z" fill="rgba(255,255,255,0.07)"/>
-  </svg>
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-    <div class="ae" data-slide="2" data-t="0,430,2" style="margin-bottom:64px;text-align:center">
-      <div style="font-size:60px;font-weight:900;color:#FFF176;text-shadow:0 4px 16px rgba(0,0,0,0.3)">어떻게 진행하나요?</div>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#050E1C"/>
+      <stop offset="100%" stop-color="#0A2840"/>
+    </linearGradient>
+    <radialGradient id="ac2" cx="85%" cy="20%" r="40%">
+      <stop offset="0%"   stop-color="#0A6090" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0A6090" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg2)"/>
+  <rect width="1080" height="1920" fill="url(#ac2)"/>
+  <circle cx="100" cy="1800" r="280" fill="rgba(10,96,144,0.14)"/>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
+  <div class="ae" data-slide="2" data-t="0,460,6" style="margin-bottom:62px;text-align:center">
+    <div style="font-size:60px;font-weight:900;color:#E8C87A">어떻게 진행하나요?</div>
+  </div>
+  <div style="width:100%;display:flex;flex-direction:column;gap:28px">
+    <div class="ae gc" data-slide="2" data-t="110,420,1"
+      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
+      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
+        <span style="font-size:34px;font-weight:900;color:#080C20">1</span>
+      </div>
+      <div>
+        <div style="font-size:42px;font-weight:800;color:#FFFFFF">닉네임 배지 착용</div>
+        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">실명 없이 편안하게</div>
+      </div>
     </div>
-    <div style="width:100%;display:flex;flex-direction:column;gap:32px">
-      <div class="ae" data-slide="2" data-t="100,420,1" style="display:flex;align-items:center;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);border-radius:28px;padding:34px 40px;gap:36px;border:1.5px solid rgba(255,255,255,0.22)">
-        <div style="min-width:78px;height:78px;border-radius:50%;background:#FFF176;display:flex;align-items:center;justify-content:center">
-          <span style="font-size:38px;font-weight:900;color:#1255a0">1</span>
-        </div>
-        <div><div style="font-size:44px;font-weight:700;color:white">닉네임 배지 착용</div><div style="font-size:35px;color:rgba(255,255,255,0.72);margin-top:6px">실명 없이 편안하게</div></div>
+    <div class="ae gc" data-slide="2" data-t="230,420,1"
+      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
+      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
+        <span style="font-size:34px;font-weight:900;color:#080C20">2</span>
       </div>
-      <div class="ae" data-slide="2" data-t="200,420,1" style="display:flex;align-items:center;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);border-radius:28px;padding:34px 40px;gap:36px;border:1.5px solid rgba(255,255,255,0.22)">
-        <div style="min-width:78px;height:78px;border-radius:50%;background:#FFF176;display:flex;align-items:center;justify-content:center">
-          <span style="font-size:38px;font-weight:900;color:#1255a0">2</span>
-        </div>
-        <div><div style="font-size:44px;font-weight:700;color:white">가림막 테이블 착석</div><div style="font-size:35px;color:rgba(255,255,255,0.72);margin-top:6px">외모 아닌 대화에 집중</div></div>
+      <div>
+        <div style="font-size:42px;font-weight:800;color:#FFFFFF">가림막 테이블 착석</div>
+        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">외모 아닌 대화에 집중</div>
       </div>
-      <div class="ae" data-slide="2" data-t="300,420,1" style="display:flex;align-items:center;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);border-radius:28px;padding:34px 40px;gap:36px;border:1.5px solid rgba(255,255,255,0.22)">
-        <div style="min-width:78px;height:78px;border-radius:50%;background:#FFF176;display:flex;align-items:center;justify-content:center">
-          <span style="font-size:38px;font-weight:900;color:#1255a0">3</span>
-        </div>
-        <div><div style="font-size:44px;font-weight:700;color:white">5분 대화 × 로테이션</div><div style="font-size:35px;color:rgba(255,255,255,0.72);margin-top:6px">여러 분과 차례로 대화</div></div>
+    </div>
+    <div class="ae gc" data-slide="2" data-t="350,420,1"
+      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
+      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
+        <span style="font-size:34px;font-weight:900;color:#080C20">3</span>
       </div>
-      <div class="ae" data-slide="2" data-t="400,420,1" style="display:flex;align-items:center;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);border-radius:28px;padding:34px 40px;gap:36px;border:1.5px solid rgba(255,255,255,0.22)">
-        <div style="min-width:78px;height:78px;border-radius:50%;background:#FFF176;display:flex;align-items:center;justify-content:center">
-          <span style="font-size:38px;font-weight:900;color:#1255a0">4</span>
-        </div>
-        <div><div style="font-size:44px;font-weight:700;color:white">쪽지 투표 → 매칭!</div><div style="font-size:35px;color:rgba(255,255,255,0.72);margin-top:6px">서로 선택 시 연락처 교환</div></div>
+      <div>
+        <div style="font-size:42px;font-weight:800;color:#FFFFFF">5분 대화 × 로테이션</div>
+        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">여러 분과 차례로 대화</div>
+      </div>
+    </div>
+    <div class="ae gc" data-slide="2" data-t="470,420,1"
+      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
+      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
+        <span style="font-size:34px;font-weight:900;color:#080C20">4</span>
+      </div>
+      <div>
+        <div style="font-size:42px;font-weight:800;color:#FFFFFF">쪽지 투표 → 매칭!</div>
+        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">서로 선택 시 연락처 교환</div>
       </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ═══════════════════ SLIDE 3: 행사정보 ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 3  |  행사정보  |  딥 슬레이트
+══════════════════════════════════════ -->
 <div class="slide" id="s3">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0278b8"/><stop offset="100%" stop-color="#4ac5e8"/>
-      </linearGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg3)"/>
-    <circle cx="540" cy="280" r="380" fill="rgba(255,255,255,0.055)"/>
-    <path d="M0,1840 Q270,1760 540,1840 Q810,1920 1080,1840 L1080,1920 L0,1920 Z" fill="rgba(255,255,255,0.07)"/>
-  </svg>
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-    <div class="ae" data-slide="3" data-t="0,400,2" style="margin-bottom:56px;text-align:center">
-      <div style="font-size:66px;font-weight:900;color:white;text-shadow:0 4px 16px rgba(0,0,0,0.3)">행사 정보</div>
-      <div style="font-size:40px;color:#B3E5FF;margin-top:12px">2026 OCTOBER</div>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#060812"/>
+      <stop offset="100%" stop-color="#0C1A3A"/>
+    </linearGradient>
+    <radialGradient id="ac3" cx="50%" cy="30%" r="50%">
+      <stop offset="0%"   stop-color="#8040D0" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#8040D0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg3)"/>
+  <rect width="1080" height="1920" fill="url(#ac3)"/>
+  <circle cx="900" cy="1700" r="260" fill="rgba(128,64,208,0.10)"/>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
+  <div class="ae" data-slide="3" data-t="0,440,6" style="margin-bottom:54px;text-align:center">
+    <div style="font-size:66px;font-weight:900;color:#FFFFFF">행사 정보</div>
+    <div style="font-size:36px;font-weight:400;color:rgba(232,200,122,0.75);margin-top:10px;letter-spacing:4px">2026 OCTOBER</div>
+  </div>
+  <div style="width:100%;display:flex;flex-direction:column;gap:26px">
+    <div class="ae gc" data-slide="3" data-t="110,420,1"
+      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
+      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">📍</span>
+      <div>
+        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">장소</div>
+        <div style="font-size:46px;font-weight:800;color:#FFFFFF">서교동 394-23</div>
+        <div style="font-size:34px;font-weight:400;color:#E8C87A">합정역 도보 1분</div>
+      </div>
     </div>
-    <div style="width:100%;display:flex;flex-direction:column;gap:28px">
-      <div class="ae" data-slide="3" data-t="100,400,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:26px;padding:36px 44px;display:flex;align-items:center;gap:30px;border:1.5px solid rgba(255,255,255,0.25)">
-        <span style="font-size:58px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">📍</span>
-        <div><div style="font-size:36px;color:rgba(255,255,255,0.68)">장소</div><div style="font-size:50px;font-weight:700;color:white">서교동 394-23</div><div style="font-size:38px;color:#B3E5FF">합정역 도보 1분</div></div>
-      </div>
-      <div class="ae" data-slide="3" data-t="220,400,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:26px;padding:36px 44px;display:flex;align-items:center;gap:30px;border:1.5px solid rgba(255,255,255,0.25)">
-        <span style="font-size:58px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">🕐</span>
-        <div><div style="font-size:36px;color:rgba(255,255,255,0.68)">일정</div><div style="font-size:50px;font-weight:700;color:white">매주 토·일</div><div style="font-size:38px;color:#B3E5FF">오후 3시 / 오후 6시</div></div>
-      </div>
-      <div class="ae" data-slide="3" data-t="360,400,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:26px;padding:36px 44px;display:flex;align-items:center;gap:30px;border:1.5px solid rgba(255,255,255,0.25)">
-        <span style="font-size:58px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">💰</span>
-        <div><div style="font-size:36px;color:rgba(255,255,255,0.68)">참가비 (선착순 할인)</div><div style="font-size:50px;font-weight:700;color:white">여 15,000원 / 남 30,000원</div><div style="font-size:36px;color:#FFD54F">정가 54,000원 → 선착순 특가</div></div>
+    <div class="ae gc" data-slide="3" data-t="230,420,1"
+      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
+      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">🕐</span>
+      <div>
+        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">일정</div>
+        <div style="font-size:46px;font-weight:800;color:#FFFFFF">매주 토·일</div>
+        <div style="font-size:34px;font-weight:400;color:#E8C87A">오후 3시 / 오후 6시</div>
       </div>
     </div>
-    <div class="ae" data-slide="3" data-t="520,400,5" style="margin-top:40px;background:linear-gradient(135deg,#FF5252,#FF1744);border-radius:54px;padding:24px 80px;box-shadow:0 8px 32px rgba(255,50,50,0.4)">
-      <div style="font-size:50px;font-weight:900;color:white;text-align:center">🔥 선착순 마감!</div>
+    <div class="ae gc" data-slide="3" data-t="370,420,1"
+      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
+      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">💰</span>
+      <div>
+        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">참가비 (선착순 할인)</div>
+        <div style="font-size:46px;font-weight:800;color:#FFFFFF">여 15,000원 / 남 30,000원</div>
+        <div style="font-size:32px;font-weight:400;color:rgba(232,200,122,0.70)">정가 54,000원 → 선착순 특가</div>
+      </div>
     </div>
   </div>
+  <div class="ae" data-slide="3" data-t="540,400,5"
+    style="margin-top:36px;background:linear-gradient(135deg,#C0280A,#E84020);border-radius:56px;padding:22px 72px;box-shadow:0 8px 36px rgba(192,40,10,0.50)">
+    <div style="font-size:48px;font-weight:900;color:white;text-align:center;font-family:'Pretendard','Noto Color Emoji',sans-serif">🔥 선착순 마감!</div>
+  </div>
+</div>
 </div>
 
-<!-- ═══════════════════ SLIDE 4: 후기 ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 4  |  사용자 후기  |  딥 플럼
+══════════════════════════════════════ -->
 <div class="slide" id="s4">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#054f82"/><stop offset="100%" stop-color="#3fb8d8"/>
-      </linearGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg4)"/>
-    <circle cx="180" cy="580" r="280" fill="rgba(255,255,255,0.05)"/>
-    <circle cx="920" cy="1450" r="220" fill="rgba(255,255,255,0.055)"/>
-    <path d="M0,1830 Q270,1750 540,1830 Q810,1910 1080,1830 L1080,1920 L0,1920 Z" fill="rgba(255,255,255,0.07)"/>
-  </svg>
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-    <div class="ae" data-slide="4" data-t="0,400,2" style="margin-bottom:56px;text-align:center">
-      <div style="font-size:66px;font-weight:900;color:white;text-shadow:0 4px 16px rgba(0,0,0,0.3)">실제 후기</div>
-      <div style="font-size:38px;color:#FFD54F;margin-top:12px">⭐⭐⭐⭐⭐ 만족도 4.8/5</div>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#07040F"/>
+      <stop offset="100%" stop-color="#120828"/>
+    </linearGradient>
+    <radialGradient id="ac4" cx="20%" cy="25%" r="40%">
+      <stop offset="0%"   stop-color="#6020A0" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#6020A0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ac4b" cx="80%" cy="75%" r="40%">
+      <stop offset="0%"   stop-color="#1A4090" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#1A4090" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg4)"/>
+  <rect width="1080" height="1920" fill="url(#ac4)"/>
+  <rect width="1080" height="1920" fill="url(#ac4b)"/>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
+  <div class="ae" data-slide="4" data-t="0,440,6" style="margin-bottom:54px;text-align:center">
+    <div style="font-size:66px;font-weight:900;color:#FFFFFF">실제 후기</div>
+    <div style="font-size:36px;color:#F5C842;margin-top:12px">⭐⭐⭐⭐⭐ &nbsp;만족도 4.8 / 5</div>
+  </div>
+  <div style="width:100%;display:flex;flex-direction:column;gap:32px">
+    <div class="ae gc" data-slide="4" data-t="140,440,1"
+      style="padding:40px 44px">
+      <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:14px">참가자 A님</div>
+      <div style="font-size:42px;font-weight:700;color:#FFFFFF;line-height:1.55">"가림막 덕분에 외모 부담 없이<br>진짜 대화를 나눴어요!"</div>
+      <div style="font-size:36px;color:#F5C842;margin-top:16px">⭐⭐⭐⭐⭐</div>
     </div>
-    <div style="width:100%;display:flex;flex-direction:column;gap:36px">
-      <div class="ae" data-slide="4" data-t="150,450,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:30px;padding:44px 48px;border:1.5px solid rgba(255,255,255,0.24)">
-        <div style="font-size:36px;color:rgba(255,255,255,0.65);margin-bottom:16px">참가자 A님</div>
-        <div style="font-size:44px;font-weight:700;color:white;line-height:1.5">"가림막 덕분에 외모 부담 없이<br>진짜 대화를 나눴어요!"</div>
-        <div style="font-size:38px;color:#FFD54F;margin-top:16px">⭐⭐⭐⭐⭐</div>
-      </div>
-      <div class="ae" data-slide="4" data-t="300,450,1" style="background:rgba(255,255,255,0.17);backdrop-filter:blur(6px);border-radius:30px;padding:44px 48px;border:1.5px solid rgba(255,255,255,0.24)">
-        <div style="font-size:36px;color:rgba(255,255,255,0.65);margin-bottom:16px">참가자 B님</div>
-        <div style="font-size:44px;font-weight:700;color:white;line-height:1.5">"혼자 왔는데 전혀 어색하지<br>않고 즐거웠어요 😊"</div>
-        <div style="font-size:38px;color:#FFD54F;margin-top:16px">⭐⭐⭐⭐⭐</div>
-      </div>
-      <div class="ae" data-slide="4" data-t="450,420,1" style="background:rgba(255,255,255,0.14);border-radius:28px;padding:34px 48px;text-align:center">
-        <div style="font-size:40px;font-weight:700;color:white">"나도 도전해볼까?" 망설이지 마세요 💪</div>
-      </div>
+    <div class="ae gc" data-slide="4" data-t="290,440,1"
+      style="padding:40px 44px">
+      <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:14px">참가자 B님</div>
+      <div style="font-size:42px;font-weight:700;color:#FFFFFF;line-height:1.55">"혼자 왔는데 전혀 어색하지<br>않고 즐거웠어요 😊"</div>
+      <div style="font-size:36px;color:#F5C842;margin-top:16px">⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="ae gc" data-slide="4" data-t="440,420,1"
+      style="padding:30px 44px;text-align:center">
+      <div style="font-size:38px;font-weight:700;color:rgba(255,255,255,0.85)">"망설이지 마세요 &nbsp;💪 &nbsp;나도 해봤어요!"</div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ═══════════════════ SLIDE 5: CTA ═══════════════════ -->
+<!-- ══════════════════════════════════════
+     SLIDE 5  |  CTA  |  럭셔리 골드 나이트
+══════════════════════════════════════ -->
 <div class="slide" id="s5">
-  <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
-    <defs>
-      <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#082e74"/><stop offset="50%" stop-color="#1565C0"/><stop offset="100%" stop-color="#3ea8e0"/>
-      </linearGradient>
-    </defs>
-    <rect width="1080" height="1920" fill="url(#bg5)"/>
-    <circle cx="540" cy="620" r="540" fill="rgba(255,255,255,0.055)"/>
-    <circle cx="540" cy="620" r="360" fill="rgba(255,255,255,0.055)"/>
-    <circle cx="540" cy="620" r="200" fill="rgba(255,255,255,0.07)"/>
-    <!-- Decorative stars -->
-    <text x="130" y="310" font-size="90" opacity="0.25" fill="#FFF176">★</text>
-    <text x="880" y="260" font-size="65" opacity="0.2" fill="#FFF176">★</text>
-    <text x="90" y="1620" font-size="55" opacity="0.18" fill="white">★</text>
-    <text x="930" y="1680" font-size="75" opacity="0.22" fill="white">★</text>
-    <path d="M0,1840 Q270,1760 540,1840 Q810,1920 1080,1840 L1080,1920 L0,1920 Z" fill="rgba(255,255,255,0.07)"/>
-  </svg>
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-    <div class="ae" data-slide="5" data-t="0,480,5" style="margin-bottom:28px;font-size:90px;text-align:center;font-family:'Noto Color Emoji',sans-serif">💫</div>
-    <div class="ae" data-slide="5" data-t="100,480,1" style="margin-bottom:16px;text-align:center">
-      <div style="font-size:52px;font-weight:400;color:#B3E5FF;letter-spacing:10px">SEVEN STARS</div>
-    </div>
-    <div class="ae" data-slide="5" data-t="200,480,1" style="text-align:center;margin-bottom:64px">
-      <div style="font-size:96px;font-weight:900;color:white;line-height:1.1;text-shadow:0 6px 28px rgba(0,0,0,0.35)">지금 바로<br>신청하세요!</div>
-    </div>
-    <div class="ae" data-slide="5" data-t="360,480,5" style="background:#FFF176;border-radius:64px;padding:38px 100px;margin-bottom:44px;box-shadow:0 10px 40px rgba(255,240,100,0.4)">
-      <div style="font-size:62px;font-weight:900;color:#082e74;letter-spacing:2px">sevenstars.kr</div>
-    </div>
-    <div class="ae" data-slide="5" data-t="500,420,1" style="text-align:center;margin-bottom:32px">
-      <div style="font-size:44px;color:rgba(255,255,255,0.85)">🔥 선착순 마감 · 서교동 394-23</div>
-    </div>
-    <div class="ae" data-slide="5" data-t="620,380,0" style="text-align:center">
-      <div style="font-size:34px;color:rgba(255,255,255,0.55)">#세븐스타즈 #로테이션소개팅 #합정역소개팅</div>
-    </div>
+<svg width="1080" height="1920" style="position:absolute;top:0;left:0">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#04071A"/>
+      <stop offset="50%"  stop-color="#0E1650"/>
+      <stop offset="85%"  stop-color="#2A1400"/>
+      <stop offset="100%" stop-color="#120800"/>
+    </linearGradient>
+    <radialGradient id="gold5" cx="50%" cy="55%" r="45%">
+      <stop offset="0%"   stop-color="#E8A835" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#E8A835" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blu5" cx="50%" cy="35%" r="40%">
+      <stop offset="0%"   stop-color="#2040C0" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#2040C0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg5)"/>
+  <rect width="1080" height="1920" fill="url(#blu5)"/>
+  <rect width="1080" height="1920" fill="url(#gold5)"/>
+  <!-- Concentric rings -->
+  <circle cx="540" cy="880" r="550" fill="none" stroke="rgba(232,168,53,0.07)" stroke-width="1.5"/>
+  <circle cx="540" cy="880" r="420" fill="none" stroke="rgba(232,168,53,0.06)" stroke-width="1.5"/>
+  <circle cx="540" cy="880" r="290" fill="none" stroke="rgba(232,168,53,0.08)" stroke-width="1"/>
+  <!-- Stars -->
+  <g fill="#E8C87A" opacity="0.35">
+    <polygon points="150,240 158,265 183,265 163,280 170,305 150,290 130,305 137,280 117,265 142,265" transform="scale(0.6) translate(-5,-20)"/>
+    <polygon points="920,180 928,205 953,205 933,220 940,245 920,230 900,245 907,220 887,205 912,205" transform="scale(0.6) translate(600,-20)"/>
+    <polygon points="100,1650 106,1668 124,1668 110,1678 115,1696 100,1686 85,1696 90,1678 76,1668 94,1668" transform="scale(0.7) translate(-100,600)"/>
+    <polygon points="960,1700 966,1718 984,1718 970,1728 975,1746 960,1736 945,1746 950,1728 936,1718 954,1718" transform="scale(0.65) translate(820,650)"/>
+  </g>
+</svg>
+
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
+  <div class="ae" data-slide="5" data-t="0,460,5"
+    style="margin-bottom:28px;font-size:88px;text-align:center;line-height:1;font-family:'Noto Color Emoji',sans-serif">💫</div>
+  <div class="ae" data-slide="5" data-t="140,440,6"
+    style="margin-bottom:18px;text-align:center">
+    <div style="font-size:44px;font-weight:400;color:rgba(232,200,122,0.75);letter-spacing:12px">SEVEN STARS</div>
   </div>
+  <div class="ae" data-slide="5" data-t="280,440,6"
+    style="text-align:center;margin-bottom:64px">
+    <div style="font-size:100px;font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-2px;text-shadow:0 0 60px rgba(255,255,255,0.15)">지금 바로<br>신청하세요!</div>
+  </div>
+  <div class="ae" data-slide="5" data-t="420,460,5"
+    style="background:linear-gradient(135deg,#C88020,#E8B030,#F5D060);border-radius:60px;padding:34px 96px;margin-bottom:38px;box-shadow:0 10px 50px rgba(232,168,53,0.50)">
+    <div style="font-size:60px;font-weight:900;color:#080C20;letter-spacing:1px">sevenstars.kr</div>
+  </div>
+  <div class="ae" data-slide="5" data-t="570,400,1"
+    style="text-align:center;margin-bottom:28px">
+    <div style="font-size:42px;font-weight:400;color:rgba(255,255,255,0.70)">🔥 선착순 마감 &nbsp;·&nbsp; 서교동 394-23</div>
+  </div>
+  <div class="ae" data-slide="5" data-t="700,360,0"
+    style="text-align:center">
+    <div style="font-size:32px;font-weight:400;color:rgba(232,200,122,0.45);letter-spacing:1px">#세븐스타즈 &nbsp;#로테이션소개팅 &nbsp;#합정역소개팅</div>
+  </div>
+</div>
 </div>
 
 </div><!-- /#stage -->
 
 <script>
-const SLIDE_DUR = 2500;  // ms per slide
-const DISSOLVE  = 500;   // dissolve duration
+/* ─── Timing ─── */
+const SLIDE_DUR = 2500;   // ms per slide
+const DISSOLVE  = 500;    // crossfade duration
 const STEP      = SLIDE_DUR - DISSOLVE;  // 2000ms between slide starts
 const N_SLIDES  = 6;
-const TOTAL     = (N_SLIDES - 1) * STEP + SLIDE_DUR;  // 12500ms = 12.5s
+const TOTAL     = (N_SLIDES - 1) * STEP + SLIDE_DUR;  // 12500ms
 
 const slides = Array.from(document.querySelectorAll('.slide'));
 const aeAll  = Array.from(document.querySelectorAll('.ae'));
 
-function easeOutCubic(t){ return 1-Math.pow(1-t,3); }
-function easeInOutCubic(t){ return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
-function easeOutBack(t){ const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); }
+/* ─── Easing ─── */
+function easeOutCubic(t)   { return 1 - Math.pow(1-t, 3); }
+function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+function easeOutBack(t)    { const c1=1.70158, c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); }
+function easeOutQuart(t)   { return 1 - Math.pow(1-t, 4); }
 
-function parseT(el){
-  const [d,dur,a]=el.dataset.t.split(',').map(Number);
-  return{delay:d,dur,anim:a};
+/* ─── Parse data-t="delay,dur,anim" ─── */
+function parseT(el) {
+  const [d, dur, a] = el.dataset.t.split(',').map(Number);
+  return { delay: d, dur, anim: a };
 }
 
-function applyAnim(el,anim,p){
-  const ep=Math.max(0,Math.min(1,p));
-  switch(anim){
-    case 0: el.style.opacity=ep; el.style.transform=''; break;
-    case 1: el.style.opacity=easeOutCubic(ep); el.style.transform='translateY('+(1-ep)*60+'px)'; break;
-    case 2: el.style.opacity=easeOutCubic(ep); el.style.transform='translateY('+-(1-ep)*60+'px)'; break;
-    case 5: el.style.opacity=Math.min(1,ep*2); el.style.transform='scale('+easeOutBack(ep)+')'; break;
+/* ─── Per-element animation ─── */
+function applyAnim(el, anim, p) {
+  const ep = Math.max(0, Math.min(1, p));
+  switch (anim) {
+    case 0: // fade
+      el.style.opacity   = easeOutCubic(ep);
+      el.style.transform = '';
+      el.style.clipPath  = '';
+      break;
+    case 1: // slide-up + fade
+      el.style.opacity   = easeOutCubic(ep);
+      el.style.transform = 'translateY(' + ((1-ep)*70).toFixed(2) + 'px)';
+      el.style.clipPath  = '';
+      break;
+    case 5: // bounce-scale
+      el.style.opacity   = Math.min(1, ep * 2.2);
+      el.style.transform = 'scale(' + easeOutBack(ep).toFixed(4) + ')';
+      el.style.clipPath  = '';
+      break;
+    case 6: // left-to-right clip reveal (typewriter)
+      el.style.opacity   = ep > 0.008 ? 1 : 0;
+      el.style.transform = '';
+      const pct = (1 - easeOutQuart(ep)) * 104;
+      el.style.clipPath  = 'inset(0 ' + Math.max(0, pct).toFixed(2) + '% 0 0)';
+      break;
+    default:
+      el.style.opacity   = ep;
+      el.style.transform = '';
+      el.style.clipPath  = '';
   }
 }
 
-window.seekTo = function(totalMs){
+/* ─── Master seek ─── */
+window.seekTo = function (totalMs) {
   const t = Math.min(totalMs, TOTAL);
 
-  // Dissolve: update per-slide opacity
+  /* Dissolve + carousel slide (exit left / enter right) */
   slides.forEach((slide, i) => {
     const start = i * STEP;
     const end   = start + SLIDE_DUR;
-    let op = 0;
-    if(t >= start && t <= end){
-      const local = t - start;
+    let op = 0, tx = 0;
+
+    if (t >= start && t <= end) {
+      const local   = t - start;
       const isFirst = i === 0;
       const isLast  = i === N_SLIDES - 1;
-      if(!isFirst && local < DISSOLVE){
-        op = easeInOutCubic(local / DISSOLVE);
-      } else if(!isLast && local >= SLIDE_DUR - DISSOLVE){
-        op = 1 - easeInOutCubic((local - (SLIDE_DUR - DISSOLVE)) / DISSOLVE);
+
+      if (!isFirst && local < DISSOLVE) {
+        const p = easeInOutCubic(local / DISSOLVE);
+        op = p;
+        tx = (1 - p) * 70;    // enters from right
+      } else if (!isLast && local >= SLIDE_DUR - DISSOLVE) {
+        const p = easeInOutCubic((local - (SLIDE_DUR - DISSOLVE)) / DISSOLVE);
+        op = 1 - p;
+        tx = -p * 70;          // exits to left
       } else {
-        op = 1;
+        op = 1; tx = 0;
       }
     }
-    slide.style.opacity = op;
-    slide.style.display = op > 0.001 ? 'block' : 'none';
+
+    slide.style.opacity   = op;
+    slide.style.transform = 'translateX(' + tx.toFixed(2) + 'px)';
+    slide.style.display   = op > 0.001 ? 'block' : 'none';
   });
 
-  // Typography animations (local time from each slide's STEP start)
+  /* Typography — local time from each slide's STEP start */
   aeAll.forEach(el => {
     const si    = parseInt(el.dataset.slide);
     const sMs   = t - si * STEP;
-    const {delay, dur, anim} = parseT(el);
+    const { delay, dur, anim } = parseT(el);
     const elapsed  = sMs - delay;
     const progress = elapsed <= 0 ? 0 : elapsed >= dur ? 1 : elapsed / dur;
     applyAnim(el, anim, progress);
   });
 };
 
+/* ─── Autoplay (no loop) ─── */
 let _startTime;
-function autoPlay(){
+function autoPlay() {
   _startTime = performance.now();
-  (function tick(){
+  (function tick() {
     const elapsed = performance.now() - _startTime;
-    if(elapsed >= TOTAL){ window.seekTo(TOTAL); return; }
+    if (elapsed >= TOTAL) { window.seekTo(TOTAL); return; }
     window.seekTo(elapsed);
     requestAnimationFrame(tick);
   })();
 }
 
-window.addEventListener('load', function(){
+window.addEventListener('load', function () {
   window.seekTo(0);
   autoPlay();
 });
