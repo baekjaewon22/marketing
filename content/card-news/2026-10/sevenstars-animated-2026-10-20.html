@@ -4,489 +4,592 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1080">
 <title>세븐스타즈 로테이션소개팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'Pretendard';font-weight:400;font-style:normal;src:local('Pretendard'),url('file:///home/user/marketing/assets/fonts/Pretendard-Regular.ttf') format('truetype')}
-@font-face{font-family:'Pretendard';font-weight:700;font-style:normal;src:local('Pretendard Bold'),url('file:///home/user/marketing/assets/fonts/Pretendard-Bold.ttf') format('truetype')}
-@font-face{font-family:'Pretendard';font-weight:800;font-style:normal;src:local('Pretendard ExtraBold'),url('file:///home/user/marketing/assets/fonts/Pretendard-ExtraBold.ttf') format('truetype')}
-@font-face{font-family:'Pretendard';font-weight:900;font-style:normal;src:local('Pretendard Black'),url('file:///home/user/marketing/assets/fonts/Pretendard-Black.ttf') format('truetype')}
+/* ── 로컬 Pretendard (Playwright용) ── */
+@font-face{font-family:'Pretendard';font-weight:400;src:local('Pretendard'),url('file:///home/user/marketing/assets/fonts/Pretendard-Regular.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:700;src:local('Pretendard Bold'),url('file:///home/user/marketing/assets/fonts/Pretendard-Bold.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:800;src:local('Pretendard ExtraBold'),url('file:///home/user/marketing/assets/fonts/Pretendard-ExtraBold.ttf') format('truetype')}
+@font-face{font-family:'Pretendard';font-weight:900;src:local('Pretendard Black'),url('file:///home/user/marketing/assets/fonts/Pretendard-Black.ttf') format('truetype')}
 @font-face{font-family:'Noto Color Emoji';src:url('file:///usr/share/fonts/truetype/noto/NotoColorEmoji.ttf') format('truetype')}
 
 *{margin:0;padding:0;box-sizing:border-box}
-body{width:1080px;height:1920px;overflow:hidden;font-family:'Pretendard','Noto Color Emoji',sans-serif;background:#080C20}
+body{
+  width:1080px;height:1920px;overflow:hidden;
+  font-family:'Pretendard','Noto Sans KR','Noto Color Emoji',sans-serif;
+  background:#04071A
+}
 #stage{position:relative;width:1080px;height:1920px;overflow:hidden}
-.slide{position:absolute;top:0;left:0;width:1080px;height:1920px;opacity:0;display:none;will-change:opacity,transform}
-.ae{opacity:0;will-change:opacity,transform,clip-path}
 
-/* glass card */
-.gc{background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.14);border-radius:28px}
-.gc-warm{background:rgba(255,200,80,0.1);border:1px solid rgba(255,200,80,0.22);border-radius:28px}
+.slide{
+  position:absolute;top:0;left:0;
+  width:1080px;height:1920px;
+  opacity:0;visibility:hidden;   /* visibility로 깜빡임 제거 */
+  will-change:opacity,transform,visibility
+}
+
+/* 모든 animated element 초기 숨김 */
+.ae{
+  opacity:0;
+  will-change:opacity,transform,clip-path
+}
+
+/* ── 유틸리티 ── */
+.glass{
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:24px
+}
+.glass-gold{
+  background:rgba(232,168,53,0.09);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(232,168,53,0.20);
+  border-radius:24px
+}
+.num-badge{
+  display:flex;align-items:center;justify-content:center;
+  width:72px;height:72px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(145deg,#D4921E,#F5CF5A);
+  box-shadow:0 0 28px rgba(212,146,30,0.45);
+  font-size:32px;font-weight:900;color:#04071A
+}
 </style>
 </head>
 <body>
 <div id="stage">
 
-<!-- ══════════════════════════════════════
-     SLIDE 0  |  커버  |  밤하늘 + 한옥
-══════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     SLIDE 0 │ 커버 │ 달밤 한옥
+══════════════════════════════════════════ -->
 <div class="slide" id="s0">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="sky0" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#04071A"/>
-      <stop offset="55%"  stop-color="#101650"/>
-      <stop offset="82%"  stop-color="#3B1E06"/>
-      <stop offset="100%" stop-color="#1A0A00"/>
+    <linearGradient id="s0-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#030614"/>
+      <stop offset="52%"  stop-color="#0E1248"/>
+      <stop offset="78%"  stop-color="#2E1504"/>
+      <stop offset="100%" stop-color="#160800"/>
     </linearGradient>
-    <radialGradient id="hl0" cx="50%" cy="78%" r="35%">
-      <stop offset="0%"   stop-color="#E8820A" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#E8820A" stop-opacity="0"/>
+    <radialGradient id="s0-moon" cx="78%" cy="12%" r="12%">
+      <stop offset="0%"   stop-color="#FFF5C8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFF5C8" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glow0" cx="50%" cy="40%" r="50%">
-      <stop offset="0%"   stop-color="#2540C8" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="#2540C8" stop-opacity="0"/>
+    <radialGradient id="s0-horizon" cx="50%" cy="80%" r="38%">
+      <stop offset="0%"   stop-color="#C87010" stop-opacity="0.60"/>
+      <stop offset="100%" stop-color="#C87010" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="s0-nebula" cx="30%" cy="35%" r="45%">
+      <stop offset="0%"   stop-color="#1A2A90" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#1A2A90" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect width="1080" height="1920" fill="url(#sky0)"/>
-  <rect width="1080" height="1920" fill="url(#hl0)"/>
-  <rect width="1080" height="1920" fill="url(#glow0)"/>
-  <!-- Stars -->
-  <g fill="white">
-    <circle cx="120"  cy="90"  r="2.2" opacity="0.9"/>
-    <circle cx="250"  cy="55"  r="1.6" opacity="0.75"/>
-    <circle cx="400"  cy="120" r="2.8" opacity="0.85"/>
-    <circle cx="540"  cy="40"  r="1.4" opacity="0.7"/>
-    <circle cx="680"  cy="100" r="2.0" opacity="0.9"/>
-    <circle cx="820"  cy="65"  r="1.8" opacity="0.8"/>
-    <circle cx="960"  cy="130" r="2.4" opacity="0.85"/>
-    <circle cx="80"   cy="220" r="1.5" opacity="0.6"/>
-    <circle cx="320"  cy="200" r="1.2" opacity="0.65"/>
-    <circle cx="620"  cy="180" r="1.9" opacity="0.7"/>
-    <circle cx="780"  cy="240" r="1.4" opacity="0.6"/>
-    <circle cx="1000" cy="200" r="1.7" opacity="0.75"/>
-    <circle cx="160"  cy="350" r="1.1" opacity="0.5"/>
-    <circle cx="480"  cy="310" r="1.6" opacity="0.6"/>
-    <circle cx="860"  cy="340" r="1.3" opacity="0.55"/>
-    <!-- Brighter stars -->
-    <circle cx="200"  cy="150" r="3.2" opacity="0.95"/>
-    <circle cx="900"  cy="110" r="2.8" opacity="0.90"/>
-    <circle cx="70"   cy="140" r="1.8" opacity="0.85"/>
-  </g>
+  <rect width="1080" height="1920" fill="url(#s0-sky)"/>
+  <rect width="1080" height="1920" fill="url(#s0-nebula)"/>
+  <rect width="1080" height="1920" fill="url(#s0-horizon)"/>
+  <rect width="1080" height="1920" fill="url(#s0-moon)"/>
   <!-- Moon -->
-  <circle cx="830" cy="160" r="60" fill="#FFF9D6" opacity="0.92"/>
-  <circle cx="855" cy="145" r="52" fill="#100C30" opacity="0.88"/>
-  <!-- Mountain silhouette -->
-  <polygon points="0,1400 220,1100 420,1280 540,1060 660,1270 840,1080 1080,1350 1080,1920 0,1920" fill="#0A0E25"/>
-  <polygon points="0,1500 180,1300 360,1420 540,1200 720,1410 900,1290 1080,1450 1080,1920 0,1920" fill="#080B1E"/>
-  <!-- Hanok main building -->
-  <rect x="330" y="1540" width="420" height="380" fill="#0D1128"/>
-  <!-- Roof layers -->
-  <polygon points="270,1540 540,1410 810,1540" fill="#07091A"/>
-  <rect x="290" y="1528" width="500" height="28" fill="#E8820A" opacity="0.35"/>
-  <polygon points="350,1430 540,1335 730,1430" fill="#0A0C20"/>
-  <rect x="365" y="1420" width="350" height="22" fill="#E8820A" opacity="0.30"/>
+  <circle cx="840" cy="155" r="66" fill="#FFF7D0" opacity="0.94" filter="url(#glow)"/>
+  <circle cx="862" cy="140" r="57" fill="#0A0C28" opacity="0.92"/>
+  <!-- Stars scatter -->
+  <g fill="white">
+    <circle cx="105" cy="88"  r="2.4" opacity="0.92"/><circle cx="240" cy="52"  r="1.7" opacity="0.78"/>
+    <circle cx="388" cy="118" r="3.0" opacity="0.88"/><circle cx="532" cy="38"  r="1.5" opacity="0.72"/>
+    <circle cx="672" cy="96"  r="2.2" opacity="0.90"/><circle cx="968" cy="124" r="2.6" opacity="0.86"/>
+    <circle cx="78"  cy="218" r="1.6" opacity="0.64"/><circle cx="308" cy="196" r="1.3" opacity="0.68"/>
+    <circle cx="608" cy="174" r="2.0" opacity="0.74"/><circle cx="776" cy="234" r="1.5" opacity="0.62"/>
+    <circle cx="1002" cy="198" r="1.8" opacity="0.78"/><circle cx="158" cy="348" r="1.2" opacity="0.52"/>
+    <circle cx="476" cy="308" r="1.7" opacity="0.62"/><circle cx="856" cy="338" r="1.4" opacity="0.58"/>
+    <!-- Bright stars -->
+    <circle cx="192" cy="148" r="3.4" opacity="0.96" filter="url(#glow)"/>
+    <circle cx="704" cy="64"  r="2.9" opacity="0.92" filter="url(#glow)"/>
+  </g>
+  <!-- Mountain silhouette layers -->
+  <polygon points="0,1440 200,1120 420,1300 540,1080 660,1280 860,1110 1080,1380 1080,1920 0,1920" fill="#060A18"/>
+  <polygon points="0,1540 170,1320 360,1450 540,1220 720,1440 920,1310 1080,1500 1080,1920 0,1920" fill="#040815"/>
+  <!-- Hanok building -->
+  <rect x="348" y="1570" width="384" height="350" fill="#080C20"/>
+  <!-- Main roof -->
+  <polygon points="288,1570 540,1430 792,1570" fill="#04060E"/>
+  <rect x="305" y="1558" width="470" height="26" fill="#C87010" opacity="0.38"/>
+  <!-- Roof tips (decorative) -->
+  <line x1="288" y1="1570" x2="270" y2="1554" stroke="#C87010" stroke-width="3" opacity="0.5"/>
+  <line x1="792" y1="1570" x2="810" y2="1554" stroke="#C87010" stroke-width="3" opacity="0.5"/>
+  <!-- Second-floor pagoda -->
+  <rect x="426" y="1400" width="228" height="200" fill="#0A0E22"/>
+  <polygon points="390,1400 540,1310 690,1400" fill="#06080E"/>
+  <rect x="406" y="1390" width="268" height="22" fill="#C87010" opacity="0.32"/>
   <!-- Columns -->
-  <rect x="360" y="1540" width="22" height="380" fill="#060818"/>
-  <rect x="700" y="1540" width="22" height="380" fill="#060818"/>
-  <!-- Windows with warm lantern glow -->
-  <rect x="405" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.70"/>
-  <rect x="500" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.55"/>
-  <rect x="595" y="1570" width="80" height="110" fill="#F5A623" rx="6" opacity="0.65"/>
-  <rect x="405" y="1720" width="80" height="90"  fill="#F5A623" rx="6" opacity="0.60"/>
-  <rect x="595" y="1720" width="80" height="90"  fill="#F5A623" rx="6" opacity="0.50"/>
+  <rect x="372" y="1570" width="20" height="350" fill="#050819"/>
+  <rect x="688" y="1570" width="20" height="350" fill="#050819"/>
+  <!-- Windows warm glow -->
+  <rect x="408" y="1598" width="76" height="106" rx="5" fill="#F5A820" opacity="0.72"/>
+  <rect x="502" y="1598" width="76" height="106" rx="5" fill="#F0A010" opacity="0.58"/>
+  <rect x="596" y="1598" width="76" height="106" rx="5" fill="#F5A820" opacity="0.68"/>
+  <rect x="408" y="1748" width="76" height="88"  rx="5" fill="#F5A820" opacity="0.62"/>
+  <rect x="596" y="1748" width="76" height="88"  rx="5" fill="#F0A010" opacity="0.54"/>
   <!-- Door -->
-  <rect x="490" y="1840" width="100" height="80" fill="#E8820A" rx="4" opacity="0.45"/>
+  <rect x="496" y="1858" width="88" height="62" rx="4" fill="#C87010" opacity="0.44"/>
   <!-- Ground lanterns -->
-  <circle cx="280" cy="1580" r="18" fill="#F5A623" opacity="0.7"/>
-  <circle cx="800" cy="1560" r="18" fill="#F5A623" opacity="0.65"/>
-  <!-- Lantern glow on ground -->
-  <ellipse cx="280" cy="1598" rx="40" ry="12" fill="#F5A623" opacity="0.20"/>
-  <ellipse cx="800" cy="1578" rx="40" ry="12" fill="#F5A623" opacity="0.18"/>
+  <circle cx="280" cy="1596" r="20" fill="#F5A820" opacity="0.75" filter="url(#glow)"/>
+  <circle cx="800" cy="1580" r="20" fill="#F5A820" opacity="0.70" filter="url(#glow)"/>
+  <ellipse cx="280" cy="1616" rx="44" ry="12" fill="#F5A820" opacity="0.18"/>
+  <ellipse cx="800" cy="1600" rx="44" ry="12" fill="#F5A820" opacity="0.16"/>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:280px">
-  <!-- Brand -->
-  <div class="ae" data-slide="0" data-t="0,480,6"
-    style="border:1.5px solid rgba(232,130,10,0.55);border-radius:50px;padding:16px 52px;margin-bottom:48px">
-    <span style="font-size:42px;font-weight:800;letter-spacing:10px;color:#E8A835">SEVEN STARS</span>
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding-top:260px;padding-left:60px;padding-right:60px">
+  <!-- Brand label -->
+  <div class="ae" data-slide="0" data-t="0,500,6"
+    style="border:1.5px solid rgba(212,146,30,0.55);border-radius:52px;padding:16px 56px;margin-bottom:52px">
+    <span style="font-size:44px;font-weight:800;letter-spacing:10px;color:#E8B840">SEVEN STARS</span>
   </div>
-  <!-- Main title -->
-  <div style="text-align:center;margin-bottom:52px;overflow:hidden">
-    <div class="ae" data-slide="0" data-t="160,460,6"
-      style="font-size:118px;font-weight:900;color:#E8A835;line-height:1.0;letter-spacing:-2px;text-shadow:0 0 60px rgba(232,168,53,0.45)">
+  <!-- Main headline -->
+  <div style="text-align:center;margin-bottom:56px">
+    <div class="ae" data-slide="0" data-t="600,520,6"
+      style="font-size:120px;font-weight:900;color:#E8B840;line-height:1.0;letter-spacing:-2px;
+             text-shadow:0 0 80px rgba(232,184,64,0.50)">
       로테이션
     </div>
-    <div class="ae" data-slide="0" data-t="360,440,6"
-      style="font-size:118px;font-weight:900;color:#FFFFFF;line-height:1.0;letter-spacing:-2px;text-shadow:0 0 60px rgba(255,255,255,0.20)">
+    <div class="ae" data-slide="0" data-t="1000,480,6"
+      style="font-size:120px;font-weight:900;color:#FFFFFF;line-height:1.0;letter-spacing:-2px;
+             text-shadow:0 0 60px rgba(255,255,255,0.22)">
       소개팅
     </div>
   </div>
   <!-- Info badge -->
-  <div class="ae" data-slide="0" data-t="820,420,1"
-    style="background:rgba(232,168,53,0.12);border:1px solid rgba(232,168,53,0.30);border-radius:20px;padding:28px 56px;text-align:center">
-    <div style="font-size:48px;font-weight:700;color:#E8C87A;margin-bottom:12px">📍 합정역 도보 1분</div>
-    <div style="font-size:42px;font-weight:400;color:rgba(255,255,255,0.75)">매주 토·일 &nbsp;오후 3시 / 6시</div>
+  <div class="ae glass-gold" data-slide="0" data-t="1600,480,1"
+    style="padding:30px 60px;text-align:center">
+    <div style="font-size:50px;font-weight:700;color:#E8C060;margin-bottom:14px">📍 합정역 도보 1분</div>
+    <div style="font-size:44px;font-weight:400;color:rgba(255,255,255,0.72)">매주 토·일 &nbsp;오후 3시 / 6시</div>
   </div>
 </div>
-</div>
+</div><!-- /s0 -->
 
-<!-- ══════════════════════════════════════
-     SLIDE 1  |  이런분께  |  딥 인디고
-══════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SLIDE 1 │ 이런분께 │ 딥 인디고
+══════════════════════════════════════════ -->
 <div class="slide" id="s1">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#060A20"/>
-      <stop offset="100%" stop-color="#0E1A52"/>
+    <linearGradient id="s1-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#050818"/>
+      <stop offset="100%" stop-color="#0C1548"/>
     </linearGradient>
-    <radialGradient id="ac1" cx="80%" cy="15%" r="40%">
-      <stop offset="0%"   stop-color="#4A22E0" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#4A22E0" stop-opacity="0"/>
+    <radialGradient id="s1-a" cx="85%" cy="12%" r="42%">
+      <stop offset="0%"   stop-color="#4018C0" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#4018C0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ac1b" cx="15%" cy="85%" r="40%">
-      <stop offset="0%"   stop-color="#0A8080" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#0A8080" stop-opacity="0"/>
+    <radialGradient id="s1-b" cx="10%" cy="88%" r="38%">
+      <stop offset="0%"   stop-color="#0A7878" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0A7878" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1080" height="1920" fill="url(#bg1)"/>
-  <rect width="1080" height="1920" fill="url(#ac1)"/>
-  <rect width="1080" height="1920" fill="url(#ac1b)"/>
-  <!-- Decorative circles -->
-  <circle cx="540" cy="960" r="580" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-  <circle cx="540" cy="960" r="400" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <rect width="1080" height="1920" fill="url(#s1-bg)"/>
+  <rect width="1080" height="1920" fill="url(#s1-a)"/>
+  <rect width="1080" height="1920" fill="url(#s1-b)"/>
+  <circle cx="540" cy="960" r="600" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1.5"/>
+  <circle cx="540" cy="960" r="420" fill="none" stroke="rgba(255,255,255,0.020)" stroke-width="1"/>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
-  <div class="ae" data-slide="1" data-t="0,460,6" style="margin-bottom:60px;text-align:center">
-    <div style="font-size:66px;font-weight:900;color:#E8C87A;letter-spacing:-1px">이런 분께 딱!</div>
-    <div style="width:100px;height:4px;background:linear-gradient(90deg,#E8C87A,transparent);margin:18px auto 0;border-radius:2px"></div>
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+            height:100%;justify-content:center;padding:0 56px">
+  <!-- Heading -->
+  <div class="ae" data-slide="1" data-t="0,520,6" style="margin-bottom:64px;text-align:center">
+    <div style="font-size:68px;font-weight:900;color:#E8C060;letter-spacing:-1px">이런 분께 딱!</div>
+    <div style="width:110px;height:4px;background:linear-gradient(90deg,#E8C060 0%,transparent 100%);
+                margin:18px auto 0;border-radius:2px"></div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;width:100%">
-    <div class="ae gc" data-slide="1" data-t="120,420,1" style="padding:46px 24px;text-align:center">
-      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">😊</div>
-      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">처음이라도<br>걱정 없어요</div>
+  <!-- 4 Cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;width:100%">
+    <div class="ae glass" data-slide="1" data-t="620,480,1" style="padding:48px 26px;text-align:center">
+      <div style="font-size:64px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">😊</div>
+      <div style="font-size:42px;font-weight:800;color:#FFFFFF;line-height:1.4">처음이라도<br>걱정 없어요</div>
     </div>
-    <div class="ae gc" data-slide="1" data-t="230,420,1" style="padding:46px 24px;text-align:center">
-      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🙋</div>
-      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">혼자 오셔도<br>대환영!</div>
+    <div class="ae glass" data-slide="1" data-t="1120,480,1" style="padding:48px 26px;text-align:center">
+      <div style="font-size:64px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🙋</div>
+      <div style="font-size:42px;font-weight:800;color:#FFFFFF;line-height:1.4">혼자 오셔도<br>대환영!</div>
     </div>
-    <div class="ae gc" data-slide="1" data-t="340,420,1" style="padding:46px 24px;text-align:center">
-      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🔒</div>
-      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">안전하고<br>편안한 환경</div>
+    <div class="ae glass" data-slide="1" data-t="1620,480,1" style="padding:48px 26px;text-align:center">
+      <div style="font-size:64px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">🔒</div>
+      <div style="font-size:42px;font-weight:800;color:#FFFFFF;line-height:1.4">안전하고<br>편안한 환경</div>
     </div>
-    <div class="ae gc" data-slide="1" data-t="450,420,1" style="padding:46px 24px;text-align:center">
-      <div style="font-size:62px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">💝</div>
-      <div style="font-size:40px;font-weight:800;color:#FFFFFF;line-height:1.4">합리적인<br>참가비</div>
+    <div class="ae glass" data-slide="1" data-t="2120,480,1" style="padding:48px 26px;text-align:center">
+      <div style="font-size:64px;margin-bottom:18px;font-family:'Noto Color Emoji',sans-serif">💝</div>
+      <div style="font-size:42px;font-weight:800;color:#FFFFFF;line-height:1.4">합리적인<br>참가비</div>
     </div>
   </div>
 </div>
-</div>
+</div><!-- /s1 -->
 
-<!-- ══════════════════════════════════════
-     SLIDE 2  |  이용방법  |  다크 틸
-══════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SLIDE 2 │ 이용방법 │ 다크 틸
+══════════════════════════════════════════ -->
 <div class="slide" id="s2">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#050E1C"/>
-      <stop offset="100%" stop-color="#0A2840"/>
+    <linearGradient id="s2-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#040C1A"/>
+      <stop offset="100%" stop-color="#082436"/>
     </linearGradient>
-    <radialGradient id="ac2" cx="85%" cy="20%" r="40%">
-      <stop offset="0%"   stop-color="#0A6090" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="#0A6090" stop-opacity="0"/>
+    <radialGradient id="s2-a" cx="88%" cy="18%" r="44%">
+      <stop offset="0%"   stop-color="#085888" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#085888" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s2-b" cx="12%" cy="82%" r="36%">
+      <stop offset="0%"   stop-color="#1A8060" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1A8060" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1080" height="1920" fill="url(#bg2)"/>
-  <rect width="1080" height="1920" fill="url(#ac2)"/>
-  <circle cx="100" cy="1800" r="280" fill="rgba(10,96,144,0.14)"/>
+  <rect width="1080" height="1920" fill="url(#s2-bg)"/>
+  <rect width="1080" height="1920" fill="url(#s2-a)"/>
+  <rect width="1080" height="1920" fill="url(#s2-b)"/>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
-  <div class="ae" data-slide="2" data-t="0,460,6" style="margin-bottom:62px;text-align:center">
-    <div style="font-size:60px;font-weight:900;color:#E8C87A">어떻게 진행하나요?</div>
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+            height:100%;justify-content:center;padding:0 56px">
+  <!-- Heading -->
+  <div class="ae" data-slide="2" data-t="0,520,6" style="margin-bottom:66px;text-align:center">
+    <div style="font-size:62px;font-weight:900;color:#E8C060">어떻게 진행하나요?</div>
+    <div style="width:110px;height:4px;background:linear-gradient(90deg,#E8C060 0%,transparent 100%);
+                margin:18px auto 0;border-radius:2px"></div>
   </div>
-  <div style="width:100%;display:flex;flex-direction:column;gap:28px">
-    <div class="ae gc" data-slide="2" data-t="110,420,1"
-      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
-      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
-        <span style="font-size:34px;font-weight:900;color:#080C20">1</span>
-      </div>
-      <div>
-        <div style="font-size:42px;font-weight:800;color:#FFFFFF">닉네임 배지 착용</div>
-        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">실명 없이 편안하게</div>
-      </div>
-    </div>
-    <div class="ae gc" data-slide="2" data-t="230,420,1"
-      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
-      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
-        <span style="font-size:34px;font-weight:900;color:#080C20">2</span>
-      </div>
-      <div>
-        <div style="font-size:42px;font-weight:800;color:#FFFFFF">가림막 테이블 착석</div>
-        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">외모 아닌 대화에 집중</div>
-      </div>
-    </div>
-    <div class="ae gc" data-slide="2" data-t="350,420,1"
-      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
-      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
-        <span style="font-size:34px;font-weight:900;color:#080C20">3</span>
-      </div>
-      <div>
-        <div style="font-size:42px;font-weight:800;color:#FFFFFF">5분 대화 × 로테이션</div>
-        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">여러 분과 차례로 대화</div>
-      </div>
-    </div>
-    <div class="ae gc" data-slide="2" data-t="470,420,1"
-      style="display:flex;align-items:center;padding:30px 36px;gap:30px">
-      <div style="min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#E8A835,#F5D060);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 24px rgba(232,168,53,0.40)">
-        <span style="font-size:34px;font-weight:900;color:#080C20">4</span>
-      </div>
-      <div>
-        <div style="font-size:42px;font-weight:800;color:#FFFFFF">쪽지 투표 → 매칭!</div>
-        <div style="font-size:33px;font-weight:400;color:rgba(255,255,255,0.55);margin-top:4px">서로 선택 시 연락처 교환</div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
-<!-- ══════════════════════════════════════
-     SLIDE 3  |  행사정보  |  딥 슬레이트
-══════════════════════════════════════ -->
+  <!-- Step 1 -->
+  <div class="ae glass" data-slide="2" data-t="600,470,1"
+    style="display:flex;align-items:center;padding:28px 36px;gap:28px;width:100%;margin-bottom:24px">
+    <div class="num-badge"><span>1</span></div>
+    <div>
+      <div style="font-size:44px;font-weight:800;color:#FFFFFF">닉네임 배지 착용</div>
+      <div style="font-size:34px;font-weight:400;color:rgba(255,255,255,0.50);margin-top:6px">실명 없이 편안하게</div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="ae glass" data-slide="2" data-t="1100,470,1"
+    style="display:flex;align-items:center;padding:28px 36px;gap:28px;width:100%;margin-bottom:24px">
+    <div class="num-badge"><span>2</span></div>
+    <div>
+      <div style="font-size:44px;font-weight:800;color:#FFFFFF">가림막 테이블 착석</div>
+      <div style="font-size:34px;font-weight:400;color:rgba(255,255,255,0.50);margin-top:6px">외모 아닌 대화에 집중</div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="ae glass" data-slide="2" data-t="1600,470,1"
+    style="display:flex;align-items:center;padding:28px 36px;gap:28px;width:100%;margin-bottom:24px">
+    <div class="num-badge"><span>3</span></div>
+    <div>
+      <div style="font-size:44px;font-weight:800;color:#FFFFFF">5분 대화 × 로테이션</div>
+      <div style="font-size:34px;font-weight:400;color:rgba(255,255,255,0.50);margin-top:6px">여러 분과 차례로 대화</div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="ae glass" data-slide="2" data-t="2100,470,1"
+    style="display:flex;align-items:center;padding:28px 36px;gap:28px;width:100%">
+    <div class="num-badge"><span>4</span></div>
+    <div>
+      <div style="font-size:44px;font-weight:800;color:#FFFFFF">쪽지 투표 → 매칭!</div>
+      <div style="font-size:34px;font-weight:400;color:rgba(255,255,255,0.50);margin-top:6px">서로 선택 시 연락처 교환</div>
+    </div>
+  </div>
+</div>
+</div><!-- /s2 -->
+
+
+<!-- ══════════════════════════════════════════
+     SLIDE 3 │ 행사정보 │ 딥 슬레이트
+══════════════════════════════════════════ -->
 <div class="slide" id="s3">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#060812"/>
-      <stop offset="100%" stop-color="#0C1A3A"/>
+    <linearGradient id="s3-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#040610"/>
+      <stop offset="100%" stop-color="#0A1432"/>
     </linearGradient>
-    <radialGradient id="ac3" cx="50%" cy="30%" r="50%">
-      <stop offset="0%"   stop-color="#8040D0" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#8040D0" stop-opacity="0"/>
+    <radialGradient id="s3-a" cx="50%" cy="28%" r="52%">
+      <stop offset="0%"   stop-color="#6030A8" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#6030A8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="s3-b" cx="85%" cy="85%" r="38%">
+      <stop offset="0%"   stop-color="#0A3888" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0A3888" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1080" height="1920" fill="url(#bg3)"/>
-  <rect width="1080" height="1920" fill="url(#ac3)"/>
-  <circle cx="900" cy="1700" r="260" fill="rgba(128,64,208,0.10)"/>
+  <rect width="1080" height="1920" fill="url(#s3-bg)"/>
+  <rect width="1080" height="1920" fill="url(#s3-a)"/>
+  <rect width="1080" height="1920" fill="url(#s3-b)"/>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
-  <div class="ae" data-slide="3" data-t="0,440,6" style="margin-bottom:54px;text-align:center">
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+            height:100%;justify-content:center;padding:0 56px">
+  <!-- Heading -->
+  <div class="ae" data-slide="3" data-t="0,500,6" style="margin-bottom:58px;text-align:center">
     <div style="font-size:66px;font-weight:900;color:#FFFFFF">행사 정보</div>
-    <div style="font-size:36px;font-weight:400;color:rgba(232,200,122,0.75);margin-top:10px;letter-spacing:4px">2026 OCTOBER</div>
+    <div style="font-size:38px;font-weight:400;color:rgba(232,192,96,0.72);
+                margin-top:12px;letter-spacing:5px">2026 OCTOBER</div>
   </div>
-  <div style="width:100%;display:flex;flex-direction:column;gap:26px">
-    <div class="ae gc" data-slide="3" data-t="110,420,1"
-      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
-      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">📍</span>
-      <div>
-        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">장소</div>
-        <div style="font-size:46px;font-weight:800;color:#FFFFFF">서교동 394-23</div>
-        <div style="font-size:34px;font-weight:400;color:#E8C87A">합정역 도보 1분</div>
-      </div>
-    </div>
-    <div class="ae gc" data-slide="3" data-t="230,420,1"
-      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
-      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">🕐</span>
-      <div>
-        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">일정</div>
-        <div style="font-size:46px;font-weight:800;color:#FFFFFF">매주 토·일</div>
-        <div style="font-size:34px;font-weight:400;color:#E8C87A">오후 3시 / 오후 6시</div>
-      </div>
-    </div>
-    <div class="ae gc" data-slide="3" data-t="370,420,1"
-      style="padding:32px 42px;display:flex;align-items:center;gap:26px">
-      <span style="font-size:54px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">💰</span>
-      <div>
-        <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:4px">참가비 (선착순 할인)</div>
-        <div style="font-size:46px;font-weight:800;color:#FFFFFF">여 15,000원 / 남 30,000원</div>
-        <div style="font-size:32px;font-weight:400;color:rgba(232,200,122,0.70)">정가 54,000원 → 선착순 특가</div>
-      </div>
-    </div>
-  </div>
-  <div class="ae" data-slide="3" data-t="540,400,5"
-    style="margin-top:36px;background:linear-gradient(135deg,#C0280A,#E84020);border-radius:56px;padding:22px 72px;box-shadow:0 8px 36px rgba(192,40,10,0.50)">
-    <div style="font-size:48px;font-weight:900;color:white;text-align:center;font-family:'Pretendard','Noto Color Emoji',sans-serif">🔥 선착순 마감!</div>
-  </div>
-</div>
-</div>
 
-<!-- ══════════════════════════════════════
-     SLIDE 4  |  사용자 후기  |  딥 플럼
-══════════════════════════════════════ -->
+  <!-- 장소 -->
+  <div class="ae glass" data-slide="3" data-t="600,460,1"
+    style="padding:34px 42px;display:flex;align-items:center;gap:26px;width:100%;margin-bottom:24px">
+    <span style="font-size:56px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">📍</span>
+    <div>
+      <div style="font-size:30px;font-weight:400;color:rgba(255,255,255,0.42);margin-bottom:4px">장소</div>
+      <div style="font-size:48px;font-weight:800;color:#FFFFFF">서교동 394-23</div>
+      <div style="font-size:36px;font-weight:400;color:#E8C060">합정역 도보 1분</div>
+    </div>
+  </div>
+
+  <!-- 일정 -->
+  <div class="ae glass" data-slide="3" data-t="1100,460,1"
+    style="padding:34px 42px;display:flex;align-items:center;gap:26px;width:100%;margin-bottom:24px">
+    <span style="font-size:56px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">🕐</span>
+    <div>
+      <div style="font-size:30px;font-weight:400;color:rgba(255,255,255,0.42);margin-bottom:4px">일정</div>
+      <div style="font-size:48px;font-weight:800;color:#FFFFFF">매주 토·일</div>
+      <div style="font-size:36px;font-weight:400;color:#E8C060">오후 3시 / 오후 6시</div>
+    </div>
+  </div>
+
+  <!-- 참가비 -->
+  <div class="ae glass" data-slide="3" data-t="1600,460,1"
+    style="padding:34px 42px;display:flex;align-items:center;gap:26px;width:100%;margin-bottom:34px">
+    <span style="font-size:56px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif">💰</span>
+    <div>
+      <div style="font-size:30px;font-weight:400;color:rgba(255,255,255,0.42);margin-bottom:4px">참가비 (선착순 할인)</div>
+      <div style="font-size:46px;font-weight:800;color:#FFFFFF">여 15,000원 / 남 30,000원</div>
+      <div style="font-size:32px;font-weight:400;color:rgba(232,192,96,0.68)">정가 54,000원 → 선착순 특가</div>
+    </div>
+  </div>
+
+  <!-- 선착순 배너 -->
+  <div class="ae" data-slide="3" data-t="2100,440,5"
+    style="background:linear-gradient(135deg,#A82008,#D83020);border-radius:56px;
+           padding:22px 72px;box-shadow:0 8px 40px rgba(168,32,8,0.55)">
+    <div style="font-size:50px;font-weight:900;color:white;text-align:center;
+                font-family:'Pretendard','Noto Color Emoji',sans-serif">🔥 선착순 마감!</div>
+  </div>
+</div>
+</div><!-- /s3 -->
+
+
+<!-- ══════════════════════════════════════════
+     SLIDE 4 │ 사용자 후기 │ 딥 플럼
+══════════════════════════════════════════ -->
 <div class="slide" id="s4">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#07040F"/>
-      <stop offset="100%" stop-color="#120828"/>
+    <linearGradient id="s4-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#060410"/>
+      <stop offset="100%" stop-color="#100624"/>
     </linearGradient>
-    <radialGradient id="ac4" cx="20%" cy="25%" r="40%">
-      <stop offset="0%"   stop-color="#6020A0" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#6020A0" stop-opacity="0"/>
+    <radialGradient id="s4-a" cx="18%" cy="22%" r="44%">
+      <stop offset="0%"   stop-color="#5018A0" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#5018A0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ac4b" cx="80%" cy="75%" r="40%">
-      <stop offset="0%"   stop-color="#1A4090" stop-opacity="0.20"/>
-      <stop offset="100%" stop-color="#1A4090" stop-opacity="0"/>
+    <radialGradient id="s4-b" cx="82%" cy="78%" r="40%">
+      <stop offset="0%"   stop-color="#183880" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#183880" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1080" height="1920" fill="url(#bg4)"/>
-  <rect width="1080" height="1920" fill="url(#ac4)"/>
-  <rect width="1080" height="1920" fill="url(#ac4b)"/>
+  <rect width="1080" height="1920" fill="url(#s4-bg)"/>
+  <rect width="1080" height="1920" fill="url(#s4-a)"/>
+  <rect width="1080" height="1920" fill="url(#s4-b)"/>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 56px">
-  <div class="ae" data-slide="4" data-t="0,440,6" style="margin-bottom:54px;text-align:center">
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+            height:100%;justify-content:center;padding:0 56px">
+  <!-- Heading -->
+  <div class="ae" data-slide="4" data-t="0,500,6" style="margin-bottom:58px;text-align:center">
     <div style="font-size:66px;font-weight:900;color:#FFFFFF">실제 후기</div>
-    <div style="font-size:36px;color:#F5C842;margin-top:12px">⭐⭐⭐⭐⭐ &nbsp;만족도 4.8 / 5</div>
-  </div>
-  <div style="width:100%;display:flex;flex-direction:column;gap:32px">
-    <div class="ae gc" data-slide="4" data-t="140,440,1"
-      style="padding:40px 44px">
-      <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:14px">참가자 A님</div>
-      <div style="font-size:42px;font-weight:700;color:#FFFFFF;line-height:1.55">"가림막 덕분에 외모 부담 없이<br>진짜 대화를 나눴어요!"</div>
-      <div style="font-size:36px;color:#F5C842;margin-top:16px">⭐⭐⭐⭐⭐</div>
-    </div>
-    <div class="ae gc" data-slide="4" data-t="290,440,1"
-      style="padding:40px 44px">
-      <div style="font-size:32px;font-weight:400;color:rgba(255,255,255,0.45);margin-bottom:14px">참가자 B님</div>
-      <div style="font-size:42px;font-weight:700;color:#FFFFFF;line-height:1.55">"혼자 왔는데 전혀 어색하지<br>않고 즐거웠어요 😊"</div>
-      <div style="font-size:36px;color:#F5C842;margin-top:16px">⭐⭐⭐⭐⭐</div>
-    </div>
-    <div class="ae gc" data-slide="4" data-t="440,420,1"
-      style="padding:30px 44px;text-align:center">
-      <div style="font-size:38px;font-weight:700;color:rgba(255,255,255,0.85)">"망설이지 마세요 &nbsp;💪 &nbsp;나도 해봤어요!"</div>
+    <div style="font-size:38px;color:#F5C840;margin-top:12px;font-family:'Noto Color Emoji',sans-serif">
+      ⭐⭐⭐⭐⭐ &nbsp;만족도 4.8 / 5
     </div>
   </div>
-</div>
-</div>
 
-<!-- ══════════════════════════════════════
-     SLIDE 5  |  CTA  |  럭셔리 골드 나이트
-══════════════════════════════════════ -->
+  <!-- Review 1 -->
+  <div class="ae glass" data-slide="4" data-t="600,480,1"
+    style="padding:38px 44px;width:100%;margin-bottom:28px">
+    <div style="font-size:30px;font-weight:400;color:rgba(255,255,255,0.40);margin-bottom:14px">참가자 A님</div>
+    <div style="font-size:44px;font-weight:700;color:#FFFFFF;line-height:1.55">
+      "가림막 덕분에 외모 부담 없이<br>진짜 대화를 나눴어요!"
+    </div>
+    <div style="font-size:38px;color:#F5C840;margin-top:16px;font-family:'Noto Color Emoji',sans-serif">⭐⭐⭐⭐⭐</div>
+  </div>
+
+  <!-- Review 2 -->
+  <div class="ae glass" data-slide="4" data-t="1200,480,1"
+    style="padding:38px 44px;width:100%;margin-bottom:28px">
+    <div style="font-size:30px;font-weight:400;color:rgba(255,255,255,0.40);margin-bottom:14px">참가자 B님</div>
+    <div style="font-size:44px;font-weight:700;color:#FFFFFF;line-height:1.55">
+      "혼자 왔는데 전혀 어색하지<br>않고 즐거웠어요 😊"
+    </div>
+    <div style="font-size:38px;color:#F5C840;margin-top:16px;font-family:'Noto Color Emoji',sans-serif">⭐⭐⭐⭐⭐</div>
+  </div>
+
+  <!-- Closing line -->
+  <div class="ae glass" data-slide="4" data-t="1800,440,1"
+    style="padding:28px 44px;width:100%;text-align:center">
+    <div style="font-size:40px;font-weight:700;color:rgba(255,255,255,0.82)">
+      "망설이지 마세요 💪 나도 해봤어요!"
+    </div>
+  </div>
+</div>
+</div><!-- /s4 -->
+
+
+<!-- ══════════════════════════════════════════
+     SLIDE 5 │ CTA │ 럭셔리 골드 나이트
+══════════════════════════════════════════ -->
 <div class="slide" id="s5">
 <svg width="1080" height="1920" style="position:absolute;top:0;left:0">
   <defs>
-    <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#04071A"/>
-      <stop offset="50%"  stop-color="#0E1650"/>
-      <stop offset="85%"  stop-color="#2A1400"/>
-      <stop offset="100%" stop-color="#120800"/>
+    <linearGradient id="s5-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#030514"/>
+      <stop offset="48%"  stop-color="#0C1448"/>
+      <stop offset="82%"  stop-color="#221000"/>
+      <stop offset="100%" stop-color="#100800"/>
     </linearGradient>
-    <radialGradient id="gold5" cx="50%" cy="55%" r="45%">
-      <stop offset="0%"   stop-color="#E8A835" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#E8A835" stop-opacity="0"/>
+    <radialGradient id="s5-gold" cx="50%" cy="56%" r="44%">
+      <stop offset="0%"   stop-color="#D89020" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#D89020" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="blu5" cx="50%" cy="35%" r="40%">
-      <stop offset="0%"   stop-color="#2040C0" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="#2040C0" stop-opacity="0"/>
+    <radialGradient id="s5-blue" cx="50%" cy="32%" r="42%">
+      <stop offset="0%"   stop-color="#1830C0" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#1830C0" stop-opacity="0"/>
     </radialGradient>
+    <filter id="glow2"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect width="1080" height="1920" fill="url(#bg5)"/>
-  <rect width="1080" height="1920" fill="url(#blu5)"/>
-  <rect width="1080" height="1920" fill="url(#gold5)"/>
-  <!-- Concentric rings -->
-  <circle cx="540" cy="880" r="550" fill="none" stroke="rgba(232,168,53,0.07)" stroke-width="1.5"/>
-  <circle cx="540" cy="880" r="420" fill="none" stroke="rgba(232,168,53,0.06)" stroke-width="1.5"/>
-  <circle cx="540" cy="880" r="290" fill="none" stroke="rgba(232,168,53,0.08)" stroke-width="1"/>
-  <!-- Stars -->
-  <g fill="#E8C87A" opacity="0.35">
-    <polygon points="150,240 158,265 183,265 163,280 170,305 150,290 130,305 137,280 117,265 142,265" transform="scale(0.6) translate(-5,-20)"/>
-    <polygon points="920,180 928,205 953,205 933,220 940,245 920,230 900,245 907,220 887,205 912,205" transform="scale(0.6) translate(600,-20)"/>
-    <polygon points="100,1650 106,1668 124,1668 110,1678 115,1696 100,1686 85,1696 90,1678 76,1668 94,1668" transform="scale(0.7) translate(-100,600)"/>
-    <polygon points="960,1700 966,1718 984,1718 970,1728 975,1746 960,1736 945,1746 950,1728 936,1718 954,1718" transform="scale(0.65) translate(820,650)"/>
+  <rect width="1080" height="1920" fill="url(#s5-bg)"/>
+  <rect width="1080" height="1920" fill="url(#s5-blue)"/>
+  <rect width="1080" height="1920" fill="url(#s5-gold)"/>
+  <!-- Rings -->
+  <circle cx="540" cy="880" r="560" fill="none" stroke="rgba(212,160,32,0.08)" stroke-width="1.5"/>
+  <circle cx="540" cy="880" r="420" fill="none" stroke="rgba(212,160,32,0.07)" stroke-width="1.5"/>
+  <circle cx="540" cy="880" r="280" fill="none" stroke="rgba(212,160,32,0.09)" stroke-width="1.5"/>
+  <!-- Decorative stars (4-pointed) -->
+  <g fill="#E8C060" opacity="0.32" filter="url(#glow2)">
+    <path d="M152,248 L158,265 L175,268 L158,272 L152,289 L146,272 L129,268 L146,265 Z" transform="scale(0.8)"/>
+    <path d="M912,195 L917,208 L930,210 L917,214 L912,227 L907,214 L894,210 L907,208 Z" transform="scale(0.75)"/>
+    <path d="M108,1648 L112,1658 L122,1660 L112,1663 L108,1673 L104,1663 L94,1660 L104,1658 Z" transform="scale(0.7)"/>
+    <path d="M950,1700 L955,1712 L967,1714 L955,1718 L950,1730 L945,1718 L933,1714 L945,1712 Z" transform="scale(0.65)"/>
   </g>
 </svg>
 
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:center;padding:0 60px">
-  <div class="ae" data-slide="5" data-t="0,460,5"
-    style="margin-bottom:28px;font-size:88px;text-align:center;line-height:1;font-family:'Noto Color Emoji',sans-serif">💫</div>
-  <div class="ae" data-slide="5" data-t="140,440,6"
-    style="margin-bottom:18px;text-align:center">
-    <div style="font-size:44px;font-weight:400;color:rgba(232,200,122,0.75);letter-spacing:12px">SEVEN STARS</div>
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+            height:100%;justify-content:center;padding:0 60px">
+
+  <!-- Sparkle -->
+  <div class="ae" data-slide="5" data-t="0,480,5"
+    style="font-size:90px;text-align:center;font-family:'Noto Color Emoji',sans-serif;
+           margin-bottom:28px;line-height:1">💫</div>
+
+  <!-- Brand -->
+  <div class="ae" data-slide="5" data-t="500,480,6"
+    style="margin-bottom:16px;text-align:center">
+    <div style="font-size:46px;font-weight:400;color:rgba(232,192,96,0.72);letter-spacing:14px">SEVEN STARS</div>
   </div>
-  <div class="ae" data-slide="5" data-t="280,440,6"
+
+  <!-- Main CTA headline -->
+  <div class="ae" data-slide="5" data-t="1000,500,6"
     style="text-align:center;margin-bottom:64px">
-    <div style="font-size:100px;font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-2px;text-shadow:0 0 60px rgba(255,255,255,0.15)">지금 바로<br>신청하세요!</div>
+    <div style="font-size:100px;font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-2px;
+                text-shadow:0 0 70px rgba(255,255,255,0.18)">지금 바로<br>신청하세요!</div>
   </div>
-  <div class="ae" data-slide="5" data-t="420,460,5"
-    style="background:linear-gradient(135deg,#C88020,#E8B030,#F5D060);border-radius:60px;padding:34px 96px;margin-bottom:38px;box-shadow:0 10px 50px rgba(232,168,53,0.50)">
-    <div style="font-size:60px;font-weight:900;color:#080C20;letter-spacing:1px">sevenstars.kr</div>
+
+  <!-- URL button -->
+  <div class="ae" data-slide="5" data-t="1600,500,5"
+    style="background:linear-gradient(145deg,#B87818,#E4AE2A,#F5D050);
+           border-radius:64px;padding:36px 96px;margin-bottom:40px;
+           box-shadow:0 12px 56px rgba(212,146,30,0.55)">
+    <div style="font-size:62px;font-weight:900;color:#040810;letter-spacing:1px">sevenstars.kr</div>
   </div>
-  <div class="ae" data-slide="5" data-t="570,400,1"
-    style="text-align:center;margin-bottom:28px">
-    <div style="font-size:42px;font-weight:400;color:rgba(255,255,255,0.70)">🔥 선착순 마감 &nbsp;·&nbsp; 서교동 394-23</div>
+
+  <!-- Sub info -->
+  <div class="ae" data-slide="5" data-t="2100,440,1"
+    style="text-align:center;margin-bottom:30px">
+    <div style="font-size:44px;font-weight:400;color:rgba(255,255,255,0.68);
+                font-family:'Pretendard','Noto Color Emoji',sans-serif">
+      🔥 선착순 마감 &nbsp;·&nbsp; 서교동 394-23
+    </div>
   </div>
-  <div class="ae" data-slide="5" data-t="700,360,0"
+
+  <!-- Hashtags -->
+  <div class="ae" data-slide="5" data-t="2500,400,0"
     style="text-align:center">
-    <div style="font-size:32px;font-weight:400;color:rgba(232,200,122,0.45);letter-spacing:1px">#세븐스타즈 &nbsp;#로테이션소개팅 &nbsp;#합정역소개팅</div>
+    <div style="font-size:34px;font-weight:400;color:rgba(232,192,96,0.42);letter-spacing:1px">
+      #세븐스타즈 &nbsp;#로테이션소개팅 &nbsp;#합정역소개팅
+    </div>
   </div>
 </div>
-</div>
+</div><!-- /s5 -->
+
 
 </div><!-- /#stage -->
 
 <script>
-/* ─── Timing ─── */
-const SLIDE_DUR = 2500;   // ms per slide
-const DISSOLVE  = 500;    // crossfade duration
-const STEP      = SLIDE_DUR - DISSOLVE;  // 2000ms between slide starts
+/* ═══════════════════════════════════════
+   TIMING  (3.5s per slide, 18s total)
+═══════════════════════════════════════ */
+const SLIDE_DUR = 3500;   // ms per slide
+const DISSOLVE  = 600;    // crossfade + slide duration
+const STEP      = SLIDE_DUR - DISSOLVE;  // 2900ms between slide starts
 const N_SLIDES  = 6;
-const TOTAL     = (N_SLIDES - 1) * STEP + SLIDE_DUR;  // 12500ms
+const TOTAL     = (N_SLIDES - 1) * STEP + SLIDE_DUR;  // 18000ms = 18s
 
 const slides = Array.from(document.querySelectorAll('.slide'));
 const aeAll  = Array.from(document.querySelectorAll('.ae'));
 
-/* ─── Easing ─── */
-function easeOutCubic(t)   { return 1 - Math.pow(1-t, 3); }
-function easeInOutCubic(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
-function easeOutBack(t)    { const c1=1.70158, c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); }
-function easeOutQuart(t)   { return 1 - Math.pow(1-t, 4); }
+/* ── Easing ── */
+const easeOutCubic   = t => 1 - Math.pow(1-t, 3);
+const easeInOutCubic = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+const easeOutBack    = t => { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); };
+const easeOutQuart   = t => 1 - Math.pow(1-t, 4);
 
-/* ─── Parse data-t="delay,dur,anim" ─── */
-function parseT(el) {
-  const [d, dur, a] = el.dataset.t.split(',').map(Number);
-  return { delay: d, dur, anim: a };
-}
+/* ── Parse data-t="delay,dur,anim" ── */
+const parseT = el => {
+  const [d,dur,a] = el.dataset.t.split(',').map(Number);
+  return { delay:d, dur, anim:a };
+};
 
-/* ─── Per-element animation ─── */
+/* ── Per-element animation ── */
 function applyAnim(el, anim, p) {
   const ep = Math.max(0, Math.min(1, p));
   switch (anim) {
-    case 0: // fade
-      el.style.opacity   = easeOutCubic(ep);
+    case 0: // fade-in
+      el.style.opacity   = easeOutCubic(ep).toFixed(4);
       el.style.transform = '';
       el.style.clipPath  = '';
       break;
     case 1: // slide-up + fade
-      el.style.opacity   = easeOutCubic(ep);
-      el.style.transform = 'translateY(' + ((1-ep)*70).toFixed(2) + 'px)';
+      el.style.opacity   = easeOutCubic(ep).toFixed(4);
+      el.style.transform = `translateY(${((1-ep)*64).toFixed(2)}px)`;
       el.style.clipPath  = '';
       break;
     case 5: // bounce-scale
-      el.style.opacity   = Math.min(1, ep * 2.2);
-      el.style.transform = 'scale(' + easeOutBack(ep).toFixed(4) + ')';
+      el.style.opacity   = Math.min(1, ep*2.2).toFixed(4);
+      el.style.transform = `scale(${easeOutBack(ep).toFixed(4)})`;
       el.style.clipPath  = '';
       break;
-    case 6: // left-to-right clip reveal (typewriter)
-      el.style.opacity   = ep > 0.008 ? 1 : 0;
+    case 6: // left-to-right clip reveal  ←← 타이포라이터 효과
+      el.style.opacity   = ep > 0.01 ? '1' : '0';
       el.style.transform = '';
-      const pct = (1 - easeOutQuart(ep)) * 104;
-      el.style.clipPath  = 'inset(0 ' + Math.max(0, pct).toFixed(2) + '% 0 0)';
+      el.style.clipPath  = `inset(0 ${Math.max(0,(1-easeOutQuart(ep))*105).toFixed(2)}% 0 0)`;
       break;
-    default:
-      el.style.opacity   = ep;
-      el.style.transform = '';
-      el.style.clipPath  = '';
   }
 }
 
-/* ─── Master seek ─── */
-window.seekTo = function (totalMs) {
+/* ── Master seekTo ── */
+window.seekTo = function(totalMs) {
   const t = Math.min(totalMs, TOTAL);
 
-  /* Dissolve + carousel slide (exit left / enter right) */
+  /* ── Slide transitions: crossfade + horizontal carousel ── */
   slides.forEach((slide, i) => {
     const start = i * STEP;
     const end   = start + SLIDE_DUR;
@@ -494,31 +597,32 @@ window.seekTo = function (totalMs) {
 
     if (t >= start && t <= end) {
       const local   = t - start;
-      const isFirst = i === 0;
-      const isLast  = i === N_SLIDES - 1;
+      const isFirst = (i === 0);
+      const isLast  = (i === N_SLIDES - 1);
 
       if (!isFirst && local < DISSOLVE) {
         const p = easeInOutCubic(local / DISSOLVE);
         op = p;
-        tx = (1 - p) * 70;    // enters from right
+        tx = (1 - p) * 65;   // enters from right
       } else if (!isLast && local >= SLIDE_DUR - DISSOLVE) {
         const p = easeInOutCubic((local - (SLIDE_DUR - DISSOLVE)) / DISSOLVE);
         op = 1 - p;
-        tx = -p * 70;          // exits to left
+        tx = -p * 65;         // exits to left
       } else {
         op = 1; tx = 0;
       }
     }
 
-    slide.style.opacity   = op;
-    slide.style.transform = 'translateX(' + tx.toFixed(2) + 'px)';
-    slide.style.display   = op > 0.001 ? 'block' : 'none';
+    slide.style.opacity    = op.toFixed(4);
+    slide.style.transform  = `translateX(${tx.toFixed(2)}px)`;
+    /* visibility로 전환 (display:none보다 깜빡임 없음) */
+    slide.style.visibility = op > 0.002 ? 'visible' : 'hidden';
   });
 
-  /* Typography — local time from each slide's STEP start */
+  /* ── Typography: local time from each slide's STEP start ── */
   aeAll.forEach(el => {
-    const si    = parseInt(el.dataset.slide);
-    const sMs   = t - si * STEP;
+    const si  = parseInt(el.dataset.slide);
+    const sMs = t - si * STEP;
     const { delay, dur, anim } = parseT(el);
     const elapsed  = sMs - delay;
     const progress = elapsed <= 0 ? 0 : elapsed >= dur ? 1 : elapsed / dur;
@@ -526,21 +630,21 @@ window.seekTo = function (totalMs) {
   });
 };
 
-/* ─── Autoplay (no loop) ─── */
-let _startTime;
+/* ── Autoplay (no loop, stops at last frame) ── */
+let _start;
 function autoPlay() {
-  _startTime = performance.now();
+  _start = performance.now();
   (function tick() {
-    const elapsed = performance.now() - _startTime;
+    const elapsed = performance.now() - _start;
     if (elapsed >= TOTAL) { window.seekTo(TOTAL); return; }
     window.seekTo(elapsed);
     requestAnimationFrame(tick);
   })();
 }
 
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   window.seekTo(0);
-  autoPlay();
+  setTimeout(autoPlay, 100);  // 폰트 완전 로드 후 시작
 });
 </script>
 </body>
