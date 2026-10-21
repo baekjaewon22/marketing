@@ -127,11 +127,13 @@ async function renderOne(browser, file, swoosh, index, track) {
   let files = fs.readdirSync(SCRIPTS).filter(f => f.endsWith('.json')).sort();
   const first = JSON.parse(fs.readFileSync(path.join(SCRIPTS, files[0]), 'utf8'));
   WEEK = Math.round(Date.parse(first.date) / (7 * 86400000));
-  if (ONLY) files = files.filter(f => f === ONLY);
-  const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  // 음원·사진 배정은 항상 그 주 전체 순서로 계산해야 --only로 다시 돌려도 결과가 같다
   const tracks = files.map(f => pickTrack(JSON.parse(fs.readFileSync(path.join(SCRIPTS, f), 'utf8'))));
-  const results = [], queue = files.map((f, i) => [f, i]);
-  await Promise.all(Array.from({ length: Math.min(JOBS, files.length) }, async () => {
+  const only = ONLY ? ONLY.split(',').map(s => s.trim()) : null;
+  const queue = files.map((f, i) => [f, i]).filter(([f]) => !only || only.includes(f));
+  const results = [];
+  const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  await Promise.all(Array.from({ length: Math.min(JOBS, queue.length) }, async () => {
     while (queue.length) {
       const [f, idx] = queue.shift();
       const t0 = Date.now();
@@ -145,6 +147,9 @@ async function renderOne(browser, file, swoosh, index, track) {
   }));
   await browser.close();
   fs.rmSync(swoosh, { force: true });
-  fs.writeFileSync(path.join(OUT, 'render-report.json'), JSON.stringify(results, null, 2));
+  const reportPath = path.join(OUT, 'render-report.json');
+  const prev = fs.existsSync(reportPath) ? JSON.parse(fs.readFileSync(reportPath, 'utf8')) : [];
+  const merged = [...prev.filter(p => !results.some(r => r.base === p.base || r.base === p.base + '.json')), ...results];
+  fs.writeFileSync(reportPath, JSON.stringify(merged, null, 2));
   process.exit(results.some(r => r.error) ? 1 : 0);
 })();
