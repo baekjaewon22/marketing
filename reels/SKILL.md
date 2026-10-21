@@ -209,7 +209,7 @@ git add reels/weeks/<월요일날짜> assets/images/sevenstars/ai && git commit 
 
 ### 4-11. 목요일 브랜드 정보 확인 (예약 `-Mode check`)
 1. `reels/brand-facts.json`의 장소·일정·가격·URL을 읽는다.
-2. Slack `slack_channel`에 보낸다: "내일 12시에 다음 주 릴스 7개를 만듭니다. 아래 정보가 맞나요? 바뀐 게 있으면 이 메시지에 답글로 적어 주세요." + 정보 목록.
+2. Slack `slack_channel`에 보낸다: "금요일 12시에 다음 주 릴스 7개를 만듭니다. 아래 정보가 맞나요? 바뀐 게 있으면 이 메시지에 답글로 적어 주세요." + 정보 목록.
 3. 보낸 메시지의 `channel_id`·`ts`·보낸 날짜를 `reels/out/brand-check.json`에 저장한다(금요일 4-0이 읽음). 커밋하지 않는다.
 
 ---

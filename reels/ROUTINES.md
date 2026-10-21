@@ -22,7 +22,7 @@ powershell -ExecutionPolicy Bypass -File reels/register-tasks.ps1
 ## 무인 실행 권한 범위 (`run-weekly.ps1`의 `$allow`)
 `--permission-mode dontAsk`라 목록 밖 도구는 묻지 않고 거부된다.
 - 셸 명령: `node`, `git`, `python`, `ffmpeg`, `ffprobe`, `codex`만 (파일 복사·삭제는 node로)
-- 파일 수정: 저장소 `reels/`, `assets/` 안만 (`D:\세븐스타즈 릴스` 복사는 `reels/deliver-local.js`가 함)
+- 파일 수정·생성: 저장소 `reels/`, `assets/` 안만 (`Edit(...)` 규칙이 Write도 포함) (`D:\세븐스타즈 릴스` 복사는 `reels/deliver-local.js`가 함)
 - 읽기: Read, Glob, Grep
 - Slack: 메시지 보내기, 스레드 읽기(목요일 확인 답글)
 - 쓰지 않음: Google Calendar, Supermetrics(4-2·4-3은 건너뜀, 실패 아님)

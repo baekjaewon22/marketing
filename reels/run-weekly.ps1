@@ -9,12 +9,15 @@ $repo = Split-Path -Parent $PSScriptRoot
 Set-Location $repo
 # winget(ffmpeg)·npm 전역(codex)·claude 경로는 작업 스케줄러 환경에 없을 수 있다
 $env:Path = "$env:Path;$env:LOCALAPPDATA\Microsoft\WinGet\Links;$env:APPDATA\npm;$env:USERPROFILE\.local\bin"
+# claude·git 출력(UTF-8)을 그대로 받아 로그에 UTF-8로 쓴다(PowerShell 5.1 기본값이면 한글이 깨짐)
+[Console]::OutputEncoding = [Text.Encoding]::UTF8
+function Write-Log { process { "$_" | Out-File -Append -Encoding utf8 $log } }
 
 $logDir = Join-Path $repo 'reels\out\logs'
 New-Item -ItemType Directory -Force $logDir | Out-Null
 $log = Join-Path $logDir ("{0}-{1}.log" -f (Get-Date -Format 'yyyy-MM-dd_HHmm'), $Mode)
 
-git pull --ff-only origin master *>> $log
+git pull --ff-only origin master 2>&1 | Write-Log
 
 $prompt = if ($Mode -eq 'weekly') {
   'reels/SKILL.md를 읽고 4장 "주간 제작 절차"를 이 PC에서 처음부터 끝까지 그대로 수행해. 사람에게 묻지 말고 끝까지 진행해. ' +
@@ -27,14 +30,14 @@ $prompt = if ($Mode -eq 'weekly') {
 $allow = @(
   'Bash(node:*)', 'Bash(git:*)', 'Bash(python:*)', 'Bash(ffmpeg:*)', 'Bash(ffprobe:*)', 'Bash(codex:*)',
   'Read', 'Glob', 'Grep', 'ToolSearch',
-  'Edit(reels/**)', 'Write(reels/**)', 'Edit(assets/**)', 'Write(assets/**)',
+  'Edit(reels/**)', 'Edit(assets/**)',   # Edit 규칙이 Write를 포함한다
   'mcp__claude_ai_Slack__slack_send_message', 'mcp__claude_ai_Slack__slack_read_thread'
 ) -join ','
 
-"=== $(Get-Date -Format s) $Mode 시작 ===" | Out-File -Append -Encoding utf8 $log
-claude -p $prompt --model opus --permission-mode dontAsk --allowedTools $allow *>> $log
+"=== $(Get-Date -Format s) $Mode 시작 ===" | Write-Log
+claude -p $prompt --model opus --permission-mode dontAsk --allowedTools $allow 2>&1 | Write-Log
 $code = $LASTEXITCODE
-"=== $(Get-Date -Format s) 종료 코드 $code ===" | Out-File -Append -Encoding utf8 $log
+"=== $(Get-Date -Format s) 종료 코드 $code ===" | Write-Log
 
 Get-ChildItem $logDir -Filter *.log | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-60) } | Remove-Item -Force
 exit $code
