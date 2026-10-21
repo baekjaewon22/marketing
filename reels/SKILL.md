@@ -124,6 +124,7 @@ node reels/render.js reels/samples ./reels/out/test --fps 5 --jobs 1   # 시험 
 git pull origin master
 node reels/validate.js reels/samples   # 환경 확인
 ```
+목요일 확인(4-11)의 `reels/out/brand-check.json`이 있으면 `slack_read_thread`로 그 스레드의 답글을 읽는다. 운영자가 바뀐 정보를 적었으면 13장대로 `brand-facts.json`을 고치고(가격이면 `allowed_prices`도) 커밋한 뒤 진행한다. 답글이 없거나 "맞아요"면 그대로 진행.
 
 ### 4-1. 대상 주와 중복 확인
 - 실행일 기준 **다음 주 월요일~일요일**. 월요일 날짜가 폴더 이름이 된다 (예: `reels/weeks/2026-11-02/`).
@@ -186,21 +187,30 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-qa/<월요일날�
 node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날짜> --fps 30 --jobs 3
 ```
 - 60~70분 걸린다. 백그라운드로 돌리고 끝날 때까지 기다린다(중간에 프레임 폴더 `/tmp/reel-*`의 파일 수로 진행률 확인 가능).
-- 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json`.
+- 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json`. `--only`로 돌려도 음원·사진은 전체 렌더와 같다.
 - 결과: `<이름>.mp4`, `<이름>.txt`(캡션·해시태그·음원 출처), `<이름>_contact.jpg`, `render-report.json`.
+- **로컬 예약 실행(Windows, `claude -p`)에서는** 명령 하나가 10분을 넘기면 끊기므로, 7개를 한 번에 돌리지 말고 파일마다 `--only`로 하나씩 foreground로 돌린다(timeout 600000, 한 개 4~5분):
+  `node reels/render.js reels/weeks/<월요일날짜> reels/out/<월요일날짜> --fps 30 --jobs 1 --only <파일>.json`
+  끝나면 `*_contact.jpg` 7장을 다시 Read로 보고, 문제가 있으면 대본을 고쳐 그 파일만 다시 렌더한다.
 
 ### 4-8. 전달 → 12장
+로컬 예약 실행: `node reels/deliver-local.js reels/weeks/<월요일날짜> reels/out/<월요일날짜>` (MP4·txt 14개 복사·확인 + DELIVERED 기록. FAIL이면 12장 2번).
 ### 4-9. 기록
 ```bash
-echo "<드라이브 폴더 링크 또는 아티팩트 링크>" > reels/weeks/<월요일날짜>/DELIVERED
-git add reels/weeks/<월요일날짜> && git commit -m "reels: <월요일날짜> 주 대본 7개" && git push -u origin master
+echo "<드라이브 폴더 링크 또는 아티팩트 링크>" > reels/weeks/<월요일날짜>/DELIVERED   # deliver-local.js를 썼으면 이미 있음
+git add reels/weeks/<월요일날짜> assets/images/sevenstars/ai && git commit -m "reels: <월요일날짜> 주 대본 7개" && git push -u origin master
 ```
-### 4-10. 알림 (PushNotification, 예약 실행이면 반드시)
-`<routine_summary>` 안에 첫 문장은 결과 한 줄. 이어서
+### 4-10. 알림 (예약 실행이면 반드시)
+로컬 예약 실행은 Slack(`slack_send_message`, `channel_id` = config `slack_channel`), 클라우드 예약은 PushNotification `<routine_summary>`. 첫 문장은 결과 한 줄. 이어서
 - 받을 곳 링크(드라이브 폴더 또는 대체 아티팩트)
 - 7개 목록: 날짜·요일·컨셉·테마·길이
 - **이번 주에 사용한 브랜드 정보**(장소·일정·가격)와 "바뀐 게 있으면 알려주세요"
 - 실패·경고가 있었다면 무엇이 왜
+
+### 4-11. 목요일 브랜드 정보 확인 (예약 `-Mode check`)
+1. `reels/brand-facts.json`의 장소·일정·가격·URL을 읽는다.
+2. Slack `slack_channel`에 보낸다: "내일 12시에 다음 주 릴스 7개를 만듭니다. 아래 정보가 맞나요? 바뀐 게 있으면 이 메시지에 답글로 적어 주세요." + 정보 목록.
+3. 보낸 메시지의 `channel_id`·`ts`·보낸 날짜를 `reels/out/brand-check.json`에 저장한다(금요일 4-0이 읽음). 커밋하지 않는다.
 
 ---
 
@@ -423,9 +433,10 @@ node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/d
 주의: Artifact 안에서는 다운로드 링크가 막혀 있어 영상 확인용이다. 원본 파일이 필요하면 별도 경로(15장) 결정이 필요하다.
 
 **로컬 예약 실행 (운영 방식, 확정):** 운영 PC에서 돌고, 결과는 PC의 구글 드라이브 동기화 폴더에 저장, 알림은 Slack.
-1. 저장 위치: `reels/config.json`의 `local_output_root`(예: `G:/내 드라이브/세븐스타즈 릴스`) 아래 `<월요일날짜> 주` 폴더.
-   본 렌더(4-7)는 `reels/out/<월요일날짜>`에 하고, 검수가 끝나면 MP4 7개 + txt 7개만 그 폴더로 복사한다(render-report.json·*_contact.jpg는 복사하지 않음).
-   복사 후 파일 수(14개)를 다시 확인한다. 동기화 앱이 올리는 것은 PC가 켜져 있으면 자동.
+1. 저장 위치: `reels/config.json`의 `local_output_root`(현재 `D:/세븐스타즈 릴스`) 아래 `<월요일날짜> 주` 폴더.
+   본 렌더(4-7)는 `reels/out/<월요일날짜>`에 하고, 검수가 끝나면 `node reels/deliver-local.js`로 MP4 7개 + txt 7개만 복사·확인한다(render-report.json·*_contact.jpg는 복사하지 않음).
+   구글 드라이브 데스크톱 앱에서 이 폴더를 동기화 대상('내 컴퓨터' 폴더 추가)으로 지정하면 드라이브에 자동으로 올라간다.
+   예약 실행 등록·권한 범위는 `reels/ROUTINES.md`.
 2. `local_output_root`가 비어 있거나 그 경로가 없으면(드라이브 앱 미설치·로그아웃) `reels/out/<월요일날짜>`에 그대로 두고, 알림 첫 문장에 "드라이브 폴더 없음, PC의 reels/out에 저장"과 경로를 쓴다.
 3. 알림(4-10)은 Slack `slack_send_message`로 `reels/config.json`의 `slack_channel`에 보낸다. 비어 있으면 알림을 건너뛰고 로그에만 남긴다.
 4. DELIVERED에는 드라이브 폴더 경로를 적는다.
@@ -479,8 +490,7 @@ node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/d
 
 결정됨(2026-10-21): 실행은 운영 PC(Windows, 상시 켜짐)의 작업 스케줄러, 저장은 구글 드라이브 동기화 폴더(12장 '로컬 예약 실행'), 알림은 Slack, 사진은 Codex 생성 사진 + 실제 사진을 영상당 1~2장.
 
-1. **예약 등록:** Windows 작업 스케줄러 등록 방식(무인 실행 권한 범위)이 아직 확정되지 않았다.
-2. **구글 드라이브 데스크톱 앱:** 운영 PC에 아직 설치되지 않았다. 설치 후 `local_output_root`에 경로를 넣는다.
-3. **Slack 채널:** `slack_channel`에 받을 채널(또는 본인 DM)을 넣는다.
-4. **실제 후기 문장:** 있으면 받아서 `reviews`에 그대로 쓴다.
-5. **음원 추가:** 14곡이라 몇 주 지나면 반복된다.
+1. **구글 드라이브 데스크톱 앱:** 운영 PC에 아직 설치되지 않았다. 설치 후 `D:\세븐스타즈 릴스`를 동기화 폴더로 추가하면 된다.
+2. **Slack 채널:** 지금은 세븐스타즈 워크스페이스의 본인 DM(`U0A46R8RA77`)으로 받는다. 채널로 바꾸려면 `slack_channel`에 채널 ID를 넣는다.
+3. **실제 후기 문장:** 있으면 받아서 `reviews`에 그대로 쓴다.
+4. **음원 추가:** 14곡이라 몇 주 지나면 반복된다.
