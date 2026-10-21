@@ -34,10 +34,20 @@ function pickTrack(script) {
   return pool[hash(script.date + script.concept) % pool.length];
 }
 
+const PHOTO_DIR = path.join(ROOT, 'assets/images/sevenstars');
+const PHOTOS = fs.readdirSync(PHOTO_DIR).filter(f => /\.jpe?g$/i.test(f)).sort();
+/* one photo per video, rotating: consecutive days differ and the cycle continues week to week */
+function pickPhoto(script, index) {
+  if (script.photo && PHOTOS.includes(script.photo)) return script.photo;
+  const week = Math.floor(Date.parse(script.date) / (7 * 86400000));
+  return PHOTOS[(week * 7 + index) % PHOTOS.length];
+}
+
 function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'] }).toString(); }
 
-async function renderOne(browser, file, swoosh) {
+async function renderOne(browser, file, swoosh, index) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
+  script.photo = pickPhoto(script, index);
   const base = path.basename(file, '.json');
   const track = pickTrack(script);
   const frames = fs.mkdtempSync(path.join(os.tmpdir(), `reel-${base}-`));
@@ -94,7 +104,7 @@ async function renderOne(browser, file, swoosh) {
   fs.writeFileSync(path.join(OUT, `${base}.txt`),
     `[${script.date} ${script.day}] ${script.concept} / 테마: ${script.theme}\n\n${script.caption}\n\n${tags}\n\n🎵 Music: ${credit}\n`);
   fs.rmSync(frames, { recursive: true, force: true });
-  return { base, seconds: Number(total), track: track.file, qa };
+  return { base, seconds: Number(total), track: track.file, photo: script.photo, qa };
 }
 
 (async () => {
@@ -105,15 +115,15 @@ async function renderOne(browser, file, swoosh) {
   let files = fs.readdirSync(SCRIPTS).filter(f => f.endsWith('.json')).sort();
   if (ONLY) files = files.filter(f => f === ONLY);
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-  const results = [], queue = [...files];
+  const results = [], queue = files.map((f, i) => [f, i]);
   await Promise.all(Array.from({ length: Math.min(JOBS, files.length) }, async () => {
     while (queue.length) {
-      const f = queue.shift();
+      const [f, idx] = queue.shift();
       const t0 = Date.now();
       try {
-        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh);
+        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, idx);
         results.push(r);
-        console.log(`OK   ${r.base} ${r.seconds}s ${r.track} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
+        console.log(`OK   ${r.base} ${r.seconds}s ${r.track} ${r.photo} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
           (r.qa.length ? `\n  QA 경고 ${r.qa.length}건: ${JSON.stringify(r.qa)}` : ''));
       } catch (e) { results.push({ base: f, error: e.message }); console.log(`FAIL ${f}: ${e.message}`); }
     }

@@ -40,7 +40,9 @@ Supermetrics 커넥터가 켜져 있으면 `sevenstars-marketing-check` 스킬 �
 2. **안내** 2~4장 (`cover`, `steps`, `info`, `reviews`, `quote` 중 선택)
 3. **전환** (`cta`) — 항상 마지막. 부담 없는 초대 말투.
 
-슬라이드 총 4~7장. 스키마 예시는 `reels/samples/*.json`을 그대로 따른다. 사진은 `assets/images/sevenstars/`의 4장(모두 얼굴 모자이크 처리본)만 쓴다: `venue-wide.jpg`, `venue-closeup.jpg`, `venue-bright.jpg`, `venue-candle.jpg`. 사진 없이 테마 배경만 쓰려면 `"photo": null`.
+슬라이드 총 4~7장. 스키마 예시는 `reels/samples/*.json`을 그대로 따른다.
+
+**사진 규칙: 영상 하나에 사진 한 장.** `assets/images/sevenstars/`(모두 얼굴 모자이크 처리본)에서 렌더러가 요일마다 다른 사진을 자동으로 돌려 배정하고, 사진 슬라이드마다 다른 부분을 잘라 움직임을 준다. 대본에는 사진을 적지 않는 게 기본이다. 특정 사진이 꼭 필요할 때만 최상위에 `"photo": "couple-table.jpg"`처럼 지정한다. 특정 슬라이드를 사진 없이 테마 배경으로만 쓰려면 그 슬라이드에 `"photo": null`.
 
 ### 사실 (반드시 `reels/brand-facts.json` 값만)
 - 장소·시간·가격·URL은 대본에 직접 쓰지 말고 `info`/`cta` 슬라이드가 brand-facts에서 자동으로 채우게 둔다. 문구에 가격을 쓸 때는 brand-facts의 값만.
