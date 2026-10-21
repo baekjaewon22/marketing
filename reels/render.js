@@ -55,8 +55,10 @@ async function renderOne(browser, file, swoosh, index, track) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
   script.photo = pickPhoto(script, index);
   const base = path.basename(file, '.json');
+  for (const d of fs.readdirSync(os.tmpdir()).filter(d => d.startsWith(`reel-${base}-`))) fs.rmSync(path.join(os.tmpdir(), d), { recursive: true, force: true });
   const frames = fs.mkdtempSync(path.join(os.tmpdir(), `reel-${base}-`));
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
+  page.setDefaultTimeout(180000); // 병렬 렌더로 CPU가 붐비면 30초 기본값으론 캡처가 시간 초과난다
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.addInitScript(([s, f, b]) => { window.SCRIPT = s; window.FACTS = f; window.BPM_IN = b; }, [script, FACTS, track.bpm]);
@@ -77,8 +79,13 @@ async function renderOne(browser, file, swoosh, index, track) {
 
   const n = Math.round(meta.TOTAL / 1000 * FPS);
   for (let f = 0; f < n; f++) {
-    await page.evaluate(ms => window.seekTo(ms), (f / FPS) * 1000);
-    await page.screenshot({ path: path.join(frames, `f_${String(f).padStart(5, '0')}.png`) });
+    for (let attempt = 1; ; attempt++) {
+      try {
+        await page.evaluate(ms => window.seekTo(ms), (f / FPS) * 1000);
+        await page.screenshot({ path: path.join(frames, `f_${String(f).padStart(5, '0')}.png`) });
+        break;
+      } catch (e) { if (attempt >= 3) throw new Error(`frame ${f}: ${e.message}`); }
+    }
   }
   await page.close();
 
