@@ -4,10 +4,28 @@
 # 무인 실행 권한은 아래 $allow 목록만: node/git/python/ffmpeg/codex 명령, 저장소 reels/·assets/ 파일 수정, Slack.
 # 목록 밖 도구는 dontAsk 모드라 묻지 않고 거부된다. 로그: reels/out/logs/
 #   -Week 2026-11-07 : (수동 실행용) 이 날짜(시작일)부터 7일 치를 만든다. 없으면 다음 토요일부터
-param([ValidateSet('weekly', 'check')][string]$Mode = 'weekly', [string]$Week = '')
+#   -CatchUp : 로그인할 때 도는 따라잡기(동작은 -Week 없는 weekly와 같음)
+# -Week 없이 weekly로 돌면 금 12시 이후·토요일에만, 가장 최근 금요일 회차(다음 날 토~금)가 아직 없을 때만 만든다.
+# 예약이 엉뚱한 때 시작돼도(재등록 직후 등) 이 조건에서 바로 끝난다.
+param([ValidateSet('weekly', 'check')][string]$Mode = 'weekly', [string]$Week = '', [switch]$CatchUp)
 
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location $repo
+
+if ($Mode -eq 'weekly' -and -not $Week) {
+  $now = Get-Date; $dow = [int]$now.DayOfWeek
+  if (-not (($dow -eq 5 -and $now.Hour -ge 12) -or $dow -eq 6)) { exit 0 }
+  $fri = $now.Date.AddDays(-(($dow - 5 + 7) % 7))
+  if ($fri -lt [datetime]'2026-10-30') { exit 0 }
+  $Week = $fri.AddDays(1).ToString('yyyy-MM-dd')
+  if (Test-Path (Join-Path $repo "reels\weeks\$Week\DELIVERED")) { exit 0 }
+}
+
+# 금요일 예약·따라잡기가 겹치지 않게 잠근다
+$lock = Join-Path $repo 'reels\out\run.lock'
+if ((Test-Path $lock) -and (Get-Process -Id (Get-Content $lock) -ErrorAction SilentlyContinue)) { exit 0 }
+New-Item -ItemType Directory -Force (Split-Path $lock) | Out-Null
+$PID | Out-File -Encoding ascii $lock
 # winget(ffmpeg)·npm 전역(codex)·claude 경로는 작업 스케줄러 환경에 없을 수 있다
 $env:Path = "$env:Path;$env:LOCALAPPDATA\Microsoft\WinGet\Links;$env:APPDATA\npm;$env:USERPROFILE\.local\bin"
 # claude·git 출력(UTF-8)을 그대로 받아 로그에 UTF-8로 쓴다(PowerShell 5.1 기본값이면 한글이 깨짐)
@@ -20,7 +38,7 @@ $log = Join-Path $logDir ("{0}-{1}.log" -f (Get-Date -Format 'yyyy-MM-dd_HHmm'),
 
 git pull --ff-only origin master 2>&1 | Write-Log
 
-# 대상 기간: 실행일 다음 토요일부터 7일(토~금). 폴더 이름은 시작일
+# 대상 기간: 시작일(토)부터 7일(토~금). 폴더 이름은 시작일. check 모드는 다음 토요일 기준으로 안내만 한다
 if (-not $Week) {
   $d = (Get-Date).Date
   $add = (6 - [int]$d.DayOfWeek + 7) % 7; if ($add -eq 0) { $add = 7 }
@@ -65,4 +83,5 @@ if ($Mode -eq 'weekly') {
 "=== $(Get-Date -Format s) 종료 코드 $code ===" | Write-Log
 
 Get-ChildItem $logDir -Filter *.log | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-60) } | Remove-Item -Force
+Remove-Item $lock -Force -ErrorAction SilentlyContinue
 exit $code

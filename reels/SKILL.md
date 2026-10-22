@@ -455,6 +455,7 @@ node reels/delivery-page.js reels/weeks/<시작일> <스크래치패드>/deliver
    본 렌더(4-7)는 `reels/out/<시작일>`에 하고, 검수가 끝나면 `node reels/deliver-local.js`로 MP4 7개 + txt 7개만 복사·확인한다(render-report.json·*_contact.jpg는 복사하지 않음).
    구글 드라이브 데스크톱 앱에서 이 폴더를 동기화 대상('내 컴퓨터' 폴더 추가)으로 지정하면 드라이브에 자동으로 올라간다.
    예약 실행 등록·권한 범위는 `reels/ROUTINES.md`.
+   로그인이 안 돼 제작이 안 됐거나 중간에 끝나면 감시 작업(S4U, 금 14:30·토 12:00)이 Slack DM으로 알리고, 금·토에 로그인하면 따라잡기 작업이 이어서 만든다.
 2. `local_output_root`가 비어 있거나 그 경로가 없으면(드라이브 앱 미설치·로그아웃) `reels/out/<시작일>`에 그대로 두고, 알림 첫 문장에 "드라이브 폴더 없음, PC의 reels/out에 저장"과 경로를 쓴다.
 3. 알림(4-10)은 Slack `slack_send_message`로 `reels/config.json`의 `slack_channel`에 보낸다. 비어 있으면 알림을 건너뛰고 로그에만 남긴다.
 4. DELIVERED에는 드라이브 폴더 경로를 적는다.
