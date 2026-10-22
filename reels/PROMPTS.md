@@ -104,3 +104,11 @@ reels/SKILL.md 7장 '새 테마 추가' 순서대로 template.html THEMES, valid
 결과물 저장 방식을 <A 구글 드라이브 커넥터 / B PC 드라이브 동기화 폴더 "<경로>" / C GitHub>로 확정했어.
 reels/SKILL.md 12장과 15장, reels/config.json, reels/PROMPTS.md 2번을 그 방식 하나로 정리해서 커밋·푸시해.
 ```
+
+## 11. 특별 모집 릴스 (취소석·무료체험 등)
+
+```
+<이번 주말 여성 취소석 1자리> 모집 릴스를 만들어줘. 참고 문구: <...>. 조건은 <DM으로 안내>.
+reels/SKILL.md 13장 '특별 모집 릴스' 방식대로 reels/specials/<오늘날짜>/에 대본 → 검증 → 2fps 검수 → 30fps 렌더 →
+D:/세븐스타즈 릴스/<오늘날짜> 특별 에 저장하고, 커밋·푸시 후 Slack DM으로 알려줘.
+```

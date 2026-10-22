@@ -88,7 +88,7 @@ pre{white-space:pre-wrap;font-family:var(--font-body);font-size:13px;margin:0;co
       <p class="note">구글 드라이브 업로드가 안 돼서 이 페이지로 대신 전달합니다. 캡션 파일 내용은 각 카드에 있습니다.</p>
     </div>
     <div class="facts">
-      <span>장소</span><b>${esc(FACTS.location.address)} · ${esc(FACTS.location.short)}</b>
+      <span>장소</span><b>${esc(FACTS.location.short)}</b>
       <span>일정</span><b>${esc(FACTS.schedule.days)} ${esc(FACTS.schedule.times)}</b>
       <span>참가비</span><b>여 ${esc(FACTS.price.female)} · 남 ${esc(FACTS.price.male)} (정가 ${esc(FACTS.price.regular)})</b>
     </div>

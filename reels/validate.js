@@ -33,7 +33,9 @@ function check(file) {
     if (sl && sl.title && String(sl.title).split(/<br\s*\/?>/i).length > 3) errs.push(`슬라이드 ${i}: 제목은 3줄 이하`);
   });
   const text = strings({ hook: s.hook, slides: s.slides, caption: s.caption }).join('\n');
-  for (const b of FACTS.banned_claims) if (text.includes(b)) errs.push(`금지 표현: "${b}"`);
+  // allowed_phrases(예: 무료체험)는 운영자가 승인한 표현이라 금지 표현 검사에서 뺀다
+  const checked = (FACTS.allowed_phrases || []).reduce((t, p) => t.split(p).join(''), text);
+  for (const b of FACTS.banned_claims) if (checked.includes(b)) errs.push(`금지 표현: "${b}"`);
   for (const m of text.matchAll(/[\d,]+\s*원/g)) {
     const p = m[0].replace(/\s/g, '');
     if (!FACTS.allowed_prices.includes(p)) errs.push(`brand-facts에 없는 가격: ${p}`);

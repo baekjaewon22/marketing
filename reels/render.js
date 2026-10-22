@@ -44,7 +44,11 @@ let WEEK = 0;
 const PHOTO_DIR = path.join(ROOT, 'assets/images/sevenstars');
 const jpgs = dir => fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => /\.jpe?g$/i.test(f)).sort() : [];
 /* real (mosaicked) photos + Codex-generated ones in ai/, interleaved so a 2-photo video gets one of each */
-const REAL = jpgs(PHOTO_DIR), AI = jpgs(path.join(PHOTO_DIR, 'ai')).map(f => 'ai/' + f);
+/* 얼굴(모자이크)이 크게 나와 글자 뒤에서 지저분해 보이는 사진은 자동 배정에서 빼고, 대본에서 지정할 때만 쓴다 */
+const MANUAL_ONLY = ['couple-closeup.jpg', 'couple-table.jpg'];
+const ALL_REAL = jpgs(PHOTO_DIR), AI = jpgs(path.join(PHOTO_DIR, 'ai')).map(f => 'ai/' + f);
+const REAL = ALL_REAL.filter(f => !MANUAL_ONLY.includes(f));
+const ALL_PHOTOS = [...ALL_REAL, ...AI];
 const PHOTOS = [];
 for (let i = 0; i < Math.max(REAL.length, AI.length); i++) { if (AI[i]) PHOTOS.push(AI[i]); if (REAL[i]) PHOTOS.push(REAL[i]); }
 const PHOTO_TYPES = ['cover', 'steps', 'info', 'reviews', 'quote'];
@@ -52,10 +56,10 @@ const PHOTO_TYPES = ['cover', 'steps', 'info', 'reviews', 'quote'];
    so the same photo doesn't repeat inside a week and the cycle continues week to week */
 function assignPhotos(scripts) {
   const forcedOf = s => (Array.isArray(s.photos) && s.photos.length ? s.photos : s.photo ? [s.photo] : [])
-    .filter(p => PHOTOS.includes(p)).slice(0, 2);
+    .filter(p => ALL_PHOTOS.includes(p)).slice(0, 2);
   const forced = new Set(scripts.flatMap(forcedOf));
   const used = new Set();
-  let c = WEEK * 10;
+  let c = WEEK * 7; // 사진 수(대개 10장 안팎)와 나누어떨어지지 않는 수라야 주마다 시작점이 바뀐다
   return scripts.map(s => {
     const slots = s.slides.filter(sl => PHOTO_TYPES.includes(sl.type) && sl.photo !== null).length;
     const k = Math.min(slots >= 2 ? 2 : 1, PHOTOS.length);
