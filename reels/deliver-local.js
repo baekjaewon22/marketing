@@ -1,6 +1,6 @@
-// usage: node reels/deliver-local.js <weekDir> <renderOutDir> [폴더이름]   (폴더이름 기본값: "<월요일날짜> 주")
-// 렌더 결과의 MP4·txt만 config.local_output_root/<월요일날짜> 주 폴더로 복사하고 개수를 확인한다(SKILL.md 12장).
-// 성공하면 weeks/<월요일날짜>/DELIVERED 에 저장 경로를 적는다. 출력 마지막 줄: 저장 경로.
+// usage: node reels/deliver-local.js <weekDir> <renderOutDir> [폴더이름]   (폴더이름 기본값: "<시작일> 주")
+// 렌더 결과의 MP4·txt만 config.local_output_root/<시작일> 주 폴더로 복사하고 개수를 확인한다(SKILL.md 12장).
+// 성공하면 weeks/<시작일>/DELIVERED 에 저장 경로를 적는다. 출력 마지막 줄: 저장 경로.
 const fs = require('fs');
 const path = require('path');
 

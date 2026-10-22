@@ -1,6 +1,6 @@
 ---
 name: sevenstars-weekly-reels
-description: 세븐스타즈(합정역 로테이션 소개팅) 인스타그램 릴스를 대본 작성 → 사실 검증 → 렌더링(BGM·효과음 포함 MP4) → 검수 → 전달까지 만드는 작업 전체. 매주 금요일 다음 주 월~일 7개 제작, 단건 영상 수정, 테마·음원·사진 추가에 사용.
+description: 세븐스타즈(합정역 로테이션 소개팅) 인스타그램 릴스를 대본 작성 → 사실 검증 → 렌더링(BGM·효과음 포함 MP4) → 검수 → 전달까지 만드는 작업 전체. 매주 금요일에 다음 날(토)부터 7일(토~금) 분량 7개 제작, 단건 영상 수정, 테마·음원·사진 추가에 사용.
 ---
 
 # 세븐스타즈 릴스 제작 가이드
@@ -45,7 +45,7 @@ description: 세븐스타즈(합정역 로테이션 소개팅) 인스타그램 �
 **운영자가 정한 사항**
 | 항목 | 결정 |
 |---|---|
-| 제작 주기 | 매주 금요일 12:00, 다음 주 월~일 7개 |
+| 제작 주기 | 매주 금요일 12:00, 다음 날 토요일부터 그다음 금요일까지 7개 (2026-10-22 운영자 결정, 첫 실행 10/30 → 10/31~11/6) |
 | 실행 방식 | B안: 대본부터 업로드까지 완전 자동, 결과만 알림 |
 | 모델 | 모든 작업 Opus |
 | 영상 규격 | 1080×1920 (9:16), 30fps, 15~21초, H.264 + AAC |
@@ -75,7 +75,7 @@ reels/
   tools/beats.py        ← 음원 BPM·첫 박 분석
   tools/mosaic.py       ← 사진 얼굴 모자이크 (격자 미리보기 → 박스 적용)
   samples/*.json        ← 대본 예시 (크리스마스, 미니멀)
-  weeks/<월요일날짜>/    ← 주차별 대본 7개 + DELIVERED(전달 완료 표시)
+  weeks/<시작일>/    ← 주차별 대본 7개 + DELIVERED(전달 완료 표시)
 assets/
   audio/bgm/*.mp3 + manifest.json   ← BGM과 BPM·시작점·분위기·저작자
   images/sevenstars/*.jpg           ← 얼굴 모자이크 처리된 공간·인물 사진만
@@ -132,8 +132,9 @@ node reels/validate.js reels/samples   # 환경 확인
 목요일 확인(4-11)의 `reels/out/brand-check.json`이 있으면 `slack_read_thread`로 그 스레드의 답글을 읽는다. 운영자가 바뀐 정보를 적었으면 13장대로 `brand-facts.json`을 고치고(가격이면 `allowed_prices`도) 커밋한 뒤 진행한다. 답글이 없거나 "맞아요"면 그대로 진행.
 
 ### 4-1. 대상 주와 중복 확인
-- 실행일 기준 **다음 주 월요일~일요일**. 월요일 날짜가 폴더 이름이 된다 (예: `reels/weeks/2026-11-02/`).
-- `reels/weeks/<월요일날짜>/DELIVERED`가 있으면 이미 전달한 주다. **아무것도 만들지 말고** "이미 제작된 주라 건너뜀" 알림만 보내고 끝낸다.
+- 실행일(금) 기준 **다음 날 토요일부터 그다음 금요일까지 7일**. 시작 토요일 날짜가 폴더 이름이 된다 (예: 10/30 실행 → `reels/weeks/2026-10-31/`, 10/31~11/6). 예약 실행은 프롬프트에 대상 기간을 직접 적어 준다.
+- 2026-10-26·11-02·11-09 폴더는 예전 월~일 기준으로 미리 만든 것이다(운영자가 이미 사용). 기간이 겹쳐도 새 기간은 새로 만든다. 반복 회피용으로만 읽는다.
+- `reels/weeks/<시작일>/DELIVERED`가 있으면 이미 전달한 주다. **아무것도 만들지 말고** "이미 제작된 주라 건너뜀" 알림만 보내고 끝낸다.
 - 그 주 폴더에 대본은 있는데 DELIVERED가 없으면 이전 실행이 중간에 끊긴 것이다. 새로 쓰지 말고 있는 대본·생성 사진·`reels/out` 렌더 결과를 이어서 쓰고 남은 단계부터 진행한다.
 - 직전 2주의 `reels/weeks/` 대본을 읽어 테마·훅·컨셉이 반복되지 않게 한다.
 
@@ -171,18 +172,18 @@ Supermetrics 커넥터가 있으면 `sevenstars-marketing-check` 스킬 방식�
 | 일 | 공간·분위기 | hook-statement → quote → cover → info → cta |
 금요일 초청 영상은 매주 반드시 1개 만든다(운영자 결정 2026-10-22). 시즌 주제는 다른 요일(월 공감형·일 공간 등)에 녹인다. 시즌 주간(크리스마스 등)은 금요일을 뺀 2~3개를 시즌 주제로 바꿔도 된다. 같은 구성만 반복하지 말고 매주 조금씩 바꾼다.
 
-파일 이름: `reels/weeks/<월요일날짜>/YYYY-MM-DD_요일_컨셉.json` (컨셉은 띄어쓰기 없이). 이 이름이 그대로 MP4·txt 이름이 된다.
+파일 이름: `reels/weeks/<시작일>/YYYY-MM-DD_요일_컨셉.json` (컨셉은 띄어쓰기 없이). 이 이름이 그대로 MP4·txt 이름이 된다.
 작성 규칙은 5장, 형식은 6장. 실제 예시는 `reels/weeks/2026-10-26/`(첫 주차)과 `reels/samples/`.
 
 ### 4-5. 검증
 ```bash
-node reels/validate.js reels/weeks/<월요일날짜>
+node reels/validate.js reels/weeks/<시작일>
 ```
 FAIL이 하나라도 있으면 고쳐서 다시. 통과 전에는 렌더링하지 않는다.
 
 ### 4-6. 빠른 검수 렌더 (2fps)
 ```bash
-node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-qa/<월요일날짜> --fps 2 --jobs 3
+node reels/render.js reels/weeks/<시작일> /tmp/reels-qa/<시작일> --fps 2 --jobs 3
 ```
 - 출력 줄마다 `길이(초) 음원 사진`이 나온다. 확인할 것: 길이 15~21초, 같은 음원 반복 없음, 사진 7일 모두 다름(사진이 6장이면 1장만 겹침), 비시즌인데 캐럴이 뽑히지 않았는지.
 - `QA 경고`가 있으면 그 슬라이드 문구를 줄인다.
@@ -190,22 +191,22 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-qa/<월요일날�
 
 ### 4-7. 본 렌더 (30fps)
 ```bash
-node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날짜> --fps 30 --jobs 3
+node reels/render.js reels/weeks/<시작일> /tmp/reels-out/<시작일> --fps 30 --jobs 3
 ```
 - 60~70분 걸린다. 백그라운드로 돌리고 끝날 때까지 기다린다(중간에 프레임 폴더 `/tmp/reel-*`의 파일 수로 진행률 확인 가능).
 - 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json` (여러 개는 쉼표로). `--only`로 돌려도 음원·사진은 전체 렌더와 같다.
 - 결과: `<이름>.mp4`, `<이름>.txt`(캡션·해시태그·음원 출처), `<이름>_contact.jpg`, `render-report.json`.
 - **로컬 예약 실행(Windows, `claude -p`)에서는 백그라운드 실행(run_in_background)을 절대 쓰지 않는다.** 응답을 마치면 프로세스가 끝나서 백그라운드 작업 결과를 받지 못한다(2026-10-22 시험에서 검수 렌더를 백그라운드로 돌리고 끝나 영상이 안 나옴). `run-weekly.ps1`은 DELIVERED가 없으면 `--continue`로 최대 3번 이어서 시킨다.
 - 명령 하나가 10분을 넘기면 끊기므로, 7개를 한 번에 돌리지 말고 파일마다 `--only`로 하나씩 foreground로 돌린다(timeout 600000, 한 개 4~5분):
-  `node reels/render.js reels/weeks/<월요일날짜> reels/out/<월요일날짜> --fps 30 --jobs 1 --only <파일>.json`
+  `node reels/render.js reels/weeks/<시작일> reels/out/<시작일> --fps 30 --jobs 1 --only <파일>.json`
   끝나면 `*_contact.jpg` 7장을 다시 Read로 보고, 문제가 있으면 대본을 고쳐 그 파일만 다시 렌더한다.
 
 ### 4-8. 전달 → 12장
-로컬 예약 실행: `node reels/deliver-local.js reels/weeks/<월요일날짜> reels/out/<월요일날짜>` (MP4·txt 14개 복사·확인 + DELIVERED 기록. FAIL이면 12장 2번).
+로컬 예약 실행: `node reels/deliver-local.js reels/weeks/<시작일> reels/out/<시작일>` (MP4·txt 14개 복사·확인 + DELIVERED 기록. FAIL이면 12장 2번).
 ### 4-9. 기록
 ```bash
-echo "<드라이브 폴더 링크 또는 아티팩트 링크>" > reels/weeks/<월요일날짜>/DELIVERED   # deliver-local.js를 썼으면 이미 있음
-git add reels/weeks/<월요일날짜> assets/images/sevenstars/ai && git commit -m "reels: <월요일날짜> 주 대본 7개" && git push -u origin master
+echo "<드라이브 폴더 링크 또는 아티팩트 링크>" > reels/weeks/<시작일>/DELIVERED   # deliver-local.js를 썼으면 이미 있음
+git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "reels: <시작일> 주 대본 7개" && git push -u origin master
 ```
 ### 4-10. 알림 (예약 실행이면 반드시)
 로컬 예약 실행은 Slack(`slack_send_message`, `channel_id` = config `slack_channel`), 클라우드 예약은 PushNotification `<routine_summary>`. 첫 문장은 결과 한 줄. 이어서
@@ -216,7 +217,7 @@ git add reels/weeks/<월요일날짜> assets/images/sevenstars/ai && git commit 
 
 ### 4-11. 목요일 브랜드 정보 확인 (예약 `-Mode check`)
 1. `reels/brand-facts.json`의 장소·일정·가격·URL을 읽는다.
-2. Slack `slack_channel`에 보낸다: "금요일 12시에 다음 주 릴스 7개를 만듭니다. 아래 정보가 맞나요? 바뀐 게 있으면 이 메시지에 답글로 적어 주세요." + 정보 목록.
+2. Slack `slack_channel`에 보낸다: "금요일 12시에 토요일부터 일주일 치 릴스 7개를 만듭니다. 아래 정보가 맞나요? 바뀐 게 있으면 이 메시지에 답글로 적어 주세요." + 정보 목록.
 3. 보낸 메시지의 `channel_id`·`ts`·보낸 날짜를 `reels/out/brand-check.json`에 저장한다(금요일 4-0이 읽음). 커밋하지 않는다.
 
 ---
@@ -438,23 +439,23 @@ git add reels/weeks/<월요일날짜> assets/images/sevenstars/ai && git commit 
 
 **기본: 구글 드라이브** (`reels/config.json`의 `drive_root_folder_url`이 있으면 그 폴더 아래, 없으면 `세븐스타즈 릴스` 폴더를 찾거나 만듦)
 1. ToolSearch로 `google drive` 도구를 불러온다. 파일을 만들기 전에 `google-workspace` 스킬을 읽는다.
-2. `세븐스타즈 릴스/<월요일날짜> 주` 폴더를 만들고 MP4 7개 + txt 7개를 올린다.
+2. `세븐스타즈 릴스/<시작일> 주` 폴더를 만들고 MP4 7개 + txt 7개를 올린다.
 3. 목록을 다시 조회해 14개 모두 있는지 확인.
 
 **대체: Artifact 페이지** (드라이브 도구가 없거나 업로드 실패 시)
 ```bash
-cp -r /tmp/reels-out/<월요일날짜> <스크래치패드>/delivery-<월요일날짜>
-node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/delivery-<월요일날짜>
+cp -r /tmp/reels-out/<시작일> <스크래치패드>/delivery-<시작일>
+node reels/delivery-page.js reels/weeks/<시작일> <스크래치패드>/delivery-<시작일>
 ```
 출력된 `delivery.html`을 `file_path`로, `videos/<날짜>.mp4` 7개를 `files`로 Artifact 게시(`icon: "video"`). Artifact에 올릴 파일은 작업 폴더나 스크래치패드 안에 있어야 한다. 알림 첫 문장에 "드라이브 업로드 실패, 아티팩트 링크로 대체"와 이유.
 주의: Artifact 안에서는 다운로드 링크가 막혀 있어 영상 확인용이다. 원본 파일이 필요하면 별도 경로(15장) 결정이 필요하다.
 
 **로컬 예약 실행 (운영 방식, 확정):** 운영 PC에서 돌고, 결과는 PC의 구글 드라이브 동기화 폴더에 저장, 알림은 Slack.
-1. 저장 위치: `reels/config.json`의 `local_output_root`(현재 `D:/세븐스타즈 릴스`) 아래 `<월요일날짜> 주` 폴더.
-   본 렌더(4-7)는 `reels/out/<월요일날짜>`에 하고, 검수가 끝나면 `node reels/deliver-local.js`로 MP4 7개 + txt 7개만 복사·확인한다(render-report.json·*_contact.jpg는 복사하지 않음).
+1. 저장 위치: `reels/config.json`의 `local_output_root`(현재 `D:/세븐스타즈 릴스`) 아래 `<시작일> 주` 폴더.
+   본 렌더(4-7)는 `reels/out/<시작일>`에 하고, 검수가 끝나면 `node reels/deliver-local.js`로 MP4 7개 + txt 7개만 복사·확인한다(render-report.json·*_contact.jpg는 복사하지 않음).
    구글 드라이브 데스크톱 앱에서 이 폴더를 동기화 대상('내 컴퓨터' 폴더 추가)으로 지정하면 드라이브에 자동으로 올라간다.
    예약 실행 등록·권한 범위는 `reels/ROUTINES.md`.
-2. `local_output_root`가 비어 있거나 그 경로가 없으면(드라이브 앱 미설치·로그아웃) `reels/out/<월요일날짜>`에 그대로 두고, 알림 첫 문장에 "드라이브 폴더 없음, PC의 reels/out에 저장"과 경로를 쓴다.
+2. `local_output_root`가 비어 있거나 그 경로가 없으면(드라이브 앱 미설치·로그아웃) `reels/out/<시작일>`에 그대로 두고, 알림 첫 문장에 "드라이브 폴더 없음, PC의 reels/out에 저장"과 경로를 쓴다.
 3. 알림(4-10)은 Slack `slack_send_message`로 `reels/config.json`의 `slack_channel`에 보낸다. 비어 있으면 알림을 건너뛰고 로그에만 남긴다.
 4. DELIVERED에는 드라이브 폴더 경로를 적는다.
 
