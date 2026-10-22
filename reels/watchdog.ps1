@@ -15,7 +15,7 @@ function Write-Log { process { "$_" | Out-File -Append -Encoding utf8 $log } }
 # 가장 최근 금요일(오늘 포함) 실행분 = 다음 날 토요일부터 7일
 $today = if ($TestDate) { [datetime]$TestDate } else { (Get-Date).Date }
 $fri = $today.AddDays(-(([int]$today.DayOfWeek - 5 + 7) % 7))
-if ($fri -lt [datetime]'2026-10-30') { exit 0 }
+if ($fri -lt [datetime]'2026-10-23') { exit 0 }
 $start = $fri.AddDays(1).ToString('yyyy-MM-dd'); $end = $fri.AddDays(7).ToString('yyyy-MM-dd')
 if (Test-Path (Join-Path $repo "reels\weeks\$start\DELIVERED")) { exit 0 }
 

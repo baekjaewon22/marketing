@@ -15,14 +15,14 @@ $act = { param($file, $arg) New-ScheduledTaskAction -Execute 'powershell.exe' -W
 
 $tasks = @(
   @{ Name = 'SevenStars Weekly Reels'; Action = (& $act $run '-Mode weekly'); Principal = $interactive;
-     Trigger = @(New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At ([datetime]'2026-10-30 12:00')) },
+     Trigger = @(New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At ([datetime]'2026-10-23 12:00')) },
   @{ Name = 'SevenStars Brand Check'; Action = (& $act $run '-Mode check'); Principal = $interactive;
      Trigger = @(New-ScheduledTaskTrigger -Weekly -DaysOfWeek Thursday -At ([datetime]'2026-10-29 12:00')) },
   @{ Name = 'SevenStars Catch-up'; Action = (& $act $run '-Mode weekly -CatchUp'); Principal = $interactive;
      Trigger = @(New-ScheduledTaskTrigger -AtLogOn -User $user) },
   @{ Name = 'SevenStars Watchdog'; Action = (& $act $watch ''); Principal = $s4u;
-     Trigger = @((New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At ([datetime]'2026-10-30 14:30')),
-                 (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Saturday -At ([datetime]'2026-10-31 12:00'))) }
+     Trigger = @((New-ScheduledTaskTrigger -Weekly -DaysOfWeek Friday -At ([datetime]'2026-10-23 14:30')),
+                 (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Saturday -At ([datetime]'2026-10-24 12:00'))) }
 )
 foreach ($t in $tasks) {
   Register-ScheduledTask -TaskName $t.Name -Action $t.Action -Trigger $t.Trigger -Settings $settings -Principal $t.Principal -Force | Out-Null

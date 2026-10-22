@@ -24,15 +24,26 @@ const THEME_LIST = JSON.parse(fs.readFileSync(path.join(__dirname, 'themes.json'
 const THEME_MUSIC = Object.fromEntries(Object.entries(THEME_LIST).map(([k, t]) => [k, t.music]));
 
 function hash(s) { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; }
-/* no repeated track inside one week when the pool allows it */
-const USED = new Set();
+/* no repeated track inside one week when the pool allows it, and avoid last week's tracks too (reels/out의 지난 렌더 기록) */
+const USED = new Set(), RECENT_TRACKS = new Set();
+function loadRecentTracks(firstDate) {
+  const from = new Date(Date.parse(firstDate) - 7 * 86400000).toISOString().slice(0, 10);
+  const outRoot = path.join(__dirname, 'out');
+  if (!fs.existsSync(outRoot)) return;
+  for (const d of fs.readdirSync(outRoot)) {
+    const rep = path.join(outRoot, d, 'render-report.json');
+    if (!fs.existsSync(rep)) continue;
+    try { for (const r of JSON.parse(fs.readFileSync(rep, 'utf8'))) { const day = String(r.base).slice(0, 10); if (r.track && day >= from && day < firstDate) RECENT_TRACKS.add(r.track); } } catch {}
+  }
+}
 function pickTrack(script) {
   if (script.music) { const t = MANIFEST.find(m => m.file === script.music); if (t) return t; }
   const moods = THEME_MUSIC[script.theme] || ['calm'];
   let pool = MANIFEST.filter(m => (m.mood || []).some(x => moods.includes(x)));
   if (!pool.length) pool = MANIFEST;
   const fresh = pool.filter(m => !USED.has(m.file));
-  const list = fresh.length ? fresh : pool;
+  const fresher = fresh.filter(m => !RECENT_TRACKS.has(m.file));
+  const list = fresher.length ? fresher : fresh.length ? fresh : pool;
   const t = list[hash(script.date + script.concept) % list.length];
   USED.add(t.file);
   return t;
@@ -87,6 +98,17 @@ function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'p
 async function renderOne(browser, file, swoosh, photos, track) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
   script.photos = photos;
+  // 훅·cta 배경용으로 그 영상 첫 사진을 크게 흐린 판을 미리 만든다(브라우저 blur는 프레임마다 느려서)
+  const first = script.ai_photo || photos[0];
+  if (first) {
+    const blur = path.join(PHOTO_DIR, '.blur', first.replace(/[/]/g, '_'));
+    if (!fs.existsSync(blur)) {
+      fs.mkdirSync(path.dirname(blur), { recursive: true });
+      sh('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(PHOTO_DIR, first), '-vf',
+        'scale=540:960:force_original_aspect_ratio=increase,crop=540:960,gblur=sigma=16,scale=1080:1920', '-q:v', '3', blur]);
+    }
+    script.backdrop = '.blur/' + path.basename(blur);
+  }
   const base = path.basename(file, '.json');
   for (const d of fs.readdirSync(os.tmpdir()).filter(d => d.startsWith(`reel-${base}-`))) fs.rmSync(path.join(os.tmpdir(), d), { recursive: true, force: true });
   const frames = fs.mkdtempSync(path.join(os.tmpdir(), `reel-${base}-`));
@@ -161,6 +183,7 @@ async function renderOne(browser, file, swoosh, photos, track) {
   const scripts = files.map(f => JSON.parse(fs.readFileSync(path.join(SCRIPTS, f), 'utf8')));
   WEEK = Math.round(Date.parse(scripts[0].date) / (7 * 86400000));
   // 음원·사진 배정은 항상 그 주 전체 순서로 계산해야 --only로 다시 돌려도 결과가 같다
+  loadRecentTracks(scripts[0].date);
   const tracks = scripts.map(pickTrack);
   const photos = assignPhotos(scripts);
   const only = ONLY ? ONLY.split(',').map(s => s.trim()) : null;

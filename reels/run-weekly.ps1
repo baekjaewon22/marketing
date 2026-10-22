@@ -16,7 +16,7 @@ if ($Mode -eq 'weekly' -and -not $Week) {
   $now = Get-Date; $dow = [int]$now.DayOfWeek
   if (-not (($dow -eq 5 -and $now.Hour -ge 12) -or $dow -eq 6)) { exit 0 }
   $fri = $now.Date.AddDays(-(($dow - 5 + 7) % 7))
-  if ($fri -lt [datetime]'2026-10-30') { exit 0 }
+  if ($fri -lt [datetime]'2026-10-23') { exit 0 }
   $Week = $fri.AddDays(1).ToString('yyyy-MM-dd')
   if (Test-Path (Join-Path $repo "reels\weeks\$Week\DELIVERED")) { exit 0 }
 }

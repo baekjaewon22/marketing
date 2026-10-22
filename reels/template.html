@@ -248,8 +248,16 @@ function photoLayer(name, kb, h, pos, shade) {
   return `<img class="photo" data-slide="${SI}" data-kb="${kb}" data-src="${name}" style="height:${h}px;object-position:${pos}">`+
          `<div class="shade" style="height:${h}px;background:${shade}"></div>`;
 }
+/* 훅·cta 같은 비사진 슬라이드: 그 영상 사진을 크게 흐린 배경(BACKDROP, render.js가 미리 흐림) 위에 테마 그라데이션을 덮는다.
+   밝은 테마는 글자가 어두워서 흐린 사진 없이 그라데이션만 */
+let BACKDROP = null;
+const hexA = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
 function bgLayer(th) {
-  return `<div class="bg" style="background:linear-gradient(180deg,${th.bg[0]} 0%,${th.bg[1]} 55%,${th.bg[2]} 100%)"></div>`+
+  const back = BACKDROP
+    ? `<img class="photo" data-slide="${SI}" data-kb="1.06,1.14,0,-20" data-src="${BACKDROP}" style="height:1920px;object-position:50% 50%;filter:none">`+
+      `<div class="shade" style="height:1920px;background:linear-gradient(180deg,${hexA(th.bg[0],.78)} 0%,${hexA(th.bg[1],.64)} 55%,${hexA(th.bg[2],.84)} 100%)"></div>`
+    : '';
+  return `<div class="bg" style="background:linear-gradient(180deg,${th.bg[0]} 0%,${th.bg[1]} 55%,${th.bg[2]} 100%)"></div>` + back +
     `<div class="drift" data-slide="${SI}" data-k="0" style="background:radial-gradient(circle,rgba(${th.glow[0]},0.30) 0%,rgba(${th.glow[0]},0) 65%)"></div>`+
     `<div class="drift" data-slide="${SI}" data-k="1" style="background:radial-gradient(circle,rgba(${th.glow[1]},0.22) 0%,rgba(${th.glow[1]},0) 65%)"></div>`;
 }
@@ -385,6 +393,7 @@ let TH, SLIDES = [];
 function build(script, facts) {
   TH = Object.assign({}, DEF, THEMES[script.theme] || THEMES.night);
   PHOTO_LIST = (script.photos && script.photos.length) ? script.photos : [script.photo || 'venue-wide.jpg'];
+  BACKDROP = (script.backdrop && TH.dark !== false) ? script.backdrop : null;
   PHOTO_N = 0;
   const root = document.documentElement.style;
   ['text','muted','glass','glassPhoto','border','accent','pill','pillBorder','badgeBg','badgeBorder','badgeText',

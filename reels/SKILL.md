@@ -45,7 +45,7 @@ description: 세븐스타즈(합정역 로테이션 소개팅) 인스타그램 �
 **운영자가 정한 사항**
 | 항목 | 결정 |
 |---|---|
-| 제작 주기 | 매주 금요일 12:00, 다음 날 토요일부터 그다음 금요일까지 7개 (2026-10-22 운영자 결정, 첫 실행 10/30 → 10/31~11/6) |
+| 제작 주기 | 매주 금요일 12:00, 다음 날 토요일부터 그다음 금요일까지 7개 (2026-10-22 운영자 결정, 첫 실행 10/23 → 10/24~10/30) |
 | 실행 방식 | B안: 대본부터 업로드까지 완전 자동, 결과만 알림 |
 | 모델 | 모든 작업 Opus |
 | 영상 규격 | 1080×1920 (9:16), 30fps, 15~21초, H.264 + AAC |
@@ -338,6 +338,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 | 가을 4 | `autumn` · `autumn-maple` 단풍 · `autumn-amber` 앰버 빛가루 · `latefall` 늦가을 |
 
 - 배경 효과(particles): `snow`, `petal`, `leaf`, `heart`, `sparkle`, `bokeh`(큰 빛망울), `dust`(떠다니는 빛가루), `confetti`(색종이), `rain`(빗줄기), `none`. 모두 시간 t의 순수 함수라 프레임마다 재현된다.
+- 훅·cta 같은 사진 없는 슬라이드: 그 영상의 첫 사진(보통 `ai_photo`)을 크게 흐린 판(render.js가 ffmpeg로 미리 만들어 `assets/images/sevenstars/.blur/`에 캐시, gitignore)을 깔고 테마 그라데이션을 덮는다. 영상마다 배경이 달라진다. 밝은 테마는 글자가 어두워서 흐린 사진 없이 그라데이션만.
 - `shade`(RGB): 사진 위 어두운 그라데이션 색. 테마 톤으로 물들여 실제 사진도 그 주 테마 색감에 맞춘다(없으면 남색).
 - 밝은 테마(`dark:false`)는 글자색·카드색을 따로 정한다(`minimal` 참고).
 
@@ -382,7 +383,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 `assets/audio/bgm/manifest.json` 항목: `file`, `bpm`, `start`(본 구간 첫 박, 초), `mood`(배열), `title`, `artist`.
 - mood: `calm`, `upbeat`, `christmas`, `vocal`(가사 있음 - 글자 읽기를 방해할 수 있음).
 - **캐럴(Christmas Chores)은 mood가 `christmas`만** → 크리스마스 테마에서만 뽑힌다. 뮤직박스류는 `calm`/`upbeat` + `christmas`를 함께 달아 겨울에도 쓴다.
-- 선택: 테마의 분위기 목록과 겹치는 곡 중에서, **그 주에 아직 안 쓴 곡**을 날짜·컨셉 해시로 고른다.
+- 선택: 테마의 분위기 목록과 겹치는 곡 중에서, **그 주에 아직 안 쓴 곡**이면서 **직전 7일 렌더(reels/out/*/render-report.json)에 쓰지 않은 곡**을 날짜·컨셉 해시로 고른다. 후보가 없으면 조건을 하나씩 푼다.
 - 현재 14곡: 4곡(유튜브 오디오 라이브러리 계열, 저작자 표기 있음) + 뮤직박스 10곡. 무료 음원(운영자 확인). 캡션 txt에 출처 자동 표기.
 
 새 곡 추가
