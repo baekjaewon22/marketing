@@ -51,13 +51,29 @@ const PHOTO_TYPES = ['cover', 'steps', 'info', 'reviews', 'quote'];
 /* 1~2 photos per video (2 when it has 2+ photo slides), rotating through the pool for the whole week
    so the same photo doesn't repeat inside a week and the cycle continues week to week */
 function assignPhotos(scripts) {
+  const forcedOf = s => (Array.isArray(s.photos) && s.photos.length ? s.photos : s.photo ? [s.photo] : [])
+    .filter(p => PHOTOS.includes(p)).slice(0, 2);
+  const forced = new Set(scripts.flatMap(forcedOf));
+  const used = new Set();
   let c = WEEK * 10;
   return scripts.map(s => {
-    if (Array.isArray(s.photos) && s.photos.length) return s.photos.filter(p => PHOTOS.includes(p)).slice(0, 2);
-    if (s.photo && PHOTOS.includes(s.photo)) return [s.photo];
     const slots = s.slides.filter(sl => PHOTO_TYPES.includes(sl.type) && sl.photo !== null).length;
     const k = Math.min(slots >= 2 ? 2 : 1, PHOTOS.length);
-    return Array.from({ length: k }, () => PHOTOS[c++ % PHOTOS.length]);
+    const start = c;
+    c += k; // 지정 사진이 있어도 순번은 똑같이 넘겨서, 사진을 지정해도 다른 영상의 배정이 밀리지 않게 한다
+    const own = forcedOf(s);
+    if (own.length) return own;
+    // 다른 영상이 지정했거나 이번 주에 이미 쓴 사진은 건너뛴다. 사진이 모자라면 조건을 하나씩 풀어 채운다
+    const out = [];
+    const skips = [p => forced.has(p) || used.has(p), p => forced.has(p), () => false];
+    for (const skip of skips) {
+      for (let j = 0; out.length < k && j < PHOTOS.length; j++) {
+        const p = PHOTOS[(start + j) % PHOTOS.length];
+        if (!out.includes(p) && !skip(p)) out.push(p);
+      }
+    }
+    out.forEach(p => used.add(p));
+    return out;
   });
 }
 
