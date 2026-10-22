@@ -134,6 +134,7 @@ node reels/validate.js reels/samples   # 환경 확인
 ### 4-1. 대상 주와 중복 확인
 - 실행일 기준 **다음 주 월요일~일요일**. 월요일 날짜가 폴더 이름이 된다 (예: `reels/weeks/2026-11-02/`).
 - `reels/weeks/<월요일날짜>/DELIVERED`가 있으면 이미 전달한 주다. **아무것도 만들지 말고** "이미 제작된 주라 건너뜀" 알림만 보내고 끝낸다.
+- 그 주 폴더에 대본은 있는데 DELIVERED가 없으면 이전 실행이 중간에 끊긴 것이다. 새로 쓰지 말고 있는 대본·생성 사진·`reels/out` 렌더 결과를 이어서 쓰고 남은 단계부터 진행한다.
 - 직전 2주의 `reels/weeks/` 대본을 읽어 테마·훅·컨셉이 반복되지 않게 한다.
 
 ### 4-2. 테마 정하기 (7일)
@@ -194,7 +195,8 @@ node reels/render.js reels/weeks/<월요일날짜> /tmp/reels-out/<월요일날�
 - 60~70분 걸린다. 백그라운드로 돌리고 끝날 때까지 기다린다(중간에 프레임 폴더 `/tmp/reel-*`의 파일 수로 진행률 확인 가능).
 - 한 개만 다시: `--only YYYY-MM-DD_요일_컨셉.json` (여러 개는 쉼표로). `--only`로 돌려도 음원·사진은 전체 렌더와 같다.
 - 결과: `<이름>.mp4`, `<이름>.txt`(캡션·해시태그·음원 출처), `<이름>_contact.jpg`, `render-report.json`.
-- **로컬 예약 실행(Windows, `claude -p`)에서는** 명령 하나가 10분을 넘기면 끊기므로, 7개를 한 번에 돌리지 말고 파일마다 `--only`로 하나씩 foreground로 돌린다(timeout 600000, 한 개 4~5분):
+- **로컬 예약 실행(Windows, `claude -p`)에서는 백그라운드 실행(run_in_background)을 절대 쓰지 않는다.** 응답을 마치면 프로세스가 끝나서 백그라운드 작업 결과를 받지 못한다(2026-10-22 시험에서 검수 렌더를 백그라운드로 돌리고 끝나 영상이 안 나옴). `run-weekly.ps1`은 DELIVERED가 없으면 `--continue`로 최대 3번 이어서 시킨다.
+- 명령 하나가 10분을 넘기면 끊기므로, 7개를 한 번에 돌리지 말고 파일마다 `--only`로 하나씩 foreground로 돌린다(timeout 600000, 한 개 4~5분):
   `node reels/render.js reels/weeks/<월요일날짜> reels/out/<월요일날짜> --fps 30 --jobs 1 --only <파일>.json`
   끝나면 `*_contact.jpg` 7장을 다시 Read로 보고, 문제가 있으면 대본을 고쳐 그 파일만 다시 렌더한다.
 
@@ -494,6 +496,7 @@ node reels/delivery-page.js reels/weeks/<월요일날짜> <스크래치패드>/d
 | 스킬이 레포에 안 올라감 | `.claude/`가 gitignore | `reels/SKILL.md`에 둠 |
 | 드라이브 업로드 불가 | 이 세션에 Drive 커넥터가 붙지 않음(`enabledInChat:false`) | 예약 설정에 커넥터 포함, 안 되면 대체 경로 |
 | 렌더링이 느림 | PNG 캡처 + 블러 카드 | 7개 30fps에 약 70분. 개선 후보: JPEG 캡처, 블러 축소 |
+| 예약 실행이 검수 렌더를 백그라운드로 돌리고 끝나 영상이 안 나옴 (2026-10-22) | `claude -p`는 응답이 끝나면 종료 | 프롬프트·4-7에 백그라운드 금지, run-weekly.ps1이 DELIVERED 없으면 `--continue`로 이어서 |
 | `--only`로 다시 렌더하니 음원·사진이 전체 렌더 때와 달라짐 | 걸러진 목록(1개) 기준으로 곡·사진을 골랐음 | 그 주 전체 기준으로 먼저 배정한 뒤 거름 |
 | 4장짜리 대본이 13초로 짧음 (2026-10-31 토) | 슬라이드 4장 + 빠른 곡 | 15초 미만이면 사실만으로 된 슬라이드(cover 등)를 하나 더 넣는다 |
 | 모자이크 얼굴이 quote 글자 바로 뒤에 겹쳐 지저분 | 얼굴이 큰 사진(couple-closeup·couple-table) | 두 사진을 자동 배정에서 뺌(`MANUAL_ONLY`) |
