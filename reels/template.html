@@ -89,27 +89,27 @@ const THEMES = {
   night: { dark:true, bg:['#04071A','#0C1440','#160A26'], glow:['110,50,230','220,80,40'],
     accent:'#E8C060', pill:'rgba(200,140,255,0.92)', pillBorder:'rgba(180,100,255,0.45)',
     particles:{type:'sparkle',count:26,color:'255,236,180'}, leak:'rgba(255,176,84,0.55)', music:['calm','upbeat'] },
-  christmas: { dark:true, bg:['#06140F','#0E2A1E','#3A0A10'], glow:['220,40,50','240,190,90'],
+  christmas: { dark:true, shade:'6,14,10', bg:['#06140F','#0E2A1E','#3A0A10'], glow:['220,40,50','240,190,90'],
     accent:'#F2C14E', pill:'#FFD7A0', pillBorder:'rgba(242,193,78,0.5)',
     badgeBg:'rgba(230,57,70,0.22)', badgeBorder:'rgba(255,107,107,0.45)', badgeText:'#FFB3B3',
     ctaBg:'linear-gradient(145deg,#A50E1B,#E63946,#FF6B6B)', ctaText:'#FFFFFF', ctaGlow:'rgba(230,57,70,0.55)',
     chipBg:'linear-gradient(135deg,#1E7A46,#2FA65E)', chipGlow:'rgba(47,166,94,0.5)',
     particles:{type:'snow',count:150,color:'255,255,255'}, leak:'rgba(255,200,120,0.5)', music:['christmas'] },
-  newyear: { dark:true, bg:['#05060F','#141638','#2E2105'], glow:['232,190,90','120,90,230'],
+  newyear: { dark:true, shade:'5,6,15', bg:['#05060F','#141638','#2E2105'], glow:['232,190,90','120,90,230'],
     accent:'#F5D36B', pill:'#F5D36B', pillBorder:'rgba(245,211,107,0.5)',
     particles:{type:'sparkle',count:90,color:'255,220,130'}, leak:'rgba(255,210,120,0.6)', music:['upbeat'] },
-  valentine: { dark:true, bg:['#1A0612','#3A0D24','#5A1433'], glow:['255,92,138','255,180,200'],
+  valentine: { dark:true, shade:'24,6,14', bg:['#1A0612','#3A0D24','#5A1433'], glow:['255,92,138','255,180,200'],
     accent:'#FFB3C7', pill:'#FFC2D4', pillBorder:'rgba(255,179,199,0.5)',
     badgeBg:'rgba(255,92,138,0.22)', badgeBorder:'rgba(255,92,138,0.45)', badgeText:'#FFC2D4',
     ctaBg:'linear-gradient(145deg,#D6336C,#FF5C8A,#FF8FB1)', ctaText:'#FFFFFF', ctaGlow:'rgba(255,92,138,0.5)',
     particles:{type:'heart',count:24,color:'255,120,160'}, leak:'rgba(255,140,180,0.5)', music:['calm','upbeat'] },
-  spring: { dark:true, bg:['#1E1020','#3B1E33','#5E3443'], glow:['255,170,200','255,230,160'],
+  spring: { dark:true, shade:'22,10,20', bg:['#1E1020','#3B1E33','#5E3443'], glow:['255,170,200','255,230,160'],
     accent:'#FFD1DC', pill:'#FFD1DC', pillBorder:'rgba(255,209,220,0.5)',
     particles:{type:'petal',count:60,color:'255,190,210'}, leak:'rgba(255,200,220,0.5)', music:['upbeat'] },
-  summer: { dark:true, bg:['#031A24','#06384A','#0B5560'], glow:['127,231,224','255,209,102'],
+  summer: { dark:true, shade:'2,16,20', bg:['#031A24','#06384A','#0B5560'], glow:['127,231,224','255,209,102'],
     accent:'#7FE7E0', pill:'#BFF5F1', pillBorder:'rgba(127,231,224,0.5)',
     particles:{type:'sparkle',count:40,color:'200,255,250'}, leak:'rgba(255,230,150,0.5)', music:['upbeat'] },
-  autumn: { dark:true, bg:['#1A0E05','#3A1E0A','#5A2E10'], glow:['255,140,60','255,200,120'],
+  autumn: { dark:true, shade:'20,10,4', bg:['#1A0E05','#3A1E0A','#5A2E10'], glow:['255,140,60','255,200,120'],
     accent:'#FFB45C', pill:'#FFD2A0', pillBorder:'rgba(255,180,92,0.5)',
     particles:{type:'leaf',count:28,color:'230,110,40'}, leak:'rgba(255,170,90,0.55)', music:['calm'] },
   minimal: { dark:false, bg:['#F6F1EA','#EFE6DA','#E6D8C6'], glow:['220,170,110','150,120,220'],
@@ -117,9 +117,115 @@ const THEMES = {
     border:'rgba(30,26,22,0.10)', pill:'#7A4FD0', pillBorder:'rgba(122,79,208,0.4)',
     badgeBg:'rgba(46,140,80,0.12)', badgeBorder:'rgba(46,140,80,0.35)', badgeText:'#2E7D4F',
     particles:{type:'none'}, leak:'rgba(255,220,170,0.35)', vig:0.18, grain:0.05, music:['calm'] },
-  cinematic: { dark:true, bg:['#0A0A0A','#151515','#1E1A14'], glow:['233,216,180','120,120,120'],
+  cinematic: { dark:true, shade:'8,7,5', bg:['#0A0A0A','#151515','#1E1A14'], glow:['233,216,180','120,120,120'],
     accent:'#E9D8B4', pill:'#E9D8B4', pillBorder:'rgba(233,216,180,0.45)',
     particles:{type:'none'}, leak:'rgba(255,220,170,0.45)', grain:0.11, music:['calm'] },
+
+  /* ── 2026-10-22 추가: 목록·시즌·음원은 reels/themes.json, 여기는 색과 효과. shade = 사진 위 그라데이션 색(테마 톤) ── */
+  rosegold: { dark:true, bg:['#1A0D10','#3A1E24','#5C3530'], glow:['232,160,150','255,210,170'], shade:'26,10,14',
+    accent:'#F4C2B0', pill:'#F7D3C6', pillBorder:'rgba(244,194,176,0.5)',
+    ctaBg:'linear-gradient(145deg,#B76E79,#E0A090,#F4C2B0)', ctaText:'#2A1014', ctaGlow:'rgba(224,160,144,0.5)',
+    particles:{type:'bokeh',count:18,color:'255,190,170'}, leak:'rgba(255,180,160,0.5)' },
+  deepblue: { dark:true, bg:['#020814','#06183A','#0C2A55'], glow:['70,130,255','255,190,110'], shade:'2,8,26',
+    accent:'#9CC8FF', pill:'#BFDBFF', pillBorder:'rgba(156,200,255,0.45)',
+    numBg:'linear-gradient(145deg,#4C8DFF,#9CC8FF)', ctaBg:'linear-gradient(145deg,#2F6FE0,#5C9BFF,#9CC8FF)', ctaText:'#020814', ctaGlow:'rgba(92,155,255,0.5)',
+    particles:{type:'bokeh',count:16,color:'140,190,255'}, leak:'rgba(255,190,120,0.45)' },
+  emerald: { dark:true, bg:['#03120D','#08281E','#123B2B'], glow:['40,190,130','230,190,100'], shade:'2,16,11',
+    accent:'#E6C76E', pill:'#9FE3C3', pillBorder:'rgba(64,200,140,0.45)',
+    particles:{type:'dust',count:40,color:'240,210,140'}, leak:'rgba(230,200,120,0.45)' },
+  burgundy: { dark:true, bg:['#14040A','#300A18','#4A1222'], glow:['200,50,80','240,180,120'], shade:'22,4,10',
+    accent:'#F0B98A', pill:'#F5C9D2', pillBorder:'rgba(220,120,140,0.45)',
+    ctaBg:'linear-gradient(145deg,#7A1530,#B0304E,#E0707F)', ctaText:'#FFFFFF', ctaGlow:'rgba(176,48,78,0.5)',
+    particles:{type:'bokeh',count:14,color:'255,170,140'}, leak:'rgba(255,160,120,0.5)' },
+  mocha: { dark:true, bg:['#120B07','#2A1A10','#3E2818'], glow:['200,140,90','255,220,170'], shade:'18,11,6',
+    accent:'#E3B98A', pill:'#F0D6B8', pillBorder:'rgba(227,185,138,0.45)',
+    particles:{type:'dust',count:34,color:'255,220,170'}, leak:'rgba(255,200,140,0.5)', grain:0.09 },
+  ivory: { dark:false, bg:['#FBF7EF','#F3EBDD','#E9DCC6'], glow:['230,200,140','200,170,220'],
+    accent:'#9A7A3A', text:'#211B12', muted:'rgba(33,27,18,0.62)', glass:'rgba(255,255,255,0.72)',
+    border:'rgba(33,27,18,0.10)', pill:'#8C6A2E', pillBorder:'rgba(140,106,46,0.35)',
+    badgeBg:'rgba(154,122,58,0.12)', badgeBorder:'rgba(154,122,58,0.35)', badgeText:'#7A5C22',
+    particles:{type:'dust',count:26,color:'200,160,90'}, leak:'rgba(255,225,170,0.35)', vig:0.16, grain:0.05 },
+  lavender: { dark:true, bg:['#0E0A1C','#221A3E','#3A2A55'], glow:['170,140,255','255,170,210'], shade:'14,10,28',
+    accent:'#D9C6FF', pill:'#E6DAFF', pillBorder:'rgba(200,180,255,0.45)',
+    ctaBg:'linear-gradient(145deg,#7B5CD6,#A98BF0,#D9C6FF)', ctaText:'#120A24', ctaGlow:'rgba(169,139,240,0.5)',
+    particles:{type:'sparkle',count:30,color:'230,215,255'}, leak:'rgba(255,190,220,0.45)' },
+  sunset: { dark:true, bg:['#1A0812','#4A1A2A','#8A3A2A'], glow:['255,120,90','255,200,120'], shade:'26,8,14',
+    accent:'#FFC27A', pill:'#FFD3B0', pillBorder:'rgba(255,170,120,0.5)',
+    ctaBg:'linear-gradient(145deg,#E0583A,#FF8A5C,#FFC27A)', ctaText:'#2A0A08', ctaGlow:'rgba(255,138,92,0.5)',
+    particles:{type:'bokeh',count:14,color:'255,190,140'}, leak:'rgba(255,170,110,0.6)' },
+  noir: { dark:true, bg:['#000000','#0B0B0B','#161616'], glow:['200,200,200','255,190,120'], shade:'0,0,0',
+    accent:'#F2F2F2', pill:'#E8E8E8', pillBorder:'rgba(255,255,255,0.35)',
+    badgeBg:'rgba(255,255,255,0.10)', badgeBorder:'rgba(255,255,255,0.3)', badgeText:'#FFFFFF',
+    numBg:'linear-gradient(145deg,#CFCFCF,#FFFFFF)', ctaBg:'linear-gradient(145deg,#DADADA,#FFFFFF)', ctaText:'#000000', ctaGlow:'rgba(255,255,255,0.35)',
+    chipBg:'linear-gradient(135deg,#2A2A2A,#444)', particles:{type:'none'}, leak:'rgba(255,200,140,0.35)', grain:0.13, vig:0.55 },
+  candle: { dark:true, bg:['#070402','#140A04','#24130A'], glow:['255,150,60','255,210,140'], shade:'8,4,2',
+    accent:'#FFC47A', pill:'#FFD9A8', pillBorder:'rgba(255,196,122,0.45)',
+    particles:{type:'bokeh',count:20,color:'255,180,90'}, leak:'rgba(255,160,70,0.6)', vig:0.55 },
+  'xmas-red': { dark:true, bg:['#1A0306','#3A070D','#5A0E15'], glow:['255,60,60','255,200,100'], shade:'24,2,5',
+    accent:'#FFD36B', pill:'#FFC9C9', pillBorder:'rgba(255,120,120,0.5)',
+    ctaBg:'linear-gradient(145deg,#B30F1F,#E63946,#FF6B6B)', ctaText:'#FFFFFF', ctaGlow:'rgba(230,57,70,0.6)',
+    chipBg:'linear-gradient(135deg,#1E7A46,#2FA65E)', chipGlow:'rgba(47,166,94,0.5)',
+    particles:{type:'snow',count:90,color:'255,235,220'}, leak:'rgba(255,190,110,0.55)' },
+  'xmas-green': { dark:true, bg:['#021008','#062414','#0B3820'], glow:['40,170,90','230,60,60'], shade:'2,14,7',
+    accent:'#F2C14E', pill:'#BFF0CF', pillBorder:'rgba(60,190,110,0.45)',
+    badgeBg:'rgba(230,57,70,0.2)', badgeBorder:'rgba(255,107,107,0.45)', badgeText:'#FFB3B3',
+    ctaBg:'linear-gradient(145deg,#A50E1B,#E63946,#FF6B6B)', ctaText:'#FFFFFF', ctaGlow:'rgba(230,57,70,0.55)',
+    particles:{type:'snow',count:120,color:'255,255,255'}, leak:'rgba(255,200,120,0.5)' },
+  'xmas-gold': { dark:true, bg:['#050402','#141006','#2A200A'], glow:['240,200,90','255,120,80'], shade:'6,5,2',
+    accent:'#F5D36B', pill:'#F5D36B', pillBorder:'rgba(245,211,107,0.5)',
+    chipBg:'linear-gradient(135deg,#A50E1B,#E63946)', particles:{type:'sparkle',count:110,color:'255,215,120'}, leak:'rgba(255,210,120,0.6)' },
+  'xmas-white': { dark:false, bg:['#F7FAFD','#E8F0F7','#D7E3EE'], glow:['200,220,255','255,200,190'],
+    accent:'#C0262F', text:'#14202C', muted:'rgba(20,32,44,0.62)', glass:'rgba(255,255,255,0.72)',
+    border:'rgba(20,32,44,0.10)', pill:'#1E7A46', pillBorder:'rgba(30,122,70,0.35)',
+    badgeBg:'rgba(192,38,47,0.10)', badgeBorder:'rgba(192,38,47,0.3)', badgeText:'#B01E28',
+    ctaBg:'linear-gradient(145deg,#A50E1B,#E63946,#FF6B6B)', ctaText:'#FFFFFF', ctaGlow:'rgba(230,57,70,0.45)',
+    particles:{type:'snow',count:110,color:'150,180,215'}, leak:'rgba(255,230,210,0.3)', vig:0.14, grain:0.05 },
+  'ny-midnight': { dark:true, bg:['#02040E','#08102A','#121C40'], glow:['170,190,255','240,240,255'], shade:'2,4,14',
+    accent:'#DCE6FF', pill:'#DCE6FF', pillBorder:'rgba(220,230,255,0.45)',
+    ctaBg:'linear-gradient(145deg,#9AA8C8,#DCE6FF,#FFFFFF)', ctaText:'#02040E', ctaGlow:'rgba(220,230,255,0.45)',
+    particles:{type:'confetti',count:60,color:'220,230,255'}, leak:'rgba(200,215,255,0.45)' },
+  'ny-gold': { dark:true, bg:['#0A0703','#241A08','#40300E'], glow:['255,210,120','255,170,90'], shade:'10,7,2',
+    accent:'#FFE09A', pill:'#FFE09A', pillBorder:'rgba(255,224,154,0.5)',
+    particles:{type:'confetti',count:80,color:'255,215,130'}, leak:'rgba(255,210,130,0.6)' },
+  'winter-blue': { dark:true, bg:['#030A14','#0A1C30','#163050'], glow:['150,200,255','255,200,140'], shade:'3,10,20',
+    accent:'#CFE6FF', pill:'#DDEEFF', pillBorder:'rgba(180,215,255,0.45)',
+    particles:{type:'snow',count:70,color:'220,235,255'}, leak:'rgba(255,200,140,0.45)' },
+  'winter-night': { dark:true, bg:['#02030A','#070C1E','#0E1530'], glow:['110,130,220','255,190,120'], shade:'2,3,10',
+    accent:'#E8D8B0', pill:'#C9D3F5', pillBorder:'rgba(160,175,240,0.4)',
+    particles:{type:'snow',count:45,color:'230,235,255'}, leak:'rgba(255,190,120,0.45)' },
+  'val-rose': { dark:false, bg:['#FFF4F6','#FCE3E9','#F7CFDA'], glow:['255,150,180','255,210,170'],
+    accent:'#C2185B', text:'#2A1018', muted:'rgba(42,16,24,0.6)', glass:'rgba(255,255,255,0.72)',
+    border:'rgba(42,16,24,0.10)', pill:'#D6336C', pillBorder:'rgba(214,51,108,0.35)',
+    badgeBg:'rgba(214,51,108,0.10)', badgeBorder:'rgba(214,51,108,0.3)', badgeText:'#B0204F',
+    ctaBg:'linear-gradient(145deg,#D6336C,#FF5C8A,#FF8FB1)', ctaText:'#FFFFFF', ctaGlow:'rgba(255,92,138,0.45)',
+    particles:{type:'heart',count:20,color:'240,110,150'}, leak:'rgba(255,200,215,0.35)', vig:0.14, grain:0.05 },
+  'val-choco': { dark:true, bg:['#0E0604','#22120A','#3A1E12'], glow:['200,120,80','255,150,190'], shade:'14,6,4',
+    accent:'#FFB3C7', pill:'#F5D0BC', pillBorder:'rgba(255,179,199,0.45)',
+    ctaBg:'linear-gradient(145deg,#D6336C,#FF5C8A,#FF8FB1)', ctaText:'#FFFFFF', ctaGlow:'rgba(255,92,138,0.45)',
+    particles:{type:'heart',count:16,color:'255,150,180'}, leak:'rgba(255,170,150,0.5)' },
+  'spring-mint': { dark:true, bg:['#04140F','#0B2A22','#164035'], glow:['120,230,190','255,220,230'], shade:'3,18,13',
+    accent:'#B8F2DC', pill:'#D2F7E8', pillBorder:'rgba(150,230,200,0.45)',
+    ctaBg:'linear-gradient(145deg,#2FA67E,#5ED1A6,#B8F2DC)', ctaText:'#04140F', ctaGlow:'rgba(94,209,166,0.5)',
+    particles:{type:'petal',count:50,color:'255,240,245'}, leak:'rgba(255,230,200,0.45)' },
+  'spring-lilac': { dark:true, bg:['#120A1A','#2A1838','#43285A'], glow:['200,160,255','255,200,230'], shade:'16,9,24',
+    accent:'#E9D2FF', pill:'#EFDFFF', pillBorder:'rgba(210,180,255,0.45)',
+    particles:{type:'petal',count:55,color:'230,200,255'}, leak:'rgba(255,200,230,0.45)' },
+  'summer-sunset': { dark:true, bg:['#1A0A06','#4A1E10','#8A4020'], glow:['255,140,90','255,220,140'], shade:'24,9,5',
+    accent:'#FFD08A', pill:'#FFDDB8', pillBorder:'rgba(255,190,130,0.5)',
+    ctaBg:'linear-gradient(145deg,#F06A3A,#FF9A5C,#FFD08A)', ctaText:'#2A0A04', ctaGlow:'rgba(255,154,92,0.5)',
+    particles:{type:'bokeh',count:16,color:'255,200,140'}, leak:'rgba(255,180,110,0.6)' },
+  'summer-rain': { dark:true, bg:['#05090E','#101A24','#1C2A38'], glow:['140,170,200','255,200,140'], shade:'5,9,14',
+    accent:'#BFD8EA', pill:'#D3E4F0', pillBorder:'rgba(180,210,230,0.45)',
+    particles:{type:'rain',count:90,color:'190,215,235'}, leak:'rgba(255,200,140,0.4)' },
+  'autumn-maple': { dark:true, bg:['#160404','#3A0C08','#5E1A0C'], glow:['230,70,40','255,170,80'], shade:'22,4,3',
+    accent:'#FFB070', pill:'#FFCBA8', pillBorder:'rgba(255,150,100,0.5)',
+    particles:{type:'leaf',count:32,color:'210,60,30'}, leak:'rgba(255,150,90,0.55)' },
+  'autumn-amber': { dark:true, bg:['#140C02','#33200A','#4E3410'], glow:['255,170,60','255,220,150'], shade:'18,11,2',
+    accent:'#FFCB6B', pill:'#FFE0A8', pillBorder:'rgba(255,203,107,0.5)',
+    particles:{type:'dust',count:44,color:'255,200,110'}, leak:'rgba(255,180,90,0.55)' },
+  latefall: { dark:true, bg:['#0C0A08','#1E1A16','#2E2620'], glow:['180,150,120','255,180,110'], shade:'10,8,6',
+    accent:'#E2C29A', pill:'#E6D6C2', pillBorder:'rgba(226,194,154,0.4)',
+    particles:{type:'leaf',count:14,color:'150,110,80'}, leak:'rgba(255,180,120,0.45)', grain:0.1 },
 };
 const DEF = { text:'#FFFFFF', muted:'rgba(255,255,255,0.62)', glass:'rgba(255,255,255,0.07)',
   glassPhoto:'rgba(10,12,28,0.62)', border:'rgba(255,255,255,0.13)',
@@ -147,7 +253,9 @@ function bgLayer(th) {
     `<div class="drift" data-slide="${SI}" data-k="0" style="background:radial-gradient(circle,rgba(${th.glow[0]},0.30) 0%,rgba(${th.glow[0]},0) 65%)"></div>`+
     `<div class="drift" data-slide="${SI}" data-k="1" style="background:radial-gradient(circle,rgba(${th.glow[1]},0.22) 0%,rgba(${th.glow[1]},0) 65%)"></div>`;
 }
-const DARK_SHADE = a => `linear-gradient(180deg,rgba(4,6,16,${a[0]}) 0%,rgba(4,6,16,${a[1]}) 50%,rgba(4,6,16,${a[2]}) 100%)`;
+/* 사진 위 어두운 그라데이션은 테마 톤(shade)으로 물들여 사진과 배경 색감을 맞춘다 */
+const SH = () => TH.shade || '4,6,16';
+const DARK_SHADE = a => `linear-gradient(180deg,rgba(${SH()},${a[0]}) 0%,rgba(${SH()},${a[1]}) 50%,rgba(${SH()},${a[2]}) 100%)`;
 const KB = ['1.04,1.12,0,-30','1.03,1.10,-15,10','1.10,1.02,25,-10','1.03,1.11,10,-20'];
 /* 1~2 photos per video: photo slides take them in turn, each with a different crop + motion */
 let PHOTO_LIST = [], PHOTO = null, PHOTO_N = 0;
@@ -186,7 +294,7 @@ const B = {
   cover(s, th, F) {
     const ph = usePhoto(s);
     let h = ph ? photoLayer(ph, KB[0], 1920, pos(0, 0),
-      'linear-gradient(180deg,rgba(4,7,26,0.88) 0%,rgba(4,7,26,0.62) 34%,rgba(4,7,26,0.05) 58%,rgba(4,7,26,0.10) 80%,rgba(4,7,26,0.72) 100%)') : bgLayer(th);
+      `linear-gradient(180deg,rgba(${SH()},0.88) 0%,rgba(${SH()},0.62) 34%,rgba(${SH()},0.05) 58%,rgba(${SH()},0.10) 80%,rgba(${SH()},0.72) 100%)`) : bgLayer(th);
     h += `<div class="wrap" style="padding-top:260px">`;
     h += ae(esc(F.brand), 'brand-pill', '0,500,6', 'margin-bottom:52px');
     const [a, b] = String(s.title).split(/<br\s*\/?>/i);
@@ -205,7 +313,7 @@ const B = {
     const ph = usePhoto(s);
     let h = `<div class="bg" style="background:${th.bg[0]}"></div>`;
     h += ph ? photoLayer(ph, KB[1], 920, pos(-8, 10),
-      `linear-gradient(180deg,rgba(4,6,16,0.45) 0%,rgba(4,6,16,0) 30%,rgba(4,6,16,0.25) 72%,${th.bg[0]} 100%)`) : bgLayer(th);
+      `linear-gradient(180deg,rgba(${SH()},0.45) 0%,rgba(${SH()},0) 30%,rgba(${SH()},0.25) 72%,${th.bg[0]} 100%)`) : bgLayer(th);
     h += `<div class="wrap" style="justify-content:${ph?'flex-end':'center'};padding-bottom:${ph?330:0}px">`;
     h += ae(`<div class="title" style="font-size:62px;color:var(--accent)">${lines(s.title)}</div>`, 'fit', '0,520,6', 'margin-bottom:44px');
     s.items.forEach((it, i) => {
@@ -385,6 +493,27 @@ function drawParticles(t) {
       fx.save(); fx.translate(x, y); fx.scale(k/16, k/16);
       fx.fillStyle = `rgba(${c},${(.25 + .45*p.z).toFixed(2)})`;
       fx.beginPath(); fx.moveTo(0, 5); fx.bezierCurveTo(-16, -6, -6, -16, 0, -7); fx.bezierCurveTo(6, -16, 16, -6, 0, 5); fx.fill(); fx.restore();
+    } else if (P.type === 'bokeh') {
+      // 초점이 나간 큰 빛망울: 천천히 떠다니며 숨 쉬듯 밝아졌다 어두워짐
+      const x = (p.x + Math.sin(s*.25 + p.ph) * 60) % 1080, y = (p.y - s * (8 + 14*p.z) + 1960) % 1960;
+      const a = (.10 + .16*p.z) * (.6 + .4*Math.sin(s*(.6 + p.sp) + p.ph)), rr = 26 + 60*p.z;
+      const g = fx.createRadialGradient(x, y, 0, x, y, rr);
+      g.addColorStop(0, `rgba(${c},${a.toFixed(3)})`); g.addColorStop(.7, `rgba(${c},${(a*.5).toFixed(3)})`); g.addColorStop(1, `rgba(${c},0)`);
+      fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, rr, 0, 6.283); fx.fill();
+    } else if (P.type === 'dust') {
+      // 빛 속을 떠다니는 작은 먼지: 위로 천천히 오르며 반짝임
+      const y = 1960 - ((p.y + s * (12 + 22*p.z)) % 1980), x = p.x + Math.sin(s*.5 + p.ph) * 25;
+      const a = (.25 + .5*p.z) * (.5 + .5*Math.sin(s*(1 + p.sp*2) + p.ph));
+      fx.fillStyle = `rgba(${c},${Math.max(0, a).toFixed(3)})`;
+      fx.beginPath(); fx.arc(x, y, 1.2 + 2.4*p.z, 0, 6.283); fx.fill();
+    } else if (P.type === 'confetti') {
+      const y = (p.y + s * (70 + 90*p.z)) % 1980 - 30, x = (p.x + Math.sin(s*1.3 + p.ph) * 50 + 1080) % 1080;
+      fx.save(); fx.translate(x, y); fx.rotate(p.rot + s*(2 + p.sp*3)); fx.scale(1, Math.cos(s*(3 + p.sp*3) + p.ph));
+      fx.fillStyle = `rgba(${c},${(.55 + .4*p.z).toFixed(2)})`; fx.fillRect(-(4 + 4*p.z), -(2 + 2*p.z), 8 + 8*p.z, 4 + 4*p.z); fx.restore();
+    } else if (P.type === 'rain') {
+      const len = 30 + 50*p.z, y = (p.y + s * (900 + 700*p.z)) % 2000 - 60, x = (p.x - (y - p.y) * .12 + 2160) % 1080;
+      fx.strokeStyle = `rgba(${c},${(.10 + .22*p.z).toFixed(2)})`; fx.lineWidth = 1 + 1.4*p.z;
+      fx.beginPath(); fx.moveTo(x, y); fx.lineTo(x - len*.12, y + len); fx.stroke();
     } else if (P.type === 'sparkle') {
       const a = Math.pow(Math.max(0, Math.sin(s*(1.2 + p.sp*1.6) + p.ph)), 3) * (.4 + .6*p.z);
       if (a < .02) return;

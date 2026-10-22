@@ -138,26 +138,26 @@ node reels/validate.js reels/samples   # 환경 확인
 - 그 주 폴더에 대본은 있는데 DELIVERED가 없으면 이전 실행이 중간에 끊긴 것이다. 새로 쓰지 말고 있는 대본·생성 사진·`reels/out` 렌더 결과를 이어서 쓰고 남은 단계부터 진행한다.
 - 직전 2주의 `reels/weeks/` 대본을 읽어 테마·훅·컨셉이 반복되지 않게 한다.
 
-### 4-2. 테마 정하기 (7일)
-| 기간 | 테마 |
-|---|---|
-| 12/1~12/25 | `christmas` 2~3개 |
-| 12/26~1/7 | `newyear` |
-| 2/1~2/14 | `valentine` 2개 |
-| 3/1~3/14 | `valentine`(화이트데이) 또는 `spring` |
-| 3/15~4/30 | `spring` |
-| 6~8월 | `summer` |
-| 9/15~11/20 | `autumn` |
-| 그 외 / 나머지 날 | `night`, `minimal`, `cinematic`을 섞음 |
-- 한 주에 같은 테마는 **최대 3개**.
+### 4-2. 테마 정하기 (7일) — 선택 도구로 무작위, 반복 없이
+```bash
+node reels/tools/pick-themes.js <시작일>
+```
+- 출력된 날짜별 테마를 그대로 쓴다(시작일로 시드를 정한 무작위라 다시 돌려도 같다). 테마는 36개(`reels/themes.json`, 7장).
+- 도구가 지키는 규칙: 시즌 기간(크리스마스 12/1~25 3개, 새해 12/26~1/7 3개, 겨울 12~2월 1개, 발렌타인·화이트데이 2개, 봄·여름 3개, 가을 9/15~11/30 2개)에 든 날에 그 시즌 변형 테마를 넣고, 나머지는 기본 테마 13개에서 고른다. **같은 주 안에서 같은 테마 없음**, 직전 14일 대본에 쓴 테마는 피함, 밝은 테마 최대 2개, 12/24·25는 크리스마스 계열, 12/31·1/1은 새해 계열.
+- 대본 내용(시즌 문구)이 테마와 어울리게 쓴다. 예: `xmas-red` 날은 연말·크리스마스 문구, `summer-rain` 날은 비 오는 주말 문구. 정말 안 맞으면 그 날만 같은 시즌의 다른 테마로 바꿔도 되지만 주 안 중복은 안 된다.
 - **할로윈(10월 말) 파티 콘셉트는 쓰지 않는다.** 10·29 참사 이후 국내 정서를 고려한 결정이다. 10/29 전후는 차분한 톤.
 - Google Calendar 커넥터가 있으면 공휴일·기념일을 확인한다(없으면 위 표대로).
 
 ### 4-3. 성과 반영 (가능할 때만)
 Supermetrics 커넥터가 있으면 `sevenstars-marketing-check` 스킬 방식으로 지난 2주 릴스 성과(조회·저장·공유·프로필 방문)를 보고, 반응 좋은 훅 유형을 이번 주에 1~2개 더 배치한다. 없으면 건너뛴다(실패 아님).
 
-### 4-3b. 생성 사진 추가 (Codex, 가능할 때만)
-`node reels/tools/gen-images.js <ai_images_per_week>` → 새 사진을 한 장씩 Read로 열어 검수하고 불량은 지운다(10장 '생성 사진'). 실패하면 건너뛴다(실패 아님, 알림에 적음).
+### 4-3b. 테마별 생성 사진 (Codex, 대본 작성 뒤 4-5 검증 전에)
+```bash
+node reels/tools/gen-images.js --week reels/weeks/<시작일>
+```
+- 대본마다 그 테마의 색감·조명(`themes.json` tone)으로 공간 사진 1장을 만들고 대본에 `"ai_photo"`를 적는다. 장면 14종이 주마다 다른 순서로 돌아 주 안에서는 겹치지 않는다. 7장에 10~15분.
+- 만든 사진을 **한 장씩 Read로 열어** 검수한다(10장 '생성 사진'). 불량이면 그 파일을 지우고 대본의 `ai_photo` 줄도 지운 뒤 다시 실행하면 그 대본만 새로 만든다(이미 있는 것은 건너뜀).
+- 실패한 대본은 `ai_photo` 없이 실제 사진(테마 색으로 물든 그라데이션)으로 렌더된다. 실패 아님, 알림에 적는다.
 
 ### 4-4. 대본 7개 작성
 요일별 기본 유형 (`reels/config.json`의 `weekday_plan`):
@@ -304,6 +304,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 | `caption` | O | 인스타 캡션 (`\n` 줄바꿈) |
 | `hashtags` | | `#` 없이 문자열 배열 |
 | `photo` | | 특정 사진 1장 강제 (`"couple-table.jpg"`). 보통 비워 두면 자동 순환 |
+| `ai_photo` | | 그 대본용 테마 생성 사진(`gen-images.js --week`가 적음). 첫 사진으로 쓰이고, 2장짜리면 둘째는 실제 사진 |
 | `photos` | | 특정 사진 2장 강제 (`["ai/20261021-light.jpg", "venue-wide.jpg"]`). 사진 슬라이드가 번갈아 씀 |
 | `music` | | 특정 BGM 파일 강제. 보통 비움 |
 
@@ -326,17 +327,19 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 
 ## 7. 테마와 디자인 시스템
 
-| 키 | 배경 | 강조색 | 배경 효과 | 음원 분위기 |
-|---|---|---|---|---|
-| `night` | 네이비→보라 그라데이션 | 금색 #E8C060 | 반짝임 26개 | calm, upbeat |
-| `christmas` | 딥그린→와인 | 금색 #F2C14E, 버튼 빨강 | **눈 150개** | christmas |
-| `newyear` | 남색→금빛 | #F5D36B | 금빛 반짝임 90개 | upbeat |
-| `valentine` | 와인→핑크 | #FFB3C7, 버튼 핑크 | 하트 24개 | calm, upbeat |
-| `spring` | 플럼 노을 | #FFD1DC | 벚꽃잎 60개 | upbeat |
-| `summer` | 딥틸 | #7FE7E0 | 반짝임 40개 | upbeat |
-| `autumn` | 갈색→주황 | #FFB45C | 낙엽 28개 | calm |
-| `minimal` | 밝은 크림 (글자 어두움) | 브라운 #A8651F | 없음 | calm |
-| `cinematic` | 흑갈색 | 베이지 #E9D8B4 | 없음, 필름 질감 강하게 | calm |
+테마 36개. 목록·시즌·음원 분위기·생성 사진 색감은 `reels/themes.json`, 색·효과는 `template.html`의 `THEMES`(같은 키).
+| 구분 | 테마 키 |
+|---|---|
+| 기본(언제나) 13 | `night` 남보라 · `minimal` 크림(밝음) · `cinematic` 흑갈색 필름 · `rosegold` 로즈골드 빛망울 · `deepblue` 딥블루 · `emerald` 에메랄드·골드 · `burgundy` 버건디 · `mocha` 모카 브라운 · `ivory` 아이보리(밝음) · `lavender` 라벤더 · `sunset` 노을 · `noir` 흑백 · `candle` 캔들 앰버 |
+| 크리스마스 5 | `christmas` 딥그린→와인 · `xmas-red` 레드·골드 · `xmas-green` 숲 초록·빨강 버튼 · `xmas-gold` 블랙·골드 · `xmas-white` 하얀 겨울(밝음) |
+| 새해 3 / 겨울 2 | `newyear` · `ny-midnight` 남색·은빛 색종이 · `ny-gold` 골드 색종이 / `winter-blue` · `winter-night` |
+| 발렌타인·화이트데이 3 | `valentine` · `val-rose` 로즈(밝음) · `val-choco` 초콜릿 |
+| 봄 3 / 여름 3 | `spring` · `spring-mint` · `spring-lilac` / `summer` · `summer-sunset` · `summer-rain` 빗줄기 |
+| 가을 4 | `autumn` · `autumn-maple` 단풍 · `autumn-amber` 앰버 빛가루 · `latefall` 늦가을 |
+
+- 배경 효과(particles): `snow`, `petal`, `leaf`, `heart`, `sparkle`, `bokeh`(큰 빛망울), `dust`(떠다니는 빛가루), `confetti`(색종이), `rain`(빗줄기), `none`. 모두 시간 t의 순수 함수라 프레임마다 재현된다.
+- `shade`(RGB): 사진 위 어두운 그라데이션 색. 테마 톤으로 물들여 실제 사진도 그 주 테마 색감에 맞춘다(없으면 남색).
+- 밝은 테마(`dark:false`)는 글자색·카드색을 따로 정한다(`minimal` 참고).
 
 공통 디자인
 - 폰트 Pretendard(400/700/800/900). 제목 900, 자간 -2px.
@@ -345,8 +348,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 - 화면 전체: 시작 0.5초 검은 화면에서 서서히 밝아짐(빈 화면 방지), 가장자리 비네트, 필름 그레인(24fps로 바뀜), 전환마다 따뜻한 빛 번짐, 비사진 슬라이드에 천천히 떠다니는 빛 2개.
 - 인스타 UI 가림 영역 고려: 중요한 글자는 위 150px·아래 220px 바깥에 두지 않는다(검수 기준 상단 150, 하단 1700).
 
-새 테마 추가: `template.html`의 `THEMES`에 항목 추가(색·파티클 type/count/color·leak·music) → `validate.js`의 `THEMES` 배열, `render.js`의 `THEME_MUSIC`에도 추가 → 샘플 대본으로 2fps 렌더해서 확인.
-파티클 type: `snow`, `petal`, `leaf`, `heart`, `sparkle`, `none` (시간 t의 순수 함수라 프레임마다 재현 가능해야 함).
+새 테마 추가: `reels/themes.json`에 항목(season·music·tone) → `template.html` `THEMES`에 같은 키로 색·효과·shade → 샘플 대본으로 2fps 렌더해서 확인. 검증기·렌더러·선택 도구는 themes.json을 읽으므로 따로 고칠 것 없음.
 
 ---
 
@@ -404,10 +406,15 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 - 가로 사진은 9:16으로 잘리므로 `template.html`의 `FOCUS`에 초점 좌표(%)를 넣는다 (예: `couple-table.jpg: [42,50]`).
 
 생성 사진 (Codex)
-- `node reels/tools/gen-images.js <장수>` → 실제 사진을 하나씩 참고로 붙여 Codex CLI(`codex exec`, 이미지 생성)로 세로 사진을 만들고 1080×1920 JPG로 `ai/`에 저장. 한 장에 1~2분.
-- 장면 목록(테이블·가림막·캔들·홀·쪽지·의자·조명·손)은 **실제 공간에 있는 것만** 쓴다. 시즌 장식처럼 실제로 없는 것은 그리지 않는다(5-4 사실 규칙).
-- 만든 뒤 **한 장씩 Read로 열어** 얼굴, 글자·로고, 뭉개진 손·물건, 실제 공간과 너무 다른 분위기가 있으면 그 파일을 지운다. 남은 것만 커밋.
-- 주간 루틴에서는 `reels/config.json`의 `ai_images_per_week`장(기본 4)을 4-4 대본 작성 전에 만든다. Codex가 실패해도 실제 사진만으로 계속 진행한다(실패 아님, 알림에 적음).
+- 주간: `node reels/tools/gen-images.js --week reels/weeks/<시작일>` (4-3b). 수동: `node reels/tools/gen-images.js <장수> [--scenes hands,candle]`. 1080×1920 JPG로 `ai/`에 저장, 한 장에 1~2분.
+- 장면은 두 종류를 섞는다(운영자 결정 2026-10-22).
+  - **공간 장면 14종**(table·partition·candle·hall·notes·chairs·light·hands·cups·aisle·corner·overhead·bokeh·pen): 실제 공간 사진을 참고로 붙여 **우리 공간 그대로**. 시즌 장식처럼 실제로 없는 것은 그리지 않는다(5-4).
+  - **감성 장면 10종**(talk·coffee-people·note-pass·citynight·walk·window·ready·street-season·laugh·phone-down): 공간 밖이어도 되고 AI 인물이 나와도 된다. 계절 거리 장식도 자연스럽게 허용.
+  - 한 주에 감성 장면 4개 안팎, 나머지는 공간 장면. **공간·분위기 영상(일요일 등 '우리 공간'을 보여 주는 영상)은 공간 장면만** 쓴다. 다른 곳 사진을 우리 공간처럼 보이면 안 된다.
+- 색감: 그 대본 테마의 `tone`(themes.json)을 한눈에 느껴질 만큼 분명하게. 퀄리티: 매거진 화보, 35mm·얕은 심도·필름 그레인, AI 같은 매끈함 없이.
+- 인물: AI 인물이라 초상권 문제는 없지만, 얼굴 정면 클로즈업은 피하게 만든다(옆·뒷모습·초점 밖·화면 일부). 검수 때 **얼굴이 정면으로 또렷하면 mosaic.py로 가린다**(아래 '새 사진 추가' 2~3단계를 생성 사진에 그대로).
+- 만든 뒤 **한 장씩 Read로 열어** 글자·로고, 술(잔·병), 뭉개진 손·물건, 공간 장면인데 실제 공간과 너무 다른 것이 있으면 그 파일을 지우고 대본의 `ai_photo`도 지운 뒤 다시 실행한다. 남은 것만 커밋.
+- 테마 이름이 들어간 생성 사진(`<날짜>-<테마>-<장면>.jpg`)은 그 대본에서만 쓰이고 자동 순환에는 들어가지 않는다(다른 테마와 색이 안 맞음). Codex가 실패해도 실제 사진만으로 계속 진행한다(실패 아님, 알림에 적음).
 - 필요: `npm i -g @openai/codex` + Codex 로그인(`~/.codex/auth.json`, Codex 데스크톱 앱과 공유).
 
 새 사진 추가 (얼굴 모자이크 필수)

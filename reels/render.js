@@ -20,10 +20,8 @@ const CHROME = fs.existsSync('/opt/pw-browsers/chromium-1194/chrome-linux/chrome
 
 const FACTS = JSON.parse(fs.readFileSync(path.join(__dirname, 'brand-facts.json'), 'utf8'));
 const MANIFEST = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/audio/bgm/manifest.json'), 'utf8'));
-const THEME_MUSIC = {
-  night: ['calm', 'upbeat'], christmas: ['christmas'], newyear: ['upbeat'], valentine: ['calm', 'upbeat'],
-  spring: ['upbeat'], summer: ['upbeat'], autumn: ['calm'], minimal: ['calm'], cinematic: ['calm'],
-};
+const THEME_LIST = JSON.parse(fs.readFileSync(path.join(__dirname, 'themes.json'), 'utf8')).themes;
+const THEME_MUSIC = Object.fromEntries(Object.entries(THEME_LIST).map(([k, t]) => [k, t.music]));
 
 function hash(s) { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; }
 /* no repeated track inside one week when the pool allows it */
@@ -49,15 +47,18 @@ const MANUAL_ONLY = ['couple-closeup.jpg', 'couple-table.jpg'];
 const ALL_REAL = jpgs(PHOTO_DIR), AI = jpgs(path.join(PHOTO_DIR, 'ai')).map(f => 'ai/' + f);
 const REAL = ALL_REAL.filter(f => !MANUAL_ONLY.includes(f));
 const ALL_PHOTOS = [...ALL_REAL, ...AI];
+/* 테마 색감으로 만든 생성 사진(파일 이름에 -<테마>-)은 그 대본의 ai_photo로만 쓰고 자동 순환에는 넣지 않는다(다른 테마와 색이 안 맞음) */
+const AI_GENERIC = AI.filter(f => !Object.keys(THEME_LIST).some(k => f.includes(`-${k}-`)));
 const PHOTOS = [];
-for (let i = 0; i < Math.max(REAL.length, AI.length); i++) { if (AI[i]) PHOTOS.push(AI[i]); if (REAL[i]) PHOTOS.push(REAL[i]); }
+for (let i = 0; i < Math.max(REAL.length, AI_GENERIC.length); i++) { if (AI_GENERIC[i]) PHOTOS.push(AI_GENERIC[i]); if (REAL[i]) PHOTOS.push(REAL[i]); }
 const PHOTO_TYPES = ['cover', 'steps', 'info', 'reviews', 'quote'];
 /* 1~2 photos per video (2 when it has 2+ photo slides), rotating through the pool for the whole week
    so the same photo doesn't repeat inside a week and the cycle continues week to week */
 function assignPhotos(scripts) {
   const forcedOf = s => (Array.isArray(s.photos) && s.photos.length ? s.photos : s.photo ? [s.photo] : [])
     .filter(p => ALL_PHOTOS.includes(p)).slice(0, 2);
-  const forced = new Set(scripts.flatMap(forcedOf));
+  const aiOf = s => (s.ai_photo && ALL_PHOTOS.includes(s.ai_photo) ? [s.ai_photo] : []);
+  const forced = new Set(scripts.flatMap(s => [...forcedOf(s), ...aiOf(s)]));
   const used = new Set();
   let c = WEEK * 7; // 사진 수(대개 10장 안팎)와 나누어떨어지지 않는 수라야 주마다 시작점이 바뀐다
   return scripts.map(s => {
@@ -67,8 +68,8 @@ function assignPhotos(scripts) {
     c += k; // 지정 사진이 있어도 순번은 똑같이 넘겨서, 사진을 지정해도 다른 영상의 배정이 밀리지 않게 한다
     const own = forcedOf(s);
     if (own.length) return own;
-    // 다른 영상이 지정했거나 이번 주에 이미 쓴 사진은 건너뛴다. 사진이 모자라면 조건을 하나씩 풀어 채운다
-    const out = [];
+    // 그 대본의 테마 사진(ai_photo)이 첫 장. 나머지는 다른 영상이 지정했거나 이번 주에 이미 쓴 사진을 건너뛰고, 모자라면 조건을 하나씩 풀어 채운다
+    const out = aiOf(s);
     const skips = [p => forced.has(p) || used.has(p), p => forced.has(p), () => false];
     for (const skip of skips) {
       for (let j = 0; out.length < k && j < PHOTOS.length; j++) {

@@ -5,12 +5,12 @@ const path = require('path');
 
 const FACTS = JSON.parse(fs.readFileSync(path.join(__dirname, 'brand-facts.json'), 'utf8'));
 const TYPES = ['hook-rows', 'hook-statement', 'cover', 'steps', 'info', 'reviews', 'quote', 'cta'];
-const THEMES = ['night', 'christmas', 'newyear', 'valentine', 'spring', 'summer', 'autumn', 'minimal', 'cinematic'];
+const THEMES = Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'themes.json'), 'utf8')).themes);
 
 function strings(o, out = []) {
   if (typeof o === 'string') out.push(o);
   else if (Array.isArray(o)) o.forEach(v => strings(v, out));
-  else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => { if (k !== 'photo' && k !== 'photos') strings(v, out); });
+  else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => { if (!['photo', 'photos', 'ai_photo'].includes(k)) strings(v, out); });
   return out;
 }
 
