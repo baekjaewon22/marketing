@@ -3,7 +3,8 @@
 #   -Mode check  : 목요일 12:00, 브랜드 정보 확인 요청을 Slack에 올림(답글은 금요일 실행이 읽어 반영)
 # 무인 실행 권한은 아래 $allow 목록만: node/git/python/ffmpeg/codex 명령, 저장소 reels/·assets/ 파일 수정, Slack.
 # 목록 밖 도구는 dontAsk 모드라 묻지 않고 거부된다. 로그: reels/out/logs/
-param([ValidateSet('weekly', 'check')][string]$Mode = 'weekly')
+#   -Week 2026-11-02 : (수동 실행용) '다음 주' 대신 이 월요일의 주를 만든다
+param([ValidateSet('weekly', 'check')][string]$Mode = 'weekly', [string]$Week = '')
 
 $repo = Split-Path -Parent $PSScriptRoot
 Set-Location $repo
@@ -22,7 +23,8 @@ git pull --ff-only origin master 2>&1 | Write-Log
 $prompt = if ($Mode -eq 'weekly') {
   'reels/SKILL.md를 읽고 4장 "주간 제작 절차"를 이 PC에서 처음부터 끝까지 그대로 수행해. 사람에게 묻지 말고 끝까지 진행해. ' +
   '저장·알림은 12장 "로컬 예약 실행" 방식을 따른다. 셸 명령은 node·git·python·ffmpeg·ffprobe·codex만 쓸 수 있다' +
-  '(파일 복사·삭제·폴더 만들기는 node로). 파일 수정은 reels/와 assets/ 안에서만.'
+  '(파일 복사·삭제·폴더 만들기는 node로). 파일 수정은 reels/와 assets/ 안에서만.' +
+  $(if ($Week) { " 이번 실행의 대상 주는 '다음 주'가 아니라 $Week(월요일)~그 주 일요일이다." } else { '' })
 } else {
   'reels/SKILL.md 4-11 "목요일 브랜드 정보 확인"을 수행해. 사람에게 묻지 말고 끝까지 진행해.'
 }
