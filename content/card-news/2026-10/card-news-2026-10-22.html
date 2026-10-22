@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 이번 주 파티 미리보기</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(160deg, #0a0014 0%, #1a0030 40%, #2d0050 70%, #1a0030 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(220, 50, 255, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 70% at 85% 85%, rgba(80, 100, 255, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255, 80, 160, 0.12) 0%, transparent 60%);
+  }
+  .s1-week-badge {
+    position: relative;
+    background: linear-gradient(90deg, rgba(220,50,255,0.3), rgba(80,100,255,0.3));
+    border: 1px solid rgba(220,50,255,0.5);
+    border-radius: 100px;
+    padding: 14px 42px;
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.08em;
+    margin-bottom: 40px;
+  }
+  .s1 h1 {
+    position: relative;
+    font-size: 88px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  .s1 h1 .grad {
+    background: linear-gradient(90deg, #ff4dc4, #a855f7, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s1-sub {
+    position: relative;
+    font-size: 34px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    margin-bottom: 56px;
+  }
+  .s1-count-row {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .s1-count-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 26px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+  .s1-count-chip.hot {
+    background: linear-gradient(90deg, rgba(255,77,196,0.25), rgba(168,85,247,0.25));
+    border-color: rgba(255,77,196,0.5);
+    color: #ff9ee6;
+  }
+  .s1-brand {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 26px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.12em;
+  }
+
+  /* ─── SHARED PARTY CARD STYLES ─── */
+  .party-slide {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .ps-header {
+    padding: 48px 64px 36px;
+    position: relative;
+  }
+  .ps-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 64px; right: 64px;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .ps-label {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .ps-title {
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .ps-desc {
+    font-size: 28px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .ps-body {
+    flex: 1;
+    padding: 40px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .ps-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .info-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 24px 28px;
+  }
+  .info-box .ib-label {
+    font-size: 22px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .info-box .ib-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .highlight-box {
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .highlight-box .hb-icon {
+    font-size: 44px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .highlight-box .hb-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+  }
+  .highlight-box .hb-sub {
+    font-size: 24px;
+    font-weight: 400;
+    opacity: 0.7;
+    display: block;
+    margin-top: 4px;
+  }
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #ff4dc4, #a855f7);
+    border-radius: 50px;
+    padding: 14px 32px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .ps-footer-bar {
+    padding: 28px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .ps-footer-bar .url {
+    font-size: 26px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+  }
+  .category-tag {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── SLIDE 2: 비주얼파티 ─── */
+  .s2 { background: linear-gradient(150deg, #0d0022 0%, #1e003d 50%, #0d0022 100%); }
+  .s2 .ps-header { }
+  .s2 .ps-label { color: #e879f9; }
+  .s2 .category-tag { background: rgba(232,121,249,0.15); color: #e879f9; border: 1px solid rgba(232,121,249,0.3); }
+  .s2 .highlight-box { background: linear-gradient(135deg, rgba(232,121,249,0.12), rgba(168,85,247,0.12)); border: 1px solid rgba(232,121,249,0.2); }
+
+  /* ─── SLIDE 3: 도파민파티 ─── */
+  .s3 { background: linear-gradient(150deg, #0a1a00 0%, #1a3300 50%, #0a1a00 100%); }
+  .s3 .ps-label { color: #a3e635; }
+  .s3 .category-tag { background: rgba(163,230,53,0.12); color: #a3e635; border: 1px solid rgba(163,230,53,0.3); }
+  .s3 .highlight-box { background: linear-gradient(135deg, rgba(163,230,53,0.1), rgba(34,197,94,0.1)); border: 1px solid rgba(163,230,53,0.2); }
+
+  /* ─── SLIDE 4: 와인파티 ─── */
+  .s4 { background: linear-gradient(150deg, #1a0008 0%, #2d000f 50%, #1a0008 100%); }
+  .s4 .ps-label { color: #fb7185; }
+  .s4 .category-tag { background: rgba(251,113,133,0.12); color: #fb7185; border: 1px solid rgba(251,113,133,0.3); }
+  .s4 .highlight-box { background: linear-gradient(135deg, rgba(251,113,133,0.1), rgba(244,63,94,0.1)); border: 1px solid rgba(251,113,133,0.2); }
+
+  /* ─── SLIDE 5: 소개팅 로테이션 ─── */
+  .s5 { background: linear-gradient(150deg, #000f1a 0%, #001a2d 50%, #000f1a 100%); }
+  .s5 .ps-label { color: #38bdf8; }
+  .s5 .category-tag { background: rgba(56,189,248,0.12); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+  .s5 .highlight-box { background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(99,102,241,0.1)); border: 1px solid rgba(56,189,248,0.2); }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #0a0014 0%, #1a0030 50%, #0f0020 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 0%, rgba(168,85,247,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255,77,196,0.25) 0%, transparent 55%);
+  }
+  .s6-eyebrow {
+    position: relative;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.12em;
+    margin-bottom: 28px;
+  }
+  .s6 h2 {
+    position: relative;
+    font-size: 80px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .s6 h2 .grad {
+    background: linear-gradient(90deg, #ff4dc4, #a855f7, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-sub {
+    position: relative;
+    font-size: 32px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin-bottom: 56px;
+  }
+  .cta-btn {
+    position: relative;
+    background: linear-gradient(90deg, #ff4dc4, #a855f7, #6366f1);
+    border-radius: 60px;
+    padding: 26px 72px;
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    display: inline-block;
+  }
+  .s6-url {
+    position: relative;
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+  }
+  .s6-trust {
+    position: relative;
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .trust-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1: COVER — 이번 주 파티 미리보기
+═══════════════════════════════════════════ -->
+<div class="card s1">
+  <div class="s1-week-badge">🗓️ 2026년 10월 4주차</div>
+  <h1>
+    이번 주<br>
+    <span class="grad">핫한 파티</span><br>
+    미리보기 🔥
+  </h1>
+  <p class="s1-sub">
+    전국 파티원 추천 파티 4선<br>
+    지금 바로 확인해 보세요
+  </p>
+  <div class="s1-count-row">
+    <div class="s1-count-chip hot">✨ 여성 참가비 0원</div>
+    <div class="s1-count-chip">전국 60곳+ 호스트</div>
+  </div>
+  <div class="s1-brand">party.it.kr</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2: 비주얼파티 — 강남
+═══════════════════════════════════════════ -->
+<div class="card s2 party-slide">
+  <div class="ps-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="ps-label">✦ 파티 01</div>
+      <div class="category-tag">💜 비주얼파티</div>
+    </div>
+    <div class="ps-title">강남 프리미엄<br>비주얼파티</div>
+    <div class="ps-desc">외모 관리하는 사람들만 모이는<br>퀄리티 높은 만남의 공간</div>
+  </div>
+  <div class="ps-body">
+    <div class="ps-info-grid">
+      <div class="info-box">
+        <div class="ib-label">📅 날짜</div>
+        <div class="ib-value">10월 25일 (토)<br>오후 7시</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">📍 위치</div>
+        <div class="ib-value">강남역<br>2번 출구 3분</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🎂 참가 연령</div>
+        <div class="ib-value">1993~2003년<br>생 가능</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🌙 2차</div>
+        <div class="ib-value">포함<br>클럽 이동</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div class="hb-icon">✨</div>
+      <div class="hb-text">
+        드레스코드: 세미 포멀
+        <span class="hb-sub">세련된 분위기에서 특별한 만남</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="free-badge">💜 여성 0원</div>
+      <div style="font-size:26px;color:rgba(255,255,255,0.5);">지금 바로 신청 가능</div>
+    </div>
+  </div>
+  <div class="ps-footer-bar">
+    <div class="url">party.it.kr</div>
+    <div style="font-size:26px;color:rgba(255,255,255,0.35);">1 / 4</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3: 도파민파티 — 홍대
+═══════════════════════════════════════════ -->
+<div class="card s3 party-slide">
+  <div class="ps-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="ps-label">✦ 파티 02</div>
+      <div class="category-tag">💚 도파민파티</div>
+    </div>
+    <div class="ps-title">홍대 에너지 폭발<br>도파민파티</div>
+    <div class="ps-desc">신나는 음악과 함께 에너지 충전<br>가장 핫한 파티 유형</div>
+  </div>
+  <div class="ps-body">
+    <div class="ps-info-grid">
+      <div class="info-box">
+        <div class="ib-label">📅 날짜</div>
+        <div class="ib-value">10월 24일 (금)<br>오후 9시</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">📍 위치</div>
+        <div class="ib-value">홍대입구역<br>9번 출구 2분</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🎂 참가 연령</div>
+        <div class="ib-value">1995~2005년<br>생 가능</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🌙 2차</div>
+        <div class="ib-value">포함<br>바 투어</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div class="hb-icon">⚡</div>
+      <div class="hb-text">
+        DJ 세트 + 라이브 공연
+        <span class="hb-sub">텐션 200% 보장하는 파티</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="free-badge">💚 여성 0원</div>
+      <div style="font-size:26px;color:rgba(255,255,255,0.5);">잔여 자리 얼마 없음!</div>
+    </div>
+  </div>
+  <div class="ps-footer-bar">
+    <div class="url">party.it.kr</div>
+    <div style="font-size:26px;color:rgba(255,255,255,0.35);">2 / 4</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4: 와인파티 — 이태원
+═══════════════════════════════════════════ -->
+<div class="card s4 party-slide">
+  <div class="ps-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="ps-label">✦ 파티 03</div>
+      <div class="category-tag">🌹 와인파티</div>
+    </div>
+    <div class="ps-title">이태원 루프탑<br>와인파티</div>
+    <div class="ps-desc">야경을 바라보며 와인 한 잔<br>어른스럽고 감각적인 만남</div>
+  </div>
+  <div class="ps-body">
+    <div class="ps-info-grid">
+      <div class="info-box">
+        <div class="ib-label">📅 날짜</div>
+        <div class="ib-value">10월 26일 (일)<br>오후 6시</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">📍 위치</div>
+        <div class="ib-value">이태원역<br>1번 출구 5분</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🎂 참가 연령</div>
+        <div class="ib-value">1990~2000년<br>생 가능</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🌙 2차</div>
+        <div class="ib-value">미포함<br>자유롭게</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div class="hb-icon">🍷</div>
+      <div class="hb-text">
+        소믈리에 추천 와인 5종 시음
+        <span class="hb-sub">루프탑 야경과 함께 특별한 저녁</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="free-badge">🌹 여성 0원</div>
+      <div style="font-size:26px;color:rgba(255,255,255,0.5);">감성 충만 파티</div>
+    </div>
+  </div>
+  <div class="ps-footer-bar">
+    <div class="url">party.it.kr</div>
+    <div style="font-size:26px;color:rgba(255,255,255,0.35);">3 / 4</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5: 소개팅 로테이션 — 신촌
+═══════════════════════════════════════════ -->
+<div class="card s5 party-slide">
+  <div class="ps-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="ps-label">✦ 파티 04</div>
+      <div class="category-tag">💙 소개팅 로테이션</div>
+    </div>
+    <div class="ps-title">신촌 소개팅<br>로테이션</div>
+    <div class="ps-desc">한 자리에서 여러 사람과 만나는<br>가장 효율적인 만남의 방식</div>
+  </div>
+  <div class="ps-body">
+    <div class="ps-info-grid">
+      <div class="info-box">
+        <div class="ib-label">📅 날짜</div>
+        <div class="ib-value">10월 25일 (토)<br>오후 4시</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">📍 위치</div>
+        <div class="ib-value">신촌역<br>3번 출구 1분</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🎂 참가 연령</div>
+        <div class="ib-value">1994~2003년<br>생 가능</div>
+      </div>
+      <div class="info-box">
+        <div class="ib-label">🌙 2차</div>
+        <div class="ib-value">포함<br>노래방</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div class="hb-icon">💫</div>
+      <div class="hb-text">
+        1:1 로테이션 방식 진행
+        <span class="hb-sub">평균 8~10명과 자연스럽게 대화</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="free-badge">💙 여성 0원</div>
+      <div style="font-size:26px;color:rgba(255,255,255,0.5);">가장 인기 있는 파티</div>
+    </div>
+  </div>
+  <div class="ps-footer-bar">
+    <div class="url">party.it.kr</div>
+    <div style="font-size:26px;color:rgba(255,255,255,0.35);">4 / 4</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6: CTA
+═══════════════════════════════════════════ -->
+<div class="card s6">
+  <div class="s6-eyebrow">🎉 지금 바로 참가 신청</div>
+  <h2>
+    이번 주도<br>
+    <span class="grad">파티원</span>과<br>
+    특별하게 ✨
+  </h2>
+  <p class="s6-sub">
+    여성 참가비 0원<br>
+    전국 60곳+ 검증된 호스트
+  </p>
+  <div class="cta-btn">party.it.kr</div>
+  <div class="s6-url">www.party.it.kr</div>
+  <div class="s6-trust">
+    <div class="trust-chip">💜 여성 무료</div>
+    <div class="trust-chip">🔒 안전 검증</div>
+    <div class="trust-chip">⭐ 4.8점</div>
+  </div>
+</div>
+
+</body>
+</html>
