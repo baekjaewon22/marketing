@@ -21,12 +21,12 @@ $log = Join-Path $logDir ("{0}-{1}.log" -f (Get-Date -Format 'yyyy-MM-dd_HHmm'),
 git pull --ff-only origin master 2>&1 | Write-Log
 
 $prompt = if ($Mode -eq 'weekly') {
-  'reels/SKILL.md를 읽고 4장 "주간 제작 절차"를 이 PC에서 처음부터 끝까지 그대로 수행해. 사람에게 묻지 말고 끝까지 진행해. ' +
-  '저장·알림은 12장 "로컬 예약 실행" 방식을 따른다. 셸 명령은 node·git·python·ffmpeg·ffprobe·codex만 쓸 수 있다' +
+  'reels/SKILL.md를 읽고 4장(주간 제작 절차)을 이 PC에서 처음부터 끝까지 그대로 수행해. 사람에게 묻지 말고 끝까지 진행해. ' +
+  '저장·알림은 12장의 로컬 예약 실행 방식을 따른다. 셸 명령은 node·git·python·ffmpeg·ffprobe·codex만 쓸 수 있다' +
   '(파일 복사·삭제·폴더 만들기는 node로). 파일 수정은 reels/와 assets/ 안에서만.' +
-  $(if ($Week) { " 이번 실행의 대상 주는 '다음 주'가 아니라 $Week(월요일)~그 주 일요일이다." } else { '' })
+  $(if ($Week) { " 이번 실행의 대상 주는 다음 주가 아니라 $Week(월요일)~그 주 일요일이다." } else { '' })
 } else {
-  'reels/SKILL.md 4-11 "목요일 브랜드 정보 확인"을 수행해. 사람에게 묻지 말고 끝까지 진행해.'
+  'reels/SKILL.md 4-11(목요일 브랜드 정보 확인)을 수행해. 사람에게 묻지 말고 끝까지 진행해.'
 }
 
 $allow = @(
