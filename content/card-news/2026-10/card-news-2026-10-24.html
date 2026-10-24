@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 핼로윈 시즌 파티</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #080810;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER — Halloween Hook ─── */
+  .s1 {
+    background: linear-gradient(155deg, #0a0010 0%, #1a0030 35%, #2d0050 65%, #1a0030 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 15%, rgba(255, 120, 0, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 60% at 85% 85%, rgba(150, 0, 255, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255, 60, 0, 0.1) 0%, transparent 60%);
+  }
+  .s1-emoji {
+    position: relative;
+    font-size: 100px;
+    margin-bottom: 28px;
+    filter: drop-shadow(0 0 30px rgba(255,120,0,0.6));
+  }
+  .s1-badge {
+    position: relative;
+    background: linear-gradient(90deg, rgba(255,120,0,0.25), rgba(150,0,255,0.25));
+    border: 1px solid rgba(255,120,0,0.6);
+    border-radius: 100px;
+    padding: 14px 42px;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.1em;
+    margin-bottom: 36px;
+  }
+  .s1 h1 {
+    position: relative;
+    font-size: 90px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #ffd6a0 35%, #ffb347 65%, #ff6b00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+  }
+  .s1-sub {
+    position: relative;
+    font-size: 34px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    margin-bottom: 52px;
+  }
+  .s1-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .s1-logo-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff8c00, #9600ff);
+  }
+  .s1-logo-text {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── SLIDE 2: 핼로윈 파티 이유 ─── */
+  .s2 {
+    background: linear-gradient(160deg, #0d0020 0%, #1c0040 50%, #0d0020 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 100% 0%, rgba(255,100,0,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 60% at 0% 100%, rgba(120,0,255,0.25) 0%, transparent 55%);
+  }
+  .s2-tag {
+    position: relative;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ff8c00;
+    letter-spacing: 0.12em;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+  .s2 h2 {
+    position: relative;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 60px;
+    letter-spacing: -0.02em;
+  }
+  .s2 h2 span {
+    background: linear-gradient(90deg, #ff8c00, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s2-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .s2-item {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    background: rgba(255,140,0,0.1);
+    border: 1px solid rgba(255,140,0,0.2);
+    border-radius: 20px;
+    padding: 28px 36px;
+  }
+  .s2-icon {
+    font-size: 52px;
+    flex-shrink: 0;
+  }
+  .s2-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .s2-title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .s2-desc {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ─── SLIDE 3: 핼로윈 컨셉파티 소개 ─── */
+  .s3 {
+    background: linear-gradient(145deg, #0a0018 0%, #1e0035 45%, #300050 75%, #1e0035 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 45% at 90% 10%, rgba(255,80,0,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 55% at 10% 90%, rgba(130,0,255,0.3) 0%, transparent 55%);
+  }
+  .s3-tag {
+    position: relative;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ff8c00;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+  .s3 h2 {
+    position: relative;
+    font-size: 66px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+  }
+  .s3 h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #ff6b00, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s3-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .s3-card {
+    background: linear-gradient(135deg, rgba(255,100,0,0.12), rgba(130,0,255,0.12));
+    border: 1px solid rgba(255,140,0,0.25);
+    border-radius: 24px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .s3-card-emoji {
+    font-size: 44px;
+  }
+  .s3-card-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .s3-card-desc {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* ─── SLIDE 4: 핼로윈 파티 일정 ─── */
+  .s4 {
+    background: linear-gradient(150deg, #080015 0%, #180030 40%, #280045 70%, #180030 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 80% 0%, rgba(255,100,0,0.22) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 60% at 15% 100%, rgba(100,0,220,0.28) 0%, transparent 50%);
+  }
+  .s4-tag {
+    position: relative;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ff8c00;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+  .s4 h2 {
+    position: relative;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+  }
+  .s4 h2 span {
+    background: linear-gradient(90deg, #ff6b00, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s4-events {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .s4-event {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,140,0,0.2);
+    border-radius: 20px;
+    padding: 26px 32px;
+  }
+  .s4-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .s4-month {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ff8c00;
+    letter-spacing: 0.1em;
+  }
+  .s4-day {
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .s4-dow {
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+  }
+  .s4-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .s4-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .s4-detail {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+  }
+  .s4-free {
+    background: linear-gradient(135deg, #ff6b00, #ff9500);
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  /* ─── SLIDE 5: 여성 무료 강조 ─── */
+  .s5 {
+    background: linear-gradient(155deg, #0c0020 0%, #200040 40%, #1a0035 80%, #0c0020 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,100,0,0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 55% at 50% 85%, rgba(120,0,255,0.25) 0%, transparent 55%);
+  }
+  .s5-emoji {
+    position: relative;
+    font-size: 80px;
+    margin-bottom: 24px;
+  }
+  .s5-tag {
+    position: relative;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff8c00;
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+  }
+  .s5 h2 {
+    position: relative;
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #ffd9a0 45%, #ffb347 80%, #ff6b00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 32px;
+  }
+  .s5-desc {
+    position: relative;
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 52px;
+  }
+  .s5-stats {
+    position: relative;
+    display: flex;
+    gap: 32px;
+  }
+  .s5-stat {
+    background: rgba(255,140,0,0.12);
+    border: 1px solid rgba(255,140,0,0.3);
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .s5-num {
+    font-size: 52px;
+    font-weight: 900;
+    color: #ffb347;
+  }
+  .s5-label {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(155deg, #0a0015 0%, #1c0038 35%, #300060 65%, #1c0038 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 15% 10%, rgba(255,100,0,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 65% 65% at 88% 88%, rgba(130,0,255,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 35% at 50% 50%, rgba(255,140,0,0.1) 0%, transparent 60%);
+  }
+  .s6-emoji {
+    position: relative;
+    font-size: 90px;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 24px rgba(255,140,0,0.5));
+  }
+  .s6 h2 {
+    position: relative;
+    font-size: 78px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #ffd9a0 40%, #ffb347 70%, #9600ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 28px;
+  }
+  .s6-sub {
+    position: relative;
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 52px;
+  }
+  .s6-cta {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b00, #ff9500);
+    border-radius: 100px;
+    padding: 32px 80px;
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+    box-shadow: 0 0 50px rgba(255,120,0,0.4);
+  }
+  .s6-url {
+    position: relative;
+    font-size: 28px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+  }
+  .s6-url span {
+    color: #ff8c00;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── SLIDE 1: COVER ─── -->
+<div class="card s1">
+  <div class="s1-emoji">🎃</div>
+  <div class="s1-badge">2026 핼로윈 시즌</div>
+  <h1>할로윈엔<br>파티원으로</h1>
+  <p class="s1-sub">이 가을, 가장 특별한 밤을<br>낯선 사람들과 함께</p>
+  <div class="s1-logo">
+    <div class="s1-logo-dot"></div>
+    <div class="s1-logo-text">PARTY ONE · party.it.kr</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 2: 핼로윈 파티가 특별한 이유 ─── -->
+<div class="card s2">
+  <div class="s2-tag">🎃 WHY HALLOWEEN</div>
+  <h2>핼로윈 파티가<br><span>특별한 이유</span></h2>
+  <div class="s2-list">
+    <div class="s2-item">
+      <div class="s2-icon">🧛</div>
+      <div class="s2-text">
+        <div class="s2-title">코스튬 = 대화 시작점</div>
+        <div class="s2-desc">어색함 없이 자연스럽게 첫 대화가 열려요</div>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-icon">🎭</div>
+      <div class="s2-text">
+        <div class="s2-title">평소와 다른 나</div>
+        <div class="s2-desc">변장 뒤에 숨어 더 자유롭게 즐길 수 있어요</div>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-icon">✨</div>
+      <div class="s2-text">
+        <div class="s2-title">연중 가장 들뜬 분위기</div>
+        <div class="s2-desc">모두가 신나있는 날, 파티는 배로 즐거워요</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 3: 핼로윈 컨셉파티 종류 ─── -->
+<div class="card s3">
+  <div class="s3-tag">🎃 HALLOWEEN PARTY TYPES</div>
+  <h2>파티원의<br><em>핼로윈 파티 라인업</em></h2>
+  <div class="s3-grid">
+    <div class="s3-card">
+      <div class="s3-card-emoji">🧟</div>
+      <div class="s3-card-name">컨셉파티</div>
+      <div class="s3-card-desc">코스튬 필수! 변장하고 오면 더 재밌어요</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-card-emoji">🍷</div>
+      <div class="s3-card-name">와인파티</div>
+      <div class="s3-card-desc">핼로윈 분위기에 레드와인 한 잔</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-card-emoji">🍺</div>
+      <div class="s3-card-name">혼술바</div>
+      <div class="s3-card-desc">혼자 가도 OK! 새 친구를 만나는 밤</div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-card-emoji">💃</div>
+      <div class="s3-card-name">도파민파티</div>
+      <div class="s3-card-desc">핼로윈 에너지로 온몸 도파민 폭발</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 4: 핼로윈 파티 일정 ─── -->
+<div class="card s4">
+  <div class="s4-tag">🎃 HALLOWEEN SCHEDULE</div>
+  <h2>이번 주<br><span>핼로윈 파티 일정</span></h2>
+  <div class="s4-events">
+    <div class="s4-event">
+      <div class="s4-date">
+        <div class="s4-month">OCT</div>
+        <div class="s4-day">25</div>
+        <div class="s4-dow">토요일</div>
+      </div>
+      <div class="s4-info">
+        <div class="s4-name">🧛 핼로윈 컨셉파티</div>
+        <div class="s4-detail">홍대 · 2호선 · 코스튬 환영</div>
+      </div>
+      <div class="s4-free">여성무료</div>
+    </div>
+    <div class="s4-event">
+      <div class="s4-date">
+        <div class="s4-month">OCT</div>
+        <div class="s4-day">26</div>
+        <div class="s4-dow">일요일</div>
+      </div>
+      <div class="s4-info">
+        <div class="s4-name">🎭 핼로윈 와인파티</div>
+        <div class="s4-detail">강남 · 2호선 · 2차 포함</div>
+      </div>
+      <div class="s4-free">여성무료</div>
+    </div>
+    <div class="s4-event">
+      <div class="s4-date">
+        <div class="s4-month">OCT</div>
+        <div class="s4-day">31</div>
+        <div class="s4-dow">금요일</div>
+      </div>
+      <div class="s4-info">
+        <div class="s4-name">🎃 핼로윈 D-DAY 파티</div>
+        <div class="s4-detail">이태원·홍대 동시 · 대규모 진행</div>
+      </div>
+      <div class="s4-free">여성무료</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 5: 여성 무료 강조 ─── -->
+<div class="card s5">
+  <div class="s5-emoji">💜</div>
+  <div class="s5-tag">ONLY AT PARTY ONE</div>
+  <h2>여성 참가비<br>0원</h2>
+  <p class="s5-desc">핼로윈 파티, 돈 걱정 없이<br>특별한 밤을 즐기세요</p>
+  <div class="s5-stats">
+    <div class="s5-stat">
+      <div class="s5-num">60곳+</div>
+      <div class="s5-label">전국 제휴 호스트</div>
+    </div>
+    <div class="s5-stat">
+      <div class="s5-num">0원</div>
+      <div class="s5-label">여성 참가비</div>
+    </div>
+    <div class="s5-stat">
+      <div class="s5-num">9종</div>
+      <div class="s5-label">파티 카테고리</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 6: CTA ─── -->
+<div class="card s6">
+  <div class="s6-emoji">🎃</div>
+  <h2>올 가을<br>가장 특별한 밤</h2>
+  <p class="s6-sub">핼로윈 파티 신청은 지금 바로<br>여성 참가비 0원, 전국 60곳+ 호스트</p>
+  <div class="s6-cta">지금 신청하기</div>
+  <div class="s6-url"><span>party.it.kr</span></div>
+</div>
+
+</body>
+</html>
