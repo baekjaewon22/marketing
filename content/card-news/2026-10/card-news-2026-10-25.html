@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 혼자 가도 괜찮아 · 첫 참가 가이드</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0d0d18;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(145deg, #0f0822 0%, #1e0d3a 30%, #2e1060 60%, #1a0d40 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 20%, rgba(255, 160, 120, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 85% 80%, rgba(200, 80, 255, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 100, 180, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .s1-badge {
+    position: relative;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 200, 180, 0.4);
+    border-radius: 40px;
+    padding: 10px 28px;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255, 220, 200, 0.9);
+    letter-spacing: 0.05em;
+    margin-bottom: 40px;
+  }
+  .s1-emoji {
+    position: relative;
+    font-size: 96px;
+    line-height: 1;
+    margin-bottom: 36px;
+    filter: drop-shadow(0 0 30px rgba(255, 150, 100, 0.5));
+  }
+  .s1-main {
+    position: relative;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  .s1-main .hl {
+    background: linear-gradient(90deg, #ffb89a, #ff7eb3, #d67fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s1-sub {
+    position: relative;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+  }
+  .s1-brand {
+    position: absolute;
+    bottom: 52px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 220, 200, 0.6);
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── SLIDE 2: 혼자여도 OK ─── */
+  .s2 {
+    background: linear-gradient(160deg, #0a1628 0%, #0e2240 45%, #081830 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 90% 10%, rgba(255, 140, 100, 0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(100, 180, 255, 0.15) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .s2-label {
+    position: relative;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ff9f7a;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .s2-title {
+    position: relative;
+    font-size: 64px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+  .s2-title .hl2 {
+    background: linear-gradient(90deg, #ff9f7a, #ff6eb4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s2-cards {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .s2-item {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .s2-icon {
+    font-size: 40px;
+    flex-shrink: 0;
+  }
+  .s2-text strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .s2-text span {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 300;
+  }
+
+  /* ─── SLIDE 3: 첫 참가 가이드 STEP 1–2 ─── */
+  .s3 {
+    background: linear-gradient(150deg, #12081e 0%, #200a38 40%, #2a1050 80%, #12081e 100%);
+    padding: 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200, 80, 255, 0.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .s3-header {
+    position: relative;
+    margin-bottom: 52px;
+  }
+  .s3-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, #c850ff, #ff50b8);
+    border-radius: 30px;
+    padding: 8px 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .s3-title {
+    font-size: 58px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .s3-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .s3-step {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(200, 80, 255, 0.25);
+    border-radius: 24px;
+    padding: 36px 40px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #c850ff, #ff50b8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .step-content strong {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .step-content p {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .step-content .tip {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(200, 80, 255, 0.2);
+    border-radius: 8px;
+    padding: 4px 14px;
+    font-size: 19px;
+    color: #e0a0ff;
+    font-weight: 500;
+  }
+
+  /* ─── SLIDE 4: 첫 참가 가이드 STEP 3–4 ─── */
+  .s4 {
+    background: linear-gradient(150deg, #0a1a10 0%, #0e2818 40%, #0a2015 100%);
+    padding: 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(80, 255, 160, 0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .s4-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, #30c880, #00e5b0);
+    border-radius: 30px;
+    padding: 8px 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .s4-title {
+    font-size: 58px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 52px;
+  }
+  .s4-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+  }
+  .s4-step {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(80, 255, 160, 0.2);
+    border-radius: 24px;
+    padding: 36px 40px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .step-num-g {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #30c880, #00e5b0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .step-content-g strong {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .step-content-g p {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .step-content-g .tip-g {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(80, 255, 160, 0.15);
+    border-radius: 8px;
+    padding: 4px 14px;
+    font-size: 19px;
+    color: #80ffcc;
+    font-weight: 500;
+  }
+  .s4-bottom-note {
+    position: absolute;
+    bottom: 56px;
+    left: 80px;
+    right: 80px;
+    background: rgba(80, 255, 160, 0.1);
+    border: 1px solid rgba(80, 255, 160, 0.25);
+    border-radius: 16px;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .s4-bottom-note span {
+    font-size: 26px;
+  }
+  .s4-bottom-note p {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+  }
+  .s4-bottom-note p strong {
+    color: #80ffcc;
+  }
+
+  /* ─── SLIDE 5: 가상 후기 ─── */
+  .s5 {
+    background: linear-gradient(155deg, #1a0a28 0%, #28102a 40%, #1e0820 100%);
+    padding: 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 40% at 80% 0%, rgba(255, 80, 180, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 10% 100%, rgba(140, 60, 255, 0.2) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .s5-label {
+    position: relative;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #ff80c8;
+    margin-bottom: 20px;
+  }
+  .s5-title {
+    position: relative;
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 44px;
+  }
+  .s5-reviews {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .s5-review {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 100, 180, 0.2);
+    border-radius: 20px;
+    padding: 28px 32px;
+  }
+  .s5-review-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .s5-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .av1 { background: linear-gradient(135deg, #ff6eb4, #d060ff); }
+  .av2 { background: linear-gradient(135deg, #ff9f7a, #ff6eb4); }
+  .av3 { background: linear-gradient(135deg, #7a80ff, #c060ff); }
+  .s5-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .s5-stars {
+    margin-left: auto;
+    font-size: 20px;
+    color: #ffcc44;
+    letter-spacing: 0.05em;
+  }
+  .s5-review-text {
+    font-size: 21px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .s5-review-text strong {
+    color: #ff80c8;
+    font-weight: 600;
+  }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #08050f 0%, #150828 35%, #200e3c 60%, #0e0620 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200, 80, 255, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(255, 100, 150, 0.2) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 80% 20%, rgba(100, 160, 255, 0.15) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .s6-icon {
+    position: relative;
+    font-size: 100px;
+    line-height: 1;
+    margin-bottom: 32px;
+    filter: drop-shadow(0 0 24px rgba(255, 120, 200, 0.5));
+  }
+  .s6-headline {
+    position: relative;
+    font-size: 66px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .s6-headline .hl-pink {
+    background: linear-gradient(90deg, #ff80c8, #c860ff, #7a8fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-sub {
+    position: relative;
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+    margin-bottom: 56px;
+  }
+  .s6-free {
+    position: relative;
+    background: linear-gradient(90deg, rgba(255, 80, 160, 0.25), rgba(200, 60, 255, 0.25));
+    border: 1px solid rgba(255, 100, 200, 0.5);
+    border-radius: 20px;
+    padding: 24px 56px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 48px;
+  }
+  .s6-free .free-hl {
+    background: linear-gradient(90deg, #ff80c8, #c860ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-cta {
+    position: relative;
+    background: linear-gradient(90deg, #ff60b8, #c040ff);
+    border-radius: 24px;
+    padding: 30px 80px;
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 40px rgba(200, 60, 255, 0.5), 0 2px 12px rgba(255, 80, 160, 0.4);
+    margin-bottom: 32px;
+  }
+  .s6-url {
+    position: relative;
+    font-size: 28px;
+    font-weight: 500;
+    color: rgba(255, 200, 240, 0.6);
+    letter-spacing: 0.05em;
+  }
+  .s6-dots {
+    position: absolute;
+    bottom: 48px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .dot.active {
+    background: #ff80c8;
+    width: 28px;
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ SLIDE 1: COVER ═══ -->
+<div class="card s1">
+  <div class="s1-badge">첫 참가 가이드 🗓️</div>
+  <div class="s1-emoji">🙋‍♀️</div>
+  <div class="s1-main">
+    혼자 가도<br><span class="hl">괜찮아요</span>
+  </div>
+  <div class="s1-sub">
+    아무도 모르는 파티에 처음 가는 건<br>
+    누구나 처음엔 설레고 두근거려요
+  </div>
+  <div class="s1-brand">party.it.kr</div>
+</div>
+
+<!-- ═══ SLIDE 2: 혼자여도 OK 이유 ═══ -->
+<div class="card s2">
+  <div class="s2-label">WHY IT'S OK</div>
+  <div class="s2-title">파티원에서는<br><span class="hl2">혼자가 기본값</span>이에요</div>
+  <div class="s2-cards">
+    <div class="s2-item">
+      <div class="s2-icon">👥</div>
+      <div class="s2-text">
+        <strong>참가자 대부분이 혼자 와요</strong>
+        <span>친구 데려오는 사람이 오히려 드뭅니다</span>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-icon">🛡️</div>
+      <div class="s2-text">
+        <strong>검증된 호스트 · 안전한 공간</strong>
+        <span>전국 60곳+ 제휴 호스트 운영</span>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-icon">🎉</div>
+      <div class="s2-text">
+        <strong>자연스럽게 대화하는 구조</strong>
+        <span>프로그램이 어색함을 없애줘요</span>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-icon">💸</div>
+      <div class="s2-text">
+        <strong>여성 참가비 0원</strong>
+        <span>부담 없이 도전할 수 있어요</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3: 가이드 STEP 1-2 ═══ -->
+<div class="card s3">
+  <div class="s3-header">
+    <div class="s3-tag">✨ 첫 참가 가이드</div>
+    <div class="s3-title">이렇게 하면<br>어렵지 않아요</div>
+  </div>
+  <div class="s3-steps">
+    <div class="s3-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>party.it.kr 에서 파티 찾기</strong>
+        <p>날짜·지역·카테고리로 내 취향에 맞는 파티를 골라요</p>
+        <span class="tip">💡 처음엔 '컨셉파티' 또는 '혼술바'가 편해요</span>
+      </div>
+    </div>
+    <div class="s3-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>신청 & 예약 확정</strong>
+        <p>간단한 정보 입력 후 신청 완료 — 여성은 참가비 무료예요</p>
+        <span class="tip">📲 카카오 알림으로 예약 확정 연락 와요</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4: 가이드 STEP 3-4 ═══ -->
+<div class="card s4">
+  <div style="position: relative;">
+    <div class="s4-tag">✅ 참가 당일 & 이후</div>
+    <div class="s4-title">도착부터 끝까지<br>파티원이 함께해요</div>
+  </div>
+  <div class="s4-steps">
+    <div class="s4-step">
+      <div class="step-num-g">3</div>
+      <div class="step-content-g">
+        <strong>장소 도착 & 체크인</strong>
+        <p>지하철역 근처 제휴 공간 — 예약 이름 말하면 바로 입장</p>
+        <span class="tip-g">📍 장소는 예약 확정 후 카카오로 공유돼요</span>
+      </div>
+    </div>
+    <div class="s4-step">
+      <div class="step-num-g">4</div>
+      <div class="step-content-g">
+        <strong>파티 즐기고 인연 만들기</strong>
+        <p>호스트 진행 아래 자연스럽게 대화 — 2차 여부는 자유</p>
+        <span class="tip-g">🥂 억지로 할 필요 없어요, 편하게!</span>
+      </div>
+    </div>
+  </div>
+  <div class="s4-bottom-note">
+    <span>🔒</span>
+    <p>불편하면 언제든 퇴장 가능 — <strong>강제 프로그램 없음</strong></p>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5: 가상 후기 ═══ -->
+<div class="card s5">
+  <div class="s5-label">💬 파티원 후기</div>
+  <div class="s5-title">처음 온 분들이<br>남긴 이야기</div>
+  <div class="s5-reviews">
+    <div class="s5-review">
+      <div class="s5-review-top">
+        <div class="s5-avatar av1">지</div>
+        <div class="s5-name">지현 (27세)</div>
+        <div class="s5-stars">★★★★★</div>
+      </div>
+      <div class="s5-review-text">
+        혼자 간다고 하니 친구들이 걱정했는데, 막상 가보니 <strong>저랑 비슷한 분들이 가득</strong>해서 오히려 더 편했어요!
+      </div>
+    </div>
+    <div class="s5-review">
+      <div class="s5-review-top">
+        <div class="s5-avatar av2">수</div>
+        <div class="s5-name">수빈 (25세)</div>
+        <div class="s5-stars">★★★★★</div>
+      </div>
+      <div class="s5-review-text">
+        무료인데 퀄리티가 좋아서 놀랐어요. <strong>호스트분이 어색하지 않게 잘 이끌어줘서</strong> 처음인데도 금방 적응했어요.
+      </div>
+    </div>
+    <div class="s5-review">
+      <div class="s5-review-top">
+        <div class="s5-avatar av3">민</div>
+        <div class="s5-name">민지 (29세)</div>
+        <div class="s5-stars">★★★★★</div>
+      </div>
+      <div class="s5-review-text">
+        처음엔 많이 긴장했는데 <strong>파티 끝나고 연락처 교환</strong>까지 했어요. 다음 달에 또 신청했어요!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: CTA ═══ -->
+<div class="card s6">
+  <div class="s6-icon">🎊</div>
+  <div class="s6-headline">
+    오늘이 바로<br><span class="hl-pink">그 첫 날</span>이에요
+  </div>
+  <div class="s6-sub">
+    혼자여도 괜찮아요 — 모든 시작은<br>
+    한 번의 용기에서 시작되니까요
+  </div>
+  <div class="s6-free">
+    여성 참가비 <span class="free-hl">0원 무료</span> 🎁
+  </div>
+  <div class="s6-cta">
+    지금 바로 신청하기
+  </div>
+  <div class="s6-url">party.it.kr</div>
+  <div class="s6-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot active"></div>
+  </div>
+</div>
+
+</body>
+</html>
