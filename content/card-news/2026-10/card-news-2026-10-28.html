@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — FAQ 진입장벽 해소</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0d0d0d;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(145deg, #0d0520 0%, #1a0840 35%, #2d1060 65%, #120430 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 5%, rgba(120,60,255,0.4) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 5% 85%, rgba(80,0,200,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 45% at 95% 55%, rgba(200,80,255,0.2) 0%, transparent 55%);
+  }
+  .s1-bubble-1 {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(150,80,255,0.12);
+    border: 1px solid rgba(180,120,255,0.2);
+  }
+  .s1-bubble-2 {
+    position: absolute;
+    bottom: 100px;
+    right: 60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(100,40,220,0.1);
+    border: 1px solid rgba(160,100,255,0.15);
+  }
+  .s1-bubble-3 {
+    position: absolute;
+    top: 200px;
+    right: 100px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(200,100,255,0.15);
+  }
+  .s1-tag {
+    position: relative;
+    display: inline-block;
+    background: rgba(160,100,255,0.2);
+    border: 1.5px solid rgba(180,130,255,0.5);
+    border-radius: 40px;
+    padding: 12px 32px;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(220,190,255,0.95);
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+  }
+  .s1-label {
+    position: relative;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(190,150,255,0.9);
+    letter-spacing: 5px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .s1-title {
+    position: relative;
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #fff 0%, #e0c8ff 30%, #c080ff 65%, #8040e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s1-subtitle {
+    position: relative;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(230,210,255,0.85);
+    line-height: 1.6;
+    max-width: 700px;
+    margin-bottom: 56px;
+  }
+  .s1-questions {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 760px;
+  }
+  .s1-q {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(200,160,255,0.3);
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(240,220,255,0.9);
+  }
+
+  /* ─── SLIDE 2: Q1 진짜 무료? ─── */
+  .s2 {
+    background: linear-gradient(160deg, #0a1a0a 0%, #0d2d0d 40%, #142814 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 90px;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 30% 20%, rgba(0,200,80,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 80%, rgba(0,160,60,0.15) 0%, transparent 55%);
+  }
+  .q-number {
+    position: relative;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .q-number-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    background: rgba(0,200,80,0.25);
+    border: 1.5px solid rgba(0,220,100,0.5);
+    color: #60ff90;
+  }
+  .q-number span {
+    color: rgba(160,255,180,0.7);
+  }
+  .q-text {
+    position: relative;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+  .q-text .q-mark {
+    background: linear-gradient(135deg, #60ff90 0%, #00cc55 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .q-answer-block {
+    position: relative;
+    background: rgba(0,200,80,0.08);
+    border: 1.5px solid rgba(0,200,80,0.25);
+    border-radius: 24px;
+    padding: 44px 48px;
+    margin-bottom: 36px;
+  }
+  .q-answer-yes {
+    font-size: 48px;
+    font-weight: 900;
+    color: #60ff90;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .q-answer-yes .check {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(0,200,80,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .q-answer-desc {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(220,255,230,0.85);
+    line-height: 1.65;
+  }
+  .q-highlight-row {
+    position: relative;
+    display: flex;
+    gap: 20px;
+  }
+  .q-chip {
+    background: rgba(0,200,80,0.15);
+    border: 1px solid rgba(0,200,80,0.4);
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #80ffaa;
+  }
+
+  /* ─── SLIDE 3: Q2 혼자 가도 돼? ─── */
+  .s3 {
+    background: linear-gradient(155deg, #100a1a 0%, #1a0f2e 40%, #220a20 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 90px;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 45% at 70% 20%, rgba(220,80,255,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 55% at 20% 75%, rgba(160,40,200,0.18) 0%, transparent 55%);
+  }
+  .s3 .q-number-badge {
+    background: rgba(200,60,255,0.25);
+    border-color: rgba(220,100,255,0.5);
+    color: #e080ff;
+  }
+  .s3 .q-number span { color: rgba(220,160,255,0.7); }
+  .s3 .q-text .q-mark {
+    background: linear-gradient(135deg, #e080ff 0%, #b040e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s3 .q-answer-block {
+    background: rgba(200,60,255,0.08);
+    border-color: rgba(200,60,255,0.25);
+  }
+  .s3 .q-answer-yes { color: #e080ff; }
+  .s3 .q-answer-yes .check { background: rgba(200,60,255,0.3); }
+  .s3 .q-answer-desc { color: rgba(240,220,255,0.85); }
+  .s3 .q-chip {
+    background: rgba(200,60,255,0.15);
+    border-color: rgba(200,60,255,0.4);
+    color: #d090ff;
+  }
+  .alone-icons {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .alone-icon-card {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,100,255,0.2);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .alone-icon-card .icon { font-size: 40px; margin-bottom: 12px; }
+  .alone-icon-card .label {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(230,200,255,0.9);
+    line-height: 1.4;
+  }
+
+  /* ─── SLIDE 4: Q3 안전한가요? ─── */
+  .s4 {
+    background: linear-gradient(150deg, #0a1520 0%, #0f2030 40%, #152535 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 90px;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 50% at 40% 15%, rgba(0,180,255,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 75% 80%, rgba(0,120,200,0.15) 0%, transparent 55%);
+  }
+  .s4 .q-number-badge {
+    background: rgba(0,180,255,0.25);
+    border-color: rgba(0,200,255,0.5);
+    color: #60d8ff;
+  }
+  .s4 .q-number span { color: rgba(120,220,255,0.7); }
+  .s4 .q-text .q-mark {
+    background: linear-gradient(135deg, #60d8ff 0%, #0099cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s4 .q-answer-block {
+    background: rgba(0,180,255,0.07);
+    border-color: rgba(0,180,255,0.25);
+  }
+  .s4 .q-answer-yes { color: #60d8ff; }
+  .s4 .q-answer-yes .check { background: rgba(0,180,255,0.3); }
+  .s4 .q-answer-desc { color: rgba(210,240,255,0.85); }
+  .safety-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .safety-item {
+    background: rgba(0,180,255,0.08);
+    border: 1px solid rgba(0,180,255,0.2);
+    border-radius: 18px;
+    padding: 24px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .safety-item .si-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0,180,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .safety-item .si-text {
+    font-size: 21px;
+    font-weight: 500;
+    color: rgba(200,240,255,0.9);
+    line-height: 1.4;
+  }
+
+  /* ─── SLIDE 5: Q4/Q5 기타 FAQ ─── */
+  .s5 {
+    background: linear-gradient(150deg, #1a0f08 0%, #2a1a08 40%, #1e1008 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 90px;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 60% 15%, rgba(255,160,0,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 55% at 15% 80%, rgba(200,100,0,0.18) 0%, transparent 55%);
+  }
+  .s5-header {
+    position: relative;
+    margin-bottom: 48px;
+  }
+  .s5-tag {
+    display: inline-block;
+    background: rgba(255,160,0,0.15);
+    border: 1.5px solid rgba(255,160,0,0.4);
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffb840;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+  .s5-title {
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, #ffe0a0 40%, #ffb030 70%, #cc7000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .faq-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .faq-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,160,0,0.2);
+    border-radius: 20px;
+    padding: 30px 36px;
+  }
+  .faq-item-q {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffcc60;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .faq-item-q .fq { color: rgba(255,180,60,0.6); font-size: 22px; }
+  .faq-item-a {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,230,180,0.85);
+    line-height: 1.55;
+    padding-left: 28px;
+  }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #0d0520 0%, #1a0840 40%, #2d0060 70%, #1a003a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 10%, rgba(140,60,255,0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 10% 90%, rgba(80,0,200,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 50% at 90% 70%, rgba(200,80,255,0.25) 0%, transparent 50%);
+  }
+  .s6-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120,60,255,0.12) 0%, transparent 70%);
+  }
+  .s6-eyebrow {
+    position: relative;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(200,170,255,0.8);
+    letter-spacing: 5px;
+    margin-bottom: 28px;
+  }
+  .s6-headline {
+    position: relative;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, #e0c8ff 30%, #c080ff 65%, #8040e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-sub {
+    position: relative;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(230,210,255,0.8);
+    line-height: 1.55;
+    max-width: 680px;
+    margin-bottom: 60px;
+  }
+  .s6-cta-btn {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, #9040ff 0%, #c060ff 50%, #7020d0 100%);
+    border-radius: 60px;
+    padding: 30px 80px;
+    font-size: 36px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    box-shadow: 0 0 60px rgba(140,60,255,0.5), 0 0 120px rgba(120,40,220,0.3);
+  }
+  .s6-url {
+    position: relative;
+    font-size: 28px;
+    font-weight: 500;
+    color: rgba(200,170,255,0.7);
+    letter-spacing: 1px;
+    margin-bottom: 52px;
+  }
+  .s6-free-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(200,160,255,0.35);
+    border-radius: 50px;
+    padding: 18px 40px;
+  }
+  .s6-free-badge .free-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(220,200,255,0.95);
+  }
+  .s6-free-badge .free-highlight {
+    font-size: 28px;
+    font-weight: 900;
+    color: #b880ff;
+  }
+  /* decorative floating Q marks */
+  .deco-q {
+    position: absolute;
+    font-weight: 900;
+    opacity: 0.04;
+    line-height: 1;
+    color: white;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: COVER -->
+<div class="card s1">
+  <div class="s1-bubble-1"></div>
+  <div class="s1-bubble-2"></div>
+  <div class="s1-bubble-3"></div>
+  <div class="s1-tag">💬 FREQUENTLY ASKED</div>
+  <div class="s1-label">파티원 FAQ</div>
+  <div class="s1-title">궁금해요</div>
+  <div class="s1-subtitle">파티원 참가 전 가장 많이 묻는<br>질문들, 솔직하게 답해드릴게요</div>
+  <div class="s1-questions">
+    <div class="s1-q">💸 진짜 무료예요?</div>
+    <div class="s1-q">🙋 혼자 가도 돼요?</div>
+    <div class="s1-q">🔒 안전한가요?</div>
+    <div class="s1-q">🎉 어떤 파티가 있나요?</div>
+  </div>
+</div>
+
+<!-- SLIDE 2: Q1 진짜 무료? -->
+<div class="card s2">
+  <div class="q-number">
+    <div class="q-number-badge">1</div>
+    <span>첫 번째 질문</span>
+  </div>
+  <div class="q-text">
+    <span class="q-mark">"진짜로 무료예요?</span><br>
+    <span style="color:rgba(220,255,230,0.9)">숨은 비용 있는 거 아니에요?"</span>
+  </div>
+  <div class="q-answer-block">
+    <div class="q-answer-yes">
+      <div class="check">✓</div>
+      네, 100% 진짜 무료입니다
+    </div>
+    <div class="q-answer-desc">
+      파티원은 <strong style="color:#80ffaa">여성 참가비 0원</strong>을 핵심 가치로 합니다.<br>
+      숨은 비용, 가입비, 별도 결제 없이<br>
+      파티 신청부터 참가까지 <strong style="color:#80ffaa">완전 무료</strong>예요.
+    </div>
+  </div>
+  <div class="q-highlight-row">
+    <div class="q-chip">참가비 ₩0</div>
+    <div class="q-chip">가입비 ₩0</div>
+    <div class="q-chip">숨은 비용 ₩0</div>
+  </div>
+  <!-- Deco Q marks -->
+  <div class="deco-q" style="font-size:600px; bottom:-120px; right:-80px;">?</div>
+</div>
+
+<!-- SLIDE 3: Q2 혼자 가도 돼? -->
+<div class="card s3">
+  <div class="q-number">
+    <div class="q-number-badge">2</div>
+    <span>두 번째 질문</span>
+  </div>
+  <div class="q-text">
+    <span class="q-mark">"혼자 가도 괜찮아요?</span><br>
+    <span style="color:rgba(240,220,255,0.9)">어색하지 않을까요?"</span>
+  </div>
+  <div class="alone-icons">
+    <div class="alone-icon-card">
+      <div class="icon">👋</div>
+      <div class="label">아이스브레이킹<br>프로그램</div>
+    </div>
+    <div class="alone-icon-card">
+      <div class="icon">🎯</div>
+      <div class="label">역할 배분<br>진행 방식</div>
+    </div>
+    <div class="alone-icon-card">
+      <div class="icon">🌸</div>
+      <div class="label">내향인 전용<br>파티도 있어요</div>
+    </div>
+  </div>
+  <div class="q-answer-block">
+    <div class="q-answer-yes">
+      <div class="check">✓</div>
+      오히려 혼자 오는 분이 더 많아요
+    </div>
+    <div class="q-answer-desc">
+      대부분의 참가자가 <strong style="color:#e080ff">혼자 참가</strong>합니다.<br>
+      파티원 호스트가 자연스러운 분위기를 만들어<br>
+      처음 만난 사람들과도 금방 친해질 수 있어요.
+    </div>
+  </div>
+  <div class="deco-q" style="font-size:500px; bottom:-80px; right:-60px;">?</div>
+</div>
+
+<!-- SLIDE 4: Q3 안전한가요? -->
+<div class="card s4">
+  <div class="q-number">
+    <div class="q-number-badge">3</div>
+    <span>세 번째 질문</span>
+  </div>
+  <div class="q-text">
+    <span class="q-mark">"안전한가요?</span><br>
+    <span style="color:rgba(210,240,255,0.9)">아무 곳이나 가는 건 아니죠?"</span>
+  </div>
+  <div class="q-answer-block" style="margin-bottom: 28px;">
+    <div class="q-answer-yes">
+      <div class="check">✓</div>
+      전국 60곳+ 검증된 호스트
+    </div>
+    <div class="q-answer-desc">
+      파티원은 파티 장소를 직접 심사하고 검증합니다.<br>
+      검증된 제휴 호스트만 파티를 열 수 있어요.
+    </div>
+  </div>
+  <div class="safety-grid">
+    <div class="safety-item">
+      <div class="si-icon">🔍</div>
+      <div class="si-text">호스트 심사<br>& 검증 완료</div>
+    </div>
+    <div class="safety-item">
+      <div class="si-icon">📋</div>
+      <div class="si-text">실명 인증<br>참가자만 입장</div>
+    </div>
+    <div class="safety-item">
+      <div class="si-icon">📍</div>
+      <div class="si-text">지하철역 근처<br>접근성 좋은 위치</div>
+    </div>
+    <div class="safety-item">
+      <div class="si-icon">⭐</div>
+      <div class="si-text">참가 후기<br>공개 투명 운영</div>
+    </div>
+  </div>
+  <div class="deco-q" style="font-size:500px; bottom:-100px; right:-70px;">?</div>
+</div>
+
+<!-- SLIDE 5: 더 궁금한 것들 -->
+<div class="card s5">
+  <div class="s5-header">
+    <div class="s5-tag">MORE FAQ</div>
+    <div class="s5-title">더 궁금한 것들을<br>모았어요</div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-item-q">
+        <span class="fq">Q.</span>
+        어떤 나이대가 오나요?
+      </div>
+      <div class="faq-item-a">
+        파티마다 참가 가능한 출생연도가 정해져 있어요.<br>
+        주로 20대~30대 초반이 많이 참가합니다.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-q">
+        <span class="fq">Q.</span>
+        파티 종류가 다양한가요?
+      </div>
+      <div class="faq-item-a">
+        비주얼파티, 소개팅, 내향인파티, 와인파티 등<br>
+        9가지 카테고리의 다양한 파티가 있어요.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-q">
+        <span class="fq">Q.</span>
+        신청은 어디서 하나요?
+      </div>
+      <div class="faq-item-a">
+        <strong style="color:#ffcc60">party.it.kr</strong> 에서 바로 신청 가능해요. 간단해요!
+      </div>
+    </div>
+  </div>
+  <div class="deco-q" style="font-size:500px; bottom:-100px; right:-60px; opacity:0.03;">?</div>
+</div>
+
+<!-- SLIDE 6: CTA -->
+<div class="card s6">
+  <div class="s6-glow"></div>
+  <div class="s6-eyebrow">READY TO JOIN?</div>
+  <div class="s6-headline">의심은<br>이제 그만!</div>
+  <div class="s6-sub">
+    궁금증이 해결됐다면<br>
+    이제 직접 경험해볼 차례예요.<br>
+    여성 참가비 0원, 지금 바로 신청하세요
+  </div>
+  <div class="s6-cta-btn">지금 파티 신청하기 →</div>
+  <div class="s6-url">🌐 party.it.kr</div>
+  <div class="s6-free-badge">
+    <span class="free-text">여성 참가비</span>
+    <span class="free-highlight">0원</span>
+    <span class="free-text">·</span>
+    <span class="free-text">전국 60곳+</span>
+    <span class="free-highlight">검증 호스트</span>
+  </div>
+  <div class="deco-q" style="font-size:700px; bottom:-150px; right:-120px; opacity:0.025;">?</div>
+</div>
+
+</body>
+</html>
