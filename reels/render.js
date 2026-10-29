@@ -38,7 +38,8 @@ function loadRecentTracks(firstDate) {
 }
 function pickTrack(script) {
   if (script.music) { const t = MANIFEST.find(m => m.file === script.music); if (t) return t; }
-  const moods = THEME_MUSIC[script.theme] || ['calm'];
+  // 시네 쇼츠는 빠른 컷이라 박자감 있는 곡을 먼저 본다
+  const moods = script.format === 'cine' ? ['upbeat', ...(THEME_MUSIC[script.theme] || [])] : THEME_MUSIC[script.theme] || ['calm'];
   let pool = MANIFEST.filter(m => (m.mood || []).some(x => moods.includes(x)));
   if (!pool.length) pool = MANIFEST;
   const fresh = pool.filter(m => !USED.has(m.file));
@@ -70,7 +71,8 @@ function pickSfx(script, cat, key) {
 function pickSounds(script) {
   const season = (THEME_LIST[script.theme] || {}).season;
   const ctaCat = ['christmas', 'newyear'].includes(season) && SFX.some(m => m.cat === 'sparkle') ? 'sparkle' : 'chime';
-  return { transition: pickSfx(script, 'whoosh', 'transition'), cta: pickSfx(script, ctaCat, 'cta') };
+  return { transition: pickSfx(script, 'whoosh', 'transition'), cta: pickSfx(script, ctaCat, 'cta'),
+    ambience: script.format === 'cine' ? pickSfx(script, 'ambience', 'ambience') : null };
 }
 
 let WEEK = 0;
@@ -97,6 +99,7 @@ function assignPhotos(scripts) {
   const used = new Set();
   let c = WEEK * 7; // 사진 수(대개 10장 안팎)와 나누어떨어지지 않는 수라야 주마다 시작점이 바뀐다
   return scripts.map(s => {
+    if (s.format === 'cine') return (s.shots || []).map(sh => sh.photo).filter(Boolean); // 시네는 컷마다 자기 사진
     const slots = s.slides.filter(sl => PHOTO_TYPES.includes(sl.type) && sl.photo !== null).length;
     const k = Math.min(slots >= 2 ? 2 : 1, PHOTOS.length);
     const start = c;
@@ -122,9 +125,21 @@ function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'p
 async function renderOne(browser, file, swoosh, photos, track, sounds) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
   script.photos = photos;
+  const cine = script.format === 'cine';
+  const blurOf = (src, sigma) => {
+    const out = path.join(PHOTO_DIR, '.blur', `${src.replace(/[/]/g, '_').replace(/\.jpe?g$/i, '')}_s${sigma}.jpg`);
+    if (!fs.existsSync(out)) {
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      sh('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(PHOTO_DIR, src), '-vf',
+        `scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,gblur=sigma=${sigma}`, '-q:v', '3', out]);
+    }
+    return '.blur/' + path.basename(out);
+  };
+  // 시네: 컷마다 초점 밖 배경(dof)·얼굴 가우시안(face)용 흐린 판
+  if (cine) for (const shot of script.shots) if (shot.photo) shot.blur = { dof: blurOf(shot.photo, 9), face: blurOf(shot.photo, 22) };
   // 훅·cta 배경용으로 그 영상 첫 사진을 크게 흐린 판을 미리 만든다(브라우저 blur는 프레임마다 느려서)
   const first = script.ai_photo || photos[0];
-  if (first) {
+  if (first && !cine) {
     const blur = path.join(PHOTO_DIR, '.blur', first.replace(/[/]/g, '_'));
     if (!fs.existsSync(blur)) {
       fs.mkdirSync(path.dirname(blur), { recursive: true });
@@ -141,12 +156,12 @@ async function renderOne(browser, file, swoosh, photos, track, sounds) {
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.addInitScript(([s, f, b]) => { window.SCRIPT = s; window.FACTS = f; window.BPM_IN = b; }, [script, FACTS, track.bpm]);
-  await page.goto('file://' + path.join(__dirname, 'template.html'), { waitUntil: 'load', timeout: 60000 });
+  await page.goto('file://' + path.join(__dirname, cine ? 'cine.html' : 'template.html'), { waitUntil: 'load', timeout: 60000 });
   await page.waitForFunction(() => window.ready);
   await page.evaluate(() => window.ready);
   if (errors.length) throw new Error(`${base}: page error ${errors.join(' | ')}`);
   const qa = await page.evaluate(() => window.qa());
-  const meta = await page.evaluate(() => ({ TOTAL: window.TOTAL, T_ON: window.T_ON, STEP: window.STEP }));
+  const meta = await page.evaluate(() => ({ TOTAL: window.TOTAL, T_ON: window.T_ON, STEP: window.STEP, SFX_ON: window.SFX_ON }));
 
   // contact sheet stills (each slide fully revealed)
   const stills = [];
@@ -170,9 +185,9 @@ async function renderOne(browser, file, swoosh, photos, track, sounds) {
 
   const total = (meta.TOTAL / 1000).toFixed(3);
   // 효과음의 가장 큰 지점이 슬라이드 등장 순간에 오게 당겨 놓는다(합성 스우시는 0.28초). cta 소리가 있으면 마지막 전환은 그 소리로
-  const tr = sounds.transition, cta = sounds.cta;
+  const tr = sounds.transition, cta = sounds.cta, amb = sounds.ambience;
   const trPeak = tr ? tr.peak * 1000 : 280;
-  const ons = meta.T_ON.slice(1);
+  const ons = meta.SFX_ON || meta.T_ON.slice(1); // 시네는 휩·플래시 컷과 cta에만
   const trOns = cta ? ons.slice(0, -1) : ons;
   const delays = trOns.map(t => Math.max(0, Math.round(t - trPeak)));
   const sw = delays.map((d, i) => `[sw${i}]adelay=${d}|${d}[d${i}]`).join(';');
@@ -185,10 +200,13 @@ async function renderOne(browser, file, swoosh, photos, track, sounds) {
     (delays.length ? `[2:a]asplit=${delays.length}${delays.map((_, i) => `[sw${i}]`).join('')};${sw};` +
       `${swIn}amix=inputs=${delays.length}:normalize=0,volume=0.35[sfx];` : '') +
     (cta ? `[3:a]adelay=${ctaD}|${ctaD},volume=0.3[cta];` : '') +
-    `[bgm]${delays.length ? '[sfx]' : ''}${cta ? '[cta]' : ''}amix=inputs=${1 + (delays.length ? 1 : 0) + (cta ? 1 : 0)}:normalize=0:duration=first,alimiter=limit=0.89[a]`;
+    // 시네: 카페 웅성거림을 음악 밑에 아주 작게(실제 그 자리에서 찍은 느낌)
+    (amb ? `[${cta ? 4 : 3}:a]atrim=0:${total},asetpts=PTS-STARTPTS,volume=0.16,afade=t=out:st=${fo}:d=1.8[amb];` : '') +
+    `[bgm]${delays.length ? '[sfx]' : ''}${cta ? '[cta]' : ''}${amb ? '[amb]' : ''}amix=inputs=${1 + (delays.length ? 1 : 0) + (cta ? 1 : 0) + (amb ? 1 : 0)}:normalize=0:duration=first,alimiter=limit=0.89[a]`;
   sh('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', path.join(frames, 'f_%05d.png'),
     '-ss', String(track.start || 0), '-i', path.join(ROOT, 'assets/audio/bgm', track.file),
     '-i', tr ? path.join(SFX_DIR, tr.file) : swoosh, ...(cta ? ['-i', path.join(SFX_DIR, cta.file)] : []),
+    ...(amb ? ['-i', path.join(SFX_DIR, amb.file)] : []),
     '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '19',
     '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-t', total, '-movflags', '+faststart', mp4]);
 
@@ -203,7 +221,7 @@ async function renderOne(browser, file, swoosh, photos, track, sounds) {
   fs.writeFileSync(path.join(OUT, `${base}.txt`),
     `[${script.date} ${script.day}] ${script.concept} / 테마: ${script.theme}\n\n${script.caption}\n\n${tags}\n\n🎵 Music: ${credit}\n`);
   fs.rmSync(frames, { recursive: true, force: true });
-  return { base, seconds: Number(total), track: track.file, photo: photos.join('+'), sfx: [tr, cta].filter(Boolean).map(m => m.file).join('+') || 'synth', qa };
+  return { base, seconds: Number(total), track: track.file, photo: photos.join('+'), sfx: [tr, cta, amb].filter(Boolean).map(m => m.file).join('+') || 'synth', qa };
 }
 
 (async () => {

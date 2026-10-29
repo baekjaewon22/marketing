@@ -69,6 +69,10 @@ reels/
   brand-facts.json      ← 장소·일정·가격·URL·금지 표현·허용 가격 (사실의 단일 출처)
   config.json           ← 드라이브 폴더, 주당 개수, fps, 요일별 기본 유형
   template.html         ← 대본 JSON + 테마 → 슬라이드 생성·애니메이션 엔진 (브라우저에서 동작)
+  cine.html             ← 시네 쇼츠 엔진(컷·카메라 움직임·얼굴 가우시안·자막, 5-8)
+  cine-refs.json        ← 시네 쇼츠 레퍼런스 6종(바이럴 포맷 기획)
+  tools/gen-shots.js    ← 시네 컷 사진 생성(Codex, 앞 컷 이어 받기 + 얼굴 위치)
+  tools/fetch-sfx.js    ← Openverse CC0 효과음 받기(9장)
   render.js             ← 대본 폴더 → 프레임 캡처 → MP4·캡션 txt·검수 시트
   validate.js           ← 대본 사실·형식 검증 (실패 시 exit 1)
   delivery-page.js      ← 드라이브 실패 시 Artifact로 올릴 주간 결과 페이지 생성
@@ -159,17 +163,27 @@ node reels/tools/gen-images.js --week reels/weeks/<시작일>
 - 만든 사진을 **한 장씩 Read로 열어** 검수한다(10장 '생성 사진'). 불량이면 그 파일을 지우고 대본의 `ai_photo` 줄도 지운 뒤 다시 실행하면 그 대본만 새로 만든다(이미 있는 것은 건너뜀).
 - 실패한 대본은 `ai_photo` 없이 실제 사진(테마 색으로 물든 그라데이션)으로 렌더된다. 실패 아님, 알림에 적는다.
 
+### 4-3c. 시네 쇼츠 컷 사진 (Codex, 시네 대본 작성 뒤 4-5 검증 전에)
+```bash
+node reels/tools/gen-shots.js --week reels/weeks/<시작일>
+```
+- 시네 대본(화·일)마다 컷 5~6장을 만든다. 컷마다 앞 컷을 참고로 넣어 인물·옷·빛이 이어진다. 두 대본을 동시에 만들어 20~40분.
+- 만든 컷을 **한 장씩 Read로 열어** 검수한다(10장 '생성 사진' 기준 + 앞 컷과 이어지는지). 불량 컷은 `--only <파일>.json --redo 3,5`(0부터 센 컷 번호)로 다시 만든다.
+- Codex가 적은 `faces`(얼굴 위치)를 확인한다. 얼굴이 보이는데 빠졌으면 `[x, y, w, h]`(0~1 비율)를 직접 넣는다. 그 자리는 렌더 때 자연스러운 가우시안으로 흐려진다.
+- gen-images.js(4-3b)는 시네 대본을 건너뛴다(ai_photo 대신 컷 사진을 씀).
+
 ### 4-4. 대본 7개 작성
 요일별 기본 유형 (`reels/config.json`의 `weekday_plan`):
 | 요일 | 유형 | 권장 구성 |
 |---|---|---|
 | 월 | 공감형 훅 | hook-rows → cover → info → cta |
-| 화 | 진행 방식 | hook-statement → steps → quote → info → cta |
+| 화 | **시네 쇼츠** (진행 방식을 브이로그로) | `format: "cine"`, 5-8 참고 |
 | 수 | 참가자 후기 | hook-statement → reviews → quote → info → cta |
 | 목 | 자주 묻는 질문 | hook-statement → steps(질문형) → info → cta |
 | 금 | **취소석 무료체험단 초청 (매주 필수, 전환 유도형)** | hook → cover → steps(신청 방법) → quote → cta. 5-7 참고 |
 | 토 | 가격 혜택 | hook-rows(가격 행) → info → quote → cta |
-| 일 | 공간·분위기 | hook-statement → quote → cover → info → cta |
+| 일 | **시네 쇼츠** (공간·분위기, 공간 투어) | `format: "cine"`, ref는 `walk-in`처럼 venue 컷만. 5-8 참고 |
+시네 쇼츠 요일은 `config.json`의 `cine_days`(화·일, 운영자 요청 2026-10-29 "반복적이지 않은 바이럴용 실사 느낌 쇼츠 주 2회"). 나머지 5개는 슬라이드형.
 금요일 초청 영상은 매주 반드시 1개 만든다(운영자 결정 2026-10-22). 시즌 주제는 다른 요일(월 공감형·일 공간 등)에 녹인다. 시즌 주간(크리스마스 등)은 금요일을 뺀 2~3개를 시즌 주제로 바꿔도 된다. 같은 구성만 반복하지 말고 매주 조금씩 바꾼다.
 
 파일 이름: `reels/weeks/<시작일>/YYYY-MM-DD_요일_컨셉.json` (컨셉은 띄어쓰기 없이). 이 이름이 그대로 MP4·txt 이름이 된다.
@@ -283,6 +297,18 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 - "무료"는 금지 표현이지만 "무료체험"·"무료 체험"·"무료초청"만 `allowed_phrases`로 허용된다. "무료로" 같은 다른 형태는 검증기가 막으니 "무료체험으로"처럼 쓴다.
 - 매주 같은 문장을 반복하지 말고 훅 유형(공감형·질문형·후기형)을 바꿔 가며 쓴다. 예시: `reels/specials/2026-10-22/`, `reels/weeks/2026-10-26/2026-10-30_금_*`.
 
+### 5-8. 시네 쇼츠 (화·일, 주 2회) — 바이럴용 실사 느낌
+목적: 슬라이드형이 반복적이라는 운영자 피드백(2026-10-29). **실제로 찍은 브이로그처럼 보이는** 12~20초 영상으로 유입을 노린다. 엔진은 `reels/cine.html`, 레퍼런스는 `reels/cine-refs.json`.
+- **레퍼런스 고르기:** `cine-refs.json`의 `refs` 6종(POV 토요일 저녁 / 10분마다 새로운 사람 / 폰 내려놓고 대화 / 공간 투어 / 처음이라 걱정되는 3가지 / 시즌 스토리) 중 직전 4주에 안 쓴 것. `fits`가 있는 ref(`walk-in`)는 그 컨셉 날(일요일 공간)에만. 일요일은 venue 컷만 쓰는 ref로 한다(우리 공간 영상은 실제 공간 기반).
+- **그대로 베끼지 않는다:** ref의 shots는 뼈대. scene은 그 주 테마·계절에 맞게, text·hook은 새로 쓴다. 훅은 `hooks` 예시 계열(POV·질문형·숫자형)로.
+- **컷 구성:** 4~7컷(보통 5~6). 첫 컷은 자막 없이 훅이 덮는다. 자막은 한 줄 18자 이하, 컷마다 한 문장. 사실은 5-4와 같다(10분 1:1, 번호로 부름, 커피·티, 혼자 70~80%, 신분증·명함, 합정역 걸어서 1분).
+- **카메라:** 컷마다 `motion`(push·pull·pan-l·pan-r·tilt-up·handheld·rack)과 `cut`(hard·whip·flash·dip). hard를 기본으로, whip·flash는 영상당 1~2번(효과음이 붙음), 마지막 컷은 dip. 모든 컷에 손떨림·24fps 질감·노출 떨림·필름 그레인이 자동으로 들어간다.
+- **사람:** AI 인물 OK(운영자 승인). 얼굴은 초점 밖·옆·뒤·손 위주로 만들고, 보이는 얼굴은 `faces`에 적어 **가우시안으로 자연스럽게 흐린다**(모자이크 대신, 얕은 심도로 초점이 나간 것처럼). `focus: [x, y]`를 주면 그 점만 또렷하고 주변이 흐려진다(rack이면 흐렸다가 초점이 들어옴).
+- **`stamp`:** 캠코더 시각 표시(예: "SAT 17:21"). 영상당 0~1번, 첫 컷에.
+- **cta:** 마지막에 그 컷이 흐려지며 브랜드·제목·sevenstars.kr·"댓글 주시면 신청 링크 보내드려요". `cta.title` 2줄.
+- **소리:** 박자감 있는 곡(upbeat 우선) + 휩·플래시 컷에 whoosh + cta에 chime + 카페 웅성거림(ambience)을 아주 작게.
+- 캡션·해시태그는 5-6과 같고 `소개팅브이로그` 같은 브이로그 태그를 하나 넣는다.
+
 ### 5-6. 캡션 (`caption`)과 해시태그
 - 3줄 이내. 1줄: 공감 또는 상황, 2줄: 무엇인지(합정역 도보 1분, 1:1, 토·일), 3줄: "댓글 주시면 신청 링크 보내드려요." (금요일 초청 영상은 "댓글 주시면 무료초청 링크를 보내드려요.")
 - 해시태그 4~6개: `세븐스타즈`, `로테이션소개팅`, `합정역소개팅` 고정 + 주제 태그 1~3개.
@@ -308,6 +334,15 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 | `photos` | | 특정 사진 2장 강제 (`["ai/20261021-light.jpg", "venue-wide.jpg"]`). 사진 슬라이드가 번갈아 씀 |
 | `music` | | 특정 BGM 파일 강제. 보통 비움 |
 | `sfx` | | 효과음 강제 `{"transition": "whoosh/...wav", "cta": "chime/...wav"}`. 보통 비움 (9장) |
+
+시네 쇼츠(`"format": "cine"`, 5-8)는 `slides` 대신:
+| 키 | 설명 |
+|---|---|
+| `ref` | `cine-refs.json`의 id |
+| `hook` | `{ "text": "POV: 토요일 저녁 6시", "sub": "혼자 소개팅 가는 길" }` (첫 컷 위, 단어별로 튀어나옴) |
+| `shots` | 4~7개 `{ scene, venue?, person?, motion, cut, text?, stamp?, focus?, hold?, photo, faces? }`. `photo`·`faces`는 gen-shots.js가 채움. `hold`는 컷 길이(초) 강제 |
+| `cta` | `{ "title": "이번 주말<br>합정에서 만나요", "sub"?, "foot"? }` |
+예시: `reels/samples/cine-pov.json`.
 
 슬라이드 타입 (`<br>`로 줄바꿈, 다른 HTML은 이스케이프됨)
 | type | 필드 | 화면 | 글자 수 가이드 |

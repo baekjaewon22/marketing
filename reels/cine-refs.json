@@ -1,0 +1,101 @@
+{
+  "_note": "시네 쇼츠(format: cine) 레퍼런스. 주 2회(config.json cine_days). 슬라이드형과 달리 Codex로 이어지는 컷 5~6장을 만들고 cine.html이 실제 카메라처럼 움직여 '찍은 영상' 느낌을 낸다. 대본을 쓸 때 ref 하나를 고르고(직전 4주에 쓴 ref는 피함), shots의 scene·text를 그 주 테마·계절에 맞게 새로 쓴다. text는 예시일 뿐 그대로 베끼지 말 것. fits가 있으면 그 컨셉 날에만 쓴다. venue:true 컷은 실제 공간 사진을 참고해 만들고(사람 없음), person:true 컷은 AI 인물(얼굴은 초점 밖·옆·뒤, 보이면 faces로 가우시안).",
+  "motions": {
+    "push": "천천히 다가가는 돌리 인",
+    "pull": "천천히 물러나는 돌리 아웃",
+    "pan-l": "왼쪽으로 흐르는 패닝",
+    "pan-r": "오른쪽으로 흐르는 패닝",
+    "tilt-up": "아래에서 위로 올리는 틸트",
+    "handheld": "들고 찍은 듯 미세하게 흔들리는 고정 컷",
+    "rack": "흐릿했다가 초점이 맞아 들어오는 랙 포커스"
+  },
+  "cuts": {
+    "hard": "박자에 맞춘 바로 컷(기본)",
+    "whip": "빠르게 휙 넘기는 휩 팬 + 효과음",
+    "flash": "하얗게 번쩍이며 넘어감 + 효과음",
+    "dip": "검게 잠깐 어두워졌다 넘어감"
+  },
+  "refs": [
+    {
+      "id": "pov-saturday",
+      "name": "POV 토요일 저녁, 혼자 가는 길",
+      "why": "1인칭 브이로그 POV는 '나도 저기 가는 상상'을 하게 만든다. 혼자 참여 비율이라는 진짜 정보가 반전 포인트.",
+      "hooks": ["POV: 토요일 저녁 6시", "혼자 소개팅 가는 길", "이번 주말엔 집 말고"],
+      "shots": [
+        { "scene": "외출 전 거울 앞에서 셔츠 소매나 니트를 정리하는 손과 상반신(얼굴은 화면 밖)", "person": true, "motion": "handheld", "cut": "hard", "text": "", "stamp": "SAT 17:21" },
+        { "scene": "합정역 근처 밤거리를 걷는 사람 뒷모습, 따뜻한 가게 불빛 보케", "person": true, "motion": "push", "cut": "whip", "text": "합정역에서 걸어서 1분" },
+        { "scene": "우드톤 공간 안 캔들이 놓인 2인 테이블, 막 도착한 시점의 눈높이", "venue": true, "motion": "rack", "cut": "hard", "text": "참가자 70~80%가 혼자 와요" },
+        { "scene": "테이블 위 커피잔 두 개에서 김이 오르고 맞은편 사람의 손이 보임", "person": true, "motion": "handheld", "cut": "hard", "text": "10분씩 1:1로 대화" },
+        { "scene": "테이블 위에서 작은 쪽지 카드를 건네는 두 손", "person": true, "motion": "push", "cut": "flash", "text": "이름 대신 번호로 불러서 편함" },
+        { "scene": "밤거리에서 휴대폰 화면을 보며 미소 짓는 사람의 옆모습 실루엣(화면 내용은 안 보이게)", "person": true, "motion": "pull", "cut": "dip", "text": "집 가는 길이 제일 설렘" }
+      ]
+    },
+    {
+      "id": "ten-min-cuts",
+      "name": "10분마다 새로운 사람 (빠른 컷)",
+      "why": "박자마다 바뀌는 빠른 컷 + 1호·2호·3호 카운터. 끝까지 보게 만드는 리듬형, 반복 시청에 유리.",
+      "hooks": ["10분마다 새로운 사람", "2시간 동안 생기는 일", "오늘 몇 명이랑 얘기했게"],
+      "shots": [
+        { "scene": "캔들 불빛을 아주 가까이서, 배경은 흐릿한 홀", "venue": true, "motion": "rack", "cut": "hard", "text": "" },
+        { "scene": "맞은편에서 커피잔을 감싸 쥔 손(니트 소매), 테이블보 위", "person": true, "motion": "handheld", "cut": "hard", "text": "남자 1호" },
+        { "scene": "다른 사람의 손이 찻잔을 드는 장면(셔츠 소매), 같은 테이블", "person": true, "motion": "pan-r", "cut": "whip", "text": "남자 2호" },
+        { "scene": "테이블 위에 엎어 둔 휴대폰과 웃으며 손짓하는 손, 얼굴은 초점 밖", "person": true, "motion": "push", "cut": "whip", "text": "남자 3호" },
+        { "scene": "테이블과 테이블 사이 가림막이 보이는 통로, 깊이감", "venue": true, "motion": "push", "cut": "flash", "text": "10분씩 돌아가며 1:1" },
+        { "scene": "빈 쪽지 카드와 펜을 매크로로, 캔들 빛", "venue": true, "motion": "rack", "cut": "dip", "text": "마지막엔 서로 고르면 연락처 교환" }
+      ]
+    },
+    {
+      "id": "phone-down",
+      "name": "폰 내려놓고 대화한 게 언제야",
+      "why": "질문형 훅은 댓글을 부른다. 앱 피로감이라는 공감 포인트에서 오프라인 만남으로 자연스럽게 연결.",
+      "hooks": ["마지막으로 폰 안 보고\n대화한 게 언제야?", "앱으로 100번 대화보다", "스와이프 말고 진짜 대화"],
+      "shots": [
+        { "scene": "어두운 방에서 침대에 누워 휴대폰 화면 빛만 얼굴 아래를 비추는 실루엣(화면 내용 안 보이게, 얼굴 초점 밖)", "person": true, "motion": "handheld", "cut": "hard", "text": "" },
+        { "scene": "테이블 위에 휴대폰을 엎어 두는 손, 캔들 빛", "person": true, "motion": "push", "cut": "whip", "text": "오늘은 폰 엎어두기" },
+        { "scene": "마주 앉아 웃는 두 사람, 얼굴은 초점 밖이고 앞쪽 커피잔에 초점", "person": true, "motion": "rack", "cut": "hard", "text": "눈 보고 10분 대화" },
+        { "scene": "대화 중 손짓하는 손과 찻잔, 따뜻한 빛", "person": true, "motion": "pan-l", "cut": "hard", "text": "진행자가 분위기 잡아줘서 안 어색" },
+        { "scene": "창가 자리 바깥 밤거리 불빛 보케, 테이블 위 커피잔", "person": false, "motion": "pull", "cut": "dip", "text": "주말 2시간, 폰 대신 사람" }
+      ]
+    },
+    {
+      "id": "walk-in",
+      "name": "합정역 1분, 문 열면 이런 분위기 (공간 투어)",
+      "fits": ["공간·분위기"],
+      "why": "공간 투어 브이로그는 저장·공유가 많다. 실제 공간 사진만 참고해 사실 그대로 보여 준다(사람 없음).",
+      "hooks": ["합정역 1분,\n문 열면 이런 분위기", "소개팅 장소 투어", "여기서 10분씩 대화해요"],
+      "shots": [
+        { "scene": "어두운 공간에 벽 조명과 우드 패널, 따뜻한 빛이 번지는 첫 시선", "venue": true, "motion": "push", "cut": "hard", "text": "", "stamp": "SUN 14:48" },
+        { "scene": "테이블 사이 통로를 따라 깊이감 있게, 양옆 캔들", "venue": true, "motion": "push", "cut": "hard", "text": "테이블마다 가림막" },
+        { "scene": "2인 테이블 하나를 가까이서, 캔들과 커피잔 두 개", "venue": true, "motion": "rack", "cut": "hard", "text": "커피 또는 티 한 잔" },
+        { "scene": "테이블을 바로 위에서 내려다본 구도: 테이블보, 캔들, 쪽지 카드", "venue": true, "motion": "handheld", "cut": "whip", "text": "번호표와 쪽지 카드" },
+        { "scene": "앞쪽 캔들에 초점, 뒤로 홀 전체가 빛망울로 흐려진 장면", "venue": true, "motion": "pull", "cut": "dip", "text": "이번 주말 여기서 만나요" }
+      ]
+    },
+    {
+      "id": "first-time",
+      "name": "처음이라 걱정되는 3가지",
+      "why": "망설이는 사람의 질문을 먼저 꺼내 저장을 부른다. 답은 모두 brand-facts의 사실(혼자 70~80%, 진행자, 신분증·명함).",
+      "hooks": ["처음이라 걱정되는 거 3가지", "혼자 가도 돼요?", "로테이션 소개팅 처음이면"],
+      "shots": [
+        { "scene": "외출 전 현관에서 신발 끈을 묶는 손", "person": true, "motion": "handheld", "cut": "hard", "text": "" },
+        { "scene": "합정 골목을 걷는 사람 뒷모습, 해 질 녘", "person": true, "motion": "push", "cut": "whip", "text": "① 혼자 가도 돼? 70~80%가 혼자" },
+        { "scene": "캔들 켜진 테이블에 마주 앉은 두 사람의 손과 찻잔", "person": true, "motion": "rack", "cut": "hard", "text": "② 어색하면? 진행자가 이끌어요" },
+        { "scene": "작은 가방에서 명함 지갑을 꺼내는 손(명함 글자는 안 보이게)", "person": true, "motion": "push", "cut": "flash", "text": "③ 준비물? 신분증·명함" },
+        { "scene": "테이블 위 커피잔 두 개, 김이 오르고 뒤는 흐린 홀", "venue": true, "motion": "pull", "cut": "dip", "text": "나머지는 그냥 오시면 돼요" }
+      ]
+    },
+    {
+      "id": "season-story",
+      "name": "이번 계절, 혼자 보낼 거야? (시즌 스토리)",
+      "why": "계절 감성(연말·벚꽃·장마·단풍)은 그 시기에만 터지는 공감. 테마 색감과 거리 풍경으로 계절을 확실히 보여 준다.",
+      "hooks": ["올해 연말도 혼자?", "벚꽃 보러 같이 갈 사람", "비 오는 주말엔 커피 한 잔", "단풍 지기 전에"],
+      "shots": [
+        { "scene": "계절감이 뚜렷한 거리 풍경(연말 전구 거리, 벚꽃길, 비 오는 거리, 낙엽길 중 테마에 맞게), 혼자 걷는 사람 뒷모습", "person": true, "motion": "pan-r", "cut": "hard", "text": "" },
+        { "scene": "창가에 앉아 바깥 계절 풍경을 보는 사람의 옆모습 실루엣, 역광", "person": true, "motion": "rack", "cut": "hard", "text": "이번엔 좀 달랐으면" },
+        { "scene": "우드톤 공간의 캔들 테이블, 계절 색 조명", "venue": true, "motion": "push", "cut": "whip", "text": "합정역에서 걸어서 1분" },
+        { "scene": "커피잔을 사이에 두고 대화하는 두 사람의 손, 얼굴은 초점 밖", "person": true, "motion": "handheld", "cut": "hard", "text": "10분씩, 새로운 사람과" },
+        { "scene": "계절 거리를 나란히 걷는 두 사람의 뒷모습", "person": true, "motion": "pull", "cut": "dip", "text": "이번 주말에 시작해요" }
+      ]
+    }
+  ]
+}

@@ -109,6 +109,7 @@ if (WEEK) {
     const file = path.join(dir, f);
     let text = fs.readFileSync(file, 'utf8');
     const s = JSON.parse(text);
+    if (s.format === 'cine') { console.log(`SKIP ${f} (시네 쇼츠, gen-shots.js가 컷 사진을 만듦)`); return; }
     if (s.ai_photo && fs.existsSync(path.join(REAL_DIR, s.ai_photo))) { console.log(`SKIP ${f} (이미 ${s.ai_photo})`); return; }
     total++;
     // 공간·분위기 영상은 공간 장면, 나머지는 주마다 정해진 자리에 감성 장면(7개 중 4개 안팎). 장면은 주마다 시작점이 바뀌고 주 안에서 겹치지 않음

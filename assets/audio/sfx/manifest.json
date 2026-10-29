@@ -1,5 +1,125 @@
 [
   {
+    "file": "ambience/freesound-01b4c020.mp3",
+    "cat": "ambience",
+    "id": "01b4c020-ae89-4cb1-a94a-fe239c9b9bcf",
+    "title": "coffee shop ambience",
+    "creator": "waweee",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/waweee/sounds/370973",
+    "peak": 6.625,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-063230a4.mp3",
+    "cat": "ambience",
+    "id": "063230a4-ccf0-40bf-a878-d56ab606c8fb",
+    "title": "cafe ambience",
+    "creator": "mikemoons",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/mikemoons/sounds/579500",
+    "peak": 3.698,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-20ab719f.mp3",
+    "cat": "ambience",
+    "id": "20ab719f-f917-4cc0-9ec3-aa8bab246875",
+    "title": "Cafe Ambience Day - 3 - Sound Devices 702 - Senn K6.WAV",
+    "creator": "lunchmoney",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/lunchmoney/sounds/380200",
+    "peak": 2.181,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-477037c9.mp3",
+    "cat": "ambience",
+    "id": "477037c9-a645-4f97-9b61-fc17b1816f78",
+    "title": "People talking at cafe ambience",
+    "creator": "priesjensen",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/priesjensen/sounds/482990",
+    "peak": 5.608,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-57ae06e1.mp3",
+    "cat": "ambience",
+    "id": "57ae06e1-57a6-4f1f-b5da-c60d2efef8f4",
+    "title": "Bustling Cafe Ambience",
+    "creator": "Talitha5",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/Talitha5/sounds/509950",
+    "peak": 14.752,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-5d01f11a.mp3",
+    "cat": "ambience",
+    "id": "5d01f11a-dac8-43b7-9278-a3b9f8beeff3",
+    "title": "S30-14 Cafe ambience; good walla.wav",
+    "creator": "craigsmith",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/craigsmith/sounds/675180",
+    "peak": 9.662,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-699fd9e9.mp3",
+    "cat": "ambience",
+    "id": "699fd9e9-01de-43ad-b954-2632b721c3c5",
+    "title": "Restaurant Atmosphere (crowded)",
+    "creator": "felix.blume",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/felix.blume/sounds/422097",
+    "peak": 13.901,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-c3d53e8d.mp3",
+    "cat": "ambience",
+    "id": "c3d53e8d-7608-497b-a92a-12dcec009980",
+    "title": "Cafe Ambience Day - 2 - Sound Devices 702 - Senn K6.WAV",
+    "creator": "lunchmoney",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/lunchmoney/sounds/380201",
+    "peak": 21.111,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-ef2a7c1e.mp3",
+    "cat": "ambience",
+    "id": "ef2a7c1e-3dae-4d5a-88c5-1e7f57e22e30",
+    "title": "Cafe ambience 1.m4a",
+    "creator": "seriousmedium33",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/seriousmedium33/sounds/543858",
+    "peak": 17.549,
+    "seconds": 24
+  },
+  {
+    "file": "ambience/freesound-fb1b21a7.mp3",
+    "cat": "ambience",
+    "id": "fb1b21a7-0396-4c78-a31a-a630332eb451",
+    "title": "Ambient sound inside cafe dining.aif",
+    "creator": "4team",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/4team/sounds/214993",
+    "peak": 18.934,
+    "seconds": 24
+  },
+  {
     "file": "chime/freesound-2d66487c.wav",
     "cat": "chime",
     "id": "2d66487c-2780-4749-9ca6-40424c6ed542",
@@ -48,6 +168,18 @@
     "seconds": 1.8
   },
   {
+    "file": "chime/freesound-93a42a78.wav",
+    "cat": "chime",
+    "id": "93a42a78-46e9-4b77-847d-d4bfe4cd9c49",
+    "title": "Wind Chime (G-006) +.wav",
+    "creator": "GnoteSoundz",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/GnoteSoundz/sounds/169853",
+    "peak": 0.963,
+    "seconds": 1.8
+  },
+  {
     "file": "chime/freesound-adb6e260.wav",
     "cat": "chime",
     "id": "adb6e260-e493-43fd-a56e-8ceb4f477fe2",
@@ -58,6 +190,18 @@
     "landing": "https://freesound.org/people/Jofae/sounds/380482",
     "peak": 0.02,
     "seconds": 0.323
+  },
+  {
+    "file": "chime/freesound-b071df41.wav",
+    "cat": "chime",
+    "id": "b071df41-3306-4963-8460-e60e4a1060df",
+    "title": "wind chimes - single 02.wav",
+    "creator": "Anthousai",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/Anthousai/sounds/398493",
+    "peak": 0,
+    "seconds": 1.8
   },
   {
     "file": "chime/freesound-ba09b0bc.wav",
@@ -72,6 +216,42 @@
     "seconds": 1.8
   },
   {
+    "file": "chime/freesound-d9f771d2.wav",
+    "cat": "chime",
+    "id": "d9f771d2-1b35-4e57-917b-06d50b01f424",
+    "title": "Improvement/Healing Chime",
+    "creator": "Raclure",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/Raclure/sounds/483608",
+    "peak": 0.091,
+    "seconds": 0.632
+  },
+  {
+    "file": "chime/freesound-e64ceda8.wav",
+    "cat": "chime",
+    "id": "e64ceda8-0bad-49ba-b7a8-644837e88be3",
+    "title": "Wind Chime Crunch",
+    "creator": "GnoteSoundz",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/GnoteSoundz/sounds/169854",
+    "peak": 0.003,
+    "seconds": 0.559
+  },
+  {
+    "file": "pop/freesound-1cd82a3e.wav",
+    "cat": "pop",
+    "id": "1cd82a3e-d2d9-48ce-b236-281ebe5d5db3",
+    "title": "Bubble",
+    "creator": "deleted_user_3854053",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/deleted_user_3854053/sounds/269583",
+    "peak": 0,
+    "seconds": 0.204
+  },
+  {
     "file": "pop/freesound-54410e5a.wav",
     "cat": "pop",
     "id": "54410e5a-ef30-4884-b74a-a500bbc22c77",
@@ -82,6 +262,18 @@
     "landing": "https://freesound.org/people/Mafon2/sounds/253956",
     "peak": 0,
     "seconds": 0.168
+  },
+  {
+    "file": "pop/freesound-57fc1a1b.wav",
+    "cat": "pop",
+    "id": "57fc1a1b-320c-4c70-a52c-fee4442d2272",
+    "title": "The Best Bubble Pop Sound For Game and UI",
+    "creator": "el_boss",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/el_boss/sounds/669918",
+    "peak": 0,
+    "seconds": 0.263
   },
   {
     "file": "pop/freesound-733ada3f.wav",
@@ -120,6 +312,30 @@
     "seconds": 0.45
   },
   {
+    "file": "pop/freesound-b71550f1.wav",
+    "cat": "pop",
+    "id": "b71550f1-8928-4f56-b02b-cf6f611cabb7",
+    "title": "Pop 01.wav",
+    "creator": "MATRIXXX_",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/MATRIXXX_/sounds/506546",
+    "peak": 0,
+    "seconds": 0.091
+  },
+  {
+    "file": "pop/freesound-cf3baf2b.wav",
+    "cat": "pop",
+    "id": "cf3baf2b-1107-467e-b8fd-786e8103ae79",
+    "title": "Soap bubble pop - Mouth perc.wav",
+    "creator": "Duisterwho",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/Duisterwho/sounds/644759",
+    "peak": 0.001,
+    "seconds": 0.45
+  },
+  {
     "file": "pop/freesound-e5af2122.wav",
     "cat": "pop",
     "id": "e5af2122-a27d-4b0a-b3f4-9bef737abc4e",
@@ -142,6 +358,18 @@
     "landing": "https://freesound.org/people/tsidilin/sounds/254892",
     "peak": 0.069,
     "seconds": 0.161
+  },
+  {
+    "file": "sparkle/freesound-04c3cf85.wav",
+    "cat": "sparkle",
+    "id": "04c3cf85-a8e4-4204-8a94-f73324a4ad14",
+    "title": "Sparkling Star 05.wav",
+    "creator": "MATRIXXX_",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/MATRIXXX_/sounds/462096",
+    "peak": 0.256,
+    "seconds": 1.6
   },
   {
     "file": "sparkle/freesound-902413ba.wav",
@@ -168,6 +396,18 @@
     "seconds": 1.6
   },
   {
+    "file": "sparkle/freesound-a5669426.wav",
+    "cat": "sparkle",
+    "id": "a5669426-0e23-48d4-b796-a0e085bcb27f",
+    "title": "Sparkling Star 04.wav",
+    "creator": "MATRIXXX_",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/MATRIXXX_/sounds/462092",
+    "peak": 0.237,
+    "seconds": 1.6
+  },
+  {
     "file": "sparkle/freesound-e464d107.wav",
     "cat": "sparkle",
     "id": "e464d107-8861-4efd-b260-c8ce53c3078e",
@@ -177,6 +417,30 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "landing": "https://freesound.org/people/MATRIXXX_/sounds/462095",
     "peak": 0.257,
+    "seconds": 1.6
+  },
+  {
+    "file": "sparkle/freesound-ea94e88f.wav",
+    "cat": "sparkle",
+    "id": "ea94e88f-eec3-49e3-bac4-4c9ceae0f571",
+    "title": "Shimmer",
+    "creator": "adh.dreaming",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/adh.dreaming/sounds/632344",
+    "peak": 0.298,
+    "seconds": 1.6
+  },
+  {
+    "file": "sparkle/freesound-eb7572f4.wav",
+    "cat": "sparkle",
+    "id": "eb7572f4-06d3-4d01-9869-68094b735ed4",
+    "title": "Shimmery.wav",
+    "creator": "opticaillusions",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/opticaillusions/sounds/521886",
+    "peak": 1.433,
     "seconds": 1.6
   },
   {
@@ -190,6 +454,18 @@
     "landing": "https://freesound.org/people/D4XX/sounds/607252",
     "peak": 0.096,
     "seconds": 0.318
+  },
+  {
+    "file": "whoosh/freesound-416a411f.wav",
+    "cat": "whoosh",
+    "id": "416a411f-c8e5-4279-a985-466c19f21794",
+    "title": "13th Whoosh Swing Sound",
+    "creator": "qubodup",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/qubodup/sounds/60000",
+    "peak": 0.117,
+    "seconds": 0.522
   },
   {
     "file": "whoosh/freesound-7843f159.wav",
@@ -226,6 +502,42 @@
     "landing": "https://freesound.org/people/sgarrison2127/sounds/176581",
     "peak": 0.512,
     "seconds": 0.9
+  },
+  {
+    "file": "whoosh/freesound-96814a80.wav",
+    "cat": "whoosh",
+    "id": "96814a80-ac40-4c80-94f1-900877bbc001",
+    "title": "Little Whoosh 3",
+    "creator": "ch_ase",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/ch_ase/sounds/423798",
+    "peak": 0.145,
+    "seconds": 0.9
+  },
+  {
+    "file": "whoosh/freesound-99eb6767.wav",
+    "cat": "whoosh",
+    "id": "99eb6767-2f94-4879-a223-3d0a3053c748",
+    "title": "Backwards Whoosh",
+    "creator": "SlavicMagic",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/SlavicMagic/sounds/446010",
+    "peak": 0.352,
+    "seconds": 0.545
+  },
+  {
+    "file": "whoosh/freesound-b7ae7822.wav",
+    "cat": "whoosh",
+    "id": "b7ae7822-8ec5-4a82-b6f8-d539b51caa61",
+    "title": "Swipe Whoosh",
+    "creator": "qubodup",
+    "license": "cc0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://freesound.org/people/qubodup/sounds/60007",
+    "peak": 0.059,
+    "seconds": 0.448
   },
   {
     "file": "whoosh/freesound-d81d654b.wav",
