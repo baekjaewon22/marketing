@@ -1,5 +1,5 @@
 // usage: node reels/render.js <scriptsDir> <outDir> [--fps 30] [--jobs 3] [--only file.json]
-// For each script JSON: pick BGM by theme → capture frames → mix BGM + swoosh → MP4 + caption .txt + contact sheet.
+// For each script JSON: pick BGM by theme → capture frames → mix BGM + transition/cta SFX → MP4 + caption .txt + contact sheet.
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -49,6 +49,30 @@ function pickTrack(script) {
   return t;
 }
 
+/* 효과음: assets/audio/sfx(fetch-sfx.js로 받은 CC0). 전환은 whoosh, cta는 chime(연말 테마는 sparkle). 같은 주에는 되도록 겹치지 않게.
+   대본에 "sfx": { "transition": "whoosh/...wav", "cta": "chime/...wav" } 로 지정할 수 있고, 라이브러리가 비면 합성 스우시를 쓴다 */
+const SFX_DIR = path.join(ROOT, 'assets/audio/sfx');
+const SFX = fs.existsSync(path.join(SFX_DIR, 'manifest.json'))
+  ? JSON.parse(fs.readFileSync(path.join(SFX_DIR, 'manifest.json'), 'utf8')).filter(m => fs.existsSync(path.join(SFX_DIR, m.file))) : [];
+const SFX_USED = new Set();
+function pickSfx(script, cat, key) {
+  const want = script.sfx && script.sfx[key];
+  const fixed = want && SFX.find(m => m.file === want);
+  if (fixed) return fixed;
+  const pool = SFX.filter(m => m.cat === cat);
+  if (!pool.length) return null;
+  const fresh = pool.filter(m => !SFX_USED.has(m.file));
+  const list = fresh.length ? fresh : pool;
+  const m = list[hash(script.date + script.concept + key) % list.length];
+  SFX_USED.add(m.file);
+  return m;
+}
+function pickSounds(script) {
+  const season = (THEME_LIST[script.theme] || {}).season;
+  const ctaCat = ['christmas', 'newyear'].includes(season) && SFX.some(m => m.cat === 'sparkle') ? 'sparkle' : 'chime';
+  return { transition: pickSfx(script, 'whoosh', 'transition'), cta: pickSfx(script, ctaCat, 'cta') };
+}
+
 let WEEK = 0;
 const PHOTO_DIR = path.join(ROOT, 'assets/images/sevenstars');
 const jpgs = dir => fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => /\.jpe?g$/i.test(f)).sort() : [];
@@ -95,7 +119,7 @@ function assignPhotos(scripts) {
 
 function sh(cmd, a) { return execFileSync(cmd, a, { stdio: ['ignore', 'pipe', 'pipe'] }).toString(); }
 
-async function renderOne(browser, file, swoosh, photos, track) {
+async function renderOne(browser, file, swoosh, photos, track, sounds) {
   const script = JSON.parse(fs.readFileSync(file, 'utf8'));
   script.photos = photos;
   // 훅·cta 배경용으로 그 영상 첫 사진을 크게 흐린 판을 미리 만든다(브라우저 blur는 프레임마다 느려서)
@@ -145,18 +169,26 @@ async function renderOne(browser, file, swoosh, photos, track) {
   await page.close();
 
   const total = (meta.TOTAL / 1000).toFixed(3);
-  const delays = meta.T_ON.slice(1).map(t => Math.max(0, Math.round(t - 280)));
+  // 효과음의 가장 큰 지점이 슬라이드 등장 순간에 오게 당겨 놓는다(합성 스우시는 0.28초). cta 소리가 있으면 마지막 전환은 그 소리로
+  const tr = sounds.transition, cta = sounds.cta;
+  const trPeak = tr ? tr.peak * 1000 : 280;
+  const ons = meta.T_ON.slice(1);
+  const trOns = cta ? ons.slice(0, -1) : ons;
+  const delays = trOns.map(t => Math.max(0, Math.round(t - trPeak)));
   const sw = delays.map((d, i) => `[sw${i}]adelay=${d}|${d}[d${i}]`).join(';');
   const swIn = delays.map((_, i) => `[d${i}]`).join('');
   const fo = (meta.TOTAL / 1000 - 1.8).toFixed(3);
   const mp4 = path.join(OUT, `${base}.mp4`);
+  const ctaD = cta ? Math.max(0, Math.round(ons[ons.length - 1] - cta.peak * 1000)) : 0;
   const fc = `[1:a]atrim=0:${total},asetpts=PTS-STARTPTS,loudnorm=I=-15:TP=-1.5:LRA=11,` +
     `afade=t=in:d=0.4,afade=t=out:st=${fo}:d=1.8,aresample=48000[bgm];` +
-    `[2:a]asplit=${delays.length}${delays.map((_, i) => `[sw${i}]`).join('')};${sw};` +
-    `${swIn}amix=inputs=${delays.length}:normalize=0,volume=0.35[sfx];` +
-    `[bgm][sfx]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89[a]`;
+    (delays.length ? `[2:a]asplit=${delays.length}${delays.map((_, i) => `[sw${i}]`).join('')};${sw};` +
+      `${swIn}amix=inputs=${delays.length}:normalize=0,volume=0.35[sfx];` : '') +
+    (cta ? `[3:a]adelay=${ctaD}|${ctaD},volume=0.3[cta];` : '') +
+    `[bgm]${delays.length ? '[sfx]' : ''}${cta ? '[cta]' : ''}amix=inputs=${1 + (delays.length ? 1 : 0) + (cta ? 1 : 0)}:normalize=0:duration=first,alimiter=limit=0.89[a]`;
   sh('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', path.join(frames, 'f_%05d.png'),
-    '-ss', String(track.start || 0), '-i', path.join(ROOT, 'assets/audio/bgm', track.file), '-i', swoosh,
+    '-ss', String(track.start || 0), '-i', path.join(ROOT, 'assets/audio/bgm', track.file),
+    '-i', tr ? path.join(SFX_DIR, tr.file) : swoosh, ...(cta ? ['-i', path.join(SFX_DIR, cta.file)] : []),
     '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '19',
     '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-t', total, '-movflags', '+faststart', mp4]);
 
@@ -171,7 +203,7 @@ async function renderOne(browser, file, swoosh, photos, track) {
   fs.writeFileSync(path.join(OUT, `${base}.txt`),
     `[${script.date} ${script.day}] ${script.concept} / 테마: ${script.theme}\n\n${script.caption}\n\n${tags}\n\n🎵 Music: ${credit}\n`);
   fs.rmSync(frames, { recursive: true, force: true });
-  return { base, seconds: Number(total), track: track.file, photo: photos.join('+'), qa };
+  return { base, seconds: Number(total), track: track.file, photo: photos.join('+'), sfx: [tr, cta].filter(Boolean).map(m => m.file).join('+') || 'synth', qa };
 }
 
 (async () => {
@@ -186,6 +218,7 @@ async function renderOne(browser, file, swoosh, photos, track) {
   loadRecentTracks(scripts[0].date);
   const tracks = scripts.map(pickTrack);
   const photos = assignPhotos(scripts);
+  const sounds = scripts.map(pickSounds);
   const only = ONLY ? ONLY.split(',').map(s => s.trim()) : null;
   const queue = files.map((f, i) => [f, i]).filter(([f]) => !only || only.includes(f));
   const results = [];
@@ -195,9 +228,9 @@ async function renderOne(browser, file, swoosh, photos, track) {
       const [f, idx] = queue.shift();
       const t0 = Date.now();
       try {
-        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, photos[idx], tracks[idx]);
+        const r = await renderOne(browser, path.join(SCRIPTS, f), swoosh, photos[idx], tracks[idx], sounds[idx]);
         results.push(r);
-        console.log(`OK   ${r.base} ${r.seconds}s ${r.track} ${r.photo} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
+        console.log(`OK   ${r.base} ${r.seconds}s ${r.track} ${r.photo} ${r.sfx} (${((Date.now() - t0) / 60000).toFixed(1)}분)` +
           (r.qa.length ? `\n  QA 경고 ${r.qa.length}건: ${JSON.stringify(r.qa)}` : ''));
       } catch (e) { results.push({ base: f, error: e.message }); console.log(`FAIL ${f}: ${e.message}`); }
     }

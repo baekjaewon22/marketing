@@ -307,6 +307,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 | `ai_photo` | | 그 대본용 테마 생성 사진(`gen-images.js --week`가 적음). 첫 사진으로 쓰이고, 2장짜리면 둘째는 실제 사진 |
 | `photos` | | 특정 사진 2장 강제 (`["ai/20261021-light.jpg", "venue-wide.jpg"]`). 사진 슬라이드가 번갈아 씀 |
 | `music` | | 특정 BGM 파일 강제. 보통 비움 |
+| `sfx` | | 효과음 강제 `{"transition": "whoosh/...wav", "cta": "chime/...wav"}`. 보통 비움 (9장) |
 
 슬라이드 타입 (`<br>`로 줄바꿈, 다른 HTML은 이스케이프됨)
 | type | 필드 | 화면 | 글자 수 가이드 |
@@ -392,7 +393,13 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 3. `start` = first_beat. loud_start_s가 1초 이상이면 그 이후 첫 박으로 (beats.py 설명 참고)
 4. manifest에 항목 추가(mood 지정), 커밋
 
-**전환 효과음:** FFmpeg로 매번 생성하는 0.5초 핑크노이즈 '휙'(500~4500Hz, 점점 커졌다 사라짐). 각 전환 박보다 280ms 앞에서 시작해 박에서 가장 크게. 볼륨 0.35(음악보다 2~3dB 위에서 살짝 들리는 정도).
+**효과음 (`assets/audio/sfx/`, `manifest.json`)**
+- 출처: Openverse API(무료, 키 없음)에서 **CC0만** 받은 Freesound 녹음. 상업 홍보물이라 `by`·`nc` 라이선스는 쓰지 않는다. CC0라 캡션 출처 표기 불필요(manifest에 제목·작가·원본 링크는 남김).
+- 분류: `whoosh`(슬라이드 전환) · `chime`(마지막 cta 등장) · `sparkle`(크리스마스·새해 시즌 테마의 cta) · `pop`(대본에서 지정할 때만).
+- 선택: 영상마다 전환음 1개·cta음 1개를 날짜·컨셉 해시로, 그 주에 되도록 겹치지 않게. 대본에서 `"sfx": {"transition": "whoosh/....wav", "cta": "chime/....wav"}`로 지정 가능. 라이브러리가 비면 예전 합성 스우시(0.5초 핑크노이즈)로 돌아간다.
+- 박자 맞춤: manifest의 `peak`(소리가 가장 큰 시각)를 슬라이드 등장 박에 맞춰 그만큼 앞에서 시작. 볼륨 전환 0.35, cta 0.3.
+- 늘리기: `node reels/tools/fetch-sfx.js --per 10` (이미 받은 건 건너뜀, 분류별 10개까지). 제목 필터(`need`/`DENY`)에 안 맞는 소리는 받지 않고, 필터를 고친 뒤 다시 돌리면 기존 것도 지운다. 받은 소리는 앞 무음 제거·길이 제한·피크 -3dB로 다듬어 48k wav로 저장.
+- 새로 받은 소리는 한 번 들어 보고(분위기에 안 맞으면 파일과 manifest 항목 삭제) 커밋한다.
 
 ---
 
