@@ -28,9 +28,18 @@ body{width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Pre
 
 /* 글자: 브이로그 자막처럼. 카메라와 따로 고정 */
 #ui{position:absolute;inset:0;z-index:80}
-.cap{position:absolute;left:60px;right:60px;top:1230px;text-align:center;opacity:0}
-.cap span{display:inline-block;font-size:62px;font-weight:800;line-height:1.3;letter-spacing:-1.5px;padding:6px 22px;border-radius:14px;
-  background:rgba(0,0,0,.34);text-shadow:0 2px 12px rgba(0,0,0,.55);white-space:nowrap}
+.cap{position:absolute;left:40px;right:40px;top:1170px;text-align:center;opacity:0}
+/* 자막 뒤 은은한 어둠 띠(사진이 밝아도 글자가 또렷하게) */
+.cap::before{content:'';position:absolute;left:-40px;right:-40px;top:-90px;bottom:-90px;z-index:-1;
+  background:radial-gradient(ellipse 62% 50% at 50% 50%,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 100%)}
+.cap .ln{display:block;white-space:nowrap;font-size:84px;font-weight:900;line-height:1.22;letter-spacing:-3px}
+/* 글자마다 따로 올라옴. 외곽 그림자 여러 겹으로 윤곽을 세운다 */
+.cap .ch{display:inline-block;white-space:pre;opacity:0;will-change:transform,opacity;
+  text-shadow:0 0 2px rgba(0,0,0,.7),0 3px 6px rgba(0,0,0,.55),0 8px 28px rgba(0,0,0,.55)}
+/* 강조어: 금색 글자 + 아래로 쓸고 지나가는 형광펜 바 */
+.cap .hl{position:relative;display:inline-block;color:#F5D08A;margin:0 14px}
+.cap .hl .bar{position:absolute;left:-8px;right:-8px;bottom:-4px;height:18px;border-radius:6px;z-index:-1;
+  background:linear-gradient(90deg,rgba(232,170,80,.85),rgba(245,208,138,.75));transform-origin:0 50%;transform:scaleX(0)}
 .hook{position:absolute;left:60px;right:60px;top:300px;text-align:center}
 .hook .h{font-size:92px;font-weight:900;line-height:1.16;letter-spacing:-3px;text-shadow:0 4px 26px rgba(0,0,0,.6)}
 .hook .h .w{display:inline-block;opacity:0;white-space:pre}
@@ -92,6 +101,21 @@ function dofMask(fx, fy, r) {
   return `radial-gradient(ellipse ${(r * .8).toFixed(0)}px ${r.toFixed(0)}px at ${(fx * 1080).toFixed(0)}px ${(fy * 1920).toFixed(0)}px,rgba(0,0,0,0) 40%,#000 100%)`;
 }
 
+/* 자막 한 줄 → 글자 span. *강조* 로 감싼 말은 강조어, 없으면 숫자 표현(1분, 70~80%, 10분, 1:1)을 자동 강조 */
+function typeset(line) {
+  let parts = String(line).split('*');
+  if (parts.length < 3) {
+    const m = String(line).match(/\d+\s?:\s?\d+|\d[\d~.,%]*\s?(분|시간|시|명|호|%)?/);
+    parts = m ? [line.slice(0, m.index), m[0], line.slice(m.index + m[0].length)] : [line];
+  }
+  let n = 0;
+  return parts.map((part, k) => {
+    const chars = Array.from(part).map(ch => `<span class="ch">${esc(ch)}</span>`).join('');
+    n += Array.from(part).length;
+    return k % 2 && part ? `<span class="hl" data-last="${n - 1}">${chars}<span class="bar"></span></span>` : chars;
+  }).join('');
+}
+
 function build() {
   S.shots.forEach((sh, i) => {
     const d = document.createElement('div');
@@ -108,8 +132,10 @@ function build() {
       focus: sh.focus || [.5, .55] });
     if (sh.text) {
       const c = document.createElement('div'); c.className = 'cap';
-      c.innerHTML = String(sh.text).split(/<br\s*\/?>|\n/i).map(l => `<span>${esc(l)}</span>`).join('<br>');
-      ui.appendChild(c); CAPS.push({ el: c, i });
+      c.innerHTML = String(sh.text).split(/<br\s*\/?>|\n/i).map(l => `<span class="ln">${typeset(l)}</span>`).join('');
+      ui.appendChild(c);
+      CAPS.push({ el: c, i, chars: Array.from(c.querySelectorAll('.ch')),
+        hls: Array.from(c.querySelectorAll('.hl')).map(h => ({ el: h, bar: h.querySelector('.bar'), last: +h.dataset.last })) });
     }
     if (sh.stamp) { const s = document.createElement('div'); s.className = 'stamp'; s.innerHTML = `<i></i>${esc(sh.stamp)}`; ui.appendChild(s); STAMPS.push({ el: s, i }); }
   });
@@ -204,11 +230,24 @@ window.seekTo = function (ms) {
   const gf = Math.floor(t / (1000 / 24)); grain.style.backgroundPosition = `${(gf * 73) % 256}px ${(gf * 151) % 256}px`;
 
   // 자막: 컷 시작 +120ms에 올라오고 컷 끝 직전에 사라짐
-  CAPS.forEach(({ el, i }) => {
-    const a = T_ON[i] + 120, b = T_ON[i] + DUR[i] - 60, p = clamp01((t - a) / 260);
-    const on = t >= a && t < b;
-    el.style.opacity = on ? eOC(p).toFixed(3) : 0;
-    el.style.transform = `translateY(${on ? ((1 - eOC(p)) * 30).toFixed(1) : 0}px)`;
+  // 글자가 하나씩 아래에서 튀어 오르며(작게 시작해 제자리로) 나타나고, 강조어는 형광펜 바가 쓸고 지나간 뒤 한 번 툭 커진다.
+  // 컷 끝 200ms 동안 위로 빠지며 사라짐
+  CAPS.forEach(({ el, i, chars, hls }) => {
+    const a = T_ON[i] + 100, end = T_ON[i] + DUR[i] - 40, step = Math.min(38, 520 / Math.max(1, chars.length));
+    if (t < a || t >= end) { el.style.opacity = 0; return; }
+    const out = clamp01((t - (end - 200)) / 200);
+    el.style.opacity = (1 - out).toFixed(3);
+    el.style.transform = `translateY(${(-eIOS(out) * 36).toFixed(1)}px)`;
+    chars.forEach((c, j) => {
+      const p = clamp01((t - a - j * step) / 300);
+      c.style.opacity = Math.min(1, p * 2.5).toFixed(3);
+      c.style.transform = `translateY(${((1 - eOB(p)) * 48).toFixed(1)}px) scale(${(.7 + .3 * eOB(p)).toFixed(4)})`;
+    });
+    hls.forEach(h => {
+      const s0 = a + h.last * step + 220, q = clamp01((t - s0) / 280), k = clamp01((t - s0 - 200) / 260);
+      h.bar.style.transform = `scaleX(${eOC(q).toFixed(4)})`;
+      h.el.style.transform = `scale(${(1 + .08 * Math.sin(Math.PI * k)).toFixed(4)})`;
+    });
   });
   STAMPS.forEach(({ el, i }) => { el.style.opacity = t >= T_ON[i] && t < T_ON[i] + DUR[i] ? .9 : 0; });
   // 훅: 첫 컷에서 단어별로 튀어나오고, 다음 컷으로 넘어가면 사라짐
@@ -240,7 +279,7 @@ window.qa = function () {
     const r = el.getBoundingClientRect();
     if (r.width && (r.left < 30 || r.right > 1050 || r.top < 150 || r.bottom > 1700)) out.push({ slide: label, text: el.textContent.trim().slice(0, 40), rect: [r.left | 0, r.top | 0, r.right | 0, r.bottom | 0] });
   };
-  CAPS.forEach(({ el, i }) => el.querySelectorAll('span').forEach(s => check(s, T_ON[i] + DUR[i] - 300, i)));
+  CAPS.forEach(({ el, i }) => el.querySelectorAll('.ln').forEach(s => check(s, T_ON[i] + DUR[i] - 300, i)));
   check(document.querySelector('.hook .h'), DUR[0] - 300, 0);
   CTA_ELS.forEach(el => check(el, TOTAL - 300, 'cta'));
   window.seekTo(0);
@@ -265,7 +304,10 @@ async function boot() {
   await Promise.all(imgs.map(img => img.decode().catch(() => {})));
   await document.fonts.ready;
   // 자막이 너무 길면 글자를 줄인다
-  CAPS.forEach(({ el }) => el.querySelectorAll('span').forEach(s => { let fs = 62; el.style.opacity = 1; while (s.offsetWidth > 960 && fs > 40) { fs -= 2; s.style.fontSize = fs + 'px'; } el.style.opacity = 0; }));
+  CAPS.forEach(({ el }) => el.querySelectorAll('.ln').forEach(s => {
+    let fs = 84; const w = () => { s.style.width = 'max-content'; const x = s.offsetWidth; s.style.width = ''; return x; };
+    while (w() > 980 && fs > 48) { fs -= 2; s.style.fontSize = fs + 'px'; }
+  }));
   const hh = document.querySelector('.hook .h'); let hs = 92; while (hh.scrollWidth > 960 && hs > 60) { hs -= 3; hh.style.fontSize = hs + 'px'; }
   makeGrain();
   setTempo(parseFloat(window.BPM_IN || Q.get('bpm')) || 100);
