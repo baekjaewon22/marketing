@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 이번 주 파티 미리보기</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(150deg, #0a0118 0%, #160835 30%, #22104a 60%, #0e0628 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(130,60,255,0.45) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 55% at 10% 90%, rgba(90,0,220,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 40% at 90% 60%, rgba(220,80,255,0.18) 0%, transparent 55%);
+  }
+  .s1-deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(180,120,255,0.18);
+    background: rgba(150,80,255,0.07);
+  }
+  .s1-c1 { width: 200px; height: 200px; top: 60px; left: 60px; }
+  .s1-c2 { width: 140px; height: 140px; bottom: 80px; right: 70px; }
+  .s1-c3 { width: 80px; height: 80px; top: 180px; right: 140px; background: rgba(220,80,255,0.1); border-color: rgba(220,120,255,0.2); }
+
+  .s1-week-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(180,120,255,0.35);
+    border-radius: 40px;
+    padding: 10px 22px;
+    margin-bottom: 36px;
+  }
+  .s1-week-badge span {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(220,180,255,0.9);
+    letter-spacing: 0.04em;
+  }
+  .s1-week-dot { width: 8px; height: 8px; border-radius: 50%; background: #b06aff; flex-shrink: 0; }
+
+  .s1-title {
+    position: relative;
+    font-size: 74px;
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .s1-title-line1 { display: block; color: white; }
+  .s1-title-line2 {
+    display: block;
+    background: linear-gradient(90deg, #c070ff 0%, #8040ff 50%, #ff70d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s1-sub {
+    position: relative;
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 52px;
+  }
+
+  .s1-free-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #7030d8 0%, #b050f8 100%);
+    border-radius: 50px;
+    padding: 16px 36px;
+    box-shadow: 0 0 40px rgba(140,60,255,0.5);
+  }
+  .s1-free-pill .pill-star { font-size: 22px; }
+  .s1-free-pill .pill-text { font-size: 22px; font-weight: 700; color: white; letter-spacing: 0.01em; }
+
+  /* ─── SLIDE 2: PARTY 1 ─── */
+  .s2 {
+    background: linear-gradient(160deg, #0c1a0e 0%, #0f2612 40%, #162e18 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(60,200,80,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 10% 80%, rgba(30,160,50,0.15) 0%, transparent 60%);
+  }
+
+  .party-card-number {
+    position: relative;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .party-card-number::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .party-category-tag {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+  .tag-green { background: rgba(50,200,80,0.15); border: 1px solid rgba(60,220,90,0.35); color: #50e870; }
+  .tag-pink { background: rgba(255,80,160,0.15); border: 1px solid rgba(255,100,180,0.35); color: #ff80c8; }
+  .tag-orange { background: rgba(255,140,30,0.15); border: 1px solid rgba(255,160,50,0.35); color: #ffa040; }
+  .tag-blue { background: rgba(60,130,255,0.15); border: 1px solid rgba(80,150,255,0.35); color: #70a8ff; }
+  .tag-purple { background: rgba(160,60,255,0.15); border: 1px solid rgba(180,80,255,0.35); color: #c070ff; }
+
+  .party-title-large {
+    position: relative;
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .party-title-large .highlight-green {
+    background: linear-gradient(90deg, #40e060 0%, #20c040 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .party-title-large .highlight-pink {
+    background: linear-gradient(90deg, #ff70c0 0%, #ff40a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .party-title-large .highlight-orange {
+    background: linear-gradient(90deg, #ffa040 0%, #ff7020 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .party-title-large .highlight-blue {
+    background: linear-gradient(90deg, #70a8ff 0%, #4080ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .party-desc {
+    position: relative;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    flex: 1;
+  }
+
+  .party-info-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .info-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .info-icon { font-size: 20px; flex-shrink: 0; }
+  .info-content { display: flex; flex-direction: column; gap: 3px; }
+  .info-label { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+  .info-value { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.9); }
+
+  .party-free-badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 16px;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .badge-green-glow { background: rgba(40,180,60,0.15); border: 1px solid rgba(50,220,80,0.3); color: #50e870; box-shadow: 0 0 30px rgba(40,200,60,0.15); }
+  .badge-pink-glow { background: rgba(255,60,140,0.12); border: 1px solid rgba(255,80,160,0.3); color: #ff80c8; box-shadow: 0 0 30px rgba(255,60,140,0.12); }
+  .badge-orange-glow { background: rgba(255,130,20,0.12); border: 1px solid rgba(255,160,50,0.3); color: #ffa040; box-shadow: 0 0 30px rgba(255,130,20,0.12); }
+  .badge-blue-glow { background: rgba(50,120,255,0.12); border: 1px solid rgba(80,150,255,0.3); color: #70a8ff; box-shadow: 0 0 30px rgba(50,120,255,0.12); }
+
+  /* ─── SLIDE 3 (Pink) ─── */
+  .s3 {
+    background: linear-gradient(155deg, #1a0610 0%, #280820 40%, #200616 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 40% at 85% 15%, rgba(255,60,140,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 15% 75%, rgba(220,40,120,0.15) 0%, transparent 60%);
+  }
+
+  /* ─── SLIDE 4 (Orange) ─── */
+  .s4 {
+    background: linear-gradient(155deg, #160c00 0%, #241200 40%, #1c0e00 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 40% at 80% 10%, rgba(255,140,20,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 15% 80%, rgba(220,100,10,0.15) 0%, transparent 60%);
+  }
+
+  /* ─── SLIDE 5 (Blue) ─── */
+  .s5 {
+    background: linear-gradient(155deg, #030e20 0%, #041830 40%, #030c1e 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 80px;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 40% at 80% 10%, rgba(40,120,255,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 15% 80%, rgba(20,80,220,0.15) 0%, transparent 60%);
+  }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(150deg, #0a0118 0%, #160835 30%, #22104a 60%, #0e0628 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 0%, rgba(130,60,255,0.5) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200,60,255,0.25) 0%, transparent 60%);
+  }
+  .s6-deco { position: absolute; border-radius: 50%; }
+  .s6-d1 { width: 300px; height: 300px; top: -80px; right: -80px; background: rgba(160,80,255,0.08); border: 1px solid rgba(180,100,255,0.12); }
+  .s6-d2 { width: 200px; height: 200px; bottom: -50px; left: -50px; background: rgba(200,60,255,0.06); border: 1px solid rgba(200,80,255,0.1); }
+  .s6-d3 { width: 120px; height: 120px; top: 200px; left: 80px; background: rgba(140,60,255,0.05); border: 1px solid rgba(160,80,255,0.12); }
+
+  .s6-logo-chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(200,150,255,0.25);
+    border-radius: 40px;
+    padding: 10px 22px;
+    margin-bottom: 44px;
+  }
+  .s6-logo-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, #c070ff, #8040ff); }
+  .s6-logo-text { font-size: 15px; font-weight: 600; color: rgba(220,180,255,0.85); letter-spacing: 0.04em; }
+
+  .s6-main-title {
+    position: relative;
+    font-size: 66px;
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .s6-main-title .white { color: white; display: block; }
+  .s6-main-title .gradient {
+    display: block;
+    background: linear-gradient(90deg, #c070ff 0%, #8040ff 50%, #ff70d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s6-sub {
+    position: relative;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  .s6-cta-box {
+    position: relative;
+    background: linear-gradient(135deg, #7030d8 0%, #b050f8 50%, #9040ee 100%);
+    border-radius: 24px;
+    padding: 36px 60px;
+    margin-bottom: 32px;
+    box-shadow: 0 0 60px rgba(140,60,255,0.6), 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .s6-cta-url { font-size: 38px; font-weight: 900; color: white; letter-spacing: 0.01em; }
+  .s6-cta-desc { font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.75); margin-top: 8px; }
+
+  .s6-free-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px 32px;
+  }
+  .s6-free-dot { width: 10px; height: 10px; border-radius: 50%; background: #c070ff; }
+  .s6-free-text { font-size: 18px; font-weight: 500; color: rgba(255,255,255,0.7); }
+  .s6-free-accent { color: #d080ff; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 1 — COVER: 이번 주 파티 미리보기
+════════════════════════════════════════ -->
+<div class="card s1">
+  <div class="s1-deco-circle s1-c1"></div>
+  <div class="s1-deco-circle s1-c2"></div>
+  <div class="s1-deco-circle s1-c3"></div>
+
+  <div class="s1-week-badge">
+    <div class="s1-week-dot"></div>
+    <span>2026년 10월 마지막 주 파티</span>
+  </div>
+
+  <div class="s1-title">
+    <span class="s1-title-line1">이번 주</span>
+    <span class="s1-title-line2">파티 미리보기 🎉</span>
+  </div>
+
+  <p class="s1-sub">
+    오늘 밤, 어디서 특별한 만남을 가질까요?<br>
+    선별된 파티 4곳을 지금 확인하세요
+  </p>
+
+  <div class="s1-free-pill">
+    <span class="pill-star">✨</span>
+    <span class="pill-text">여성 참가비 전부 0원</span>
+    <span class="pill-star">✨</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 2 — PARTY 1: 비주얼파티 강남
+════════════════════════════════════════ -->
+<div class="card s2">
+  <div class="party-card-number">PARTY 01 / 04</div>
+
+  <div class="party-category-tag tag-green">🌟 비주얼파티</div>
+
+  <div class="party-title-large">
+    강남 프리미엄<br>
+    <span class="highlight-green">비주얼파티</span>
+  </div>
+
+  <p class="party-desc">
+    외모 기준 없는 편안한 분위기에서<br>
+    자연스럽게 어우러지는 소셜 파티.<br>
+    포토부스, 칵테일 웰컴 드링크 제공.
+  </p>
+
+  <div class="party-info-grid">
+    <div class="info-item">
+      <span class="info-icon">📅</span>
+      <div class="info-content">
+        <span class="info-label">날짜 · 시간</span>
+        <span class="info-value">10/31 (토) 오후 7시</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🚇</span>
+      <div class="info-content">
+        <span class="info-label">위치</span>
+        <span class="info-value">강남역 2번 출구</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🎂</span>
+      <div class="info-content">
+        <span class="info-label">참가 연령</span>
+        <span class="info-value">96~04년생</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🌙</span>
+      <div class="info-content">
+        <span class="info-label">2차 여부</span>
+        <span class="info-value">2차 포함</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-free-badge badge-green-glow">
+    <span>💚</span>
+    <span>여성 참가비 0원 — 무료 참가</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 3 — PARTY 2: 소개팅 로테이션
+════════════════════════════════════════ -->
+<div class="card s3">
+  <div class="party-card-number">PARTY 02 / 04</div>
+
+  <div class="party-category-tag tag-pink">💕 소개팅 (로테이션)</div>
+
+  <div class="party-title-large">
+    홍대 로테이션<br>
+    <span class="highlight-pink">소개팅파티</span>
+  </div>
+
+  <p class="party-desc">
+    1:1 로테이션 방식으로 모든 참가자와<br>
+    자연스럽게 대화 나누는 소개팅 파티.<br>
+    매칭 앱보다 훨씬 설레는 첫 만남.
+  </p>
+
+  <div class="party-info-grid">
+    <div class="info-item">
+      <span class="info-icon">📅</span>
+      <div class="info-content">
+        <span class="info-label">날짜 · 시간</span>
+        <span class="info-value">11/01 (일) 오후 6시</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🚇</span>
+      <div class="info-content">
+        <span class="info-label">위치</span>
+        <span class="info-value">홍대입구역 9번 출구</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🎂</span>
+      <div class="info-content">
+        <span class="info-label">참가 연령</span>
+        <span class="info-value">97~03년생</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🌙</span>
+      <div class="info-content">
+        <span class="info-label">2차 여부</span>
+        <span class="info-value">2차 미포함</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-free-badge badge-pink-glow">
+    <span>💗</span>
+    <span>여성 참가비 0원 — 무료 참가</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 4 — PARTY 3: 도파민파티
+════════════════════════════════════════ -->
+<div class="card s4">
+  <div class="party-card-number">PARTY 03 / 04</div>
+
+  <div class="party-category-tag tag-orange">⚡ 도파민파티</div>
+
+  <div class="party-title-large">
+    이태원 할로윈<br>
+    <span class="highlight-orange">도파민파티</span>
+  </div>
+
+  <p class="party-desc">
+    할로윈 코스프레 환영! 신나는 음악과<br>
+    다채로운 게임으로 도파민이 폭발하는<br>
+    에너지 가득한 파티. 코스튬 필수 아님.
+  </p>
+
+  <div class="party-info-grid">
+    <div class="info-item">
+      <span class="info-icon">📅</span>
+      <div class="info-content">
+        <span class="info-label">날짜 · 시간</span>
+        <span class="info-value">10/31 (토) 오후 8시</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🚇</span>
+      <div class="info-content">
+        <span class="info-label">위치</span>
+        <span class="info-value">이태원역 1번 출구</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🎂</span>
+      <div class="info-content">
+        <span class="info-label">참가 연령</span>
+        <span class="info-value">95~05년생</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🌙</span>
+      <div class="info-content">
+        <span class="info-label">2차 여부</span>
+        <span class="info-value">2차 포함</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-free-badge badge-orange-glow">
+    <span>🧡</span>
+    <span>여성 참가비 0원 — 무료 참가</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 5 — PARTY 4: 내향인파티
+════════════════════════════════════════ -->
+<div class="card s5">
+  <div class="party-card-number">PARTY 04 / 04</div>
+
+  <div class="party-category-tag tag-blue">🌙 내향인파티</div>
+
+  <div class="party-title-large">
+    신촌 조용한<br>
+    <span class="highlight-blue">내향인파티</span>
+  </div>
+
+  <p class="party-desc">
+    억지로 떠들 필요 없는 파티.<br>
+    보드게임·퀴즈·도서 토론으로 편하게<br>
+    마음 맞는 사람을 만나는 힐링 모임.
+  </p>
+
+  <div class="party-info-grid">
+    <div class="info-item">
+      <span class="info-icon">📅</span>
+      <div class="info-content">
+        <span class="info-label">날짜 · 시간</span>
+        <span class="info-value">11/01 (일) 오후 5시</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🚇</span>
+      <div class="info-content">
+        <span class="info-label">위치</span>
+        <span class="info-value">신촌역 3번 출구</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🎂</span>
+      <div class="info-content">
+        <span class="info-label">참가 연령</span>
+        <span class="info-value">96~04년생</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">🌙</span>
+      <div class="info-content">
+        <span class="info-label">2차 여부</span>
+        <span class="info-value">2차 미포함</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-free-badge badge-blue-glow">
+    <span>💙</span>
+    <span>여성 참가비 0원 — 무료 참가</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 6 — CTA
+════════════════════════════════════════ -->
+<div class="card s6">
+  <div class="s6-deco s6-d1"></div>
+  <div class="s6-deco s6-d2"></div>
+  <div class="s6-deco s6-d3"></div>
+
+  <div class="s6-logo-chip">
+    <div class="s6-logo-dot"></div>
+    <span class="s6-logo-text">파티원 — PartyOne</span>
+  </div>
+
+  <div class="s6-main-title">
+    <span class="white">지금 바로</span>
+    <span class="gradient">신청하세요 🎊</span>
+  </div>
+
+  <p class="s6-sub">
+    전국 60곳+ 검증된 호스트가 운영하는<br>
+    특별한 파티가 매주 업데이트됩니다
+  </p>
+
+  <div class="s6-cta-box">
+    <div class="s6-cta-url">party.it.kr</div>
+    <div class="s6-cta-desc">파티 목록 보기 · 무료 신청하기</div>
+  </div>
+
+  <div class="s6-free-row">
+    <div class="s6-free-dot"></div>
+    <span class="s6-free-text">
+      <span class="s6-free-accent">여성 참가비 0원</span> — 모든 파티 무료 참가
+    </span>
+    <div class="s6-free-dot"></div>
+  </div>
+</div>
+
+</body>
+</html>
