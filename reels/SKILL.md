@@ -144,7 +144,7 @@ node reels/validate.js reels/samples   # 환경 확인
 
 ### 4-2. 테마 정하기 (7일) — 선택 도구로 무작위, 반복 없이
 ```bash
-node reels/tools/pick-themes.js <시작일>
+node reels/tools/pick-themes.js <시작일>   # 테마 + 시네 요일(화·일)의 레퍼런스(ref)
 ```
 - 출력된 날짜별 테마를 그대로 쓴다(시작일로 시드를 정한 무작위라 다시 돌려도 같다). 테마는 36개(`reels/themes.json`, 7장).
 - 도구가 지키는 규칙: 시즌 기간(크리스마스 12/1~25 3개, 새해 12/26~1/7 3개, 겨울 12~2월 1개, 발렌타인·화이트데이 2개, 봄·여름 3개, 가을 9/15~11/30 2개)에 든 날에 그 시즌 변형 테마를 넣고, 나머지는 기본 테마 13개에서 고른다. **같은 주 안에서 같은 테마 없음**, 직전 14일 대본에 쓴 테마는 피함, 밝은 테마 최대 2개, 12/24·25는 크리스마스 계열, 12/31·1/1은 새해 계열.
@@ -216,11 +216,11 @@ node reels/render.js reels/weeks/<시작일> /tmp/reels-out/<시작일> --fps 30
   끝나면 `*_contact.jpg` 7장을 다시 Read로 보고, 문제가 있으면 대본을 고쳐 그 파일만 다시 렌더한다.
 
 ### 4-8. 전달 → 12장
-로컬 예약 실행: `node reels/deliver-local.js reels/weeks/<시작일> reels/out/<시작일>` (MP4·txt 14개 복사·확인 + DELIVERED 기록. FAIL이면 12장 2번).
+로컬 예약 실행: `node reels/deliver-local.js reels/weeks/<시작일> reels/out/<시작일>` (MP4·txt 14개 복사·확인 + DELIVERED 기록. FAIL이면 12장 2번). 성공하면 **완성본만 남기고 작업 파일을 지운다**: 렌더 폴더의 MP4·검수 시트, qa 폴더, 그 주 생성 사진(ai_photo·시네 컷), 흐린 사진 캐시. 대본 JSON의 사진 경로도 지운다(운영자 결정 2026-10-29). 그래서 생성 사진은 커밋하지 않는다(4-9의 `git add -A`는 지운 것을 그대로 기록).
 ### 4-9. 기록
 ```bash
 echo "<드라이브 폴더 링크 또는 아티팩트 링크>" > reels/weeks/<시작일>/DELIVERED   # deliver-local.js를 썼으면 이미 있음
-git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "reels: <시작일> 주 대본 7개" && git push -u origin master
+git add -A reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "reels: <시작일> 주 대본 7개" && git push -u origin master
 ```
 ### 4-10. 알림 (예약 실행이면 반드시)
 로컬 예약 실행은 Slack(`slack_send_message`, `channel_id` = config `slack_channel`), 클라우드 예약은 PushNotification `<routine_summary>`. 첫 문장은 결과 한 줄. 이어서
@@ -299,7 +299,7 @@ git add reels/weeks/<시작일> assets/images/sevenstars/ai && git commit -m "re
 
 ### 5-8. 시네 쇼츠 (화·일, 주 2회) — 바이럴용 실사 느낌
 목적: 슬라이드형이 반복적이라는 운영자 피드백(2026-10-29). **실제로 찍은 브이로그처럼 보이는** 12~20초 영상으로 유입을 노린다. 엔진은 `reels/cine.html`, 레퍼런스는 `reels/cine-refs.json`.
-- **레퍼런스 고르기:** `cine-refs.json`의 `refs` 6종(POV 토요일 저녁 / 10분마다 새로운 사람 / 폰 내려놓고 대화 / 공간 투어 / 처음이라 걱정되는 3가지 / 시즌 스토리) 중 직전 4주에 안 쓴 것. `fits`가 있는 ref(`walk-in`)는 그 컨셉 날(일요일 공간)에만. 일요일은 venue 컷만 쓰는 ref로 한다(우리 공간 영상은 실제 공간 기반).
+- **레퍼런스 고르기:** pick-themes.js가 화·일에 적어 주는 `시네:<ref>`를 그대로 쓴다(직전 28일 안 쓴 것, 일요일은 공간 ref 3종 walk-in·candle-detail·before-open 중). 참고: `refs` 8종(POV 토요일 저녁 / 10분마다 새로운 사람 / 폰 내려놓고 대화 / 공간 투어 / 처음이라 걱정되는 3가지 / 시즌 스토리) 중 직전 4주에 안 쓴 것. `fits`가 있는 ref(`walk-in`)는 그 컨셉 날(일요일 공간)에만. 일요일은 venue 컷만 쓰는 ref로 한다(우리 공간 영상은 실제 공간 기반).
 - **그대로 베끼지 않는다:** ref의 shots는 뼈대. scene은 그 주 테마·계절에 맞게, text·hook은 새로 쓴다. 훅은 `hooks` 예시 계열(POV·질문형·숫자형)로.
 - **컷 구성:** 4~7컷(보통 5~6). 첫 컷은 자막 없이 훅이 덮는다. 자막은 한 줄 18자 이하, 컷마다 한 문장. 자막은 글자마다 튀어 오르는 타이포 효과로 나오고, `*강조*`로 감싼 말(없으면 숫자 표현 1분·70~80%·10분 자동)은 금색 + 형광펜 바로 강조된다. 컷마다 강조어 하나. 사실은 5-4와 같다(10분 1:1, 번호로 부름, 커피·티, 혼자 70~80%, 신분증·명함, 합정역 걸어서 1분).
 - **카메라:** 컷마다 `motion`(push·pull·pan-l·pan-r·tilt-up·handheld·rack)과 `cut`(hard·whip·flash·dip). hard를 기본으로, whip·flash는 영상당 1~2번(효과음이 붙음), 마지막 컷은 dip. 모든 컷에 손떨림·24fps 질감·노출 떨림·필름 그레인이 자동으로 들어간다.

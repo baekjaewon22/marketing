@@ -66,5 +66,33 @@ for (const [name, s] of Object.entries(SEASONS)) {
 days.forEach((d, i) => { if (!pick[i]) { pick[i] = choose(poolOf('year-round')) || choose(Object.keys(THEMES), false); used.add(pick[i]); } });
 
 const out = days.map((d, i) => ({ date: iso(d), day: DOW[d.getDay()], theme: pick[i] }));
-out.forEach(o => console.log(`${o.date} ${o.day} ${o.theme}${recent.has(o.theme) ? ' (최근 사용, 후보 부족)' : ''}`));
+
+/* 시네 쇼츠 요일(config cine_days)의 레퍼런스: 일요일(공간)은 fits가 '공간·분위기'인 ref, 그 외는 fits 없는 ref.
+   직전 28일에 쓴 ref는 빼고, 다 썼으면 가장 오래전에 쓴 것. 같은 주 안 중복 없음 */
+const CINE_DAYS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config.json'), 'utf8')).cine_days || [];
+const REFS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'cine-refs.json'), 'utf8')).refs;
+const lastUsed = {};
+for (const base of ['reels/weeks', 'reels/specials']) {
+  const dir = path.join(ROOT, base);
+  if (!fs.existsSync(dir)) continue;
+  for (const w of fs.readdirSync(dir)) {
+    const wd = path.join(dir, w);
+    if (!fs.statSync(wd).isDirectory()) continue;
+    for (const f of fs.readdirSync(wd).filter(f => f.endsWith('.json'))) {
+      try { const s = JSON.parse(fs.readFileSync(path.join(wd, f), 'utf8'));
+        if (s.ref && s.date < iso(START) && !(lastUsed[s.ref] > s.date)) lastUsed[s.ref] = s.date; } catch {}
+    }
+  }
+}
+const cut28 = iso(new Date(START.getTime() - 28 * 86400000));
+const usedRefs = new Set();
+out.forEach(o => {
+  if (!CINE_DAYS.includes(o.day)) return;
+  const venue = o.day === '일';
+  const pool = shuffle(REFS.filter(r => venue ? (r.fits || []).includes('공간·분위기') : !r.fits)).filter(r => !usedRefs.has(r.id));
+  const fresh = pool.filter(r => !lastUsed[r.id] || lastUsed[r.id] < cut28);
+  const r = fresh[0] || pool.sort((a, b) => (lastUsed[a.id] || '').localeCompare(lastUsed[b.id] || ''))[0];
+  if (r) { o.format = 'cine'; o.ref = r.id; usedRefs.add(r.id); }
+});
+out.forEach(o => console.log(`${o.date} ${o.day} ${o.theme}${recent.has(o.theme) ? ' (최근 사용, 후보 부족)' : ''}${o.ref ? ` 시네:${o.ref}` : ''}`));
 console.log(JSON.stringify(out));
