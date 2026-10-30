@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 실제 참가자 후기</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(145deg, #0d0520 0%, #1a063c 35%, #280d50 65%, #0e0330 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 0%, rgba(160,80,255,0.5) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 5% 85%, rgba(100,20,230,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 95% 55%, rgba(255,100,200,0.22) 0%, transparent 55%);
+  }
+  .s1-stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.4;
+  }
+  .s1-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(200,140,255,0.4);
+    border-radius: 40px;
+    padding: 10px 24px;
+    margin-bottom: 32px;
+  }
+  .s1-badge span {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(220,180,255,0.9);
+    letter-spacing: 0.05em;
+  }
+  .s1-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #c07aff; flex-shrink: 0; }
+
+  .s1-title {
+    position: relative;
+    font-size: 70px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .s1-title .line1 { display: block; color: #fff; }
+  .s1-title .line2 {
+    display: block;
+    background: linear-gradient(90deg, #e090ff, #ff80d0, #c060ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s1-sub {
+    position: relative;
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(220,200,255,0.8);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .s1-star-row {
+    position: relative;
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .s1-star-icon {
+    font-size: 32px;
+    color: #ffd700;
+  }
+  .s1-count-text {
+    position: relative;
+    font-size: 17px;
+    color: rgba(200,180,255,0.7);
+    letter-spacing: 0.04em;
+  }
+
+  .s1-deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(180,120,255,0.15);
+    background: rgba(140,70,255,0.06);
+  }
+  .s1-c1 { width: 220px; height: 220px; top: 50px; left: 40px; }
+  .s1-c2 { width: 150px; height: 150px; bottom: 70px; right: 60px; }
+  .s1-c3 { width: 90px; height: 90px; top: 170px; right: 130px; background: rgba(255,100,200,0.08); border-color: rgba(255,120,200,0.2); }
+
+  /* ─── SLIDE 2: REVIEW 1 (소개팅 파티) ─── */
+  .s2 {
+    background: linear-gradient(135deg, #fff8fc 0%, #fdf0ff 50%, #fff3fa 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    color: #1a0028;
+  }
+  .s2-header {
+    background: linear-gradient(135deg, #7c2dff 0%, #c040f0 50%, #ff50c8 100%);
+    padding: 52px 64px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 0; right: 0;
+    height: 60px;
+    background: #fff8fc;
+    border-radius: 50% 50% 0 0 / 40px 40px 0 0;
+  }
+  .s2-header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 30px;
+    padding: 8px 18px;
+    margin-bottom: 22px;
+  }
+  .s2-header-tag span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.95); letter-spacing: 0.06em; }
+  .s2-header-num { font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 12px; letter-spacing: 0.08em; }
+  .s2-header-title { font-size: 52px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.02em; }
+
+  .s2-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 58px 64px 52px;
+    justify-content: space-between;
+  }
+  .s2-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .s2-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a040ff, #ff60c8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+  }
+  .s2-profile-info { flex: 1; }
+  .s2-profile-name { font-size: 20px; font-weight: 700; color: #1a0028; margin-bottom: 4px; }
+  .s2-profile-meta { font-size: 15px; color: #9060c0; }
+  .s2-stars-small { display: flex; gap: 3px; }
+  .s2-star-s { font-size: 22px; color: #ffd700; }
+
+  .s2-quote-mark { font-size: 80px; color: #e090ff; line-height: 0.8; margin-bottom: 12px; font-family: Georgia, serif; opacity: 0.5; }
+  .s2-review-text {
+    font-size: 26px;
+    line-height: 1.75;
+    color: #2d0040;
+    font-weight: 400;
+    flex: 1;
+  }
+  .s2-review-text strong { color: #8020e0; font-weight: 700; }
+
+  .s2-tags-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+  .s2-tag {
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .s2-tag-purple { background: #f0e0ff; color: #7020c0; }
+  .s2-tag-pink { background: #ffe0f5; color: #c0208a; }
+  .s2-tag-dark { background: #2d0040; color: #e090ff; }
+
+  /* ─── SLIDE 3: REVIEW 2 (비주얼 파티) ─── */
+  .s3 {
+    background: linear-gradient(150deg, #0a001a 0%, #150030 40%, #1e0040 70%, #0d0022 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 80px 72px;
+    color: white;
+    position: relative;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 10%, rgba(255,80,180,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 20% 85%, rgba(120,40,255,0.35) 0%, transparent 60%);
+  }
+  .s3-num-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+  .s3-num {
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(220,150,255,0.15);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .s3-label-box {
+    background: linear-gradient(135deg, #ff50b8, #c030f0);
+    border-radius: 14px;
+    padding: 10px 22px;
+  }
+  .s3-label-box span { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+
+  .s3-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .s3-avatar {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff60a0, #a030e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,150,220,0.4);
+  }
+  .s3-profile-name { font-size: 20px; font-weight: 700; color: #fff; }
+  .s3-profile-meta { font-size: 15px; color: rgba(220,180,255,0.7); margin-top: 3px; }
+
+  .s3-stars { display: flex; gap: 5px; margin-bottom: 30px; position: relative; }
+  .s3-star-icon { font-size: 28px; color: #ffd700; }
+
+  .s3-quote-mark { font-size: 72px; color: rgba(255,120,200,0.35); line-height: 0.8; margin-bottom: 10px; font-family: Georgia, serif; position: relative; }
+  .s3-text {
+    position: relative;
+    font-size: 28px;
+    line-height: 1.75;
+    color: rgba(255,240,255,0.9);
+    font-weight: 300;
+    flex: 1;
+  }
+  .s3-text em { font-style: normal; color: #ff90d8; font-weight: 700; }
+
+  .s3-bottom {
+    position: relative;
+    display: flex;
+    gap: 14px;
+    margin-top: 40px;
+  }
+  .s3-chip {
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .s3-chip-1 { background: rgba(255,80,170,0.2); border: 1px solid rgba(255,100,180,0.4); color: #ff90d8; }
+  .s3-chip-2 { background: rgba(180,60,255,0.2); border: 1px solid rgba(180,80,255,0.4); color: #d090ff; }
+
+  /* ─── SLIDE 4: REVIEW 3 (와인 파티) ─── */
+  .s4 {
+    background: linear-gradient(140deg, #1a0010 0%, #2d0020 40%, #400010 70%, #1a000c 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 80px 72px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 55% at 85% 15%, rgba(255,50,100,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 15% 80%, rgba(180,0,60,0.35) 0%, transparent 60%);
+  }
+  .s4-deco-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,80,120,0.1);
+  }
+  .s4-r1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+  .s4-r2 { width: 280px; height: 280px; bottom: -60px; left: -60px; }
+
+  .s4-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 44px;
+    position: relative;
+  }
+  .s4-header-left {}
+  .s4-num-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #cc0040, #ff3070);
+    border-radius: 12px;
+    padding: 8px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+  }
+  .s4-party-type {
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .s4-wine-icon {
+    font-size: 72px;
+    opacity: 0.7;
+  }
+
+  .s4-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .s4-avatar {
+    width: 65px; height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff3060, #c00040);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,100,130,0.4);
+  }
+  .s4-profile-name { font-size: 19px; font-weight: 700; color: #fff; }
+  .s4-profile-meta { font-size: 14px; color: rgba(255,180,200,0.7); margin-top: 3px; }
+
+  .s4-stars { display: flex; gap: 4px; margin-bottom: 28px; position: relative; }
+  .s4-star-icon { font-size: 26px; color: #ffd700; }
+
+  .s4-text {
+    position: relative;
+    font-size: 27px;
+    line-height: 1.8;
+    color: rgba(255,235,240,0.9);
+    font-weight: 300;
+    flex: 1;
+  }
+  .s4-text b { color: #ff8090; font-weight: 700; }
+
+  .s4-bottom {
+    position: relative;
+    margin-top: 36px;
+    display: flex;
+    gap: 12px;
+  }
+  .s4-chip {
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .s4-chip-1 { background: rgba(255,50,80,0.2); border: 1px solid rgba(255,80,100,0.4); color: #ff9090; }
+  .s4-chip-2 { background: rgba(200,0,50,0.2); border: 1px solid rgba(200,40,70,0.4); color: #ffa0a0; }
+
+  /* ─── SLIDE 5: REVIEW SUMMARY ─── */
+  .s5 {
+    background: linear-gradient(140deg, #04020f 0%, #0d0628 40%, #160840 70%, #08031a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 72px;
+    color: white;
+    position: relative;
+    text-align: center;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 50% 0%, rgba(140,60,255,0.4) 0%, transparent 65%),
+      radial-gradient(ellipse 45% 40% at 10% 90%, rgba(80,20,200,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 35% at 90% 80%, rgba(255,60,180,0.2) 0%, transparent 55%);
+  }
+
+  .s5-headline {
+    position: relative;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .s5-headline .hl1 { display: block; color: rgba(240,220,255,0.9); }
+  .s5-headline .hl2 {
+    display: block;
+    background: linear-gradient(90deg, #d070ff, #ff70c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s5-sub {
+    position: relative;
+    font-size: 20px;
+    color: rgba(200,180,255,0.7);
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  .s5-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 52px;
+  }
+  .s5-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(180,120,255,0.2);
+    border-radius: 20px;
+    padding: 30px 26px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .s5-item-icon { font-size: 36px; }
+  .s5-item-title { font-size: 18px; font-weight: 700; color: rgba(230,210,255,0.9); }
+  .s5-item-desc { font-size: 15px; color: rgba(180,160,220,0.75); line-height: 1.5; font-weight: 300; }
+
+  .s5-rating-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,150,255,0.25);
+    border-radius: 24px;
+    padding: 26px 40px;
+    width: 100%;
+  }
+  .s5-rating-num {
+    font-size: 64px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #d060ff, #ff60b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .s5-rating-right { text-align: left; }
+  .s5-rating-stars { display: flex; gap: 4px; margin-bottom: 6px; }
+  .s5-rating-star { font-size: 24px; color: #ffd700; }
+  .s5-rating-label { font-size: 16px; color: rgba(200,180,255,0.7); font-weight: 400; }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #0a0020 0%, #16004a 35%, #280060 65%, #0e0030 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(160,80,255,0.55) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 50% at 5% 90%, rgba(100,20,240,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 95% 60%, rgba(255,80,200,0.25) 0%, transparent 55%);
+  }
+
+  .s6-deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(180,120,255,0.12);
+  }
+  .s6-c1 { width: 500px; height: 500px; top: -200px; left: -150px; }
+  .s6-c2 { width: 380px; height: 380px; bottom: -150px; right: -120px; }
+  .s6-c3 { width: 250px; height: 250px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(200,150,255,0.08); }
+
+  .s6-logo-area {
+    position: relative;
+    margin-bottom: 44px;
+  }
+  .s6-logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(200,140,255,0.4);
+    border-radius: 50px;
+    padding: 12px 28px;
+  }
+  .s6-logo-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, #c070ff, #ff70c8); }
+  .s6-logo-text { font-size: 20px; font-weight: 700; color: rgba(230,210,255,0.95); letter-spacing: 0.08em; }
+
+  .s6-headline {
+    position: relative;
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .s6-headline .hl1 { display: block; color: #fff; }
+  .s6-headline .hl2 {
+    display: block;
+    background: linear-gradient(90deg, #e080ff, #ff80cc, #c060ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s6-sub {
+    position: relative;
+    font-size: 21px;
+    color: rgba(210,190,255,0.75);
+    font-weight: 300;
+    margin-bottom: 52px;
+    line-height: 1.6;
+  }
+  .s6-sub strong { color: rgba(230,200,255,0.95); font-weight: 600; }
+
+  .s6-cta-btn {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, #9030ff 0%, #e040c0 50%, #7010e0 100%);
+    border-radius: 60px;
+    padding: 26px 70px;
+    text-decoration: none;
+    margin-bottom: 36px;
+    box-shadow: 0 8px 40px rgba(160,50,255,0.5), 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .s6-cta-btn span {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+
+  .s6-url {
+    position: relative;
+    font-size: 22px;
+    color: rgba(200,170,255,0.8);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-bottom: 44px;
+  }
+
+  .s6-features {
+    position: relative;
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+  }
+  .s6-feat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(180,130,255,0.2);
+    border-radius: 30px;
+    padding: 10px 22px;
+  }
+  .s6-feat-dot { width: 6px; height: 6px; border-radius: 50%; background: #c070ff; flex-shrink: 0; }
+  .s6-feat span { font-size: 15px; color: rgba(210,190,255,0.85); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 1: COVER
+───────────────────────────────────────── -->
+<div class="card s1">
+  <div class="s1-deco-circle s1-c1"></div>
+  <div class="s1-deco-circle s1-c2"></div>
+  <div class="s1-deco-circle s1-c3"></div>
+  <div class="s1-stars" id="stars"></div>
+
+  <div class="s1-badge">
+    <div class="s1-badge-dot"></div>
+    <span>REAL REVIEWS</span>
+  </div>
+
+  <h1 class="s1-title">
+    <span class="line1">파티원 가봤어요</span>
+    <span class="line2">솔직 후기 모음</span>
+  </h1>
+
+  <p class="s1-sub">
+    처음엔 저도 망설였어요<br>
+    진짜 다녀온 분들의 이야기
+  </p>
+
+  <div class="s1-star-row">
+    <span class="s1-star-icon">★</span>
+    <span class="s1-star-icon">★</span>
+    <span class="s1-star-icon">★</span>
+    <span class="s1-star-icon">★</span>
+    <span class="s1-star-icon">★</span>
+  </div>
+  <p class="s1-count-text">실제 참가자 후기 4.9점 / 5.0점</p>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 2: REVIEW 1 — 소개팅 파티 후기
+───────────────────────────────────────── -->
+<div class="card s2">
+  <div class="s2-header">
+    <div class="s2-header-tag">
+      <span>✨ REVIEW 01</span>
+    </div>
+    <div class="s2-header-num">소개팅(로테이션) 파티</div>
+    <div class="s2-header-title">혼자 갔다가<br>남자친구 생겼어요</div>
+  </div>
+  <div class="s2-body">
+    <div>
+      <div class="s2-profile-row">
+        <div class="s2-avatar">🌸</div>
+        <div class="s2-profile-info">
+          <div class="s2-profile-name">지은 님 · 26세</div>
+          <div class="s2-profile-meta">서울 홍대 파티 참가 · 2026.10</div>
+        </div>
+        <div class="s2-stars-small">
+          <span class="s2-star-s">★</span>
+          <span class="s2-star-s">★</span>
+          <span class="s2-star-s">★</span>
+          <span class="s2-star-s">★</span>
+          <span class="s2-star-s">★</span>
+        </div>
+      </div>
+      <div class="s2-quote-mark">"</div>
+      <p class="s2-review-text">
+        솔직히 처음엔 <strong>무료라서 의심</strong>했어요.
+        근데 정말 아무것도 안 내도 되더라고요?
+        파티 분위기도 생각보다 훨씬 편안했고,
+        자연스럽게 대화하다 보니 어느새
+        <strong>연락처 교환</strong>하고 있었어요 😊
+        지금 3주째 만나고 있습니다.
+      </p>
+    </div>
+    <div class="s2-tags-row">
+      <span class="s2-tag s2-tag-purple">#소개팅파티</span>
+      <span class="s2-tag s2-tag-pink">#혼자참가OK</span>
+      <span class="s2-tag s2-tag-dark">여성 무료 ✓</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 3: REVIEW 2 — 비주얼 파티 후기
+───────────────────────────────────────── -->
+<div class="card s3">
+  <div class="s3-num-row">
+    <span class="s3-num">02</span>
+    <div class="s3-label-box"><span>비주얼 파티</span></div>
+  </div>
+
+  <div class="s3-profile-row">
+    <div class="s3-avatar">💜</div>
+    <div>
+      <div class="s3-profile-name">수아 님 · 29세</div>
+      <div class="s3-profile-meta">강남 파티 참가 · 2026.09</div>
+    </div>
+  </div>
+
+  <div class="s3-stars">
+    <span class="s3-star-icon">★</span>
+    <span class="s3-star-icon">★</span>
+    <span class="s3-star-icon">★</span>
+    <span class="s3-star-icon">★</span>
+    <span class="s3-star-icon">★</span>
+  </div>
+
+  <div class="s3-quote-mark">"</div>
+  <p class="s3-text">
+    친구들이 다 바빠서 혼자 신청했는데
+    <em>진짜 잘 왔다</em>고 생각했어요.
+    비주얼 파티라 걱정했는데 전혀 부담 없고,
+    오히려 다들 너무 친절해서 놀랐어요.
+    지금은 그날 만난 언니랑 <em>매주 연락</em>해요 ☺️
+  </p>
+
+  <div class="s3-bottom">
+    <span class="s3-chip s3-chip-1">#비주얼파티</span>
+    <span class="s3-chip s3-chip-2">#새로운친구</span>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 4: REVIEW 3 — 와인 파티 후기
+───────────────────────────────────────── -->
+<div class="card s4">
+  <div class="s4-deco-ring s4-r1"></div>
+  <div class="s4-deco-ring s4-r2"></div>
+
+  <div class="s4-header-row">
+    <div class="s4-header-left">
+      <div class="s4-num-badge">REVIEW 03</div>
+      <div class="s4-party-type">와인 파티</div>
+    </div>
+    <div class="s4-wine-icon">🍷</div>
+  </div>
+
+  <div class="s4-profile-row">
+    <div class="s4-avatar">🌹</div>
+    <div>
+      <div class="s4-profile-name">민지 님 · 31세</div>
+      <div class="s4-profile-meta">이태원 파티 참가 · 2026.10</div>
+    </div>
+  </div>
+
+  <div class="s4-stars">
+    <span class="s4-star-icon">★</span>
+    <span class="s4-star-icon">★</span>
+    <span class="s4-star-icon">★</span>
+    <span class="s4-star-icon">★</span>
+    <span class="s4-star-icon">★</span>
+  </div>
+
+  <p class="s4-text">
+    와인 파티라고 해서 <b>격식 있을까봐 긴장</b>했는데
+    완전 편한 분위기였어요. 와인 설명도 해주시고,
+    참가자분들이랑 자연스럽게 이야기 나눴어요.
+    <b>여성 참가비가 진짜 0원</b>이어서 처음엔
+    믿기 힘들었는데 사실이었어요 😲
+    다음 달에 또 신청했습니다!
+  </p>
+
+  <div class="s4-bottom">
+    <span class="s4-chip s4-chip-1">#와인파티</span>
+    <span class="s4-chip s4-chip-2">#재참가확정</span>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 5: SUMMARY
+───────────────────────────────────────── -->
+<div class="card s5">
+  <h2 class="s5-headline">
+    <span class="hl1">후기로 보는</span>
+    <span class="hl2">파티원의 공통점</span>
+  </h2>
+  <p class="s5-sub">다녀온 분들이 공통으로 말하는 것</p>
+
+  <div class="s5-grid">
+    <div class="s5-item">
+      <div class="s5-item-icon">🆓</div>
+      <div class="s5-item-title">진짜 무료</div>
+      <div class="s5-item-desc">여성 참가비 0원,<br>숨겨진 비용 없음</div>
+    </div>
+    <div class="s5-item">
+      <div class="s5-item-icon">🤝</div>
+      <div class="s5-item-title">편안한 분위기</div>
+      <div class="s5-item-desc">억지스럽지 않은<br>자연스러운 대화</div>
+    </div>
+    <div class="s5-item">
+      <div class="s5-item-icon">💃</div>
+      <div class="s5-item-title">혼자 가도 OK</div>
+      <div class="s5-item-desc">혼자 참가하는 분들이<br>대부분이에요</div>
+    </div>
+    <div class="s5-item">
+      <div class="s5-item-icon">🗺️</div>
+      <div class="s5-item-title">전국 60곳+</div>
+      <div class="s5-item-desc">서울·경기·부산·대구<br>가까운 곳에서</div>
+    </div>
+  </div>
+
+  <div class="s5-rating-box">
+    <div class="s5-rating-num">4.9</div>
+    <div class="s5-rating-right">
+      <div class="s5-rating-stars">
+        <span class="s5-rating-star">★</span>
+        <span class="s5-rating-star">★</span>
+        <span class="s5-rating-star">★</span>
+        <span class="s5-rating-star">★</span>
+        <span class="s5-rating-star">★</span>
+      </div>
+      <div class="s5-rating-label">참가자 만족도 · 5점 만점</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SLIDE 6: CTA
+───────────────────────────────────────── -->
+<div class="card s6">
+  <div class="s6-deco-circle s6-c1"></div>
+  <div class="s6-deco-circle s6-c2"></div>
+  <div class="s6-deco-circle s6-c3"></div>
+
+  <div class="s6-logo-area">
+    <div class="s6-logo-badge">
+      <div class="s6-logo-dot"></div>
+      <span class="s6-logo-text">PARTYONE</span>
+    </div>
+  </div>
+
+  <h2 class="s6-headline">
+    <span class="hl1">나도 후기 주인공이</span>
+    <span class="hl2">되어볼까요?</span>
+  </h2>
+
+  <p class="s6-sub">
+    <strong>여성 참가비 0원</strong>으로 시작하는<br>
+    특별한 만남 — 전국 60곳+ 검증된 호스트
+  </p>
+
+  <a class="s6-cta-btn" href="https://party.it.kr">
+    <span>지금 파티 보러가기</span>
+  </a>
+
+  <div class="s6-url">🌐 party.it.kr</div>
+
+  <div class="s6-features">
+    <div class="s6-feat">
+      <div class="s6-feat-dot"></div>
+      <span>여성 무료</span>
+    </div>
+    <div class="s6-feat">
+      <div class="s6-feat-dot"></div>
+      <span>전국 60곳+</span>
+    </div>
+    <div class="s6-feat">
+      <div class="s6-feat-dot"></div>
+      <span>특별한 만남</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Generate star dots for slide 1
+  const starsContainer = document.getElementById('stars');
+  if (starsContainer) {
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.opacity = (Math.random() * 0.4 + 0.1).toFixed(2);
+      star.style.width = star.style.height = (Math.random() * 2.5 + 1) + 'px';
+      starsContainer.appendChild(star);
+    }
+  }
+</script>
+</body>
+</html>
