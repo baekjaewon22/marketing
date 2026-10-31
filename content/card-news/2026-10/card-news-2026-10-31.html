@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 — 핼러윈 특집</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  .s1 {
+    background: linear-gradient(145deg, #0d0108 0%, #1a0010 35%, #2d0520 65%, #100006 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 10%, rgba(255,80,0,0.45) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(180,20,100,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 90% 60%, rgba(255,140,0,0.25) 0%, transparent 55%);
+  }
+  .s1-moon {
+    position: absolute;
+    top: 60px;
+    right: 80px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff5cc, #f5c842);
+    box-shadow: 0 0 60px rgba(245,200,66,0.7), 0 0 120px rgba(245,200,66,0.3);
+    opacity: 0.9;
+  }
+  .s1-bat {
+    position: absolute;
+    font-size: 48px;
+    opacity: 0.7;
+  }
+  .s1-bat:nth-child(1) { top: 90px; left: 80px; transform: rotate(-15deg); }
+  .s1-bat:nth-child(2) { top: 200px; right: 200px; transform: rotate(10deg); font-size: 32px; }
+  .s1-bat:nth-child(3) { bottom: 280px; left: 150px; transform: rotate(-5deg); font-size: 28px; }
+  .s1-content { position: relative; z-index: 2; }
+  .s1-label {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: #ff8c42;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .s1-title {
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 20px;
+  }
+  .s1-title .line1 { color: #ff6b1a; text-shadow: 0 0 30px rgba(255,107,26,0.8); }
+  .s1-title .line2 { color: #ffffff; }
+  .s1-title .line3 { color: #ffd166; text-shadow: 0 0 20px rgba(255,209,102,0.7); }
+  .s1-sub {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    margin-top: 28px;
+    line-height: 1.5;
+  }
+  .s1-badge {
+    margin-top: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,107,26,0.25);
+    border: 2px solid rgba(255,107,26,0.6);
+    border-radius: 50px;
+    padding: 14px 36px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ff8c42;
+    letter-spacing: 1px;
+  }
+  .s1-pumpkin {
+    position: absolute;
+    bottom: 60px;
+    font-size: 60px;
+    opacity: 0.6;
+  }
+  .s1-pumpkin:nth-of-type(1) { left: 60px; }
+  .s1-pumpkin:nth-of-type(2) { right: 60px; }
+  .s1-slide-num {
+    position: absolute;
+    bottom: 36px;
+    right: 50px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 2px;
+  }
+
+  /* ─── SLIDE 2: HALLOWEEN PARTIES ─── */
+  .s2 {
+    background: linear-gradient(160deg, #0e0010 0%, #1a0520 50%, #0a0010 100%);
+    color: white;
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,80,0,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(120,0,180,0.35) 0%, transparent 60%);
+  }
+  .s2-header { position: relative; z-index: 2; }
+  .s2-tag {
+    display: inline-block;
+    background: #ff6b1a;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .s2-title {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: white;
+  }
+  .s2-title .hl { color: #ff8c42; }
+  .s2-sub {
+    margin-top: 16px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.65);
+  }
+  .s2-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .s2-item {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,107,26,0.4);
+    border-radius: 20px;
+    padding: 28px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .s2-item-icon {
+    font-size: 42px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .s2-item-text {}
+  .s2-item-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffd166;
+    margin-bottom: 6px;
+  }
+  .s2-item-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+  .s2-slide-num {
+    position: absolute;
+    bottom: 36px;
+    right: 50px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    z-index: 2;
+  }
+
+  /* ─── SLIDE 3: WHY PARTY ONE ─── */
+  .s3 {
+    background: linear-gradient(135deg, #0f0000 0%, #1c0608 40%, #2a0a00 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 72px 64px;
+    text-align: center;
+    gap: 0;
+  }
+  .s3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,100,0,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(200,0,60,0.3) 0%, transparent 60%);
+  }
+  .s3-jack {
+    font-size: 100px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 20px rgba(255,150,0,0.8));
+  }
+  .s3-eyebrow {
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #ff8c42;
+    margin-bottom: 16px;
+  }
+  .s3-title {
+    position: relative;
+    z-index: 2;
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .s3-title .hl { color: #ff6b1a; }
+  .s3-desc {
+    position: relative;
+    z-index: 2;
+    font-size: 24px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 820px;
+    margin-bottom: 48px;
+  }
+  .s3-pills {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .s3-pill {
+    background: rgba(255,107,26,0.2);
+    border: 2px solid rgba(255,107,26,0.5);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ff8c42;
+  }
+  .s3-slide-num {
+    position: absolute;
+    bottom: 36px;
+    right: 50px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    z-index: 2;
+  }
+
+  /* ─── SLIDE 4: SCHEDULE ─── */
+  .s4 {
+    background: linear-gradient(155deg, #050510 0%, #0c0320 50%, #160535 100%);
+    color: white;
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .s4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 90% 10%, rgba(255,100,0,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 10% 90%, rgba(100,0,200,0.3) 0%, transparent 60%);
+  }
+  .s4-header { position: relative; z-index: 2; }
+  .s4-tag {
+    display: inline-block;
+    background: rgba(255,107,26,0.3);
+    border: 1.5px solid #ff6b1a;
+    color: #ff8c42;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .s4-title {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: white;
+  }
+  .s4-title .hl { color: #ffd166; }
+  .s4-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .s4-event {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,209,102,0.25);
+    border-left: 4px solid #ff6b1a;
+    border-radius: 16px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .s4-event-emoji { font-size: 38px; flex-shrink: 0; }
+  .s4-event-info { flex: 1; }
+  .s4-event-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffd166;
+    margin-bottom: 4px;
+  }
+  .s4-event-detail {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+  }
+  .s4-event-badge {
+    background: rgba(255,107,26,0.3);
+    border: 1px solid #ff6b1a;
+    color: #ff8c42;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+  .s4-notice {
+    position: relative;
+    z-index: 2;
+    font-size: 19px;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+  }
+  .s4-notice span { color: #ff8c42; font-weight: 700; }
+  .s4-slide-num {
+    position: absolute;
+    bottom: 36px;
+    right: 50px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    z-index: 2;
+  }
+
+  /* ─── SLIDE 5: FREE & SAFE ─── */
+  .s5 {
+    background: linear-gradient(150deg, #060010 0%, #100025 50%, #060010 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 72px 64px;
+    gap: 48px;
+  }
+  .s5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 40% at 50% 0%, rgba(200,0,60,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 50% 100%, rgba(255,100,0,0.25) 0%, transparent 60%);
+  }
+  .s5-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .s5-eyebrow {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #ff8c42;
+    margin-bottom: 16px;
+  }
+  .s5-title {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: white;
+  }
+  .s5-title .hl { color: #ff6b1a; }
+  .s5-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+  }
+  .s5-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 24px;
+    padding: 36px 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .s5-card.accent-orange { border: 2px solid rgba(255,107,26,0.5); }
+  .s5-card.accent-purple { border: 2px solid rgba(160,0,255,0.4); }
+  .s5-card.accent-yellow { border: 2px solid rgba(255,209,102,0.4); }
+  .s5-card.accent-red { border: 2px solid rgba(220,0,80,0.4); }
+  .s5-card-icon { font-size: 52px; }
+  .s5-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+  }
+  .s5-card-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .s5-slide-num {
+    position: absolute;
+    bottom: 36px;
+    right: 50px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.3);
+    z-index: 2;
+  }
+
+  /* ─── SLIDE 6: CTA ─── */
+  .s6 {
+    background: linear-gradient(145deg, #0d0108 0%, #200010 40%, #1a0508 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 80px;
+    gap: 0;
+  }
+  .s6::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 50%, rgba(255,80,0,0.4) 0%, transparent 65%),
+      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(255,0,80,0.3) 0%, transparent 55%);
+  }
+  .s6-decor {
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.15;
+  }
+  .s6-decor:nth-child(1) { top: 40px; left: 40px; }
+  .s6-decor:nth-child(2) { top: 40px; right: 40px; }
+  .s6-decor:nth-child(3) { bottom: 40px; left: 40px; }
+  .s6-decor:nth-child(4) { bottom: 40px; right: 40px; }
+  .s6-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .s6-icon { font-size: 90px; margin-bottom: 24px; filter: drop-shadow(0 0 30px rgba(255,130,0,0.8)); }
+  .s6-eyebrow {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: #ff8c42;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .s6-title {
+    font-size: 70px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .s6-title .hl { color: #ff6b1a; text-shadow: 0 0 30px rgba(255,107,26,0.7); }
+  .s6-sub {
+    font-size: 26px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 52px;
+    line-height: 1.6;
+  }
+  .s6-cta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #ff6b1a, #ff3366);
+    border-radius: 50px;
+    padding: 22px 52px;
+    font-size: 28px;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 1px;
+    box-shadow: 0 0 50px rgba(255,80,30,0.5), 0 12px 40px rgba(0,0,0,0.4);
+    margin-bottom: 28px;
+  }
+  .s6-url {
+    font-size: 24px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+  }
+  .s6-url span { color: #ff8c42; font-weight: 700; }
+  .s6-free-badge {
+    margin-top: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+  }
+  .s6-free-badge strong { color: #ffd166; font-weight: 900; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: COVER -->
+<div class="card s1">
+  <div class="s1-moon"></div>
+  <span class="s1-bat">🦇</span>
+  <span class="s1-bat">🦇</span>
+  <span class="s1-bat">🦇</span>
+  <div class="s1-content">
+    <div class="s1-label">🎃 2026 Halloween Special</div>
+    <div class="s1-title">
+      <div class="line1">할로윈</div>
+      <div class="line2">파티원과</div>
+      <div class="line3">즐겨봐요!</div>
+    </div>
+    <div class="s1-sub">이 밤, 특별한 만남이 기다리고 있어요<br>전국 60곳+ 핼러윈 파티 · 여성 무료</div>
+    <div class="s1-badge">🎃 오늘 밤 파티 열려있어요</div>
+  </div>
+  <span class="s1-pumpkin">🎃</span>
+  <span class="s1-pumpkin">🕷️</span>
+  <div class="s1-slide-num">01 / 06</div>
+</div>
+
+<!-- SLIDE 2: HALLOWEEN PARTY TYPES -->
+<div class="card s2">
+  <div class="s2-header">
+    <div class="s2-tag">🎃 HALLOWEEN PARTY</div>
+    <div class="s2-title">어떤 파티가<br>열리냐고요? <span class="hl">다양해요!</span></div>
+    <div class="s2-sub">오늘 밤, 취향대로 골라보세요</div>
+  </div>
+  <div class="s2-grid">
+    <div class="s2-item">
+      <div class="s2-item-icon">🧛</div>
+      <div class="s2-item-text">
+        <div class="s2-item-name">비주얼 파티</div>
+        <div class="s2-item-desc">핼러윈 의상으로 분위기 UP! 코스프레 대환영</div>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-item-icon">🍷</div>
+      <div class="s2-item-text">
+        <div class="s2-item-name">와인 파티</div>
+        <div class="s2-item-desc">으스스한 분위기에 와인 한 잔, 어른스러운 핼러윈</div>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-item-icon">🕺</div>
+      <div class="s2-item-text">
+        <div class="s2-item-name">도파민 파티</div>
+        <div class="s2-item-desc">핼러윈 음악에 맞춰 신나게! 에너지 폭발</div>
+      </div>
+    </div>
+    <div class="s2-item">
+      <div class="s2-item-icon">🫂</div>
+      <div class="s2-item-text">
+        <div class="s2-item-name">소개팅 로테이션</div>
+        <div class="s2-item-desc">마스크 뒤에 숨겨진 두근두근 첫 만남</div>
+      </div>
+    </div>
+  </div>
+  <div class="s2-slide-num">02 / 06</div>
+</div>
+
+<!-- SLIDE 3: WHY HALLOWEEN PARTY WITH PARTY ONE -->
+<div class="card s3">
+  <div class="s3-jack">🎃</div>
+  <div class="s3-eyebrow">WHY PARTY ONE</div>
+  <div class="s3-title">혼자 가도<br><span class="hl">괜찮아요</span>, 진짜로</div>
+  <div class="s3-desc">
+    핼러윈 파티, 같이 갈 친구가 없어서 망설이셨나요?<br>
+    파티원에서는 혼자 와도 자연스럽게<br>
+    새로운 사람들과 어울릴 수 있어요.
+  </div>
+  <div class="s3-pills">
+    <div class="s3-pill">👥 혼자 참가 OK</div>
+    <div class="s3-pill">🛡️ 검증된 안전한 공간</div>
+    <div class="s3-pill">💸 여성 참가비 0원</div>
+    <div class="s3-pill">📍 전국 60곳+</div>
+  </div>
+  <div class="s3-slide-num">03 / 06</div>
+</div>
+
+<!-- SLIDE 4: TONIGHT'S SCHEDULE -->
+<div class="card s4">
+  <div class="s4-header">
+    <div class="s4-tag">🦇 오늘 밤 파티 미리보기</div>
+    <div class="s4-title">10월 31일<br><span class="hl">핼러윈 파티</span> 라인업</div>
+  </div>
+  <div class="s4-list">
+    <div class="s4-event">
+      <div class="s4-event-emoji">🧛</div>
+      <div class="s4-event-info">
+        <div class="s4-event-name">할로윈 비주얼 파티</div>
+        <div class="s4-event-detail">🚇 홍대입구 · 19:00 시작 · 2차 포함</div>
+      </div>
+      <div class="s4-event-badge">여성 무료</div>
+    </div>
+    <div class="s4-event">
+      <div class="s4-event-emoji">🍷</div>
+      <div class="s4-event-info">
+        <div class="s4-event-name">할로윈 와인 파티</div>
+        <div class="s4-event-detail">🚇 강남 · 19:30 시작 · 99~05년생</div>
+      </div>
+      <div class="s4-event-badge">여성 무료</div>
+    </div>
+    <div class="s4-event">
+      <div class="s4-event-emoji">🕺</div>
+      <div class="s4-event-info">
+        <div class="s4-event-name">할로윈 도파민 파티</div>
+        <div class="s4-event-detail">🚇 이태원 · 20:00 시작 · 95~03년생</div>
+      </div>
+      <div class="s4-event-badge">여성 무료</div>
+    </div>
+    <div class="s4-event">
+      <div class="s4-event-emoji">🫂</div>
+      <div class="s4-event-info">
+        <div class="s4-event-name">할로윈 소개팅 파티</div>
+        <div class="s4-event-detail">🚇 신촌 · 19:00 시작 · 98~04년생</div>
+      </div>
+      <div class="s4-event-badge">여성 무료</div>
+    </div>
+  </div>
+  <div class="s4-notice">📌 파티 세부 정보는 <span>party.it.kr</span>에서 확인하세요</div>
+  <div class="s4-slide-num">04 / 06</div>
+</div>
+
+<!-- SLIDE 5: FREE & SAFE -->
+<div class="card s5">
+  <div class="s5-header">
+    <div class="s5-eyebrow">🎃 PARTY ONE 특별한 이유</div>
+    <div class="s5-title">핼러윈엔<br><span class="hl">파티원</span>이 정답</div>
+  </div>
+  <div class="s5-grid">
+    <div class="s5-card accent-orange">
+      <div class="s5-card-icon">💸</div>
+      <div class="s5-card-title">여성 참가비 0원</div>
+      <div class="s5-card-desc">오늘 밤은 무료로<br>특별하게 즐기세요</div>
+    </div>
+    <div class="s5-card accent-purple">
+      <div class="s5-card-icon">🛡️</div>
+      <div class="s5-card-title">검증된 안전 공간</div>
+      <div class="s5-card-desc">전국 60곳+<br>믿을 수 있는 제휴 호스트</div>
+    </div>
+    <div class="s5-card accent-yellow">
+      <div class="s5-card-icon">👥</div>
+      <div class="s5-card-title">혼자 가도 OK</div>
+      <div class="s5-card-desc">혼자 오는 분들이<br>대부분이에요</div>
+    </div>
+    <div class="s5-card accent-red">
+      <div class="s5-card-icon">✨</div>
+      <div class="s5-card-title">특별한 만남</div>
+      <div class="s5-card-desc">핼러윈 분위기 속<br>새로운 인연을 만나요</div>
+    </div>
+  </div>
+  <div class="s5-slide-num">05 / 06</div>
+</div>
+
+<!-- SLIDE 6: CTA -->
+<div class="card s6">
+  <span class="s6-decor">🎃</span>
+  <span class="s6-decor">🦇</span>
+  <span class="s6-decor">🕷️</span>
+  <span class="s6-decor">👻</span>
+  <div class="s6-content">
+    <div class="s6-icon">👻</div>
+    <div class="s6-eyebrow">오늘 밤 주인공이 되세요</div>
+    <div class="s6-title">할로윈<br><span class="hl">파티원</span>에서</div>
+    <div class="s6-sub">여성 참가비 무료 · 전국 60곳+<br>지금 바로 파티를 찾아보세요!</div>
+    <div class="s6-cta">🎃 지금 파티 찾기</div>
+    <div class="s6-url"><span>party.it.kr</span></div>
+    <div class="s6-free-badge">🙋‍♀️ 여성 참가비 <strong>0원</strong> · 검증된 호스트 · 안전한 만남</div>
+  </div>
+</div>
+
+</body>
+</html>
