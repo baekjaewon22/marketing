@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 내향인파티 | 2026-11-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0f0e17;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── 공통 카드 ── */
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ── 브랜드 워터마크 ── */
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.55;
+    color: #fff;
+  }
+
+  /* ── 슬라이드 번호 ── */
+  .slide-no {
+    position: absolute;
+    top: 44px;
+    right: 48px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 1 — 타이틀
+  ══════════════════════════════════════ */
+  .card-1 {
+    background: linear-gradient(145deg, #1a1035 0%, #2d1b69 40%, #1e3a5f 80%, #0f1f3d 100%);
+  }
+
+  .card-1 .bg-circle-1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138,96,255,0.25) 0%, transparent 70%);
+    top: -80px; left: -120px;
+  }
+  .card-1 .bg-circle-2 {
+    position: absolute;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(64,190,255,0.18) 0%, transparent 70%);
+    bottom: -60px; right: -80px;
+  }
+
+  .card-1 .category-pill {
+    background: rgba(138,96,255,0.25);
+    border: 1px solid rgba(138,96,255,0.6);
+    color: #c4a8ff;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px 32px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+    margin-bottom: 36px;
+  }
+
+  .card-1 .main-title {
+    font-size: 96px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .card-1 .main-title span {
+    display: block;
+    background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-1 .subtitle {
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    margin-top: 28px;
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+
+  .card-1 .subtitle b {
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 2 — 내향인파티란?
+  ══════════════════════════════════════ */
+  .card-2 {
+    background: linear-gradient(160deg, #0f0e17 0%, #1a103a 50%, #0d1f35 100%);
+  }
+
+  .card-2 .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #7c3aed, #2563eb, #7c3aed);
+  }
+
+  .card-2 .section-label {
+    font-size: 22px;
+    font-weight: 700;
+    color: #a78bfa;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .card-2 .question {
+    font-size: 60px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 48px;
+  }
+
+  .card-2 .question em {
+    font-style: normal;
+    color: #a78bfa;
+  }
+
+  .card-2 .desc-box {
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.35);
+    border-radius: 24px;
+    padding: 48px 64px;
+    max-width: 840px;
+    text-align: center;
+  }
+
+  .card-2 .desc-box p {
+    font-size: 34px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    word-break: keep-all;
+  }
+
+  .card-2 .desc-box p strong {
+    color: #c4b5fd;
+    font-weight: 700;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 3 — 이런 사람에게 딱!
+  ══════════════════════════════════════ */
+  .card-3 {
+    background: linear-gradient(150deg, #130b2e 0%, #1e1450 45%, #0e2040 100%);
+  }
+
+  .card-3 .heading {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .card-3 .heading em {
+    font-style: normal;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-3 .subheading {
+    font-size: 28px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+
+  .card-3 .persona-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 860px;
+  }
+
+  .card-3 .persona-item {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 20px;
+    padding: 28px 36px;
+  }
+
+  .card-3 .persona-icon {
+    font-size: 52px;
+    flex-shrink: 0;
+  }
+
+  .card-3 .persona-text {
+    font-size: 30px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.4;
+    word-break: keep-all;
+  }
+
+  .card-3 .persona-text b {
+    color: #c4b5fd;
+    font-weight: 700;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 4 — 파티 방식
+  ══════════════════════════════════════ */
+  .card-4 {
+    background: linear-gradient(145deg, #0d1b35 0%, #1a1550 40%, #0f2840 100%);
+  }
+
+  .card-4 .section-badge {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 10px 36px;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    letter-spacing: 0.06em;
+  }
+
+  .card-4 .card-heading {
+    font-size: 58px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 52px;
+  }
+
+  .card-4 .card-heading span {
+    color: #93c5fd;
+  }
+
+  .card-4 .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 860px;
+  }
+
+  .card-4 .step {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .card-4 .step-num {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .card-4 .step-body {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 22px 32px;
+  }
+
+  .card-4 .step-body .step-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #e0d7ff;
+    margin-bottom: 4px;
+  }
+
+  .card-4 .step-body .step-desc {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 5 — 내향인파티만의 특징
+  ══════════════════════════════════════ */
+  .card-5 {
+    background: linear-gradient(155deg, #10082a 0%, #1c1050 45%, #0b2240 100%);
+  }
+
+  .card-5 .top-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed, #a855f7);
+  }
+
+  .card-5 .main-heading {
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+
+  .card-5 .main-heading span {
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-5 .sub-label {
+    font-size: 26px;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    margin-bottom: 52px;
+    font-weight: 400;
+  }
+
+  .card-5 .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 900px;
+  }
+
+  .card-5 .feature-card {
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 24px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .card-5 .feature-card .f-icon {
+    font-size: 52px;
+  }
+
+  .card-5 .feature-card .f-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ddd6fe;
+    line-height: 1.3;
+  }
+
+  .card-5 .feature-card .f-desc {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    word-break: keep-all;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 6 — CTA
+  ══════════════════════════════════════ */
+  .card-6 {
+    background: linear-gradient(145deg, #1a0845 0%, #2d1b69 35%, #1e3a8a 70%, #0f172a 100%);
+  }
+
+  .card-6 .glow-ring {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(167,139,250,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .card-6 .glow-ring-2 {
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    border: 1px solid rgba(96,165,250,0.12);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .card-6 .free-badge {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    padding: 12px 40px;
+    border-radius: 50px;
+    letter-spacing: 0.06em;
+    margin-bottom: 36px;
+  }
+
+  .card-6 .cta-title {
+    font-size: 72px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .card-6 .cta-title em {
+    font-style: normal;
+    background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-6 .cta-sub {
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    margin-bottom: 56px;
+    line-height: 1.5;
+    word-break: keep-all;
+  }
+
+  .card-6 .cta-url-box {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(167,139,250,0.5);
+    border-radius: 20px;
+    padding: 28px 72px;
+    margin-bottom: 32px;
+  }
+
+  .card-6 .cta-url {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #c4b5fd, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.03em;
+  }
+
+  .card-6 .cta-hint {
+    font-size: 24px;
+    color: rgba(255,255,255,0.38);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  .card-6 .host-note {
+    position: absolute;
+    bottom: 80px;
+    font-size: 22px;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CARD 1 — 타이틀
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 1 / 6</div>
+  <div class="card card-1">
+    <div class="bg-circle-1"></div>
+    <div class="bg-circle-2"></div>
+    <div class="slide-no">01 / 06</div>
+
+    <div class="category-pill">파티원 × 9개 카테고리</div>
+
+    <div class="main-title">
+      내향인파티<span>소개합니다</span>
+    </div>
+
+    <p class="subtitle">
+      조용히, 하지만 <b>진심으로</b> 연결되는 파티
+    </p>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CARD 2 — 내향인파티란?
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 2 / 6</div>
+  <div class="card card-2">
+    <div class="top-bar"></div>
+    <div class="slide-no">02 / 06</div>
+
+    <p class="section-label">What is it?</p>
+
+    <h2 class="question">
+      내향인파티가<br><em>뭔가요?</em>
+    </h2>
+
+    <div class="desc-box">
+      <p>
+        시끌벅적한 파티가 부담스러운 당신을 위해 설계된<br>
+        <strong>소규모 · 소음 낮춤 · 대화 중심</strong> 파티예요.<br><br>
+        억지로 분위기 맞추지 않아도, 술 게임 없어도,<br>
+        <strong>나답게 있는 그대로</strong> 즐기면 됩니다.
+      </p>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CARD 3 — 이런 사람에게 딱
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 3 / 6</div>
+  <div class="card card-3">
+    <div class="slide-no">03 / 06</div>
+
+    <h2 class="heading"><em>이런 사람</em>에게<br>딱 맞아요</h2>
+    <p class="subheading">혹시 이 중에 나 있나요? 👀</p>
+
+    <div class="persona-grid">
+      <div class="persona-item">
+        <span class="persona-icon">😶</span>
+        <span class="persona-text">사람들이랑 있고 싶은데<br><b>먼저 말 걸기가 힘든 분</b></span>
+      </div>
+      <div class="persona-item">
+        <span class="persona-icon">🎉</span>
+        <span class="persona-text">파티는 가고 싶지만<br><b>시끄럽고 정신없는 건 싫은 분</b></span>
+      </div>
+      <div class="persona-item">
+        <span class="persona-icon">🍷</span>
+        <span class="persona-text">1:1이나 소그룹으로<br><b>깊은 대화를 선호하는 분</b></span>
+      </div>
+      <div class="persona-item">
+        <span class="persona-icon">🌙</span>
+        <span class="persona-text">비슷한 에너지의 사람들과<br><b>조용히 연결되고 싶은 분</b></span>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CARD 4 — 파티 방식
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 4 / 6</div>
+  <div class="card card-4">
+    <div class="slide-no">04 / 06</div>
+
+    <div class="section-badge">파티 진행 방식</div>
+
+    <h2 class="card-heading">이렇게 <span>편안하게</span><br>진행돼요</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">소규모 인원 (4~8인)</div>
+          <div class="step-desc">대규모 자리 없이 아담하게, 내 존재가 묻히지 않아요</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">주제 카드 or 아이스브레이킹 게임</div>
+          <div class="step-desc">무슨 말 꺼낼지 걱정 NO! 자연스럽게 대화가 이어져요</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">부담 없는 음료·간식</div>
+          <div class="step-desc">술 권유 없음, 페이스는 내가 조절, 편한 분위기</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">조용한 공간 & 잔잔한 BGM</div>
+          <div class="step-desc">소음 없이 서로의 목소리가 잘 들리는 아늑한 공간</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CARD 5 — 내향인파티만의 특징
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 5 / 6</div>
+  <div class="card card-5">
+    <div class="top-accent"></div>
+    <div class="slide-no">05 / 06</div>
+
+    <h2 class="main-heading">내향인파티만의<br><span>4가지 특별함</span></h2>
+    <p class="sub-label">다른 파티와 이렇게 달라요</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="f-icon">🔕</span>
+        <div class="f-title">노이즈 프리<br>환경</div>
+        <div class="f-desc">큰 소리, 게임 강요<br>없는 조용한 공간</div>
+      </div>
+      <div class="feature-card">
+        <span class="f-icon">💬</span>
+        <div class="f-title">대화 퀄리티<br>UP</div>
+        <div class="f-desc">깊이 있는 주제로<br>진짜 연결되는 시간</div>
+      </div>
+      <div class="feature-card">
+        <span class="f-icon">🛡️</span>
+        <div class="f-title">안전하고<br>검증된 장소</div>
+        <div class="f-desc">파티원 인증 호스트<br>전국 60곳+</div>
+      </div>
+      <div class="feature-card">
+        <span class="f-icon">🎫</span>
+        <div class="f-title">여성 참가비<br>0원</div>
+        <div class="f-desc">비용 부담 없이<br>자유롭게 경험</div>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CARD 6 — CTA
+============================================================ -->
+<div class="card-wrapper">
+  <div class="card-label">Slide 6 / 6</div>
+  <div class="card card-6">
+    <div class="glow-ring"></div>
+    <div class="glow-ring-2"></div>
+    <div class="slide-no">06 / 06</div>
+
+    <div class="free-badge">✨ 여성 참가비 0원</div>
+
+    <h2 class="cta-title">
+      이번 주<br><em>내향인파티</em>에서<br>특별한 만남을
+    </h2>
+
+    <p class="cta-sub">
+      전국 60곳+ 검증된 호스트<br>
+      나답게, 조용히, 진심으로
+    </p>
+
+    <div class="cta-url-box">
+      <div class="cta-url">party.it.kr</div>
+    </div>
+
+    <p class="cta-hint">지금 파티 확인하기 →</p>
+
+    <p class="host-note">주점·식당·공간 운영자 호스트 파트너 모집 중 | party.it.kr</p>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+</body>
+</html>
