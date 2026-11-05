@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 이번 주 파티 미리보기 | 2026-11-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.4;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.4;
+    color: #fff;
+    z-index: 10;
+  }
+
+  /* ───── SLIDE 1 — 타이틀 ───── */
+  .s1 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  }
+  .s1-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    text-align: center;
+    padding: 80px;
+    width: 100%;
+    height: 100%;
+  }
+  .s1-week-badge {
+    background: rgba(255,107,53,0.2);
+    border: 2px solid rgba(255,107,53,0.6);
+    color: #FF6B35;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 14px 48px;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+  }
+  .s1-title {
+    font-size: 88px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .s1-title em {
+    font-style: normal;
+    background: linear-gradient(90deg, #FF6B35, #FFD23F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s1-sub {
+    font-size: 36px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+  .s1-free-badge {
+    background: linear-gradient(90deg, #FF6B35, #FFD23F);
+    color: #fff;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 18px 56px;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 32px rgba(255,107,53,0.4);
+  }
+  /* stars decoration */
+  .s1-deco {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ───── SLIDE 2 — 금요일 파티 ───── */
+  .s2 {
+    background: linear-gradient(160deg, #1a0533 0%, #2d0b5e 50%, #1a0533 100%);
+  }
+
+  /* ───── SLIDE 3 — 토요일 파티 ───── */
+  .s3 {
+    background: linear-gradient(160deg, #0a1628 0%, #0d2444 50%, #0a1628 100%);
+  }
+
+  /* ───── SLIDE 4 — 일요일 파티 ───── */
+  .s4 {
+    background: linear-gradient(160deg, #002b1a 0%, #014d2f 50%, #002b1a 100%);
+  }
+
+  /* ───── Shared Party List Layout ───── */
+  .party-day-slide {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 72px;
+    width: 100%;
+    height: 100%;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 44px;
+  }
+  .day-badge {
+    font-size: 30px;
+    font-weight: 900;
+    padding: 12px 36px;
+    border-radius: 50px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .day-label {
+    font-size: 44px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.9);
+  }
+  .day-date {
+    font-size: 26px;
+    color: rgba(255,255,255,0.4);
+    margin-left: auto;
+    font-weight: 500;
+  }
+
+  .party-items {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .party-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .cat-badge {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 30px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .p-info { flex: 1; min-width: 0; }
+  .p-title {
+    font-size: 30px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.95);
+    line-height: 1.3;
+  }
+  .p-meta {
+    font-size: 22px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .p-meta .sep { opacity: 0.3; }
+
+  .free-tag {
+    background: rgba(255,107,53,0.2);
+    border: 1px solid rgba(255,107,53,0.5);
+    color: #FF9770;
+    font-size: 22px;
+    font-weight: 900;
+    padding: 8px 18px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Category color palette */
+  .cat-visual   { background: rgba(216,27,96,0.2);  color: #FF69A0; border: 1px solid rgba(216,27,96,0.3); }
+  .cat-concept  { background: rgba(149,117,205,0.2); color: #BFA8FF; border: 1px solid rgba(149,117,205,0.3); }
+  .cat-wine     { background: rgba(126,87,194,0.2);  color: #C5A3FF; border: 1px solid rgba(126,87,194,0.3); }
+  .cat-solo     { background: rgba(0,188,212,0.15);  color: #5DD8E8; border: 1px solid rgba(0,188,212,0.25); }
+  .cat-introvert{ background: rgba(76,175,80,0.15);  color: #72D97A; border: 1px solid rgba(76,175,80,0.25); }
+  .cat-dopamine { background: rgba(255,193,7,0.15);  color: #FFD54F; border: 1px solid rgba(255,193,7,0.25); }
+  .cat-somac    { background: rgba(255,87,34,0.15);  color: #FF8A65; border: 1px solid rgba(255,87,34,0.25); }
+  .cat-rotation { background: rgba(239,83,80,0.15);  color: #FF8080; border: 1px solid rgba(239,83,80,0.25); }
+  .cat-potluck  { background: rgba(255,167,38,0.15); color: #FFB74D; border: 1px solid rgba(255,167,38,0.25); }
+
+  /* Day badge colors */
+  .badge-fri  { background: linear-gradient(90deg, #FF6B35, #FF9A5C); }
+  .badge-sat  { background: linear-gradient(90deg, #7C4DFF, #AA80FF); }
+  .badge-sun  { background: linear-gradient(90deg, #00BCD4, #4DD0E1); }
+
+  /* ───── SLIDE 5 — 하이라이트 ───── */
+  .s5 {
+    background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 50%, #1a0a00 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 80px;
+    text-align: center;
+  }
+  .s5-eyebrow {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFD23F;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .s5-title {
+    font-size: 68px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .s5-title em {
+    font-style: normal;
+    color: #FF6B35;
+  }
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .highlight-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+  }
+  .h-emoji { font-size: 40px; }
+  .h-title { font-size: 28px; font-weight: 900; color: rgba(255,255,255,0.9); }
+  .h-desc  { font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* ───── SLIDE 6 — CTA ───── */
+  .s6 {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF3D6B 50%, #9B27AF 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    text-align: center;
+    padding: 80px;
+  }
+  .s6-eyebrow {
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em;
+  }
+  .s6-title {
+    font-size: 80px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  }
+  .s6-free {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #fff;
+    font-size: 36px;
+    font-weight: 900;
+    padding: 20px 60px;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+  }
+  .s6-url-box {
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px 72px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+  }
+  .s6-url-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #FF6B35, #FF3D6B);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .s6-url {
+    font-size: 44px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #FF6B35, #9B27AF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.02em;
+  }
+  .s6-hint {
+    font-size: 26px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+  }
+  .s6-host {
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 40px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── SLIDE 1 ─── -->
+<div class="card-wrapper">
+  <span class="card-label">01 / 06</span>
+  <div class="card s1">
+    <svg class="s1-deco" viewBox="0 0 1080 1080">
+      <circle cx="100" cy="120" r="180" fill="rgba(255,107,53,0.05)"/>
+      <circle cx="980" cy="960" r="220" fill="rgba(155,39,175,0.07)"/>
+      <circle cx="900" cy="150" r="80"  fill="rgba(255,210,63,0.06)"/>
+      <circle cx="160" cy="900" r="120" fill="rgba(0,188,212,0.05)"/>
+    </svg>
+    <div class="s1-inner">
+      <div class="s1-week-badge">📅 2026 · 11월 첫째 주</div>
+      <div class="s1-title">이번 주<br><em>파티 미리보기</em></div>
+      <div class="s1-sub">금·토·일 꽉 찬 파티 라인업<br>놓치지 말고 미리 체크하세요!</div>
+      <div class="s1-free-badge">🎉 여성 참가비 0원</div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">01</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 2 — 금요일 ─── -->
+<div class="card-wrapper">
+  <span class="card-label">02 / 06</span>
+  <div class="card s2">
+    <div class="party-day-slide">
+      <div class="day-header">
+        <div class="day-badge badge-fri">🔥 금요일</div>
+        <div class="day-label">Friday</div>
+        <div class="day-date">11.07(금)</div>
+      </div>
+      <div class="party-items">
+        <div class="party-item">
+          <div class="cat-badge cat-visual">비주얼파티</div>
+          <div class="p-info">
+            <div class="p-title">🌸 비주얼 파티 — 강남점</div>
+            <div class="p-meta">
+              <span>19:00 시작</span><span class="sep">·</span>
+              <span>🚇 강남역 3번 출구</span><span class="sep">·</span>
+              <span>96~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-dopamine">도파민파티</div>
+          <div class="p-info">
+            <div class="p-title">⚡ 도파민 나이트 — 홍대</div>
+            <div class="p-meta">
+              <span>20:00 시작</span><span class="sep">·</span>
+              <span>🚇 홍대입구역 1번 출구</span><span class="sep">·</span>
+              <span>95~04년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-rotation">소개팅(로테이션)</div>
+          <div class="p-info">
+            <div class="p-title">💘 로테이션 소개팅 — 신촌</div>
+            <div class="p-meta">
+              <span>19:30 시작</span><span class="sep">·</span>
+              <span>🚇 신촌역 2번 출구</span><span class="sep">·</span>
+              <span>96~03년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-somac">소맥파티</div>
+          <div class="p-info">
+            <div class="p-title">🍺 소맥 한잔 어때요 — 이태원</div>
+            <div class="p-meta">
+              <span>20:30 시작</span><span class="sep">·</span>
+              <span>🚇 이태원역 1번 출구</span><span class="sep">·</span>
+              <span>94~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">02</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 3 — 토요일 ─── -->
+<div class="card-wrapper">
+  <span class="card-label">03 / 06</span>
+  <div class="card s3">
+    <div class="party-day-slide">
+      <div class="day-header">
+        <div class="day-badge badge-sat">✨ 토요일</div>
+        <div class="day-label">Saturday</div>
+        <div class="day-date">11.08(토)</div>
+      </div>
+      <div class="party-items">
+        <div class="party-item">
+          <div class="cat-badge cat-wine">와인파티</div>
+          <div class="p-info">
+            <div class="p-title">🍷 와인 & 치즈 나이트 — 압구정</div>
+            <div class="p-meta">
+              <span>19:00 시작</span><span class="sep">·</span>
+              <span>🚇 압구정역 3번 출구</span><span class="sep">·</span>
+              <span>95~04년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-concept">컨셉파티</div>
+          <div class="p-info">
+            <div class="p-title">🎃 할로윈 컨셉파티 — 건대</div>
+            <div class="p-meta">
+              <span>20:00 시작</span><span class="sep">·</span>
+              <span>🚇 건대입구역 2번 출구</span><span class="sep">·</span>
+              <span>97~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-potluck">포틀럭</div>
+          <div class="p-info">
+            <div class="p-title">🍱 각자 하나씩 — 포틀럭 파티 성수</div>
+            <div class="p-meta">
+              <span>18:00 시작</span><span class="sep">·</span>
+              <span>🚇 성수역 4번 출구</span><span class="sep">·</span>
+              <span>96~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-visual">비주얼파티</div>
+          <div class="p-info">
+            <div class="p-title">💃 비주얼파티 — 부산 서면</div>
+            <div class="p-meta">
+              <span>19:00 시작</span><span class="sep">·</span>
+              <span>🚇 서면역 2번 출구</span><span class="sep">·</span>
+              <span>96~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">03</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 4 — 일요일 ─── -->
+<div class="card-wrapper">
+  <span class="card-label">04 / 06</span>
+  <div class="card s4">
+    <div class="party-day-slide">
+      <div class="day-header">
+        <div class="day-badge badge-sun">🌙 일요일</div>
+        <div class="day-label">Sunday</div>
+        <div class="day-date">11.09(일)</div>
+      </div>
+      <div class="party-items">
+        <div class="party-item">
+          <div class="cat-badge cat-introvert">내향인파티</div>
+          <div class="p-info">
+            <div class="p-title">🌿 내향인 편안한 모임 — 종로</div>
+            <div class="p-meta">
+              <span>16:00 시작</span><span class="sep">·</span>
+              <span>🚇 종각역 1번 출구</span><span class="sep">·</span>
+              <span>95~04년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-solo">혼술바</div>
+          <div class="p-info">
+            <div class="p-title">🥂 혼술하다 친구 생긴 그 날 — 연남</div>
+            <div class="p-meta">
+              <span>17:00 시작</span><span class="sep">·</span>
+              <span>🚇 홍대입구역 3번 출구</span><span class="sep">·</span>
+              <span>96~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-wine">와인파티</div>
+          <div class="p-info">
+            <div class="p-title">🍾 선데이 와인 클럽 — 대구</div>
+            <div class="p-meta">
+              <span>18:00 시작</span><span class="sep">·</span>
+              <span>🚇 반월당역 3번 출구</span><span class="sep">·</span>
+              <span>95~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+        <div class="party-item">
+          <div class="cat-badge cat-dopamine">도파민파티</div>
+          <div class="p-info">
+            <div class="p-title">🎊 선데이 도파민 — 수원</div>
+            <div class="p-meta">
+              <span>18:30 시작</span><span class="sep">·</span>
+              <span>🚇 수원역 1번 출구</span><span class="sep">·</span>
+              <span>97~05년생</span>
+            </div>
+          </div>
+          <div class="free-tag">여성 무료</div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">04</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 5 — 하이라이트 ─── -->
+<div class="card-wrapper">
+  <span class="card-label">05 / 06</span>
+  <div class="card s5">
+    <div class="s5-eyebrow">✦ THIS WEEK HIGHLIGHT ✦</div>
+    <div class="s5-title">이번 주엔<br><em>12개 파티</em>가 열려요</div>
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <div class="h-emoji">🗓️</div>
+        <div class="h-title">금·토·일 매일</div>
+        <div class="h-desc">서울·부산·대구·수원<br>전국 동시 개최</div>
+      </div>
+      <div class="highlight-card">
+        <div class="h-emoji">🎉</div>
+        <div class="h-title">여성 참가비 0원</div>
+        <div class="h-desc">모든 파티에<br>무료 참가 가능</div>
+      </div>
+      <div class="highlight-card">
+        <div class="h-emoji">🏢</div>
+        <div class="h-title">60곳+ 검증 호스트</div>
+        <div class="h-desc">안전하게 검증된<br>파티 공간만 운영</div>
+      </div>
+      <div class="highlight-card">
+        <div class="h-emoji">💃</div>
+        <div class="h-title">9가지 카테고리</div>
+        <div class="h-desc">내 스타일에 맞는<br>파티를 골라서!</div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">05</div>
+  </div>
+</div>
+
+<!-- ─── SLIDE 6 — CTA ─── -->
+<div class="card-wrapper">
+  <span class="card-label">06 / 06</span>
+  <div class="card s6">
+    <div class="s6-eyebrow">지금 바로 신청하세요</div>
+    <div class="s6-title">특별한 만남,<br>특별한 시간</div>
+    <div class="s6-free">🎁 여성 참가비 0원</div>
+    <div class="s6-url-box">
+      <div class="s6-url-icon">🎉</div>
+      <div class="s6-url">party.it.kr</div>
+    </div>
+    <div class="s6-hint">지금 접속해서 이번 주 파티 신청하기 →</div>
+    <div class="s6-host">호스트 문의 · 제휴: party.it.kr</div>
+    <div class="slide-no">06</div>
+  </div>
+</div>
+
+</body>
+</html>
