@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 11월 연말 파티 시즌 | 2026-11-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0d0a08;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  /* ───── SLIDE 1 — 타이틀 ───── */
+  .s1 {
+    background: linear-gradient(145deg, #1a0505 0%, #3d1000 35%, #1a0a1a 70%, #0d0508 100%);
+  }
+
+  .s1-orb1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220,80,20,0.35) 0%, transparent 70%);
+    top: -100px; left: -120px;
+    filter: blur(60px);
+  }
+  .s1-orb2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,30,80,0.3) 0%, transparent 70%);
+    bottom: -80px; right: -80px;
+    filter: blur(60px);
+  }
+  .s1-orb3 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,140,40,0.2) 0%, transparent 70%);
+    top: 50%; left: 55%;
+    transform: translate(-50%, -50%);
+    filter: blur(40px);
+  }
+
+  .s1-leaf {
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.12;
+  }
+  .s1-leaf1 { top: 60px; left: 80px; transform: rotate(-20deg); }
+  .s1-leaf2 { top: 120px; right: 100px; transform: rotate(30deg); font-size: 60px; }
+  .s1-leaf3 { bottom: 100px; left: 60px; transform: rotate(15deg); font-size: 50px; }
+  .s1-leaf4 { bottom: 60px; right: 120px; transform: rotate(-35deg); font-size: 70px; }
+
+  .s1-badge {
+    background: linear-gradient(90deg, #e05010, #c03060);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 10px 32px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .s1-title {
+    font-size: 90px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    letter-spacing: -0.02em;
+  }
+  .s1-title span {
+    background: linear-gradient(90deg, #ff8c20, #e04040, #ff6090);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s1-sub {
+    margin-top: 28px;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+  }
+
+  .s1-divider {
+    width: 80px; height: 3px;
+    background: linear-gradient(90deg, #ff8c20, #e04040);
+    border-radius: 2px;
+    margin: 36px auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .s1-cta-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 14px 40px;
+    border-radius: 100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ───── SLIDE 2 — 11월은 왜 특별한가 ───── */
+  .s2 {
+    background: linear-gradient(160deg, #0d0a05 0%, #1e1200 40%, #120808 100%);
+  }
+
+  .s2-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(220,100,20,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(220,100,20,0.07) 1px, transparent 1px);
+    background-size: 90px 90px;
+  }
+
+  .s2-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,70,10,0.2) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(80px);
+  }
+
+  .s2-header {
+    position: relative; z-index: 2;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .s2-header .eyebrow {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #ff8c40;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .s2-header h2 {
+    font-size: 62px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .s2-header h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #ff8c20, #e05050);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s2-cards {
+    display: flex;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .s2-card {
+    width: 240px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,180,80,0.2);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .s2-card .icon { font-size: 48px; margin-bottom: 16px; }
+  .s2-card .title {
+    font-size: 22px; font-weight: 700; color: #fff;
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .s2-card .desc {
+    font-size: 17px; font-weight: 400;
+    color: rgba(255,255,255,0.55); line-height: 1.6;
+  }
+
+  /* ───── SLIDE 3 — 11월 파티 추천 카테고리 ───── */
+  .s3 {
+    background: linear-gradient(135deg, #080514 0%, #1a0828 50%, #0d1020 100%);
+  }
+
+  .s3-deco1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,30,180,0.25) 0%, transparent 65%);
+    top: -150px; right: -150px;
+    filter: blur(80px);
+  }
+  .s3-deco2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220,60,80,0.2) 0%, transparent 65%);
+    bottom: -100px; left: -100px;
+    filter: blur(70px);
+  }
+
+  .s3-top {
+    text-align: center;
+    position: relative; z-index: 2;
+    margin-bottom: 50px;
+  }
+  .s3-top .label {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: 0.12em; color: #b060ff;
+    margin-bottom: 14px;
+  }
+  .s3-top h2 {
+    font-size: 56px; font-weight: 900; color: #fff;
+    line-height: 1.2;
+  }
+  .s3-top h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #c060ff, #ff5080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s3-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative; z-index: 2;
+    width: 820px;
+  }
+
+  .s3-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(180,80,255,0.15);
+    border-radius: 16px;
+    padding: 20px 28px;
+  }
+  .s3-item .num {
+    font-size: 36px; font-weight: 900;
+    background: linear-gradient(135deg, #c060ff, #ff5080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 50px;
+  }
+  .s3-item .emoji { font-size: 36px; min-width: 48px; text-align: center; }
+  .s3-item .info { flex: 1; }
+  .s3-item .info .name {
+    font-size: 26px; font-weight: 700; color: #fff;
+    margin-bottom: 4px;
+  }
+  .s3-item .info .desc {
+    font-size: 18px; font-weight: 400;
+    color: rgba(255,255,255,0.5);
+  }
+  .s3-item .tag {
+    background: rgba(180,80,255,0.15);
+    border: 1px solid rgba(180,80,255,0.3);
+    color: #c080ff;
+    font-size: 15px; font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ───── SLIDE 4 — 연말 분위기 Up ───── */
+  .s4 {
+    background: linear-gradient(150deg, #05100a 0%, #0a1f10 40%, #040c08 100%);
+  }
+
+  .s4-orb1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20,160,80,0.2) 0%, transparent 65%);
+    top: -100px; left: -100px;
+    filter: blur(80px);
+  }
+  .s4-orb2 {
+    position: absolute;
+    width: 450px; height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,200,120,0.15) 0%, transparent 65%);
+    bottom: -80px; right: -80px;
+    filter: blur(70px);
+  }
+
+  .s4-center {
+    text-align: center;
+    position: relative; z-index: 2;
+  }
+  .s4-center .season-icon {
+    font-size: 100px;
+    margin-bottom: 24px;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(80,200,120,0.4));
+  }
+  .s4-center .label {
+    font-size: 20px; font-weight: 700; letter-spacing: 0.12em;
+    color: #40c870; margin-bottom: 20px;
+  }
+  .s4-center h2 {
+    font-size: 66px; font-weight: 900; color: #fff;
+    line-height: 1.2; margin-bottom: 24px;
+  }
+  .s4-center h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #40e880, #20c0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s4-center p {
+    font-size: 26px; font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7; margin-bottom: 48px;
+  }
+
+  .s4-stats {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+  }
+  .s4-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(60,200,100,0.2);
+    border-radius: 20px;
+    padding: 28px 36px;
+  }
+  .s4-stat .val {
+    font-size: 48px; font-weight: 900;
+    background: linear-gradient(90deg, #40e880, #20c0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+  .s4-stat .lbl {
+    font-size: 18px; font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+  }
+
+  /* ───── SLIDE 5 — 여성 무료 강조 ───── */
+  .s5 {
+    background: linear-gradient(145deg, #100510 0%, #280a30 50%, #100520 100%);
+  }
+
+  .s5-rings {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .s5-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(220,80,160,0.12);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .s5-ring1 { width: 400px; height: 400px; }
+  .s5-ring2 { width: 600px; height: 600px; }
+  .s5-ring3 { width: 800px; height: 800px; }
+  .s5-ring4 { width: 1000px; height: 1000px; }
+
+  .s5-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,50,120,0.3) 0%, transparent 65%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(80px);
+  }
+
+  .s5-content {
+    text-align: center;
+    position: relative; z-index: 2;
+  }
+  .s5-content .crown { font-size: 80px; margin-bottom: 20px; display: block; }
+  .s5-content .label {
+    font-size: 20px; font-weight: 700; letter-spacing: 0.12em;
+    color: #e060a0; margin-bottom: 24px;
+  }
+  .s5-content .big {
+    font-size: 110px; font-weight: 900;
+    background: linear-gradient(135deg, #ff60b0, #c030e0, #ff4080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .s5-content .sub-big {
+    font-size: 44px; font-weight: 900; color: #fff;
+    margin-bottom: 32px;
+  }
+  .s5-content p {
+    font-size: 24px; font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+  }
+
+  .s5-benefit-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 44px;
+    justify-content: center;
+  }
+  .s5-benefit {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(220,80,160,0.2);
+    border-radius: 14px;
+    padding: 18px 24px;
+    text-align: center;
+    min-width: 180px;
+  }
+  .s5-benefit .b-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+  .s5-benefit .b-txt {
+    font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  /* ───── SLIDE 6 — CTA ───── */
+  .s6 {
+    background: linear-gradient(145deg, #0a0005 0%, #1f0828 40%, #2a0510 80%, #0a0005 100%);
+  }
+
+  .s6-starburst {
+    position: absolute;
+    width: 900px; height: 900px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg, rgba(180,40,100,0.06) 10deg,
+      transparent 20deg, rgba(180,40,100,0.06) 30deg,
+      transparent 40deg, rgba(180,40,100,0.06) 50deg,
+      transparent 60deg, rgba(180,40,100,0.06) 70deg,
+      transparent 80deg, rgba(180,40,100,0.06) 90deg,
+      transparent 100deg, rgba(180,40,100,0.06) 110deg,
+      transparent 120deg, rgba(180,40,100,0.06) 130deg,
+      transparent 140deg, rgba(180,40,100,0.06) 150deg,
+      transparent 160deg, rgba(180,40,100,0.06) 170deg,
+      transparent 180deg, rgba(180,40,100,0.06) 190deg,
+      transparent 200deg, rgba(180,40,100,0.06) 210deg,
+      transparent 220deg, rgba(180,40,100,0.06) 230deg,
+      transparent 240deg, rgba(180,40,100,0.06) 250deg,
+      transparent 260deg, rgba(180,40,100,0.06) 270deg,
+      transparent 280deg, rgba(180,40,100,0.06) 290deg,
+      transparent 300deg, rgba(180,40,100,0.06) 310deg,
+      transparent 320deg, rgba(180,40,100,0.06) 330deg,
+      transparent 340deg, rgba(180,40,100,0.06) 350deg,
+      transparent 360deg
+    );
+    border-radius: 50%;
+  }
+  .s6-glow1 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,30,80,0.3) 0%, transparent 65%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(90px);
+  }
+  .s6-glow2 {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220,100,30,0.25) 0%, transparent 65%);
+    top: 30%; left: 60%;
+    filter: blur(60px);
+  }
+
+  .s6-content {
+    text-align: center;
+    position: relative; z-index: 2;
+  }
+  .s6-content .s6-logo {
+    font-size: 26px; font-weight: 900;
+    letter-spacing: 0.08em; color: rgba(255,255,255,0.9);
+    margin-bottom: 32px;
+    display: block;
+  }
+  .s6-content .s6-logo span {
+    background: linear-gradient(90deg, #ff8030, #e03070);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-content h2 {
+    font-size: 70px; font-weight: 900; color: #fff;
+    line-height: 1.2; margin-bottom: 20px;
+  }
+  .s6-content h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #ff8030, #e03070, #c030c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-content .s6-sub {
+    font-size: 26px; font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7; margin-bottom: 50px;
+  }
+
+  .s6-url-box {
+    background: linear-gradient(90deg, #c03060, #8020c0);
+    border-radius: 20px;
+    padding: 32px 70px;
+    margin-bottom: 32px;
+    display: inline-block;
+  }
+  .s6-url-box .url-text {
+    font-size: 46px; font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+
+  .s6-tags {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .s6-tag {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.65);
+    font-size: 18px; font-weight: 500;
+    padding: 10px 22px;
+    border-radius: 100px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SLIDE 1 — 타이틀 커버
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 1 / 6</div>
+  <div class="card s1">
+    <div class="s1-orb1"></div>
+    <div class="s1-orb2"></div>
+    <div class="s1-orb3"></div>
+    <span class="s1-leaf s1-leaf1">🍂</span>
+    <span class="s1-leaf s1-leaf2">🍁</span>
+    <span class="s1-leaf s1-leaf3">🍃</span>
+    <span class="s1-leaf s1-leaf4">🍂</span>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">01 / 06</div>
+
+    <div class="s1-badge">🗓 NOVEMBER SEASON 2026</div>
+    <div class="s1-title">
+      가을의 끝,<br>
+      <span>연말 파티</span>가<br>
+      시작된다
+    </div>
+    <div class="s1-divider"></div>
+    <div class="s1-sub">
+      11월은 1년 중 가장 파티하기 좋은 계절<br>
+      쌀쌀한 밤, 따뜻한 사람들과 함께
+    </div>
+    <div style="margin-top: 40px;">
+      <div class="s1-cta-pill">파티원 · party.it.kr</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 2 — 11월이 파티 시즌인 이유
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 2 / 6</div>
+  <div class="card s2">
+    <div class="s2-grid-bg"></div>
+    <div class="s2-glow"></div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">02 / 06</div>
+
+    <div class="s2-header">
+      <div class="eyebrow">🍂 WHY NOVEMBER</div>
+      <h2>11월이 <em>파티 시즌</em>인<br>진짜 이유</h2>
+    </div>
+
+    <div class="s2-cards">
+      <div class="s2-card">
+        <div class="icon">🌙</div>
+        <div class="title">긴 밤,<br>충분한 시간</div>
+        <div class="desc">해가 일찍 지는 11월,<br>파티를 즐길<br>시간이 더 길어요</div>
+      </div>
+      <div class="s2-card">
+        <div class="icon">🧣</div>
+        <div class="title">따뜻함이<br>더 반가운 계절</div>
+        <div class="desc">쌀쌀한 날씨일수록<br>따뜻한 공간과<br>사람이 그리워져요</div>
+      </div>
+      <div class="s2-card">
+        <div class="icon">🎉</div>
+        <div class="title">연말 무드<br>미리 즐기기</div>
+        <div class="desc">12월 붐비기 전,<br>11월에 먼저<br>연말 감성 충전!</div>
+      </div>
+      <div class="s2-card">
+        <div class="icon">💫</div>
+        <div class="title">새로운 만남의<br>계절</div>
+        <div class="desc">한 해를 마무리하며<br>특별한 인연을<br>만들어보세요</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 3 — 이달의 추천 파티 카테고리
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 3 / 6</div>
+  <div class="card s3">
+    <div class="s3-deco1"></div>
+    <div class="s3-deco2"></div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">03 / 06</div>
+
+    <div class="s3-top">
+      <div class="label">🍷 11월 추천 카테고리</div>
+      <h2>이 계절에 딱 맞는<br><em>파티 유형</em> TOP 4</h2>
+    </div>
+
+    <div class="s3-list">
+      <div class="s3-item">
+        <div class="num">01</div>
+        <div class="emoji">🍷</div>
+        <div class="info">
+          <div class="name">와인파티</div>
+          <div class="desc">쌀쌀한 가을밤에 와인 한 잔 — 분위기 최고</div>
+        </div>
+        <div class="tag">#분위기甲</div>
+      </div>
+      <div class="s3-item">
+        <div class="num">02</div>
+        <div class="emoji">🫗</div>
+        <div class="info">
+          <div class="name">혼술바</div>
+          <div class="desc">혼자 왔지만 함께 즐기는 편안한 술자리</div>
+        </div>
+        <div class="tag">#혼자도OK</div>
+      </div>
+      <div class="s3-item">
+        <div class="num">03</div>
+        <div class="emoji">🌈</div>
+        <div class="info">
+          <div class="name">도파민파티</div>
+          <div class="desc">연말 에너지 충전! 텐션 가득 흥 넘치는 밤</div>
+        </div>
+        <div class="tag">#에너지UP</div>
+      </div>
+      <div class="s3-item">
+        <div class="num">04</div>
+        <div class="emoji">🫶</div>
+        <div class="info">
+          <div class="name">소개팅(로테이션)</div>
+          <div class="desc">연말 전 특별한 인연 — 한 자리에서 여러 만남</div>
+        </div>
+        <div class="tag">#인연찾기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 4 — 연말 무드 & 파티원 혜택
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 4 / 6</div>
+  <div class="card s4">
+    <div class="s4-orb1"></div>
+    <div class="s4-orb2"></div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">04 / 06</div>
+
+    <div class="s4-center">
+      <span class="season-icon">✨</span>
+      <div class="label">🗓 2026 연말 시즌</div>
+      <h2>지금 파티원을<br>선택해야 하는 이유,<br><em>딱 하나</em></h2>
+      <p>
+        전국 60곳+ 검증된 파티 호스트<br>
+        원하는 날 · 원하는 분위기 · 원하는 카테고리로
+      </p>
+      <div class="s4-stats">
+        <div class="s4-stat">
+          <span class="val">60+</span>
+          <div class="lbl">전국 호스트</div>
+        </div>
+        <div class="s4-stat">
+          <span class="val">9가지</span>
+          <div class="lbl">파티 카테고리</div>
+        </div>
+        <div class="s4-stat">
+          <span class="val">0원</span>
+          <div class="lbl">여성 참가비</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 5 — 여성 무료 강조
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 5 / 6</div>
+  <div class="card s5">
+    <div class="s5-rings">
+      <div class="s5-ring s5-ring1"></div>
+      <div class="s5-ring s5-ring2"></div>
+      <div class="s5-ring s5-ring3"></div>
+      <div class="s5-ring s5-ring4"></div>
+    </div>
+    <div class="s5-glow"></div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">05 / 06</div>
+
+    <div class="s5-content">
+      <span class="crown">👑</span>
+      <div class="label">여성 참가자 혜택</div>
+      <span class="big">무료</span>
+      <div class="sub-big">여성 참가비 0원</div>
+      <p>
+        별도 비용 없이 파티에 참가하세요<br>
+        검증된 호스트, 안전한 공간, 특별한 만남
+      </p>
+      <div class="s5-benefit-row">
+        <div class="s5-benefit">
+          <span class="b-icon">🛡️</span>
+          <div class="b-txt">검증된<br>안전한 공간</div>
+        </div>
+        <div class="s5-benefit">
+          <span class="b-icon">💌</span>
+          <div class="b-txt">특별한<br>인연 만남</div>
+        </div>
+        <div class="s5-benefit">
+          <span class="b-icon">🎊</span>
+          <div class="b-txt">다양한<br>파티 선택</div>
+        </div>
+        <div class="s5-benefit">
+          <span class="b-icon">📍</span>
+          <div class="b-txt">전국<br>60곳+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 6 — CTA
+══════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 6 / 6</div>
+  <div class="card s6">
+    <div class="s6-starburst"></div>
+    <div class="s6-glow1"></div>
+    <div class="s6-glow2"></div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">06 / 06</div>
+
+    <div class="s6-content">
+      <span class="s6-logo"><span>파티원</span> PARTYONE</span>
+      <h2>
+        이번 11월,<br>
+        <em>특별한 만남</em>을<br>
+        시작하세요
+      </h2>
+      <div class="s6-sub">
+        가을의 마지막 감성 · 연말의 설레는 시작<br>
+        여성 참가비 0원 · 전국 60곳+ 검증 호스트
+      </div>
+      <div class="s6-url-box">
+        <span class="url-text">party.it.kr</span>
+      </div>
+      <div class="s6-tags">
+        <div class="s6-tag">#파티원</div>
+        <div class="s6-tag">#여성무료</div>
+        <div class="s6-tag">#11월파티</div>
+        <div class="s6-tag">#연말파티</div>
+        <div class="s6-tag">#특별한만남</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
