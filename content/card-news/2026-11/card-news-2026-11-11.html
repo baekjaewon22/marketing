@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — FAQ / 진입장벽 해소 | 2026-11-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #09090f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.45;
+    color: #fff;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 44px;
+    right: 48px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em;
+  }
+
+  /* ══════════════════════
+     CARD 1 — 타이틀
+  ══════════════════════ */
+  .card-1 {
+    background: linear-gradient(145deg, #0b0b1a 0%, #1a0a2e 35%, #2d0a3e 65%, #0f0518 100%);
+  }
+
+  .card-1 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.6;
+  }
+  .card-1 .orb-a { width: 600px; height: 600px; background: #7c2ff7; top: -120px; left: -150px; }
+  .card-1 .orb-b { width: 500px; height: 500px; background: #e040c0; bottom: -100px; right: -100px; opacity: 0.5; }
+  .card-1 .orb-c { width: 300px; height: 300px; background: #3a90ff; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.25; }
+
+  .card-1 .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .card-1 .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 10px 28px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em;
+    backdrop-filter: blur(8px);
+  }
+
+  .card-1 .title {
+    font-size: 90px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 40px rgba(124,47,247,0.6);
+  }
+
+  .card-1 .title span { color: #c97dff; }
+
+  .card-1 .subtitle {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  .card-1 .qs {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .card-1 .q-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,125,255,0.4);
+    border-radius: 100px;
+    padding: 12px 26px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #e0b8ff;
+    letter-spacing: 0.01em;
+  }
+
+  /* ══════════════════════
+     CARD 2 — 진짜 무료야?
+  ══════════════════════ */
+  .card-2 {
+    background: linear-gradient(160deg, #030b1a 0%, #0a1f3d 50%, #071428 100%);
+  }
+
+  .card-2 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .card-2 .orb-a { width: 700px; height: 700px; background: #1a6eff; top: -200px; right: -200px; opacity: 0.35; }
+  .card-2 .orb-b { width: 400px; height: 400px; background: #00c8ff; bottom: -50px; left: -100px; opacity: 0.25; }
+
+  .card-2 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 80px 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .card-2 .q-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .card-2 .q-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1a6eff, #00c8ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .card-2 .q-text {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .card-2 .q-text em { color: #5bbbff; font-style: normal; }
+
+  .card-2 .answer-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(91,187,255,0.2);
+    border-radius: 24px;
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .card-2 .answer-big {
+    font-size: 46px;
+    font-weight: 900;
+    color: #5bbbff;
+    line-height: 1.15;
+  }
+
+  .card-2 .answer-desc {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+  }
+
+  .card-2 .highlight-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card-2 .hl {
+    background: linear-gradient(135deg, rgba(26,110,255,0.3), rgba(0,200,255,0.2));
+    border: 1px solid rgba(91,187,255,0.35);
+    border-radius: 100px;
+    padding: 14px 32px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #a8d8ff;
+  }
+
+  /* ══════════════════════
+     CARD 3 — 혼자 가도 돼?
+  ══════════════════════ */
+  .card-3 {
+    background: linear-gradient(155deg, #0a1a0a 0%, #0d2d10 45%, #061a08 100%);
+  }
+
+  .card-3 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .card-3 .orb-a { width: 600px; height: 600px; background: #00c851; top: -150px; left: -150px; opacity: 0.3; }
+  .card-3 .orb-b { width: 450px; height: 450px; background: #80ffb3; bottom: -100px; right: -80px; opacity: 0.2; }
+
+  .card-3 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 80px 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .card-3 .q-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .card-3 .q-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00c851, #80ffb3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .card-3 .q-text {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .card-3 .q-text em { color: #5dff9e; font-style: normal; }
+
+  .card-3 .answer-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(93,255,158,0.2);
+    border-radius: 24px;
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .card-3 .answer-big {
+    font-size: 46px;
+    font-weight: 900;
+    color: #5dff9e;
+    line-height: 1.15;
+  }
+
+  .card-3 .answer-desc {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+  }
+
+  .card-3 .stat-row {
+    display: flex;
+    gap: 24px;
+  }
+
+  .card-3 .stat-box {
+    flex: 1;
+    background: rgba(0,200,81,0.1);
+    border: 1px solid rgba(93,255,158,0.25);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-3 .stat-num {
+    font-size: 44px;
+    font-weight: 900;
+    color: #5dff9e;
+    line-height: 1;
+  }
+
+  .card-3 .stat-label {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ══════════════════════
+     CARD 4 — 안전해?
+  ══════════════════════ */
+  .card-4 {
+    background: linear-gradient(150deg, #1a0a00 0%, #2e1200 45%, #1a0800 100%);
+  }
+
+  .card-4 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .card-4 .orb-a { width: 650px; height: 650px; background: #ff7c00; top: -200px; right: -180px; opacity: 0.3; }
+  .card-4 .orb-b { width: 400px; height: 400px; background: #ffb800; bottom: -80px; left: -80px; opacity: 0.25; }
+
+  .card-4 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 80px 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .card-4 .q-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .card-4 .q-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff7c00, #ffb800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    flex-shrink: 0;
+  }
+
+  .card-4 .q-text {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .card-4 .q-text em { color: #ffb84d; font-style: normal; }
+
+  .card-4 .safety-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card-4 .safety-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,180,77,0.2);
+    border-radius: 20px;
+    padding: 30px 36px;
+  }
+
+  .card-4 .safety-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255,124,0,0.4), rgba(255,184,0,0.3));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .card-4 .safety-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-4 .safety-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffb84d;
+  }
+
+  .card-4 .safety-desc {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════
+     CARD 5 — 추가 FAQ
+  ══════════════════════ */
+  .card-5 {
+    background: linear-gradient(155deg, #0e0a1a 0%, #1a0d2e 50%, #0a0618 100%);
+  }
+
+  .card-5 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .card-5 .orb-a { width: 500px; height: 500px; background: #9b4dff; top: -100px; right: -100px; opacity: 0.4; }
+  .card-5 .orb-b { width: 400px; height: 400px; background: #ff4da6; bottom: -100px; left: -50px; opacity: 0.3; }
+
+  .card-5 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 70px 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .card-5 .section-label {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .card-5 .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card-5 .faq-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.2s;
+  }
+
+  .card-5 .faq-item:nth-child(1) { border-color: rgba(155,77,255,0.35); }
+  .card-5 .faq-item:nth-child(2) { border-color: rgba(255,77,166,0.35); }
+  .card-5 .faq-item:nth-child(3) { border-color: rgba(91,187,255,0.35); }
+
+  .card-5 .faq-q {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .card-5 .faq-q-mark {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    background: rgba(155,77,255,0.3);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    color: #c97dff;
+    flex-shrink: 0;
+  }
+
+  .card-5 .faq-item:nth-child(2) .faq-q-mark { background: rgba(255,77,166,0.3); color: #ff99cc; }
+  .card-5 .faq-item:nth-child(3) .faq-q-mark { background: rgba(91,187,255,0.3); color: #5bbbff; }
+
+  .card-5 .faq-a {
+    font-size: 23px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.55;
+    padding-left: 50px;
+  }
+
+  /* ══════════════════════
+     CARD 6 — CTA
+  ══════════════════════ */
+  .card-6 {
+    background: linear-gradient(145deg, #0b0218 0%, #200535 40%, #380860 70%, #1a0330 100%);
+  }
+
+  .card-6 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+  .card-6 .orb-a { width: 700px; height: 700px; background: #9b4dff; top: -200px; left: -200px; opacity: 0.5; }
+  .card-6 .orb-b { width: 600px; height: 600px; background: #e040c0; bottom: -200px; right: -200px; opacity: 0.4; }
+  .card-6 .orb-c { width: 350px; height: 350px; background: #3a90ff; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.2; }
+
+  .card-6 .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 36px;
+    padding: 0 80px;
+  }
+
+  .card-6 .cta-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 12px 32px;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card-6 .cta-headline {
+    font-size: 70px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 40px rgba(155,77,255,0.5);
+  }
+
+  .card-6 .cta-headline span { color: #c97dff; }
+
+  .card-6 .cta-sub {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+  }
+
+  .card-6 .cta-free {
+    background: linear-gradient(135deg, #9b4dff 0%, #e040c0 50%, #ff7070 100%);
+    border-radius: 100px;
+    padding: 26px 70px;
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.03em;
+    box-shadow: 0 8px 40px rgba(155,77,255,0.5);
+  }
+
+  .card-6 .cta-url {
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ CARD 1 — 타이틀 ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 1 / 6</span>
+  <div class="card card-1">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">01 / 06</span>
+    <div class="content">
+      <span class="badge">파티원 FAQ</span>
+      <div class="title">다들<br><span>궁금해하는</span><br>것들</div>
+      <div class="subtitle">처음이라 망설이는 당신에게<br>솔직하게 답해드립니다</div>
+      <div class="qs">
+        <span class="q-chip">진짜 무료야?</span>
+        <span class="q-chip">혼자 가도 돼?</span>
+        <span class="q-chip">안전해?</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARD 2 — 진짜 무료야? ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 2 / 6</span>
+  <div class="card card-2">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">02 / 06</span>
+    <div class="content">
+      <div class="q-header">
+        <div class="q-icon">Q</div>
+        <div class="q-text">"진짜로<br><em>무료</em>예요?"</div>
+      </div>
+      <div class="answer-box">
+        <div class="answer-big">네, 진짜 0원입니다.</div>
+        <div class="answer-desc">
+          여성 참가자는 입장비, 등록비, 플랫폼 수수료<br>
+          <strong style="color:#fff;">어떤 명목으로도 비용이 없습니다.</strong><br><br>
+          파티 호스트(주점/식당)가 행사 운영비를 부담하고,<br>
+          파티원은 자리를 매칭해 드리는 구조입니다.
+        </div>
+        <div class="highlight-row">
+          <span class="hl">입장비 0원</span>
+          <span class="hl">등록비 0원</span>
+          <span class="hl">수수료 0원</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARD 3 — 혼자 가도 돼? ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 3 / 6</span>
+  <div class="card card-3">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">03 / 06</span>
+    <div class="content">
+      <div class="q-header">
+        <div class="q-icon">Q</div>
+        <div class="q-text">"<em>혼자</em> 가도<br>괜찮아요?"</div>
+      </div>
+      <div class="answer-box">
+        <div class="answer-big">당연하죠, 혼자가 오히려 좋아요!</div>
+        <div class="answer-desc">
+          참가자 대부분이 혼자 옵니다.<br>
+          오히려 함께 온 그룹보다 새로운 사람을 만날<br>
+          <strong style="color:#fff;">가능성이 훨씬 높아요.</strong>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">78%</div>
+          <div class="stat-label">혼자 참가</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">9가지</div>
+          <div class="stat-label">파티 카테고리</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">60곳+</div>
+          <div class="stat-label">전국 호스트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARD 4 — 안전해? ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 4 / 6</span>
+  <div class="card card-4">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">04 / 06</span>
+    <div class="content">
+      <div class="q-header">
+        <div class="q-icon">Q</div>
+        <div class="q-text">"<em>안전</em>한가요?<br>어떻게 믿어요?"</div>
+      </div>
+      <div class="safety-list">
+        <div class="safety-item">
+          <div class="safety-icon">🏠</div>
+          <div class="safety-text">
+            <div class="safety-title">검증된 호스트 공간</div>
+            <div class="safety-desc">전국 60곳+ 파티원이 직접 검수한 주점·식당에서만 진행합니다.</div>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-icon">👩</div>
+          <div class="safety-text">
+            <div class="safety-title">여성 전용 채널 운영</div>
+            <div class="safety-desc">여성 참가자만 접근 가능한 별도 채널로 안내해 드립니다.</div>
+          </div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-icon">📍</div>
+          <div class="safety-text">
+            <div class="safety-title">지하철역 근처 위치</div>
+            <div class="safety-desc">모든 파티는 지하철역 도보권 내 접근성 높은 장소에서 열립니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARD 5 — 추가 FAQ ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 5 / 6</span>
+  <div class="card card-5">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">05 / 06</span>
+    <div class="content">
+      <div class="section-label">More FAQ</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            어떤 파티가 있어요?
+          </div>
+          <div class="faq-a">
+            비주얼·컨셉·혼술바·포틀럭·도파민·소개팅·내향인·와인·소맥파티 — 총 9가지 카테고리. 취향에 맞는 걸 골라요!
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            연령 제한이 있어요?
+          </div>
+          <div class="faq-a">
+            파티마다 참가 가능 출생연도가 다릅니다. 신청 전 파티 상세 페이지에서 꼭 확인해 주세요.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            2차는 어떻게 돼요?
+          </div>
+          <div class="faq-a">
+            파티 정보에 '2차 포함 여부'가 표시됩니다. 2차가 있는 파티는 더 많은 사람과 어울릴 수 있어요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARD 6 — CTA ══ -->
+<div class="card-wrapper">
+  <span class="card-label">Card 6 / 6</span>
+  <div class="card card-6">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="watermark">party.it.kr</div>
+    <span class="slide-no">06 / 06</span>
+    <div class="content">
+      <span class="cta-label">지금 바로</span>
+      <div class="cta-headline">궁금증 해결,<br>이제 <span>참가</span>만<br>남았어요</div>
+      <div class="cta-sub">여성 참가비 0원<br>전국 60곳+ 검증된 호스트<br>특별한 만남, 파티원에서</div>
+      <div class="cta-free">무료 신청하기</div>
+      <div class="cta-url">party.it.kr</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
