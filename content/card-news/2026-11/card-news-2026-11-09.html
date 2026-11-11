@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 파티원 소개 / 무료 참가 강조 | 2026-11-09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #09090f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 1 — 커버 / 훅
+  ───────────────────────────────────────── */
+  .s1 {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0533 45%, #2d0845 70%, #0a0a1a 100%);
+  }
+
+  .s1-glow1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,50,255,0.28) 0%, transparent 70%);
+    top: -100px; left: -150px;
+  }
+
+  .s1-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,120,255,0.22) 0%, transparent 70%);
+    bottom: -80px; right: -80px;
+  }
+
+  .s1-pill {
+    background: linear-gradient(90deg, #c026d3, #7c3aed);
+    border-radius: 100px;
+    padding: 12px 36px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+    margin-bottom: 36px;
+    z-index: 2;
+  }
+
+  .s1-headline {
+    font-size: 90px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.0;
+    text-align: center;
+    z-index: 2;
+    letter-spacing: -0.02em;
+  }
+
+  .s1-headline span {
+    background: linear-gradient(90deg, #d946ef, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s1-sub {
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    margin-top: 28px;
+    text-align: center;
+    z-index: 2;
+    letter-spacing: 0.03em;
+  }
+
+  .s1-free-badge {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 14px 48px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .s1-free-badge em {
+    color: #f0abfc;
+    font-style: normal;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 2 — 파티원이란?
+  ───────────────────────────────────────── */
+  .s2 {
+    background: linear-gradient(160deg, #0f0520 0%, #1e0a3c 50%, #120318 100%);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s2-tag {
+    background: linear-gradient(90deg, #7c3aed, #c026d3);
+    border-radius: 100px;
+    padding: 10px 32px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+    margin-bottom: 50px;
+    z-index: 2;
+  }
+
+  .s2-title {
+    font-size: 68px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    z-index: 2;
+    margin-bottom: 50px;
+  }
+
+  .s2-title span {
+    background: linear-gradient(90deg, #c084fc, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s2-desc {
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    z-index: 2;
+    max-width: 880px;
+  }
+
+  .s2-desc strong {
+    color: #e9d5ff;
+    font-weight: 700;
+  }
+
+  .s2-deco {
+    position: absolute;
+    right: -60px;
+    bottom: 80px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  .s2-line {
+    position: absolute;
+    left: 90px;
+    bottom: 100px;
+    display: flex;
+    gap: 16px;
+    z-index: 2;
+  }
+
+  .s2-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #7c3aed;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 3 — 여성 무료 참가 강조
+  ───────────────────────────────────────── */
+  .s3 {
+    background: linear-gradient(145deg, #050510 0%, #0d0d2b 50%, #160024 100%);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .s3-bg-circle {
+    position: absolute;
+    width: 900px; height: 900px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(192,38,211,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .s3-bg-circle2 {
+    position: absolute;
+    width: 650px; height: 650px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(124,58,237,0.2);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .s3-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  .s3-eyebrow {
+    font-size: 26px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+
+  .s3-big {
+    font-size: 56px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+
+  .s3-zero {
+    font-size: 240px;
+    font-weight: 900;
+    line-height: 1.0;
+    background: linear-gradient(135deg, #f0abfc 0%, #c084fc 40%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.04em;
+  }
+
+  .s3-won {
+    font-size: 90px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.85);
+    margin-top: -20px;
+    letter-spacing: 0.02em;
+  }
+
+  .s3-caption {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    margin-top: 30px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 4 — 어떻게 작동하나?
+  ───────────────────────────────────────── */
+  .s4 {
+    background: linear-gradient(160deg, #07051a 0%, #150a30 50%, #07051a 100%);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s4-title {
+    font-size: 60px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 70px;
+    line-height: 1.1;
+    z-index: 2;
+  }
+
+  .s4-title span {
+    background: linear-gradient(90deg, #d946ef, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s4-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .s4-step {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .s4-num {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #c026d3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .s4-step-text {
+    flex: 1;
+  }
+
+  .s4-step-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .s4-step-desc {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  .s4-arrow {
+    position: absolute;
+    left: 125px;
+    width: 2px;
+    background: rgba(124,58,237,0.3);
+  }
+
+  .s4-deco {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,38,211,0.2) 0%, transparent 70%);
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 5 — 전국 60곳+ / 카테고리
+  ───────────────────────────────────────── */
+  .s5 {
+    background: linear-gradient(145deg, #050510 0%, #0d0828 50%, #120318 100%);
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s5-title {
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    z-index: 2;
+  }
+
+  .s5-title span {
+    background: linear-gradient(90deg, #f0abfc, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s5-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 60px;
+    z-index: 2;
+  }
+
+  .s5-stat-box {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+
+  .s5-stat-num {
+    font-size: 56px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #d946ef, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .s5-stat-label {
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .s5-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    z-index: 2;
+  }
+
+  .s5-cat {
+    background: rgba(124,58,237,0.2);
+    border: 1.5px solid rgba(124,58,237,0.4);
+    border-radius: 100px;
+    padding: 12px 28px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #c4b5fd;
+    white-space: nowrap;
+  }
+
+  .s5-deco {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,120,255,0.18) 0%, transparent 70%);
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 6 — CTA
+  ───────────────────────────────────────── */
+  .s6 {
+    background: linear-gradient(145deg, #0a0a1a 0%, #1a0533 40%, #2d0845 70%, #0a0a1a 100%);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .s6-glow1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,50,255,0.3) 0%, transparent 70%);
+    top: -150px; right: -150px;
+  }
+
+  .s6-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80,120,255,0.2) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+  }
+
+  .s6-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .s6-label {
+    font-size: 26px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+
+  .s6-headline {
+    font-size: 70px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .s6-headline span {
+    background: linear-gradient(90deg, #d946ef, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s6-sub {
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 70px;
+    letter-spacing: 0.02em;
+  }
+
+  .s6-btn {
+    background: linear-gradient(90deg, #7c3aed, #c026d3);
+    border-radius: 100px;
+    padding: 28px 80px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    box-shadow: 0 0 60px rgba(192,38,211,0.4);
+  }
+
+  .s6-url {
+    font-size: 26px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+  }
+
+  .s6-free-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .s6-badge {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 14px 36px;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+  }
+
+  .s6-badge em {
+    color: #f0abfc;
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+
+<!-- ───── SLIDE 1 — 커버 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 01 / 06</div>
+  <div class="card s1">
+    <div class="s1-glow1"></div>
+    <div class="s1-glow2"></div>
+    <div class="slide-no">01 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s1-pill">🎉 파티원 소개</div>
+    <div class="s1-headline">
+      특별한 만남,<br><span>여성은 무료</span>
+    </div>
+    <div class="s1-sub">파티원 — 다양한 사람들과 특별한 시간</div>
+    <div class="s1-free-badge">
+      여성 참가비 <em>0원</em> · 전국 <em>60곳+</em> 검증된 호스트
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 2 — 파티원이란? ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 02 / 06</div>
+  <div class="card s2">
+    <div class="s2-deco"></div>
+    <div class="slide-no">02 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s2-tag">파티원이란?</div>
+    <div class="s2-title">
+      파티 호스트와<br><span>참가자를 잇는</span><br>매칭 플랫폼
+    </div>
+    <div class="s2-desc">
+      주점·식당·공간 운영자(호스트)와<br>
+      <strong>20~30대 참가자</strong>를 연결합니다.<br><br>
+      호스트는 빈 테이블을 채우고,<br>
+      참가자는 <strong>새로운 사람들과 특별한 밤</strong>을 경험해요.
+    </div>
+    <div class="s2-line">
+      <div class="s2-dot"></div>
+      <div class="s2-dot" style="background:#c026d3;"></div>
+      <div class="s2-dot" style="background:#818cf8;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 3 — 여성 무료 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 03 / 06</div>
+  <div class="card s3">
+    <div class="s3-bg-circle"></div>
+    <div class="s3-bg-circle2"></div>
+    <div class="slide-no">03 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s3-inner">
+      <div class="s3-eyebrow">WOMEN'S ENTRY FEE</div>
+      <div class="s3-big">여성 참가비</div>
+      <div class="s3-zero">0</div>
+      <div class="s3-won">원</div>
+      <div class="s3-caption">지금 바로 신청하고 무료로 참가하세요</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 4 — 어떻게 참가? ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 04 / 06</div>
+  <div class="card s4">
+    <div class="s4-deco"></div>
+    <div class="slide-no">04 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s4-title">3단계로 <span>간단하게</span><br>참가 완료</div>
+    <div class="s4-steps">
+      <div class="s4-step">
+        <div class="s4-num">1</div>
+        <div class="s4-step-text">
+          <div class="s4-step-title">파티 선택</div>
+          <div class="s4-step-desc">날짜 · 지역 · 카테고리로 원하는 파티를 골라요</div>
+        </div>
+      </div>
+      <div class="s4-step">
+        <div class="s4-num">2</div>
+        <div class="s4-step-text">
+          <div class="s4-step-title">무료 신청</div>
+          <div class="s4-step-desc">여성은 참가비 0원 — 간단한 정보만 입력하면 완료</div>
+        </div>
+      </div>
+      <div class="s4-step">
+        <div class="s4-num">3</div>
+        <div class="s4-step-text">
+          <div class="s4-step-title">파티 참가 & 만남</div>
+          <div class="s4-step-desc">검증된 호스트 공간에서 특별한 시간을 즐기세요</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 5 — 전국 60곳+ / 카테고리 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 05 / 06</div>
+  <div class="card s5">
+    <div class="s5-deco"></div>
+    <div class="slide-no">05 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s5-title">전국 <span>60곳+</span><br>검증된 호스트 · 9가지 파티</div>
+    <div class="s5-stats">
+      <div class="s5-stat-box">
+        <div class="s5-stat-num">60+</div>
+        <div class="s5-stat-label">전국 제휴 호스트</div>
+      </div>
+      <div class="s5-stat-box">
+        <div class="s5-stat-num">9</div>
+        <div class="s5-stat-label">파티 카테고리</div>
+      </div>
+      <div class="s5-stat-box">
+        <div class="s5-stat-num">0원</div>
+        <div class="s5-stat-label">여성 참가비</div>
+      </div>
+    </div>
+    <div class="s5-cats">
+      <div class="s5-cat">✨ 비주얼파티</div>
+      <div class="s5-cat">🎭 컨셉파티</div>
+      <div class="s5-cat">🍺 혼술바</div>
+      <div class="s5-cat">🍽️ 포틀럭</div>
+      <div class="s5-cat">⚡ 도파민파티</div>
+      <div class="s5-cat">💞 소개팅</div>
+      <div class="s5-cat">🌙 내향인파티</div>
+      <div class="s5-cat">🍷 와인파티</div>
+      <div class="s5-cat">🍻 소맥파티</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 6 — CTA ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 06 / 06</div>
+  <div class="card s6">
+    <div class="s6-glow1"></div>
+    <div class="s6-glow2"></div>
+    <div class="slide-no">06 / 06</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="s6-inner">
+      <div class="s6-label">지금 바로 시작하세요</div>
+      <div class="s6-headline">
+        특별한 만남이<br><span>기다리고 있어요</span>
+      </div>
+      <div class="s6-sub">여성 참가비 0원 · 전국 60곳+ 검증 호스트</div>
+      <div class="s6-btn">파티 신청하기</div>
+      <div class="s6-url">party.it.kr</div>
+      <div class="s6-free-row">
+        <div class="s6-badge"><em>무료</em> 참가</div>
+        <div class="s6-badge">서울 · 경기 · 부산 · 대구</div>
+        <div class="s6-badge">20~30대</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
