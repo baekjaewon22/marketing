@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 실제 참가자 후기 | 2026-11-13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #07080f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  /* ───── SLIDE 1 — 커버 ───── */
+  .s1 {
+    background: linear-gradient(150deg, #100820 0%, #1e0a3c 40%, #2a1060 70%, #0f0520 100%);
+  }
+  .s1-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  .s1-glow-a {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(180,100,255,0.22) 0%, transparent 70%);
+    top: -100px; left: -150px;
+  }
+  .s1-glow-b {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(80,160,255,0.18) 0%, transparent 70%);
+    bottom: -80px; right: -80px;
+  }
+  .s1-stars {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.6;
+  }
+  .s1-badge {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(180,100,255,0.25), rgba(80,160,255,0.2));
+    border: 1px solid rgba(200,140,255,0.4);
+    border-radius: 50px;
+    padding: 10px 32px;
+    color: #d9b8ff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+  .s1-title {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .s1-title .hl {
+    display: block;
+    font-size: 90px;
+    font-weight: 900;
+    line-height: 1.0;
+    background: linear-gradient(135deg, #e0b4ff 0%, #a0c4ff 60%, #c084ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+  }
+  .s1-title .sub {
+    display: block;
+    font-size: 38px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.75);
+    margin-top: 16px;
+    letter-spacing: 0.04em;
+  }
+  .s1-desc {
+    position: relative;
+    z-index: 2;
+    margin-top: 40px;
+    color: rgba(255,255,255,0.5);
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+
+  /* ───── SLIDE 2 — 후기 1 ───── */
+  .s2 {
+    background: linear-gradient(160deg, #0a1520 0%, #0e2035 50%, #0a1520 100%);
+  }
+  .s2-stripe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 60px,
+      rgba(100,180,255,0.025) 60px,
+      rgba(100,180,255,0.025) 61px
+    );
+  }
+  .review-card {
+    position: relative;
+    z-index: 2;
+    width: 880px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 32px;
+    padding: 60px 64px;
+  }
+  .review-quote-mark {
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 0.6;
+    color: rgba(100,200,255,0.25);
+    display: block;
+    margin-bottom: 24px;
+    font-family: serif;
+  }
+  .review-text {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.01em;
+  }
+  .review-text strong {
+    color: #7ec8ff;
+    font-weight: 700;
+  }
+  .review-author {
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .review-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .avatar-pink { background: linear-gradient(135deg, #f472b6, #ec4899); }
+  .avatar-purple { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+  .avatar-blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+  .avatar-teal { background: linear-gradient(135deg, #34d399, #059669); }
+  .review-author-info .name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .review-author-info .meta {
+    font-size: 20px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+  .s2-label {
+    position: absolute;
+    top: 56px;
+    left: 100px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(100,200,255,0.6);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .stars-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .star-icon {
+    font-size: 26px;
+  }
+
+  /* ───── SLIDE 3 — 후기 2 ───── */
+  .s3 {
+    background: linear-gradient(160deg, #120820 0%, #1e1035 50%, #120820 100%);
+  }
+  .s3-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+  }
+  .s3-circle-a {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(220,100,255,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .s3-circle-b {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(100,100,255,0.12) 0%, transparent 70%);
+    bottom: -60px; left: -60px;
+  }
+
+  /* ───── SLIDE 4 — 후기 3 ───── */
+  .s4 {
+    background: linear-gradient(160deg, #081520 0%, #0c2030 50%, #081520 100%);
+  }
+
+  /* ───── SLIDE 5 — 종합 평가 ───── */
+  .s5 {
+    background: linear-gradient(145deg, #0a0d18 0%, #0f1830 40%, #150f28 80%, #0a0d18 100%);
+  }
+  .s5-title {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .s5-title .main {
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .s5-title .main span {
+    background: linear-gradient(135deg, #f9a8d4, #c084fc, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s5-title .sub {
+    font-size: 26px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+    font-weight: 300;
+  }
+  .stats-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    width: 860px;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 44px 36px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #e0b4ff, #a0c4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-unit {
+    font-size: 36px;
+    font-weight: 700;
+  }
+  .stat-label {
+    font-size: 22px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 10px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .s5-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .s5-glow-a {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(192,100,255,0.12) 0%, transparent 70%);
+    top: -50px; right: -100px;
+  }
+  .s5-glow-b {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(100,160,255,0.10) 0%, transparent 70%);
+    bottom: -50px; left: -60px;
+  }
+
+  /* ───── SLIDE 6 — CTA ───── */
+  .s6 {
+    background: linear-gradient(145deg, #100820 0%, #1a0a40 35%, #0a1040 70%, #100820 100%);
+  }
+  .s6-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .s6-glow-a {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(150,80,255,0.3) 0%, transparent 70%);
+    top: -150px; left: -150px;
+  }
+  .s6-glow-b {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(80,120,255,0.2) 0%, transparent 70%);
+    bottom: -120px; right: -100px;
+  }
+  .s6-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .s6-eyebrow {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(200,160,255,0.8);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .s6-title {
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .s6-title .accent {
+    background: linear-gradient(135deg, #e879f9 0%, #a855f7 50%, #6366f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .s6-free-badge {
+    background: linear-gradient(135deg, #e879f9, #a855f7, #6366f1);
+    border-radius: 60px;
+    padding: 20px 60px;
+    font-size: 44px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 48px rgba(168,85,247,0.4);
+  }
+  .s6-url {
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    border-bottom: 3px solid rgba(168,85,247,0.6);
+    padding-bottom: 6px;
+    margin-bottom: 32px;
+  }
+  .s6-sub {
+    font-size: 24px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ SLIDE 1 — 커버 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">01 / 06</div>
+  <div class="card s1">
+    <div class="s1-glow s1-glow-a"></div>
+    <div class="s1-glow s1-glow-b"></div>
+    <!-- 별 장식 -->
+    <div class="s1-stars">
+      <div class="star" style="width:3px;height:3px;top:12%;left:18%"></div>
+      <div class="star" style="width:2px;height:2px;top:22%;left:72%"></div>
+      <div class="star" style="width:4px;height:4px;top:35%;left:8%"></div>
+      <div class="star" style="width:2px;height:2px;top:48%;left:88%"></div>
+      <div class="star" style="width:3px;height:3px;top:62%;left:14%"></div>
+      <div class="star" style="width:2px;height:2px;top:75%;left:60%"></div>
+      <div class="star" style="width:3px;height:3px;top:85%;left:40%"></div>
+      <div class="star" style="width:2px;height:2px;top:18%;left:50%"></div>
+      <div class="star" style="width:4px;height:4px;top:55%;left:30%"></div>
+      <div class="star" style="width:2px;height:2px;top:78%;left:82%"></div>
+    </div>
+    <div class="s1-badge">✨ REAL REVIEW</div>
+    <div class="s1-title">
+      <span class="hl">진짜 후기</span>
+      <span class="sub">파티원을 경험한 사람들의 이야기</span>
+    </div>
+    <div class="s1-desc">처음엔 나도 망설였어요 →</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">01</div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 2 — 후기 #1 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">02 / 06</div>
+  <div class="card s2">
+    <div class="s2-stripe"></div>
+    <div class="s2-label">REVIEW #1</div>
+    <div class="review-card">
+      <span class="review-quote-mark">"</span>
+      <div class="review-text">
+        솔직히 <strong>혼자 가는 게 엄청 떨렸어요.</strong><br>
+        근데 도착하자마자 호스트 분이 반갑게 맞아주셔서<br>
+        금방 편해졌어요. 비주얼파티였는데<br>
+        분위기도 좋고 사람들도 다 착해서<br>
+        <strong>3시간이 그냥 날아갔어요.</strong><br>
+        무엇보다 <strong>무료</strong>라서 부담이 없었던 게<br>
+        가장 좋았어요!
+      </div>
+      <div class="review-author">
+        <div class="review-avatar avatar-pink">지</div>
+        <div class="review-author-info">
+          <div class="name">지은 님 (25세)</div>
+          <div class="meta">강남 비주얼파티 참가 후기</div>
+          <div class="stars-row">
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">02</div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 3 — 후기 #2 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">03 / 06</div>
+  <div class="card s3">
+    <div class="s3-circle s3-circle-a"></div>
+    <div class="s3-circle s3-circle-b"></div>
+    <div class="s2-label" style="color:rgba(200,140,255,0.6)">REVIEW #2</div>
+    <div class="review-card" style="border-color:rgba(200,140,255,0.2)">
+      <span class="review-quote-mark" style="color:rgba(200,100,255,0.25)">"</span>
+      <div class="review-text">
+        소개팅 앱에서 번번이 실패하다가<br>
+        친구 추천으로 처음 갔는데—<br>
+        <strong>로테이션 소개팅이라 1:1로 대화할 시간이 있어서</strong><br>
+        진짜 사람을 제대로 볼 수 있더라고요.<br>
+        그날 연락처 교환하고 지금 <strong>잘 만나고 있어요.</strong><br>
+        파티원 아니었으면 못 만났을 사람 ☺
+      </div>
+      <div class="review-author">
+        <div class="review-avatar avatar-purple">수</div>
+        <div class="review-author-info">
+          <div class="name">수빈 님 (28세)</div>
+          <div class="meta">홍대 로테이션 소개팅 참가 후기</div>
+          <div class="stars-row">
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">03</div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 4 — 후기 #3 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">04 / 06</div>
+  <div class="card s4">
+    <div class="s2-stripe" style="background: repeating-linear-gradient(-55deg,transparent,transparent 60px,rgba(80,220,180,0.025) 60px,rgba(80,220,180,0.025) 61px)"></div>
+    <div class="s2-label" style="color:rgba(80,220,180,0.6)">REVIEW #3</div>
+    <div class="review-card" style="border-color:rgba(80,220,180,0.2)">
+      <span class="review-quote-mark" style="color:rgba(60,200,160,0.25)">"</span>
+      <div class="review-text">
+        내향인 파티라서 처음에 '<strong>내향인들끼리 모이면 조용하지 않나?</strong>' 했는데<br>
+        오히려 그게 편해요. 압박 없이 자기 페이스대로<br>
+        대화할 수 있고, 호스트 분이 아이스브레이킹을<br>
+        너무 잘 해줘서 금방 친해졌어요.<br>
+        <strong>이제 한 달에 한 번은 꼭 가요.</strong> 😌
+      </div>
+      <div class="review-author">
+        <div class="review-avatar avatar-teal">민</div>
+        <div class="review-author-info">
+          <div class="name">민서 님 (27세)</div>
+          <div class="meta">신촌 내향인파티 참가 후기</div>
+          <div class="stars-row">
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+            <span class="star-icon">⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">04</div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 5 — 종합 만족도 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">05 / 06</div>
+  <div class="card s5">
+    <div class="s5-glow s5-glow-a"></div>
+    <div class="s5-glow s5-glow-b"></div>
+    <div class="s5-title">
+      <div class="main">파티원 <span>참가자 만족도</span></div>
+      <div class="sub">실제 참가자 설문 결과</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">4.9<span class="stat-unit" style="font-size:40px;background:linear-gradient(135deg,#e0b4ff,#a0c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">/5</span></div>
+        <div class="stat-label">전체 만족도<br>(별점 평균)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">92<span class="stat-unit" style="background:linear-gradient(135deg,#e0b4ff,#a0c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">%</span></div>
+        <div class="stat-label">재참가 의향 있음</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">87<span class="stat-unit" style="background:linear-gradient(135deg,#e0b4ff,#a0c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">%</span></div>
+        <div class="stat-label">친구에게<br>추천할 의향</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">0<span class="stat-unit" style="background:linear-gradient(135deg,#e0b4ff,#a0c4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">원</span></div>
+        <div class="stat-label">여성 참가비<br>완전 무료</div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">05</div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 6 — CTA ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">06 / 06</div>
+  <div class="card s6">
+    <div class="s6-glow s6-glow-a"></div>
+    <div class="s6-glow s6-glow-b"></div>
+    <div class="s6-content">
+      <div class="s6-eyebrow">다음 후기의 주인공은 나</div>
+      <div class="s6-title">
+        지금 바로<br>
+        <span class="accent">파티원</span>에서<br>
+        만나요
+      </div>
+      <div class="s6-free-badge">여성 참가비 0원 🎉</div>
+      <a class="s6-url" href="https://party.it.kr">party.it.kr</a>
+      <div class="s6-sub">전국 60곳+ 검증된 호스트 · 특별한 만남</div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">06</div>
+  </div>
+</div>
+
+</body>
+</html>
