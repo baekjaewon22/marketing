@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 올 겨울 첫 파티 / 무료 참가 강조 | 2026-11-16</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #07070f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.35;
+    color: #fff;
+    z-index: 10;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 1 — 커버: 올 겨울 첫 파티
+  ───────────────────────────────────────── */
+  .s1 {
+    background: linear-gradient(145deg, #050518 0%, #0c1535 35%, #1a0640 60%, #050518 100%);
+  }
+
+  .s1-stars {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .s1-star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) var(--delay, 0s) infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.6; }
+  }
+
+  .s1-glow1 {
+    position: absolute;
+    width: 650px; height: 650px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,60,255,0.32) 0%, transparent 70%);
+    top: -120px; left: -100px;
+    z-index: 1;
+  }
+
+  .s1-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220,60,255,0.22) 0%, transparent 70%);
+    bottom: -60px; right: -80px;
+    z-index: 1;
+  }
+
+  .s1-season {
+    background: linear-gradient(90deg, #3b82f6, #818cf8, #c026d3);
+    border-radius: 100px;
+    padding: 11px 32px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+    z-index: 2;
+  }
+
+  .s1-headline {
+    font-size: 86px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.0;
+    text-align: center;
+    z-index: 2;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .s1-headline .accent {
+    background: linear-gradient(90deg, #60a5fa, #c084fc, #f0abfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s1-sub {
+    font-size: 29px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    z-index: 2;
+    letter-spacing: 0.03em;
+    margin-bottom: 70px;
+  }
+
+  .s1-badge-row {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  .s1-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 14px 36px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .s1-badge em {
+    color: #c4b5fd;
+    font-style: normal;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 2 — 파티원이란?
+  ───────────────────────────────────────── */
+  .s2 {
+    background: linear-gradient(160deg, #060618 0%, #0e1030 50%, #190430 100%);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s2-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    border-radius: 100px;
+    padding: 10px 32px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+    margin-bottom: 50px;
+    z-index: 2;
+  }
+
+  .s2-title {
+    font-size: 66px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    z-index: 2;
+    margin-bottom: 46px;
+  }
+
+  .s2-title .hi {
+    background: linear-gradient(90deg, #93c5fd, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s2-cards {
+    display: flex;
+    gap: 24px;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .s2-card {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 32px 28px;
+  }
+
+  .s2-card-icon {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+
+  .s2-card-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .s2-card-desc {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .s2-deco {
+    position: absolute;
+    right: -60px;
+    bottom: 60px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 3 — 여성 무료 대형 타이포
+  ───────────────────────────────────────── */
+  .s3 {
+    background: linear-gradient(145deg, #050510 0%, #0a0a28 50%, #140225 100%);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .s3-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .s3-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(139,92,246,0.15);
+  }
+
+  .s3-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .s3-eyebrow {
+    font-size: 25px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.14em;
+    margin-bottom: 18px;
+  }
+
+  .s3-label {
+    font-size: 52px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.88);
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+
+  .s3-zero-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    line-height: 1.0;
+    margin: -10px 0 0;
+  }
+
+  .s3-zero {
+    font-size: 230px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #93c5fd 0%, #a78bfa 50%, #f0abfc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+  }
+
+  .s3-won {
+    font-size: 85px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.8);
+    padding-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .s3-caption {
+    font-size: 27px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    margin-top: 28px;
+    letter-spacing: 0.04em;
+  }
+
+  .s3-line {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    border-radius: 100px;
+    margin: 24px auto 0;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 4 — 왜 파티원인가 / 차별점
+  ───────────────────────────────────────── */
+  .s4 {
+    background: linear-gradient(160deg, #07051a 0%, #140a28 50%, #07051a 100%);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s4-title {
+    font-size: 60px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 64px;
+    line-height: 1.1;
+    z-index: 2;
+  }
+
+  .s4-title .hi {
+    background: linear-gradient(90deg, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s4-points {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .s4-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 28px 32px;
+  }
+
+  .s4-icon {
+    font-size: 40px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .s4-point-body {}
+
+  .s4-point-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .s4-point-title .chip {
+    display: inline-block;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    border-radius: 100px;
+    padding: 2px 16px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .s4-point-desc {
+    font-size: 23px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  .s4-deco {
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 5 — 전국 지역 / 파티 카테고리
+  ───────────────────────────────────────── */
+  .s5 {
+    background: linear-gradient(145deg, #060616 0%, #0d0828 50%, #110220 100%);
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 90px 90px;
+  }
+
+  .s5-title {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 52px;
+    z-index: 2;
+  }
+
+  .s5-title .hi {
+    background: linear-gradient(90deg, #93c5fd, #f0abfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s5-row {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 40px;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .s5-block {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 32px 28px;
+  }
+
+  .s5-block-label {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .s5-block-num {
+    font-size: 60px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.0;
+    margin-bottom: 8px;
+  }
+
+  .s5-block-sub {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .s5-regions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    z-index: 2;
+  }
+
+  .s5-region {
+    background: rgba(37,99,235,0.18);
+    border: 1.5px solid rgba(37,99,235,0.4);
+    border-radius: 100px;
+    padding: 10px 26px;
+    font-size: 23px;
+    font-weight: 600;
+    color: #93c5fd;
+  }
+
+  .s5-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    z-index: 2;
+  }
+
+  .s5-cat {
+    background: rgba(124,58,237,0.18);
+    border: 1.5px solid rgba(124,58,237,0.4);
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #c4b5fd;
+    white-space: nowrap;
+  }
+
+  /* ─────────────────────────────────────────
+     SLIDE 6 — CTA
+  ───────────────────────────────────────── */
+  .s6 {
+    background: linear-gradient(145deg, #050518 0%, #0c1535 35%, #1a0640 60%, #050518 100%);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .s6-glow1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, transparent 70%);
+    top: -150px; left: -150px;
+  }
+
+  .s6-glow2 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,38,211,0.22) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+  }
+
+  .s6-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .s6-season-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+    border-radius: 100px;
+    padding: 11px 36px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+
+  .s6-headline {
+    font-size: 72px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .s6-headline .hi {
+    background: linear-gradient(90deg, #60a5fa, #c084fc, #f0abfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .s6-sub {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.58);
+    margin-bottom: 64px;
+    letter-spacing: 0.02em;
+  }
+
+  .s6-btn {
+    background: linear-gradient(90deg, #2563eb, #7c3aed, #c026d3);
+    border-radius: 100px;
+    padding: 28px 80px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+    box-shadow: 0 0 60px rgba(99,102,241,0.45);
+  }
+
+  .s6-url {
+    font-size: 26px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    margin-bottom: 52px;
+  }
+
+  .s6-badges {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .s6-badge {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.14);
+    border-radius: 100px;
+    padding: 12px 32px;
+    font-size: 23px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.03em;
+  }
+
+  .s6-badge em {
+    color: #93c5fd;
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+
+<!-- ───── SLIDE 1 — 커버 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 01 / 06</div>
+  <div class="card s1">
+    <div class="s1-glow1"></div>
+    <div class="s1-glow2"></div>
+
+    <!-- 별 장식 -->
+    <div class="s1-stars">
+      <div class="s1-star" style="width:3px;height:3px;top:12%;left:18%;--d:2.8s;--delay:0.2s;"></div>
+      <div class="s1-star" style="width:2px;height:2px;top:22%;left:72%;--d:3.4s;--delay:0.8s;"></div>
+      <div class="s1-star" style="width:4px;height:4px;top:38%;left:85%;--d:2.2s;--delay:1.4s;"></div>
+      <div class="s1-star" style="width:2px;height:2px;top:60%;left:10%;--d:3.8s;--delay:0.5s;"></div>
+      <div class="s1-star" style="width:3px;height:3px;top:78%;left:55%;--d:2.6s;--delay:1.0s;"></div>
+      <div class="s1-star" style="width:2px;height:2px;top:15%;left:48%;--d:4.0s;--delay:0.3s;"></div>
+      <div class="s1-star" style="width:3px;height:3px;top:50%;left:30%;--d:3.2s;--delay:1.8s;"></div>
+      <div class="s1-star" style="width:2px;height:2px;top:85%;left:80%;--d:2.9s;--delay:0.6s;"></div>
+    </div>
+
+    <div class="slide-no">01 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s1-season">❄️ 겨울 시즌 START</div>
+    <div class="s1-headline">
+      올 겨울 첫 파티,<br><span class="accent">여성은 무료</span>
+    </div>
+    <div class="s1-sub">파티원에서 특별한 겨울밤을 시작하세요</div>
+
+    <div class="s1-badge-row">
+      <div class="s1-badge">여성 참가비 <em>0원</em></div>
+      <div class="s1-badge">전국 <em>60곳+</em> 호스트</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 2 — 파티원이란? ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 02 / 06</div>
+  <div class="card s2">
+    <div class="s2-deco"></div>
+    <div class="slide-no">02 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s2-tag">파티원이란?</div>
+    <div class="s2-title">
+      새로운 사람들과<br><span class="hi">특별한 밤</span>을<br>만드는 플랫폼
+    </div>
+    <div class="s2-cards">
+      <div class="s2-card">
+        <div class="s2-card-icon">🏠</div>
+        <div class="s2-card-title">호스트</div>
+        <div class="s2-card-desc">주점·식당·공간 운영자가 파티를 열고 인원을 모아요</div>
+      </div>
+      <div class="s2-card">
+        <div class="s2-card-icon">🎉</div>
+        <div class="s2-card-title">참가자</div>
+        <div class="s2-card-desc">20~30대가 무료(여성)로 신청하고 새 인연을 만나요</div>
+      </div>
+      <div class="s2-card">
+        <div class="s2-card-icon">✨</div>
+        <div class="s2-card-title">매칭</div>
+        <div class="s2-card-desc">파티원이 호스트 ↔ 참가자를 검증·연결해드려요</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 3 — 여성 무료 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 03 / 06</div>
+  <div class="card s3">
+    <div class="s3-rings">
+      <div class="s3-ring" style="width:950px;height:950px;"></div>
+      <div class="s3-ring" style="width:720px;height:720px;border-color:rgba(139,92,246,0.2);"></div>
+      <div class="s3-ring" style="width:500px;height:500px;border-color:rgba(96,165,250,0.18);"></div>
+    </div>
+    <div class="slide-no">03 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s3-inner">
+      <div class="s3-eyebrow">WOMEN'S ENTRY FEE</div>
+      <div class="s3-label">여성 참가비</div>
+      <div class="s3-zero-row">
+        <div class="s3-zero">0</div>
+        <div class="s3-won">원</div>
+      </div>
+      <div class="s3-caption">신청만 하면 — 추가 비용 없이 파티 참가</div>
+      <div class="s3-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 4 — 왜 파티원인가? ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 04 / 06</div>
+  <div class="card s4">
+    <div class="s4-deco"></div>
+    <div class="slide-no">04 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s4-title"><span class="hi">왜</span> 파티원인가요?</div>
+    <div class="s4-points">
+      <div class="s4-point">
+        <div class="s4-icon">🆓</div>
+        <div class="s4-point-body">
+          <div class="s4-point-title">여성 완전 무료<span class="chip">0원</span></div>
+          <div class="s4-point-desc">참가비 걱정 없이 — 가고 싶을 때 바로 신청</div>
+        </div>
+      </div>
+      <div class="s4-point">
+        <div class="s4-icon">🛡️</div>
+        <div class="s4-point-body">
+          <div class="s4-point-title">검증된 호스트 공간</div>
+          <div class="s4-point-desc">파티원이 직접 선별한 전국 60곳+ 안전한 장소</div>
+        </div>
+      </div>
+      <div class="s4-point">
+        <div class="s4-icon">🌙</div>
+        <div class="s4-point-body">
+          <div class="s4-point-title">9가지 파티 카테고리</div>
+          <div class="s4-point-desc">내향인파티·와인파티·컨셉파티… 취향 맞는 파티 선택</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 5 — 전국 지역 & 카테고리 ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 05 / 06</div>
+  <div class="card s5">
+    <div class="slide-no">05 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s5-title">전국 어디서든<br><span class="hi">파티원</span>이 함께해요</div>
+    <div class="s5-row">
+      <div class="s5-block">
+        <div class="s5-block-label">제휴 호스트</div>
+        <div class="s5-block-num">60+</div>
+        <div class="s5-block-sub">전국 검증된 공간</div>
+      </div>
+      <div class="s5-block">
+        <div class="s5-block-label">파티 카테고리</div>
+        <div class="s5-block-num">9</div>
+        <div class="s5-block-sub">취향별 파티 선택</div>
+      </div>
+      <div class="s5-block">
+        <div class="s5-block-label">여성 참가비</div>
+        <div class="s5-block-num">0원</div>
+        <div class="s5-block-sub">무료 신청</div>
+      </div>
+    </div>
+    <div class="s5-regions">
+      <div class="s5-region">📍 서울</div>
+      <div class="s5-region">📍 경기</div>
+      <div class="s5-region">📍 인천</div>
+      <div class="s5-region">📍 부산</div>
+      <div class="s5-region">📍 대구</div>
+    </div>
+    <div class="s5-cats">
+      <div class="s5-cat">✨ 비주얼파티</div>
+      <div class="s5-cat">🎭 컨셉파티</div>
+      <div class="s5-cat">🍺 혼술바</div>
+      <div class="s5-cat">🍽️ 포틀럭</div>
+      <div class="s5-cat">⚡ 도파민파티</div>
+      <div class="s5-cat">💞 소개팅</div>
+      <div class="s5-cat">🌙 내향인파티</div>
+      <div class="s5-cat">🍷 와인파티</div>
+      <div class="s5-cat">🍻 소맥파티</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SLIDE 6 — CTA ───── -->
+<div class="card-wrapper">
+  <div class="card-label">SLIDE 06 / 06</div>
+  <div class="card s6">
+    <div class="s6-glow1"></div>
+    <div class="s6-glow2"></div>
+    <div class="slide-no">06 / 06</div>
+    <div class="watermark">party.it.kr</div>
+
+    <div class="s6-inner">
+      <div class="s6-season-badge">❄️ 2026 겨울 파티 시작</div>
+      <div class="s6-headline">
+        이번 주 파티,<br><span class="hi">무료로 신청하세요</span>
+      </div>
+      <div class="s6-sub">여성 참가비 0원 · 전국 60곳+ 검증 호스트</div>
+      <div class="s6-btn">파티 신청하기</div>
+      <div class="s6-url">party.it.kr</div>
+      <div class="s6-badges">
+        <div class="s6-badge"><em>무료</em> 참가</div>
+        <div class="s6-badge">서울 · 경기 · 부산 · 대구</div>
+        <div class="s6-badge">20~30대 환영</div>
+        <div class="s6-badge">❄️ 겨울 시즌</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
