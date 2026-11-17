@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 도파민파티 | 2026-11-17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #060614;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.5;
+    color: #fff;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 44px;
+    right: 48px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 1 — 타이틀
+  ══════════════════════════════════════ */
+  .card-1 {
+    background: linear-gradient(150deg, #07011a 0%, #1a0533 25%, #2d0a52 55%, #0e1a40 100%);
+  }
+
+  .card-1 .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+  .card-1 .orb-1 {
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, #7b2ff7 0%, transparent 70%);
+    top: -150px; left: -120px;
+    opacity: 0.55;
+  }
+  .card-1 .orb-2 {
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, #00f5a0 0%, transparent 70%);
+    bottom: -100px; right: -80px;
+    opacity: 0.3;
+  }
+  .card-1 .orb-3 {
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, #ff4ecd 0%, transparent 70%);
+    top: 40%; left: 55%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+  }
+
+  .card-1 .category-pill {
+    position: absolute;
+    top: 56px;
+    left: 56px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(123,47,247,0.5);
+    color: #c8aaff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-1 .title-emoji {
+    font-size: 96px;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 32px rgba(123,47,247,0.7));
+    line-height: 1;
+  }
+
+  .card-1 .title-sub {
+    font-size: 22px;
+    font-weight: 400;
+    color: #c8aaff;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .card-1 .title-main {
+    font-size: 90px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 60px rgba(123,47,247,0.6);
+  }
+  .card-1 .title-main em {
+    background: linear-gradient(135deg, #7b2ff7, #ff4ecd, #00f5a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: normal;
+  }
+
+  .card-1 .title-desc {
+    margin-top: 28px;
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+  }
+
+  .card-1 .bottom-tag-row {
+    position: absolute;
+    bottom: 56px;
+    left: 56px;
+    display: flex;
+    gap: 10px;
+  }
+  .card-1 .btag {
+    background: rgba(123,47,247,0.2);
+    border: 1px solid rgba(123,47,247,0.4);
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 6px 16px;
+    border-radius: 6px;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 2 — 도파민파티란?
+  ══════════════════════════════════════ */
+  .card-2 {
+    background: linear-gradient(135deg, #060a1a 0%, #0f1535 50%, #150a2a 100%);
+  }
+
+  .card-2 .accent-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #7b2ff7, #ff4ecd, #00f5a0, #7b2ff7);
+  }
+
+  .card-2 .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(123,47,247,0.2);
+  }
+  .card-2 .dc-1 { width: 600px; height: 600px; top: -200px; right: -200px; }
+  .card-2 .dc-2 { width: 400px; height: 400px; bottom: -100px; left: -100px; }
+
+  .card-2 .content {
+    position: relative; z-index: 2;
+    max-width: 880px; width: 100%;
+    padding: 0 60px;
+  }
+
+  .card-2 .section-label {
+    font-size: 15px; font-weight: 500;
+    color: #9b6bff; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .card-2 .heading {
+    font-size: 62px; font-weight: 900;
+    color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 36px;
+  }
+  .card-2 .heading em { color: #c8aaff; font-style: normal; }
+
+  .card-2 .desc-box {
+    background: rgba(123,47,247,0.08);
+    border: 1px solid rgba(123,47,247,0.3);
+    border-left: 4px solid #7b2ff7;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .card-2 .desc-box p {
+    font-size: 22px; font-weight: 400;
+    color: rgba(255,255,255,0.85); line-height: 1.75;
+  }
+
+  .card-2 .keyword-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .card-2 .kw {
+    background: linear-gradient(135deg, rgba(123,47,247,0.2), rgba(255,78,205,0.2));
+    border: 1px solid rgba(123,47,247,0.4);
+    color: #c8aaff;
+    font-size: 18px; font-weight: 500;
+    padding: 10px 22px; border-radius: 100px;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 3 — 이런 사람에게 추천
+  ══════════════════════════════════════ */
+  .card-3 {
+    background: linear-gradient(160deg, #060814 0%, #100e2e 45%, #0d0620 100%);
+  }
+
+  .card-3 .bg-mesh {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 300px 300px at 15% 20%, rgba(123,47,247,0.12) 0%, transparent 100%),
+      radial-gradient(ellipse 400px 400px at 85% 80%, rgba(0,245,160,0.08) 0%, transparent 100%);
+  }
+
+  .card-3 .content {
+    position: relative; z-index: 2;
+    max-width: 880px; width: 100%;
+    padding: 0 60px;
+  }
+
+  .card-3 .section-label {
+    font-size: 15px; font-weight: 500;
+    color: #9b6bff; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+
+  .card-3 .heading {
+    font-size: 56px; font-weight: 900;
+    color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 48px;
+  }
+  .card-3 .heading em { color: #c8aaff; font-style: normal; }
+
+  .card-3 .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .card-3 .rec-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(123,47,247,0.25);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .card-3 .rec-icon {
+    font-size: 36px; flex-shrink: 0; line-height: 1;
+  }
+
+  .card-3 .rec-text strong {
+    display: block;
+    font-size: 20px; font-weight: 700;
+    color: #c8aaff; margin-bottom: 8px;
+  }
+  .card-3 .rec-text p {
+    font-size: 16px; font-weight: 300;
+    color: rgba(255,255,255,0.65); line-height: 1.55;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 4 — 파티 구성 & 흐름
+  ══════════════════════════════════════ */
+  .card-4 {
+    background: linear-gradient(145deg, #060814 0%, #100b30 50%, #08091e 100%);
+  }
+
+  .card-4 .deco-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 700px 500px at 50% 50%, rgba(123,47,247,0.08) 0%, transparent 70%);
+  }
+
+  .card-4 .content {
+    position: relative; z-index: 2;
+    max-width: 900px; width: 100%;
+    padding: 0 60px;
+  }
+
+  .card-4 .section-label {
+    font-size: 15px; font-weight: 500;
+    color: #9b6bff; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+
+  .card-4 .heading {
+    font-size: 56px; font-weight: 900;
+    color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 44px;
+  }
+  .card-4 .heading em { color: #c8aaff; font-style: normal; }
+
+  .card-4 .timeline {
+    display: flex; flex-direction: column; gap: 0;
+  }
+
+  .card-4 .tl-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    position: relative;
+  }
+
+  .card-4 .tl-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 25px; top: 52px;
+    width: 2px;
+    height: calc(100% - 12px);
+    background: linear-gradient(to bottom, rgba(123,47,247,0.6), rgba(123,47,247,0.1));
+  }
+
+  .card-4 .tl-dot {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #7b2ff7, #ff4ecd);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(123,47,247,0.5);
+  }
+
+  .card-4 .tl-body { padding-bottom: 32px; }
+
+  .card-4 .tl-time {
+    font-size: 14px; font-weight: 500;
+    color: #9b6bff; letter-spacing: 0.08em; margin-bottom: 4px;
+  }
+
+  .card-4 .tl-title {
+    font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px;
+  }
+
+  .card-4 .tl-desc {
+    font-size: 17px; font-weight: 300;
+    color: rgba(255,255,255,0.6); line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 5 — 도파민파티만의 특별함
+  ══════════════════════════════════════ */
+  .card-5 {
+    background: linear-gradient(150deg, #060814 0%, #110a2e 40%, #1a0a40 70%, #0a0620 100%);
+  }
+
+  .card-5 .glow {
+    position: absolute;
+    width: 800px; height: 800px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,47,247,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .card-5 .content {
+    position: relative; z-index: 2;
+    max-width: 880px; width: 100%;
+    padding: 0 60px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+
+  .card-5 .section-label {
+    font-size: 15px; font-weight: 500;
+    color: #9b6bff; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+
+  .card-5 .heading {
+    font-size: 56px; font-weight: 900;
+    color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 48px;
+  }
+  .card-5 .heading em { color: #c8aaff; font-style: normal; }
+
+  .card-5 .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; width: 100%;
+  }
+
+  .card-5 .feat-item {
+    background: rgba(123,47,247,0.07);
+    border: 1px solid rgba(123,47,247,0.3);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .card-5 .feat-num {
+    font-size: 11px; font-weight: 700;
+    color: #9b6bff; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .card-5 .feat-icon {
+    font-size: 44px; margin-bottom: 16px; display: block;
+  }
+
+  .card-5 .feat-title {
+    font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px;
+  }
+
+  .card-5 .feat-desc {
+    font-size: 15px; font-weight: 300;
+    color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+
+  /* ══════════════════════════════════════
+     CARD 6 — CTA
+  ══════════════════════════════════════ */
+  .card-6 {
+    background: linear-gradient(160deg, #06080f 0%, #110828 35%, #2a0f55 65%, #180530 100%);
+  }
+
+  .card-6 .orb-a {
+    position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,47,247,0.4) 0%, transparent 65%);
+    top: -150px; right: -100px;
+    filter: blur(40px);
+  }
+  .card-6 .orb-b {
+    position: absolute;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,245,160,0.2) 0%, transparent 65%);
+    bottom: -100px; left: -100px;
+    filter: blur(40px);
+  }
+  .card-6 .orb-c {
+    position: absolute;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,78,205,0.3) 0%, transparent 65%);
+    bottom: 150px; right: 100px;
+    filter: blur(50px);
+  }
+
+  .card-6 .content {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+    max-width: 800px;
+  }
+
+  .card-6 .cta-tag {
+    background: rgba(123,47,247,0.2);
+    border: 1px solid rgba(123,47,247,0.5);
+    color: #c8aaff;
+    font-size: 15px; font-weight: 500;
+    padding: 8px 22px; border-radius: 100px;
+    letter-spacing: 0.08em; margin-bottom: 32px;
+  }
+
+  .card-6 .cta-heading {
+    font-size: 70px; font-weight: 900;
+    color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 24px;
+    text-shadow: 0 0 60px rgba(123,47,247,0.4);
+  }
+  .card-6 .cta-heading em {
+    background: linear-gradient(135deg, #c8aaff, #7b2ff7, #ff4ecd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: normal;
+  }
+
+  .card-6 .cta-sub {
+    font-size: 22px; font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px; line-height: 1.65;
+  }
+  .card-6 .cta-sub strong { color: #c8aaff; font-weight: 600; }
+
+  .card-6 .stat-row {
+    display: flex; gap: 40px; margin-bottom: 52px;
+  }
+  .card-6 .stat-item { text-align: center; }
+  .card-6 .stat-num {
+    font-size: 44px; font-weight: 900;
+    background: linear-gradient(135deg, #c8aaff, #7b2ff7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; display: block;
+  }
+  .card-6 .stat-label {
+    font-size: 14px; font-weight: 400;
+    color: rgba(255,255,255,0.5); margin-top: 4px;
+  }
+
+  .card-6 .divider {
+    width: 1px; height: 60px;
+    background: rgba(255,255,255,0.15);
+    align-self: center;
+  }
+
+  .card-6 .cta-btn {
+    background: linear-gradient(135deg, #7b2ff7, #ff4ecd);
+    color: #fff;
+    font-size: 26px; font-weight: 700;
+    padding: 24px 64px; border-radius: 100px;
+    letter-spacing: 0.04em; text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 8px 40px rgba(123,47,247,0.6);
+    margin-bottom: 24px;
+  }
+
+  .card-6 .cta-url {
+    font-size: 18px; font-weight: 400;
+    color: rgba(255,255,255,0.45); letter-spacing: 0.06em;
+  }
+
+  .card-6 .bottom-badges {
+    position: absolute;
+    bottom: 48px; left: 60px;
+    display: flex; gap: 10px;
+  }
+  .card-6 .badge {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6);
+    font-size: 13px; font-weight: 400;
+    padding: 6px 14px; border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CARD 1 — 타이틀
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 1 / 6 — 타이틀</div>
+  <div class="card card-1">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+
+    <div class="category-pill">파티원 × 9개 카테고리</div>
+    <div class="slide-no">01 / 06</div>
+
+    <div class="title-emoji">⚡</div>
+    <div class="title-sub">파티원이 소개하는</div>
+    <div class="title-main">도파민<em>파티.</em></div>
+    <div class="title-desc">
+      짜릿한 흥분과 신나는 에너지로<br>
+      오늘 밤을 가장 특별하게 채워드립니다
+    </div>
+
+    <div class="bottom-tag-row">
+      <span class="btag"># 도파민파티</span>
+      <span class="btag"># 여성무료</span>
+      <span class="btag"># 특별한만남</span>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 2 — 도파민파티란?
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 2 / 6 — 도파민파티란?</div>
+  <div class="card card-2">
+    <div class="accent-line"></div>
+    <div class="deco-circle dc-1"></div>
+    <div class="deco-circle dc-2"></div>
+    <div class="slide-no">02 / 06</div>
+
+    <div class="content">
+      <div class="section-label">Dopamine Party</div>
+      <div class="heading">
+        도파민파티가<br>
+        <em>뭔가요?</em>
+      </div>
+
+      <div class="desc-box">
+        <p>
+          에너지 넘치는 게임, 미션, 챌린지로<br>
+          뇌가 흥분되는 짜릿한 소셜 파티입니다.<br>
+          처음 만난 사람들과 웃고 떠들며 순식간에<br>
+          친해지는 마법 같은 경험을 선사해요.
+        </p>
+      </div>
+
+      <div class="keyword-row">
+        <span class="kw">⚡ 고에너지 활동</span>
+        <span class="kw">🎮 게임 & 챌린지</span>
+        <span class="kw">🎊 아이스브레이킹</span>
+        <span class="kw">🔥 즉각적 친밀감</span>
+        <span class="kw">😂 웃음 보장</span>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 3 — 이런 사람에게 추천
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 3 / 6 — 이런 사람에게 추천</div>
+  <div class="card card-3">
+    <div class="bg-mesh"></div>
+    <div class="slide-no">03 / 06</div>
+
+    <div class="content">
+      <div class="section-label">Recommendation</div>
+      <div class="heading">
+        <em>이런 분</em>께<br>딱 맞아요
+      </div>
+
+      <div class="rec-grid">
+        <div class="rec-item">
+          <div class="rec-icon">🙋</div>
+          <div class="rec-text">
+            <strong>활동적이고 에너지 넘치는 분</strong>
+            <p>조용히 앉아 대화만 하기엔<br>에너지가 넘치는 분<br>온몸으로 즐기고 싶은 분</p>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-icon">🤝</div>
+          <div class="rec-text">
+            <strong>빠르게 친해지고 싶은 분</strong>
+            <p>낯선 사람과 어색한 시간 없이<br>즉석에서 절친이 되는<br>마법 같은 경험을 원하는 분</p>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-icon">🎲</div>
+          <div class="rec-text">
+            <strong>게임·미션을 좋아하는 분</strong>
+            <p>짜릿한 게임과 창의적인<br>미션 속에서 자연스럽게<br>교류하고 싶은 분</p>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-icon">✨</div>
+          <div class="rec-text">
+            <strong>잊지 못할 추억을 원하는 분</strong>
+            <p>평범한 술자리는 질렸고<br>오늘 밤만큼은 특별한<br>경험을 만들고 싶은 분</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 4 — 파티 구성 & 흐름
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 4 / 6 — 파티 구성 & 흐름</div>
+  <div class="card card-4">
+    <div class="deco-bg"></div>
+    <div class="slide-no">04 / 06</div>
+
+    <div class="content">
+      <div class="section-label">Party Flow</div>
+      <div class="heading">
+        도파민파티<br>
+        <em>이렇게 진행돼요</em>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-dot">🚀</div>
+          <div class="tl-body">
+            <div class="tl-time">파티 오픈</div>
+            <div class="tl-title">폭발적인 오프닝</div>
+            <div class="tl-desc">도착하면 바로 에너지 충전! 웰컴 드링크와 함께 분위기 UP</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">⚡</div>
+          <div class="tl-body">
+            <div class="tl-time">1라운드</div>
+            <div class="tl-title">아이스브레이킹 미션</div>
+            <div class="tl-desc">웃음 보장 미션으로 단숨에 어색함 제로! 모두가 한 팀</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">🎮</div>
+          <div class="tl-body">
+            <div class="tl-time">2라운드</div>
+            <div class="tl-title">도파민 게임 배틀</div>
+            <div class="tl-desc">팀 대항 미니게임, 개인 챌린지로 짜릿한 경쟁과 협동</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">🌙</div>
+          <div class="tl-body">
+            <div class="tl-time">파이널</div>
+            <div class="tl-title">자유 교류 & 2차 연결</div>
+            <div class="tl-desc">흥분이 가시기 전 연락처 교환, 함께 2차로 이어지기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 5 — 도파민파티만의 특별함
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 5 / 6 — 도파민파티만의 특별함</div>
+  <div class="card card-5">
+    <div class="glow"></div>
+    <div class="slide-no">05 / 06</div>
+
+    <div class="content">
+      <div class="section-label">Special Features</div>
+      <div class="heading">
+        도파민파티만의<br>
+        <em>4가지 특별함</em>
+      </div>
+
+      <div class="feat-grid">
+        <div class="feat-item">
+          <div class="feat-num">Feature 01</div>
+          <span class="feat-icon">🏆</span>
+          <div class="feat-title">검증된 호스트</div>
+          <div class="feat-desc">파티원이 직접 검증한<br>전국 60곳+ 파티 공간<br>최고의 환경을 보장해요</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">Feature 02</div>
+          <span class="feat-icon">👩‍🎤</span>
+          <div class="feat-title">여성 참가비 0원</div>
+          <div class="feat-desc">여성은 언제나 무료<br>부담 없이 참가해서<br>짜릿한 도파민을 경험하세요</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">Feature 03</div>
+          <span class="feat-icon">🎯</span>
+          <div class="feat-title">전문 MC 진행</div>
+          <div class="feat-desc">분위기를 이끄는 전문<br>호스트가 처음부터 끝까지<br>흥을 책임집니다</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">Feature 04</div>
+          <span class="feat-icon">🔒</span>
+          <div class="feat-title">안전한 환경</div>
+          <div class="feat-desc">사전 신청 & 인증 시스템<br>호스트가 직접 관리하는<br>믿을 수 있는 파티 공간</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 6 — CTA
+══════════════════════════════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">CARD 6 / 6 — CTA</div>
+  <div class="card card-6">
+    <div class="orb-a"></div>
+    <div class="orb-b"></div>
+    <div class="orb-c"></div>
+    <div class="slide-no">06 / 06</div>
+
+    <div class="content">
+      <div class="cta-tag">지금 바로 신청하세요</div>
+      <div class="cta-heading">
+        오늘 밤의<br>
+        <em>도파민</em>을<br>
+        경험하세요
+      </div>
+      <div class="cta-sub">
+        <strong>여성 참가비 0원</strong> · 전국 60곳+ 검증 호스트<br>
+        매주 새로운 도파민파티가 열리고 있어요
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="stat-num">0원</span>
+          <div class="stat-label">여성 참가비</div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">60곳+</span>
+          <div class="stat-label">전국 검증 호스트</div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">9가지</span>
+          <div class="stat-label">파티 카테고리</div>
+        </div>
+      </div>
+
+      <a class="cta-btn" href="https://party.it.kr">지금 도파민파티 신청하기</a>
+      <div class="cta-url">party.it.kr</div>
+    </div>
+
+    <div class="bottom-badges">
+      <span class="badge"># 도파민파티</span>
+      <span class="badge"># 소셜파티</span>
+      <span class="badge"># 파티원</span>
+    </div>
+
+    <div class="watermark">party.it.kr</div>
+  </div>
+</div>
+
+</body>
+</html>
