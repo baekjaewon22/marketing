@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 - 참가자 후기 2026-11-20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF4D6D;
+    --primary-dark: #C9184A;
+    --secondary: #FF85A1;
+    --accent: #FFB3C1;
+    --gold: #FFD166;
+    --purple: #7B2FBE;
+    --purple-light: #C77DFF;
+    --teal: #06D6A0;
+    --navy: #1A1A2E;
+    --dark: #16213E;
+    --text-white: #FFFFFF;
+    --text-light: rgba(255,255,255,0.85);
+    --text-muted: rgba(255,255,255,0.65);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 24px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ── CARD 1: Cover ── */
+  .card-1 {
+    background: linear-gradient(145deg, #1A1A2E 0%, #2D1B4E 50%, #1A1A2E 100%);
+  }
+  .card-1 .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  .card-1 .b1 { width: 600px; height: 600px; background: rgba(255,77,109,0.22); top: -150px; right: -150px; }
+  .card-1 .b2 { width: 450px; height: 450px; background: rgba(123,47,190,0.25); bottom: -120px; left: -120px; }
+  .card-1 .b3 { width: 350px; height: 350px; background: rgba(255,209,102,0.12); top: 55%; left: 45%; transform: translate(-50%,-50%); }
+  .card-1 .content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 70px;
+  }
+  .card-1 .tag {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary), var(--purple));
+    padding: 12px 36px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 44px;
+  }
+  .card-1 h1 {
+    font-size: 78px;
+    font-weight: 900;
+    color: var(--text-white);
+    line-height: 1.15;
+    margin-bottom: 32px;
+    word-break: keep-all;
+  }
+  .card-1 h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .card-1 .sub {
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 50px;
+  }
+  .card-1 .stars {
+    font-size: 48px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-bottom: 40px;
+  }
+  .card-1 .logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .card-1 .quote-mark {
+    position: absolute;
+    font-size: 300px;
+    font-weight: 900;
+    color: rgba(255,77,109,0.08);
+    line-height: 1;
+    top: 20px;
+    left: 40px;
+    font-family: Georgia, serif;
+    z-index: 1;
+  }
+
+  /* ── CARD 2: Review 1 ── */
+  .card-2 {
+    background: linear-gradient(160deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+  }
+  .card-2 .deco {
+    position: absolute;
+    pointer-events: none;
+  }
+  .card-2 .deco-top {
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary), var(--purple), var(--teal));
+  }
+  .card-2 .content {
+    position: relative; z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 80px;
+    text-align: center;
+    width: 100%;
+  }
+  .card-2 .reviewer-badge {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 32px rgba(255,77,109,0.4);
+  }
+  .card-2 .reviewer-info {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .card-2 .reviewer-detail {
+    font-size: 22px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .card-2 .stars {
+    font-size: 36px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 36px;
+  }
+  .card-2 .review-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 46px 52px;
+    position: relative;
+    width: 100%;
+  }
+  .card-2 .review-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    font-size: 100px;
+    color: var(--primary);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .card-2 .review-text {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-white);
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+  .card-2 .review-text strong {
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .card-2 .category-badge {
+    margin-top: 32px;
+    display: inline-block;
+    background: rgba(255,77,109,0.2);
+    border: 1px solid rgba(255,77,109,0.5);
+    color: var(--secondary);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* ── CARD 3: Review 2 ── */
+  .card-3 {
+    background: linear-gradient(160deg, #1A0533 0%, #2D1B69 50%, #11007A 100%);
+  }
+  .card-3 .glows {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .card-3 .g1 { width: 400px; height: 400px; background: rgba(199,125,255,0.2); top: -80px; right: -80px; }
+  .card-3 .g2 { width: 350px; height: 350px; background: rgba(255,77,109,0.15); bottom: -60px; left: 100px; }
+  .card-3 .content {
+    position: relative; z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 80px;
+    text-align: center;
+    width: 100%;
+  }
+  .card-3 .reviewer-badge {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7B2FBE, #C77DFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 32px rgba(123,47,190,0.5);
+  }
+  .card-3 .reviewer-info {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--purple-light);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .card-3 .reviewer-detail {
+    font-size: 22px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .card-3 .stars {
+    font-size: 36px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 36px;
+  }
+  .card-3 .review-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(199,125,255,0.2);
+    border-radius: 24px;
+    padding: 46px 52px;
+    position: relative;
+    width: 100%;
+  }
+  .card-3 .review-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    font-size: 100px;
+    color: var(--purple-light);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .card-3 .review-text {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-white);
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+  .card-3 .review-text strong {
+    color: var(--purple-light);
+    font-weight: 700;
+  }
+  .card-3 .category-badge {
+    margin-top: 32px;
+    display: inline-block;
+    background: rgba(123,47,190,0.25);
+    border: 1px solid rgba(199,125,255,0.4);
+    color: var(--purple-light);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* ── CARD 4: Review 3 ── */
+  .card-4 {
+    background: linear-gradient(160deg, #0A2A1A 0%, #0D3B2A 50%, #145A3A 100%);
+  }
+  .card-4 .glows {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .card-4 .g1 { width: 400px; height: 400px; background: rgba(6,214,160,0.18); top: -80px; left: -80px; }
+  .card-4 .g2 { width: 350px; height: 350px; background: rgba(255,209,102,0.1); bottom: -60px; right: 60px; }
+  .card-4 .content {
+    position: relative; z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 80px;
+    text-align: center;
+    width: 100%;
+  }
+  .card-4 .reviewer-badge {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06D6A0, #0CB89A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 32px rgba(6,214,160,0.4);
+  }
+  .card-4 .reviewer-info {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .card-4 .reviewer-detail {
+    font-size: 22px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .card-4 .stars {
+    font-size: 36px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 36px;
+  }
+  .card-4 .review-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(6,214,160,0.2);
+    border-radius: 24px;
+    padding: 46px 52px;
+    position: relative;
+    width: 100%;
+  }
+  .card-4 .review-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    font-size: 100px;
+    color: var(--teal);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .card-4 .review-text {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-white);
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+  .card-4 .review-text strong {
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .card-4 .category-badge {
+    margin-top: 32px;
+    display: inline-block;
+    background: rgba(6,214,160,0.2);
+    border: 1px solid rgba(6,214,160,0.4);
+    color: var(--teal);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* ── CARD 5: Review Summary Stats ── */
+  .card-5 {
+    background: linear-gradient(145deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
+  }
+  .card-5 .glows {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .card-5 .g1 { width: 500px; height: 500px; background: rgba(255,77,109,0.18); top: -100px; right: -100px; }
+  .card-5 .g2 { width: 400px; height: 400px; background: rgba(123,47,190,0.15); bottom: -80px; left: -60px; }
+  .card-5 .content {
+    position: relative; z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 72px;
+    width: 100%;
+  }
+  .card-5 .section-label {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .card-5 h2 {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--text-white);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    word-break: keep-all;
+  }
+  .card-5 h2 span {
+    color: var(--gold);
+  }
+  .card-5 .divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--purple));
+    border-radius: 2px;
+    margin: 24px auto;
+  }
+  .card-5 .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+  .card-5 .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-5 .stat-icon {
+    font-size: 44px;
+    margin-bottom: 4px;
+  }
+  .card-5 .stat-num {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .card-5 .stat-num.pink { color: var(--primary); }
+  .card-5 .stat-num.purple { color: var(--purple-light); }
+  .card-5 .stat-num.teal { color: var(--teal); }
+  .card-5 .stat-num.gold { color: var(--gold); }
+  .card-5 .stat-label {
+    font-size: 22px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .card-5 .cta-mini {
+    background: rgba(255,77,109,0.15);
+    border: 1px solid rgba(255,77,109,0.35);
+    border-radius: 16px;
+    padding: 24px 48px;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--secondary);
+    text-align: center;
+    width: 100%;
+  }
+
+  /* ── CARD 6: CTA ── */
+  .card-6 {
+    background: linear-gradient(135deg, #FF4D6D 0%, #C9184A 40%, #7B2FBE 100%);
+  }
+  .card-6 .glows {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .card-6 .g1 { width: 500px; height: 500px; background: rgba(255,255,255,0.12); top: -120px; left: -120px; }
+  .card-6 .g2 { width: 400px; height: 400px; background: rgba(255,255,255,0.08); bottom: -80px; right: -80px; }
+  .card-6 .g3 { width: 300px; height: 300px; background: rgba(255,209,102,0.15); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .card-6 .content {
+    position: relative; z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px;
+  }
+  .card-6 .cta-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.4);
+    padding: 12px 36px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 44px;
+  }
+  .card-6 h2 {
+    font-size: 70px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    word-break: keep-all;
+  }
+  .card-6 .sub {
+    font-size: 30px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 50px;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+  .card-6 .url-box {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    padding: 28px 70px;
+    margin-bottom: 44px;
+  }
+  .card-6 .url-box .url {
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .card-6 .free-badge {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 16px;
+    padding: 20px 40px;
+    margin-bottom: 32px;
+  }
+  .card-6 .free-badge .icon { font-size: 36px; }
+  .card-6 .free-badge .text {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card-6 .bottom-note {
+    font-size: 22px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     CARD 1 — 커버
+══════════════════════════════════ -->
+<div class="card card-1">
+  <div class="bg-blob b1"></div>
+  <div class="bg-blob b2"></div>
+  <div class="bg-blob b3"></div>
+  <div class="quote-mark">"</div>
+  <div class="content">
+    <div class="tag">✨ 실제 참가 후기</div>
+    <h1>직접 가봤어요<br><em>진짜 후기 모음</em></h1>
+    <p class="sub">파티원을 경험한<br>여성 참가자들의 솔직한 이야기</p>
+    <div class="stars">★★★★★</div>
+    <div class="logo">PARTY.IT.KR</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 2 — 후기 1
+══════════════════════════════════ -->
+<div class="card card-2">
+  <div class="deco deco-top"></div>
+  <div class="content">
+    <div class="reviewer-badge">👩</div>
+    <div class="reviewer-info">지은님 · 27세</div>
+    <div class="reviewer-detail">강남 비주얼파티 참가</div>
+    <div class="stars">★★★★★</div>
+    <div class="review-box">
+      <p class="review-text">
+        혼자 갔는데 전혀 어색하지 않았어요!<br>
+        호스트분이 자연스럽게 연결해줘서<br>
+        진짜 금방 친해졌어요 😊<br><br>
+        게다가 <strong>참가비가 0원</strong>이라<br>
+        부담 없이 신청했는데 대박이었어요!
+      </p>
+    </div>
+    <div class="category-badge">🎭 비주얼파티</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 3 — 후기 2
+══════════════════════════════════ -->
+<div class="card card-3">
+  <div class="glows g1"></div>
+  <div class="glows g2"></div>
+  <div class="content">
+    <div class="reviewer-badge">👩‍💼</div>
+    <div class="reviewer-info">서연님 · 24세</div>
+    <div class="reviewer-detail">홍대 소개팅(로테이션) 참가</div>
+    <div class="stars">★★★★★</div>
+    <div class="review-box">
+      <p class="review-text">
+        안전한지 걱정했는데 완전 기우였어요.<br>
+        <strong>검증된 호스트</strong>가 운영하는 공간이라<br>
+        편하고 안전하게 즐길 수 있었어요.<br><br>
+        6명을 한 번에 만날 수 있다니 ✨<br>
+        소개팅 앱보다 100배 나아요!
+      </p>
+    </div>
+    <div class="category-badge">💑 로테이션 소개팅</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 4 — 후기 3
+══════════════════════════════════ -->
+<div class="card card-4">
+  <div class="glows g1"></div>
+  <div class="glows g2"></div>
+  <div class="content">
+    <div class="reviewer-badge">👧</div>
+    <div class="reviewer-info">민아님 · 29세</div>
+    <div class="reviewer-detail">이태원 와인파티 참가</div>
+    <div class="stars">★★★★★</div>
+    <div class="review-box">
+      <p class="review-text">
+        와인 한 잔 하면서 대화 나눴는데<br>
+        분위기가 너무 좋았어요. 🍷<br><br>
+        진짜 솔직히 말하면<br>
+        <strong>무료인 게 믿기지 않아요</strong>.<br>
+        이런 퀄리티 경험을 0원에?<br>
+        친구한테 바로 추천했어요!
+      </p>
+    </div>
+    <div class="category-badge">🍷 와인파티</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 5 — 종합 통계
+══════════════════════════════════ -->
+<div class="card card-5">
+  <div class="glows g1"></div>
+  <div class="glows g2"></div>
+  <div class="content">
+    <div class="section-label">파티원 현황</div>
+    <h2>모두가 말하는<br><span>파티원의 진짜 매력</span></h2>
+    <div class="divider"></div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🏠</div>
+        <div class="stat-num pink">60+</div>
+        <div class="stat-label">전국 검증 호스트</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-num gold">4.9</div>
+        <div class="stat-label">평균 만족도</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔄</div>
+        <div class="stat-num teal">78%</div>
+        <div class="stat-label">재참가율</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💸</div>
+        <div class="stat-num purple">0원</div>
+        <div class="stat-label">여성 참가비</div>
+      </div>
+    </div>
+    <div class="cta-mini">
+      "한 번만 가면 계속 다시 오게 돼요 🎉"<br>
+      <span style="font-size:20px; color: rgba(255,255,255,0.6); font-weight:400;">— 파티원 참가자 공통 후기</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 6 — CTA
+══════════════════════════════════ -->
+<div class="card card-6">
+  <div class="glows g1"></div>
+  <div class="glows g2"></div>
+  <div class="glows g3"></div>
+  <div class="content">
+    <div class="cta-tag">🎊 지금 바로 시작하세요</div>
+    <h2>나도 이 후기의<br>주인공이 될 수 있어요!</h2>
+    <p class="sub">전국 60곳+ 검증된 호스트와 함께<br>특별한 만남, 여성 참가비 0원</p>
+    <div class="free-badge">
+      <span class="icon">🎁</span>
+      <span class="text">여성 참가비 완전 무료 · 지금 신청하세요</span>
+    </div>
+    <div class="url-box">
+      <div class="url">party.it.kr</div>
+    </div>
+    <div class="bottom-note">파티원 · 특별한 만남을 만들어드립니다</div>
+  </div>
+</div>
+
+</body>
+</html>
