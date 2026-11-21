@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 연말 파티 시즌이 왔다 | 2026-11-21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:    #FF4D6D;
+    --rose:   #FF85A1;
+    --gold:   #FFD166;
+    --amber:  #FFAA44;
+    --green:  #06D6A0;
+    --purple: #7B2FBE;
+    --plum:   #C77DFF;
+    --navy:   #0D0D1A;
+    --dark:   #14142A;
+    --white:  #FFFFFF;
+    --offwhite: rgba(255,255,255,0.88);
+    --muted:  rgba(255,255,255,0.60);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #060608;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 20px;
+    gap: 28px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════
+     CARD 1 — Cover: 연말 파티 시즌
+  ═══════════════════════════════════ */
+  .c1 {
+    background: radial-gradient(ellipse at 30% 20%, #2A0A30 0%, #0D0D1A 55%, #1A0D00 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .c1 .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+  .c1 .o1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,77,109,0.28) 0%, transparent 70%); top: -220px; right: -200px; }
+  .c1 .o2 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,209,102,0.20) 0%, transparent 70%); bottom: -180px; left: -180px; }
+  .c1 .o3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(123,47,190,0.30) 0%, transparent 70%); top: 45%; left: 50%; transform: translate(-50%,-50%); }
+
+  .c1 .sparks {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .c1 .spark {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: twinkle 2.4s ease-in-out infinite alternate;
+  }
+  .c1 .spark:nth-child(1)  { width:6px; height:6px; top:12%; left:18%; animation-delay:0s; }
+  .c1 .spark:nth-child(2)  { width:4px; height:4px; top:22%; left:72%; animation-delay:0.4s; }
+  .c1 .spark:nth-child(3)  { width:7px; height:7px; top:68%; left:85%; animation-delay:0.8s; background:var(--rose); }
+  .c1 .spark:nth-child(4)  { width:5px; height:5px; top:80%; left:30%; animation-delay:1.2s; background:var(--plum); }
+  .c1 .spark:nth-child(5)  { width:4px; height:4px; top:40%; left:8%;  animation-delay:1.6s; }
+  .c1 .spark:nth-child(6)  { width:6px; height:6px; top:55%; left:60%; animation-delay:2.0s; background:var(--green); }
+  @keyframes twinkle {
+    from { opacity: 0.2; transform: scale(0.7); }
+    to   { opacity: 1.0; transform: scale(1.3); }
+  }
+
+  .c1 .inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 60px;
+  }
+  .c1 .season-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, var(--amber), var(--gold));
+    color: var(--navy);
+    font-size: 22px; font-weight: 800;
+    padding: 12px 32px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+    margin-bottom: 50px;
+  }
+  .c1 h1 {
+    font-size: 90px; font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+  .c1 h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--gold), var(--amber), var(--red));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .c1 .sub {
+    font-size: 30px; font-weight: 400;
+    color: var(--offwhite);
+    line-height: 1.6;
+    margin-bottom: 56px;
+  }
+  .c1 .pill-row {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  }
+  .c1 .pill {
+    padding: 10px 24px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    font-size: 20px; font-weight: 500;
+    color: var(--offwhite);
+    backdrop-filter: blur(4px);
+  }
+  .c1 .watermark {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  /* ═══════════════════════════════════
+     CARD 2 — 연말이 특별한 이유
+  ═══════════════════════════════════ */
+  .c2 {
+    background: linear-gradient(160deg, #1A0A00 0%, #2A1500 45%, #1A0D00 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .c2 .glare {
+    position: absolute;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,170,68,0.18) 0%, transparent 65%);
+    top: -260px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .c2 .inner {
+    position: relative; z-index: 2;
+    width: 940px;
+    padding: 60px;
+  }
+  .c2 .eyebrow {
+    font-size: 24px; font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .c2 h2 {
+    font-size: 66px; font-weight: 900;
+    color: var(--white);
+    line-height: 1.12;
+    margin-bottom: 54px;
+    letter-spacing: -1px;
+  }
+  .c2 h2 span { color: var(--gold); }
+  .c2 .reason-list {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .c2 .reason {
+    display: flex; align-items: flex-start; gap: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,170,68,0.20);
+    border-radius: 20px;
+    padding: 28px 32px;
+  }
+  .c2 .reason .num {
+    font-size: 36px; font-weight: 900;
+    color: var(--gold);
+    min-width: 50px;
+    line-height: 1;
+  }
+  .c2 .reason .text strong {
+    display: block;
+    font-size: 26px; font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .c2 .reason .text p {
+    font-size: 20px; font-weight: 400;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .c2 .watermark {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.28);
+  }
+
+  /* ═══════════════════════════════════
+     CARD 3 — 연말 추천 파티 TOP 3
+  ═══════════════════════════════════ */
+  .c3 {
+    background: linear-gradient(145deg, #0A0A1E 0%, #12083A 50%, #0A0A1E 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .c3 .orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .c3 .oa { width: 500px; height: 500px; background: radial-gradient(circle, rgba(123,47,190,0.25) 0%, transparent 70%); top: -150px; right: -100px; }
+  .c3 .ob { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,77,109,0.18) 0%, transparent 70%); bottom: -130px; left: -100px; }
+
+  .c3 .inner {
+    position: relative; z-index: 2;
+    width: 940px; padding: 60px;
+  }
+  .c3 .eyebrow {
+    font-size: 22px; font-weight: 700; color: var(--plum);
+    letter-spacing: 3px; margin-bottom: 20px;
+  }
+  .c3 h2 {
+    font-size: 60px; font-weight: 900; color: var(--white);
+    line-height: 1.1; margin-bottom: 48px;
+    letter-spacing: -1px;
+  }
+  .c3 h2 span { background: linear-gradient(90deg,var(--plum),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  .c3 .party-cards {
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .c3 .pcard {
+    display: flex; align-items: center; gap: 24px;
+    padding: 26px 32px;
+    border-radius: 20px;
+    border-left: 4px solid;
+  }
+  .c3 .pcard.p1 { background: rgba(255,209,102,0.08); border-color: var(--gold); }
+  .c3 .pcard.p2 { background: rgba(199,125,255,0.08); border-color: var(--plum); }
+  .c3 .pcard.p3 { background: rgba(6,214,160,0.08); border-color: var(--green); }
+
+  .c3 .pcard .rank {
+    font-size: 44px; font-weight: 900; min-width: 56px;
+    line-height: 1;
+  }
+  .c3 .pcard.p1 .rank { color: var(--gold); }
+  .c3 .pcard.p2 .rank { color: var(--plum); }
+  .c3 .pcard.p3 .rank { color: var(--green); }
+
+  .c3 .pcard .info strong {
+    display: block; font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 6px;
+  }
+  .c3 .pcard .info p {
+    font-size: 20px; font-weight: 400; color: var(--muted); line-height: 1.5;
+  }
+  .c3 .pcard .badge {
+    margin-left: auto;
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 18px; font-weight: 700;
+    white-space: nowrap;
+  }
+  .c3 .pcard.p1 .badge { background: rgba(255,209,102,0.18); color: var(--gold); }
+  .c3 .pcard.p2 .badge { background: rgba(199,125,255,0.18); color: var(--plum); }
+  .c3 .pcard.p3 .badge { background: rgba(6,214,160,0.18); color: var(--green); }
+
+  .c3 .watermark {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.28);
+  }
+
+  /* ═══════════════════════════════════
+     CARD 4 — 연말 파티 완벽 준비 가이드
+  ═══════════════════════════════════ */
+  .c4 {
+    background: linear-gradient(160deg, #001A14 0%, #00261C 50%, #001A14 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .c4 .glare {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,214,160,0.15) 0%, transparent 65%);
+    bottom: -200px; right: -150px;
+    pointer-events: none;
+  }
+  .c4 .inner {
+    position: relative; z-index: 2;
+    width: 940px; padding: 60px;
+  }
+  .c4 .eyebrow {
+    font-size: 22px; font-weight: 700; color: var(--green);
+    letter-spacing: 3px; margin-bottom: 20px;
+  }
+  .c4 h2 {
+    font-size: 60px; font-weight: 900; color: var(--white);
+    line-height: 1.12; margin-bottom: 48px; letter-spacing: -1px;
+  }
+  .c4 h2 span { color: var(--green); }
+  .c4 .checklist {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .c4 .check-item {
+    display: flex; align-items: flex-start; gap: 18px;
+    background: rgba(6,214,160,0.07);
+    border: 1px solid rgba(6,214,160,0.20);
+    border-radius: 18px;
+    padding: 24px 26px;
+  }
+  .c4 .check-item .icon {
+    font-size: 36px; line-height: 1; flex-shrink: 0;
+  }
+  .c4 .check-item strong {
+    display: block; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 5px;
+  }
+  .c4 .check-item p {
+    font-size: 18px; font-weight: 400; color: var(--muted); line-height: 1.5;
+  }
+  .c4 .bottom-note {
+    margin-top: 32px;
+    padding: 24px 32px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    border-left: 4px solid var(--green);
+    font-size: 22px; font-weight: 500; color: var(--offwhite);
+    line-height: 1.6;
+  }
+  .c4 .bottom-note strong { color: var(--green); }
+  .c4 .watermark {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.28);
+  }
+
+  /* ═══════════════════════════════════
+     CARD 5 — 연말에 새로운 인연
+  ═══════════════════════════════════ */
+  .c5 {
+    background: linear-gradient(145deg, #1A0020 0%, #200030 45%, #1A0020 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .c5 .orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .c5 .oa { width: 650px; height: 650px; background: radial-gradient(circle, rgba(255,77,109,0.22) 0%, transparent 70%); top: -200px; left: -180px; }
+  .c5 .ob { width: 500px; height: 500px; background: radial-gradient(circle, rgba(199,125,255,0.20) 0%, transparent 70%); bottom: -150px; right: -120px; }
+
+  .c5 .inner {
+    position: relative; z-index: 2;
+    width: 940px; padding: 60px;
+    text-align: center;
+  }
+  .c5 .eyebrow {
+    font-size: 22px; font-weight: 700; color: var(--rose);
+    letter-spacing: 3px; margin-bottom: 24px;
+  }
+  .c5 h2 {
+    font-size: 68px; font-weight: 900; color: var(--white);
+    line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px;
+  }
+  .c5 h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--rose), var(--plum));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .c5 .sub-text {
+    font-size: 26px; font-weight: 400; color: var(--offwhite);
+    line-height: 1.65; margin-bottom: 52px;
+  }
+  .c5 .stat-row {
+    display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .c5 .stat {
+    text-align: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 32px 36px;
+    min-width: 240px;
+  }
+  .c5 .stat .num {
+    font-size: 60px; font-weight: 900; line-height: 1;
+    background: linear-gradient(90deg, var(--rose), var(--plum));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .c5 .stat .label {
+    margin-top: 10px; font-size: 20px; font-weight: 500; color: var(--muted);
+  }
+  .c5 .quote-box {
+    background: rgba(255,77,109,0.10);
+    border: 1px solid rgba(255,77,109,0.25);
+    border-radius: 20px;
+    padding: 32px 40px;
+  }
+  .c5 .quote-box p {
+    font-size: 24px; font-weight: 500; color: var(--offwhite);
+    line-height: 1.7;
+  }
+  .c5 .quote-box .author {
+    margin-top: 14px; font-size: 18px; color: var(--muted);
+  }
+  .c5 .watermark {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.28);
+  }
+
+  /* ═══════════════════════════════════
+     CARD 6 — CTA
+  ═══════════════════════════════════ */
+  .c6 {
+    background: radial-gradient(ellipse at 50% 0%, #3A0A20 0%, #0D0D1A 55%, #1A0A30 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+  }
+  .c6 .orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .c6 .oa { width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,77,109,0.25) 0%, transparent 65%); top: -250px; left: 50%; transform: translateX(-50%); }
+  .c6 .ob { width: 500px; height: 500px; background: radial-gradient(circle, rgba(123,47,190,0.22) 0%, transparent 70%); bottom: -170px; left: -150px; }
+  .c6 .oc { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,170,68,0.14) 0%, transparent 70%); bottom: 100px; right: -100px; }
+
+  .c6 .inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 60px;
+    display: flex; flex-direction: column; align-items: center; gap: 36px;
+  }
+  .c6 .logo-pill {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: linear-gradient(90deg, var(--red), var(--purple));
+    padding: 14px 36px;
+    border-radius: 100px;
+    font-size: 26px; font-weight: 800; color: var(--white);
+    letter-spacing: 1.5px;
+  }
+  .c6 h2 {
+    font-size: 76px; font-weight: 900; color: var(--white);
+    line-height: 1.1; letter-spacing: -2px;
+  }
+  .c6 h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .c6 .sub {
+    font-size: 28px; font-weight: 400; color: var(--offwhite);
+    line-height: 1.65;
+  }
+  .c6 .free-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    color: var(--navy);
+    font-size: 30px; font-weight: 900;
+    padding: 18px 50px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+  }
+  .c6 .url-box {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 20px;
+    padding: 28px 56px;
+  }
+  .c6 .url-box .url-label {
+    font-size: 20px; font-weight: 500; color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .c6 .url-box .url-text {
+    font-size: 48px; font-weight: 900; color: var(--white);
+    letter-spacing: 1px;
+  }
+  .c6 .url-box .url-text span {
+    background: linear-gradient(90deg, var(--rose), var(--plum));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .c6 .sub-cta {
+    font-size: 22px; font-weight: 500; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ CARD 1 ══════════════ -->
+<div class="card c1">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <div class="sparks">
+    <div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div>
+    <div class="spark"></div><div class="spark"></div>
+  </div>
+  <div class="inner">
+    <div class="season-tag">🎉 연말 파티 시즌</div>
+    <h1>올 연말,<br><em>다르게</em> 보내자</h1>
+    <p class="sub">매년 반복되는 지루한 연말은 그만<br>파티원에서 완전히 새로운 연말을 만나보세요</p>
+    <div class="pill-row">
+      <div class="pill">🍷 와인파티</div>
+      <div class="pill">✨ 비주얼파티</div>
+      <div class="pill">🎭 컨셉파티</div>
+      <div class="pill">🌙 소맥파티</div>
+    </div>
+  </div>
+  <div class="watermark">party.it.kr</div>
+</div>
+
+<!-- ══════════════ CARD 2 ══════════════ -->
+<div class="card c2">
+  <div class="glare"></div>
+  <div class="inner">
+    <div class="eyebrow">WHY YEAR-END</div>
+    <h2>연말이 특별한<br><span>파티 시즌</span>인 이유</h2>
+    <div class="reason-list">
+      <div class="reason">
+        <div class="num">01</div>
+        <div class="text">
+          <strong>한 해의 마무리, 새로운 인연의 시작</strong>
+          <p>연말은 사람들이 가장 열린 마음으로 모이는 계절이에요. 새로운 만남이 가장 자연스러운 타이밍이죠.</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="num">02</div>
+        <div class="text">
+          <strong>연말 분위기가 파티를 더 특별하게</strong>
+          <p>반짝이는 연말 분위기와 따뜻한 파티 무드의 만남. 평소보다 훨씬 풍부한 경험이 기다려요.</p>
+        </div>
+      </div>
+      <div class="reason">
+        <div class="num">03</div>
+        <div class="text">
+          <strong>전국 60곳+ 호스트가 준비한 연말 스페셜</strong>
+          <p>검증된 파티 공간에서 연말 한정 테마로 특별히 기획된 파티가 가득해요.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">party.it.kr</div>
+</div>
+
+<!-- ══════════════ CARD 3 ══════════════ -->
+<div class="card c3">
+  <div class="orb oa"></div>
+  <div class="orb ob"></div>
+  <div class="inner">
+    <div class="eyebrow">YEAR-END PICK</div>
+    <h2>연말에 꼭 가봐야 할<br><span>파티 TOP 3</span></h2>
+    <div class="party-cards">
+      <div class="pcard p1">
+        <div class="rank">🥇</div>
+        <div class="info">
+          <strong>와인파티 🍷</strong>
+          <p>연말 분위기에 딱 맞는 와인 한 잔<br>고급스러운 무드 속 로맨틱한 만남</p>
+        </div>
+        <div class="badge">감성 최강</div>
+      </div>
+      <div class="pcard p2">
+        <div class="rank">🥈</div>
+        <div class="info">
+          <strong>컨셉파티 🎭</strong>
+          <p>연말 드레스코드로 더 화려하게<br>인생 사진 남기고 특별한 추억 만들기</p>
+        </div>
+        <div class="badge">인생사진</div>
+      </div>
+      <div class="pcard p3">
+        <div class="rank">🥉</div>
+        <div class="info">
+          <strong>소개팅 로테이션 💘</strong>
+          <p>연말에 새로운 인연 만들기<br>1:1 로테이션으로 여러 명을 만나보세요</p>
+        </div>
+        <div class="badge">인연 찾기</div>
+      </div>
+    </div>
+  </div>
+  <div class="watermark">party.it.kr</div>
+</div>
+
+<!-- ══════════════ CARD 4 ══════════════ -->
+<div class="card c4">
+  <div class="glare"></div>
+  <div class="inner">
+    <div class="eyebrow">PREP GUIDE</div>
+    <h2>연말 파티 완벽<br><span>준비 체크리스트</span></h2>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="icon">👗</div>
+        <div>
+          <strong>드레스코드 확인</strong>
+          <p>각 파티마다 분위기에 맞는 옷차림 가이드가 있어요</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">📍</div>
+        <div>
+          <strong>장소 & 교통 체크</strong>
+          <p>모든 파티는 지하철역 도보 거리의 접근 편한 위치</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">🗓️</div>
+        <div>
+          <strong>일정 미리 예약</strong>
+          <p>연말 인기 파티는 금방 마감! 미리미리 신청하세요</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">👯</div>
+        <div>
+          <strong>혼자 가도 OK</strong>
+          <p>모든 파티는 혼자 참가가 기본! 걱정하지 마세요</p>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-note">
+      <strong>파티원 여성은 모든 파티 참가비 0원!</strong><br>
+      연말 파티, 부담 없이 즐겨보세요 ✨
+    </div>
+  </div>
+  <div class="watermark">party.it.kr</div>
+</div>
+
+<!-- ══════════════ CARD 5 ══════════════ -->
+<div class="card c5">
+  <div class="orb oa"></div>
+  <div class="orb ob"></div>
+  <div class="inner">
+    <div class="eyebrow">REAL STORY</div>
+    <h2>연말에 만난<br><em>진짜 인연</em></h2>
+    <p class="sub-text">지난 연말, 파티원에서 처음 참가한 분들의<br>실제 경험담을 모아봤어요</p>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">94%</div>
+        <div class="label">첫 참가 후 재참가율</div>
+      </div>
+      <div class="stat">
+        <div class="num">3.2명</div>
+        <div class="label">파티당 평균 연락처 교환</div>
+      </div>
+      <div class="stat">
+        <div class="num">★4.8</div>
+        <div class="label">참가자 평균 만족도</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"연말에 혼자 가도 괜찮을까 걱정했는데, 오히려 더 편하게 어울렸어요. 그 자리에서 만난 친구들이랑 지금도 연락해요 😊"</p>
+      <div class="author">— 26세 직장인, 와인파티 참가 후기</div>
+    </div>
+  </div>
+  <div class="watermark">party.it.kr</div>
+</div>
+
+<!-- ══════════════ CARD 6 — CTA ══════════════ -->
+<div class="card c6">
+  <div class="orb oa"></div>
+  <div class="orb ob"></div>
+  <div class="orb oc"></div>
+  <div class="inner">
+    <div class="logo-pill">🎊 파티원</div>
+    <h2>올 연말,<br><em>특별한 만남</em>을<br>시작해보세요</h2>
+    <p class="sub">전국 60곳+ 검증된 호스트<br>다양한 연말 파티가 기다리고 있어요</p>
+    <div class="free-badge">🎁 여성 참가비 0원</div>
+    <div class="url-box">
+      <div class="url-label">지금 바로 신청하기</div>
+      <div class="url-text"><span>party</span>.it.kr</div>
+    </div>
+    <div class="sub-cta">Instagram @partyone_official</div>
+  </div>
+</div>
+
+</body>
+</html>
