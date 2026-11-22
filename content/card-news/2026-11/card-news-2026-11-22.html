@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 혼자 가도 괜찮아, 첫 참가 가이드 | 2026-11-22</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:   #FF6B6B;
+    --peach:   #FF9A8B;
+    --sky:     #4FC3F7;
+    --mint:    #26C6DA;
+    --lavender:#B39DDB;
+    --violet:  #7C4DFF;
+    --gold:    #FFD54F;
+    --navy:    #0D0D1E;
+    --dark:    #12122A;
+    --white:   #FFFFFF;
+    --offwhite:rgba(255,255,255,0.90);
+    --muted:   rgba(255,255,255,0.60);
+    --soft:    rgba(255,255,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #080816;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 32px;
+    min-height: 100vh;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  /* ───────── CARD 1 ───────── */
+  .card-1 {
+    background: linear-gradient(145deg, #12122A 0%, #1E1240 50%, #2A0A3A 100%);
+  }
+  .card-1 .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+  .card-1 .c1 { width: 600px; height: 600px; background: var(--violet); top: -150px; right: -150px; }
+  .card-1 .c2 { width: 500px; height: 500px; background: var(--coral); bottom: -100px; left: -100px; }
+  .card-1 .c3 { width: 300px; height: 300px; background: var(--gold); top: 400px; right: 200px; opacity: 0.2; }
+  .card-1 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px;
+    text-align: center;
+  }
+  .card-1 .badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 12px 32px;
+    color: var(--offwhite);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-bottom: 50px;
+    backdrop-filter: blur(8px);
+  }
+  .card-1 .headline {
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 1.08;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .card-1 .headline span { color: var(--peach); }
+  .card-1 .sub {
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+  .card-1 .tag-row {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+  .card-1 .tag {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 100px;
+    padding: 10px 28px;
+    color: var(--offwhite);
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .card-1 .logo {
+    position: absolute; bottom: 48px; right: 56px;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+  }
+
+  /* ───────── CARD 2 ───────── */
+  .card-2 {
+    background: linear-gradient(160deg, #0F0F22 0%, #1A1035 60%, #22083A 100%);
+  }
+  .card-2 .accent-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    background: linear-gradient(90deg, var(--coral), var(--peach), var(--lavender), var(--violet));
+  }
+  .card-2 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    padding: 90px 90px 80px;
+  }
+  .card-2 .section-label {
+    font-size: 22px; font-weight: 500;
+    color: var(--peach); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .card-2 .title {
+    font-size: 70px; font-weight: 900;
+    color: var(--white); line-height: 1.12;
+    margin-bottom: 60px;
+  }
+  .card-2 .title span { color: var(--gold); }
+  .card-2 .fear-list {
+    display: flex; flex-direction: column; gap: 28px;
+    flex: 1;
+  }
+  .card-2 .fear-item {
+    display: flex; align-items: center; gap: 28px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 20px;
+    padding: 32px 36px;
+  }
+  .card-2 .icon {
+    font-size: 44px; flex-shrink: 0;
+    width: 72px; text-align: center;
+  }
+  .card-2 .fear-text {
+    font-size: 30px; font-weight: 500;
+    color: var(--offwhite); line-height: 1.4;
+  }
+  .card-2 .fear-text em {
+    display: block;
+    font-size: 24px; font-weight: 300;
+    color: var(--muted); font-style: normal;
+    margin-top: 4px;
+  }
+  .card-2 .logo {
+    position: absolute; bottom: 48px; right: 56px;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ───────── CARD 3 ───────── */
+  .card-3 {
+    background: linear-gradient(135deg, #0A1628 0%, #0D1F3C 50%, #0F2A4A 100%);
+  }
+  .card-3 .glow {
+    position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+  }
+  .card-3 .g1 { width: 500px; height: 500px; background: var(--sky); top: -100px; right: -100px; }
+  .card-3 .g2 { width: 400px; height: 400px; background: var(--mint); bottom: -80px; left: 50px; }
+  .card-3 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    padding: 90px;
+    display: flex; flex-direction: column;
+  }
+  .card-3 .section-label {
+    font-size: 22px; font-weight: 500;
+    color: var(--sky); letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+  .card-3 .title {
+    font-size: 66px; font-weight: 900;
+    color: var(--white); line-height: 1.12;
+    margin-bottom: 50px;
+  }
+  .card-3 .title span { color: var(--mint); }
+  .card-3 .steps {
+    display: flex; flex-direction: column; gap: 24px; flex: 1;
+  }
+  .card-3 .step {
+    display: flex; align-items: flex-start; gap: 28px;
+  }
+  .card-3 .step-num {
+    width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--sky), var(--mint));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 900; color: var(--navy);
+    margin-top: 4px;
+  }
+  .card-3 .step-body { flex: 1; }
+  .card-3 .step-title {
+    font-size: 32px; font-weight: 700;
+    color: var(--white); line-height: 1.3; margin-bottom: 6px;
+  }
+  .card-3 .step-desc {
+    font-size: 24px; font-weight: 300;
+    color: var(--muted); line-height: 1.5;
+  }
+  .card-3 .connector {
+    width: 2px; height: 20px;
+    background: linear-gradient(to bottom, var(--sky), transparent);
+    margin-left: 31px;
+  }
+  .card-3 .logo {
+    position: absolute; bottom: 48px; right: 56px;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ───────── CARD 4 ───────── */
+  .card-4 {
+    background: linear-gradient(150deg, #1A0F2E 0%, #2D1050 50%, #1A0A30 100%);
+  }
+  .card-4 .glow {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25;
+  }
+  .card-4 .g1 { width: 500px; height: 500px; background: var(--lavender); top: -50px; left: -100px; }
+  .card-4 .g2 { width: 400px; height: 400px; background: var(--violet); bottom: 0; right: -50px; }
+  .card-4 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    padding: 90px;
+    display: flex; flex-direction: column;
+  }
+  .card-4 .section-label {
+    font-size: 22px; font-weight: 500;
+    color: var(--lavender); letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+  .card-4 .title {
+    font-size: 68px; font-weight: 900;
+    color: var(--white); line-height: 1.12;
+    margin-bottom: 52px;
+  }
+  .card-4 .title span { color: var(--lavender); }
+  .card-4 .qa-list {
+    display: flex; flex-direction: column; gap: 28px; flex: 1;
+  }
+  .card-4 .qa-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(179,157,219,0.25);
+    border-radius: 20px;
+    padding: 32px 40px;
+  }
+  .card-4 .q {
+    font-size: 26px; font-weight: 700;
+    color: var(--lavender); margin-bottom: 10px;
+  }
+  .card-4 .a {
+    font-size: 26px; font-weight: 400;
+    color: var(--offwhite); line-height: 1.55;
+  }
+  .card-4 .a strong { color: var(--gold); }
+  .card-4 .logo {
+    position: absolute; bottom: 48px; right: 56px;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ───────── CARD 5 ───────── */
+  .card-5 {
+    background: linear-gradient(145deg, #0D1A12 0%, #0F2416 50%, #0A1E0E 100%);
+  }
+  .card-5 .glow {
+    position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+  }
+  .card-5 .g1 { width: 500px; height: 500px; background: #26C6DA; top: -100px; right: -50px; }
+  .card-5 .g2 { width: 400px; height: 400px; background: #00E676; bottom: -100px; left: 100px; }
+  .card-5 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    padding: 90px;
+    display: flex; flex-direction: column;
+  }
+  .card-5 .section-label {
+    font-size: 22px; font-weight: 500;
+    color: #26C6DA; letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+  .card-5 .title {
+    font-size: 68px; font-weight: 900;
+    color: var(--white); line-height: 1.12;
+    margin-bottom: 50px;
+  }
+  .card-5 .title span { color: #00E676; }
+  .card-5 .review-block {
+    flex: 1; display: flex; flex-direction: column; gap: 28px;
+  }
+  .card-5 .review-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(38,198,218,0.20);
+    border-radius: 20px;
+    padding: 32px 40px;
+  }
+  .card-5 .reviewer {
+    display: flex; align-items: center; gap: 20px; margin-bottom: 14px;
+  }
+  .card-5 .avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .card-5 .av1 { background: linear-gradient(135deg, var(--coral), var(--peach)); }
+  .card-5 .av2 { background: linear-gradient(135deg, var(--violet), var(--lavender)); }
+  .card-5 .av3 { background: linear-gradient(135deg, #26C6DA, #00E676); }
+  .card-5 .rev-name {
+    font-size: 24px; font-weight: 700; color: var(--white);
+  }
+  .card-5 .rev-info {
+    font-size: 20px; font-weight: 300; color: var(--muted); margin-top: 2px;
+  }
+  .card-5 .stars { margin-left: auto; font-size: 22px; color: var(--gold); }
+  .card-5 .rev-text {
+    font-size: 25px; font-weight: 400;
+    color: var(--offwhite); line-height: 1.55;
+  }
+  .card-5 .rev-text strong { color: #26C6DA; }
+  .card-5 .logo {
+    position: absolute; bottom: 48px; right: 56px;
+    font-size: 24px; font-weight: 700;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ───────── CARD 6 ───────── */
+  .card-6 {
+    background: linear-gradient(145deg, #0D0824 0%, #1A0E40 40%, #2E1060 100%);
+    position: relative;
+  }
+  .card-6 .bg-glow {
+    position: absolute; border-radius: 50%; filter: blur(80px);
+  }
+  .card-6 .g1 { width: 700px; height: 700px; background: var(--violet); opacity: 0.35; top: -200px; right: -150px; }
+  .card-6 .g2 { width: 600px; height: 600px; background: var(--coral); opacity: 0.20; bottom: -150px; left: -100px; }
+  .card-6 .g3 { width: 350px; height: 350px; background: var(--gold); opacity: 0.15; top: 300px; left: 400px; }
+  .card-6 .inner {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px;
+    text-align: center;
+  }
+  .card-6 .cta-label {
+    font-size: 24px; font-weight: 500;
+    color: rgba(255,255,255,0.55); letter-spacing: 0.15em;
+    margin-bottom: 28px;
+  }
+  .card-6 .cta-headline {
+    font-size: 80px; font-weight: 900;
+    color: var(--white); line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .card-6 .cta-headline span {
+    background: linear-gradient(90deg, var(--peach), var(--lavender), var(--sky));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-6 .cta-sub {
+    font-size: 30px; font-weight: 300;
+    color: var(--muted); line-height: 1.6;
+    margin-bottom: 60px;
+  }
+  .card-6 .pill-group {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 56px;
+  }
+  .card-6 .pill {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 100px;
+    padding: 14px 32px;
+    font-size: 24px; font-weight: 500;
+    color: var(--offwhite);
+    backdrop-filter: blur(8px);
+  }
+  .card-6 .cta-btn {
+    background: linear-gradient(135deg, var(--coral) 0%, var(--peach) 50%, var(--lavender) 100%);
+    border-radius: 100px;
+    padding: 28px 80px;
+    font-size: 36px; font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    box-shadow: 0 20px 60px rgba(255,107,107,0.4);
+  }
+  .card-6 .cta-url {
+    font-size: 26px; font-weight: 500;
+    color: rgba(255,255,255,0.50);
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     CARD 1 — 커버: 혼자 가도 괜찮아
+══════════════════════════════════ -->
+<div class="card card-1">
+  <div class="bg-circle c1"></div>
+  <div class="bg-circle c2"></div>
+  <div class="bg-circle c3"></div>
+  <div class="inner">
+    <div class="badge">🎊 첫 참가 완벽 가이드</div>
+    <div class="headline">
+      혼자 가도<br><span>괜찮아요.</span>
+    </div>
+    <div class="sub">
+      처음이라서 걱정되는 마음,<br>
+      파티원이 다 알고 있어요 🫶
+    </div>
+    <div class="tag-row">
+      <span class="tag"># 여성 무료 참가</span>
+      <span class="tag"># 혼자도 환영</span>
+      <span class="tag"># 첫 참가 가이드</span>
+    </div>
+  </div>
+  <div class="logo">party.it.kr</div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 2 — 처음이라 걱정되는 것들
+══════════════════════════════════ -->
+<div class="card card-2">
+  <div class="accent-bar"></div>
+  <div class="inner">
+    <div class="section-label">📋 02 / 06</div>
+    <div class="title">
+      처음이라<br><span>이런 걱정</span> 되죠?
+    </div>
+    <div class="fear-list">
+      <div class="fear-item">
+        <div class="icon">😰</div>
+        <div class="fear-text">
+          "아는 사람이 한 명도 없는데…"
+          <em>모두가 처음엔 혼자 왔어요. 그게 오히려 더 자연스러워요!</em>
+        </div>
+      </div>
+      <div class="fear-item">
+        <div class="icon">🗣️</div>
+        <div class="fear-text">
+          "대화가 어색하면 어떡하지?"
+          <em>파티원에는 아이스브레이킹 프로그램이 준비되어 있어요.</em>
+        </div>
+      </div>
+      <div class="fear-item">
+        <div class="icon">👗</div>
+        <div class="fear-text">
+          "무슨 옷을 입어야 할지 모르겠어…"
+          <em>편한 캐주얼이면 충분! 꾸밈이 필요 없어요.</em>
+        </div>
+      </div>
+      <div class="fear-item">
+        <div class="icon">💸</div>
+        <div class="fear-text">
+          "돈이 많이 들지 않을까?"
+          <em>여성은 참가비 0원! 음료/안주만 각자 주문하면 돼요.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">party.it.kr</div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 3 — 첫 참가 5단계 가이드
+══════════════════════════════════ -->
+<div class="card card-3">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="inner">
+    <div class="section-label">🗺️ 03 / 06</div>
+    <div class="title">
+      첫 참가,<br><span>이렇게 하면 돼요</span>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">party.it.kr 접속</div>
+          <div class="step-desc">카테고리·지역·날짜 필터로 원하는 파티 검색</div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">마음에 드는 파티 선택</div>
+          <div class="step-desc">분위기·인원 구성·위치 확인 후 신청 클릭</div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">약속 시간에 장소로 이동</div>
+          <div class="step-desc">지하철역 도보 거리의 검증된 호스트 공간</div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">아이스브레이킹 & 대화</div>
+          <div class="step-desc">호스트가 분위기를 편안하게 이끌어 드려요</div>
+        </div>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">새 친구들과 특별한 밤</div>
+          <div class="step-desc">즐거운 시간 후, 2차도 함께 갈 수 있어요!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">party.it.kr</div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 4 — 혼자 참가 Q&A
+══════════════════════════════════ -->
+<div class="card card-4">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="inner">
+    <div class="section-label">💬 04 / 06</div>
+    <div class="title">
+      혼자 가도<br><span>괜찮냐고요?</span>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item">
+        <div class="q">Q. 친구 없이 혼자 가는 사람도 있나요?</div>
+        <div class="a">전체 참가자의 <strong>80% 이상이 혼자 옵니다.</strong> 혼자 오는 게 오히려 더 많은 사람과 대화할 기회예요!</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q. 한쪽 구석에 조용히 있어도 되나요?</div>
+        <div class="a">물론이죠! 파티원에는 <strong>내향인 파티</strong>도 있어요. 편한 속도로 대화해요.</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q. 파티 도중에 나가고 싶으면요?</div>
+        <div class="a">언제든지 자유롭게 퇴장 가능해요. <strong>강요나 압박은 절대 없어요.</strong></div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q. 여성 참가비가 진짜 0원인가요?</div>
+        <div class="a"><strong>네, 100% 무료예요!</strong> 음료와 안주는 각자 주문하시면 됩니다. 숨은 비용 없어요.</div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">party.it.kr</div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 5 — 첫 참가자 후기
+══════════════════════════════════ -->
+<div class="card card-5">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="inner">
+    <div class="section-label">⭐ 05 / 06</div>
+    <div class="title">
+      혼자 갔다 온<br><span>후기 모음</span>
+    </div>
+    <div class="review-block">
+      <div class="review-card">
+        <div class="reviewer">
+          <div class="avatar av1">🌸</div>
+          <div>
+            <div class="rev-name">지은님 (27세)</div>
+            <div class="rev-info">첫 참가 • 비주얼파티</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="rev-text">
+          "혼자라서 어색할 줄 알았는데 10분 만에 녹아들었어요. <strong>진짜 무료인 게 맞나</strong> 의심했는데 사실이었어요 😆"
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="reviewer">
+          <div class="avatar av2">🦋</div>
+          <div>
+            <div class="rev-name">수연님 (25세)</div>
+            <div class="rev-info">첫 참가 • 내향인파티</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="rev-text">
+          "내향인 파티라 말 안 해도 돼서 너무 좋았어요. <strong>호스트분이 대화를 자연스럽게</strong> 이어줘서 편했어요."
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="reviewer">
+          <div class="avatar av3">🌿</div>
+          <div>
+            <div class="rev-name">하린님 (29세)</div>
+            <div class="rev-info">3회 참가 • 소개팅</div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="rev-text">
+          "처음에 혼자 가는 게 용기 필요했는데, 지금은 단골이 됐어요! <strong>전국 60곳</strong>이라 어디서든 참가 가능해요."
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo">party.it.kr</div>
+</div>
+
+<!-- ══════════════════════════════════
+     CARD 6 — CTA
+══════════════════════════════════ -->
+<div class="card card-6">
+  <div class="bg-glow g1"></div>
+  <div class="bg-glow g2"></div>
+  <div class="bg-glow g3"></div>
+  <div class="inner">
+    <div class="cta-label">06 / 06 · NOW OR NEVER</div>
+    <div class="cta-headline">
+      오늘 밤,<br><span>첫 발걸음 내딛어요</span>
+    </div>
+    <div class="cta-sub">
+      혼자여도 괜찮아요.<br>
+      특별한 만남이 기다리고 있어요 🎊
+    </div>
+    <div class="pill-group">
+      <span class="pill">🎀 여성 참가비 0원</span>
+      <span class="pill">📍 전국 60곳+ 호스트</span>
+      <span class="pill">✨ 혼자여도 환영</span>
+      <span class="pill">🔒 검증된 안전한 공간</span>
+    </div>
+    <div class="cta-btn">지금 파티 찾기 →</div>
+    <div class="cta-url">party.it.kr</div>
+  </div>
+</div>
+
+</body>
+</html>
