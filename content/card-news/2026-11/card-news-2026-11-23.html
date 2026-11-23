@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 — 파티원 소개 | 2026-11-23</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #06060f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-label {
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.45;
+    color: #fff;
+  }
+
+  .slide-no {
+    position: absolute;
+    top: 44px;
+    right: 48px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 1 — 커버
+  ═══════════════════════════════════════ */
+  .card-1 {
+    background: linear-gradient(150deg, #09001a 0%, #1e003e 30%, #38006a 65%, #150030 100%);
+  }
+  .card-1 .orb-a {
+    position: absolute;
+    width: 650px; height: 650px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,38,211,0.4) 0%, transparent 70%);
+    top: -150px; left: -120px;
+    filter: blur(80px);
+  }
+  .card-1 .orb-b {
+    position: absolute;
+    width: 550px; height: 550px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(236,72,153,0.35) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+    filter: blur(80px);
+  }
+  .card-1 .orb-c {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+  }
+  .card-1 .chip {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(216,180,254,0.15);
+    border: 1px solid rgba(216,180,254,0.4);
+    border-radius: 100px;
+    padding: 10px 26px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #e9d5ff;
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+  .card-1 .title {
+    position: relative;
+    z-index: 2;
+    font-size: 90px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .card-1 .title .grad {
+    background: linear-gradient(90deg, #d946ef, #f472b6, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-1 .sub {
+    position: relative;
+    z-index: 2;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.03em;
+    margin-bottom: 52px;
+  }
+  .card-1 .free-badge {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(90deg, #d946ef, #ec4899);
+    border-radius: 20px;
+    padding: 20px 56px;
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+    box-shadow: 0 0 60px rgba(217,70,239,0.5);
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 2 — 파티원이란?
+  ═══════════════════════════════════════ */
+  .card-2 {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 50%, #0d0d1a 100%);
+  }
+  .card-2 .accent-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #d946ef, #818cf8, #ec4899);
+  }
+  .card-2 .deco-circle {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129,140,248,0.2) 0%, transparent 60%);
+    right: -150px; top: 50%;
+    transform: translateY(-50%);
+    filter: blur(60px);
+  }
+  .card-2 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 90px;
+  }
+  .card-2 .section-tag {
+    display: inline-block;
+    background: rgba(217,70,239,0.15);
+    border: 1px solid rgba(217,70,239,0.45);
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e879f9;
+    letter-spacing: 0.08em;
+    margin-bottom: 36px;
+  }
+  .card-2 .heading {
+    font-size: 62px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 50px;
+  }
+  .card-2 .heading .hl {
+    color: #e879f9;
+  }
+  .card-2 .desc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .card-2 .desc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .card-2 .desc-icon {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #d946ef, #818cf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .card-2 .desc-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .card-2 .desc-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card-2 .desc-body {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 3 — 여성 무료 참가
+  ═══════════════════════════════════════ */
+  .card-3 {
+    background: linear-gradient(160deg, #0a0010 0%, #1f0040 40%, #3b005c 70%, #0a0010 100%);
+  }
+  .card-3 .glow-top {
+    position: absolute;
+    width: 800px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(236,72,153,0.4) 0%, transparent 65%);
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    filter: blur(70px);
+  }
+  .card-3 .glow-bot {
+    position: absolute;
+    width: 600px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(168,85,247,0.3) 0%, transparent 65%);
+    bottom: -80px; left: 50%;
+    transform: translateX(-50%);
+    filter: blur(70px);
+  }
+  .card-3 .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 80px;
+  }
+  .card-3 .label {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .card-3 .big-price {
+    font-size: 160px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, #f472b6, #e879f9, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 40px rgba(236,72,153,0.5));
+  }
+  .card-3 .price-unit {
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+  }
+  .card-3 .divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #ec4899, #a855f7);
+    border-radius: 2px;
+    margin-bottom: 40px;
+  }
+  .card-3 .desc {
+    font-size: 30px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    margin-bottom: 50px;
+  }
+  .card-3 .desc strong {
+    color: #f9a8d4;
+    font-weight: 700;
+  }
+  .card-3 .note-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 40px;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 4 — 전국 60곳+ 호스트
+  ═══════════════════════════════════════ */
+  .card-4 {
+    background: linear-gradient(150deg, #05101a 0%, #071e34 40%, #0d2b4a 70%, #05101a 100%);
+  }
+  .card-4 .orb-left {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.25) 0%, transparent 65%);
+    left: -100px; top: 50%;
+    transform: translateY(-50%);
+    filter: blur(70px);
+  }
+  .card-4 .orb-right {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 65%);
+    right: -80px; bottom: 100px;
+    filter: blur(60px);
+  }
+  .card-4 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 90px;
+  }
+  .card-4 .tag {
+    display: inline-block;
+    background: rgba(6,182,212,0.15);
+    border: 1px solid rgba(6,182,212,0.4);
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #67e8f9;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+  .card-4 .heading {
+    font-size: 60px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 50px;
+  }
+  .card-4 .heading .num {
+    font-size: 90px;
+    color: #67e8f9;
+    display: block;
+    line-height: 1;
+  }
+  .card-4 .city-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 50px;
+  }
+  .card-4 .city-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .card-4 .city-emoji {
+    font-size: 30px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .card-4 .city-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card-4 .city-count {
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin-top: 4px;
+  }
+  .card-4 .bottom-note {
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+  .card-4 .bottom-note strong {
+    color: #67e8f9;
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 5 — 9가지 파티 카테고리
+  ═══════════════════════════════════════ */
+  .card-5 {
+    background: linear-gradient(145deg, #0c001a 0%, #1a0030 45%, #2a0048 75%, #0c001a 100%);
+  }
+  .card-5 .deco-orb {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 60%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(80px);
+  }
+  .card-5 .content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 70px;
+  }
+  .card-5 .heading {
+    font-size: 54px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .card-5 .heading .hl {
+    background: linear-gradient(90deg, #c084fc, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-5 .sub-heading {
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .card-5 .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .card-5 .cat-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 22px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s;
+  }
+  .card-5 .cat-emoji {
+    font-size: 36px;
+  }
+  .card-5 .cat-name {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  .card-5 .cat-item:nth-child(1) { border-color: rgba(236,72,153,0.3); background: rgba(236,72,153,0.08); }
+  .card-5 .cat-item:nth-child(2) { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.08); }
+  .card-5 .cat-item:nth-child(3) { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.07); }
+  .card-5 .cat-item:nth-child(4) { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.07); }
+  .card-5 .cat-item:nth-child(5) { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.07); }
+  .card-5 .cat-item:nth-child(6) { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.08); }
+  .card-5 .cat-item:nth-child(7) { border-color: rgba(20,184,166,0.3); background: rgba(20,184,166,0.07); }
+  .card-5 .cat-item:nth-child(8) { border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.07); }
+  .card-5 .cat-item:nth-child(9) { border-color: rgba(234,179,8,0.3); background: rgba(234,179,8,0.07); }
+  .card-5 .more-text {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ═══════════════════════════════════════
+     CARD 6 — CTA
+  ═══════════════════════════════════════ */
+  .card-6 {
+    background: linear-gradient(160deg, #0d001f 0%, #200040 30%, #3d0070 60%, #1a0038 100%);
+  }
+  .card-6 .orb-cta-1 {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,70,239,0.45) 0%, transparent 65%);
+    top: -150px; left: -150px;
+    filter: blur(90px);
+  }
+  .card-6 .orb-cta-2 {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, transparent 65%);
+    bottom: -100px; right: -100px;
+    filter: blur(90px);
+  }
+  .card-6 .orb-cta-3 {
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 65%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+  }
+  .card-6 .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 80px;
+  }
+  .card-6 .cta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(217,70,239,0.2);
+    border: 1px solid rgba(217,70,239,0.5);
+    border-radius: 100px;
+    padding: 12px 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #e879f9;
+    letter-spacing: 0.06em;
+    margin-bottom: 36px;
+  }
+  .card-6 .cta-title {
+    font-size: 70px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .card-6 .cta-title .grad {
+    background: linear-gradient(90deg, #f472b6, #e879f9, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-6 .cta-sub {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 60px;
+    line-height: 1.6;
+  }
+  .card-6 .cta-url {
+    display: inline-block;
+    background: linear-gradient(90deg, #d946ef, #ec4899);
+    border-radius: 24px;
+    padding: 28px 80px;
+    font-size: 44px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    box-shadow: 0 0 80px rgba(217,70,239,0.55), 0 20px 40px rgba(0,0,0,0.4);
+    margin-bottom: 36px;
+  }
+  .card-6 .cta-free {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 14px 36px;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.03em;
+  }
+  .card-6 .cta-free .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 10px rgba(74,222,128,0.8);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ CARD 1 — 커버 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">01 / 06</div>
+  <div class="card card-1">
+    <div class="orb-a"></div>
+    <div class="orb-b"></div>
+    <div class="orb-c"></div>
+    <div class="chip">🎉 파티원 소개</div>
+    <div class="title">새로운 만남,<br><span class="grad">특별한 파티</span></div>
+    <div class="sub">전국 어디서나, 지금 바로</div>
+    <div class="free-badge">여성 참가비 0원 🎁</div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">1 / 6</div>
+  </div>
+</div>
+
+<!-- ══════════════ CARD 2 — 파티원이란? ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">02 / 06</div>
+  <div class="card card-2">
+    <div class="accent-line"></div>
+    <div class="deco-circle"></div>
+    <div class="content">
+      <div class="section-tag">WHAT IS 파티원?</div>
+      <div class="heading">파티 호스트와<br><span class="hl">참가자를 연결</span>하는<br>매칭 플랫폼</div>
+      <div class="desc-list">
+        <div class="desc-item">
+          <div class="desc-icon">🏠</div>
+          <div class="desc-text">
+            <div class="desc-title">파티 호스트</div>
+            <div class="desc-body">주점·식당·공간 운영자가 파티를 열고 인원을 충원해요</div>
+          </div>
+        </div>
+        <div class="desc-item">
+          <div class="desc-icon">👯</div>
+          <div class="desc-text">
+            <div class="desc-title">파티 참가자</div>
+            <div class="desc-body">다양한 사람들을 만나고 싶은 20~30대 누구나 참가 가능</div>
+          </div>
+        </div>
+        <div class="desc-item">
+          <div class="desc-icon">✨</div>
+          <div class="desc-text">
+            <div class="desc-title">특별한 경험</div>
+            <div class="desc-body">9가지 파티 테마로 나에게 맞는 만남을 선택하세요</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">2 / 6</div>
+  </div>
+</div>
+
+<!-- ══════════════ CARD 3 — 여성 무료 참가 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">03 / 06</div>
+  <div class="card card-3">
+    <div class="glow-top"></div>
+    <div class="glow-bot"></div>
+    <div class="content">
+      <div class="label">여성 참가비</div>
+      <div class="big-price">0</div>
+      <div class="price-unit">원 무료 🎀</div>
+      <div class="divider"></div>
+      <div class="desc">
+        <strong>돈 걱정 없이</strong> 새로운 사람들을 만나세요.<br>
+        파티원에서 여성 참가자는<br>
+        <strong>언제나 무료</strong>입니다.
+      </div>
+      <div class="note-box">※ 호스트 파티 프로그램 운영비 별도 / 2차 선택 사항</div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">3 / 6</div>
+  </div>
+</div>
+
+<!-- ══════════════ CARD 4 — 전국 60곳+ 호스트 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">04 / 06</div>
+  <div class="card card-4">
+    <div class="orb-left"></div>
+    <div class="orb-right"></div>
+    <div class="content">
+      <div class="tag">VERIFIED HOSTS</div>
+      <div class="heading">
+        <span class="num">60곳+</span>
+        전국 검증된<br>제휴 호스트
+      </div>
+      <div class="city-grid">
+        <div class="city-item">
+          <span class="city-emoji">🗼</span>
+          <div class="city-name">서울</div>
+          <div class="city-count">강남 · 홍대 · 이태원</div>
+        </div>
+        <div class="city-item">
+          <span class="city-emoji">🏙️</span>
+          <div class="city-name">경기</div>
+          <div class="city-count">수원 · 성남 · 용인</div>
+        </div>
+        <div class="city-item">
+          <span class="city-emoji">⚓</span>
+          <div class="city-name">인천</div>
+          <div class="city-count">부평 · 연수 · 계양</div>
+        </div>
+        <div class="city-item">
+          <span class="city-emoji">🌊</span>
+          <div class="city-name">부산</div>
+          <div class="city-count">서면 · 해운대 · 광안리</div>
+        </div>
+        <div class="city-item">
+          <span class="city-emoji">🏔️</span>
+          <div class="city-name">대구</div>
+          <div class="city-count">동성로 · 수성구</div>
+        </div>
+        <div class="city-item">
+          <span class="city-emoji">📍</span>
+          <div class="city-name">전국 확장 중</div>
+          <div class="city-count">계속 늘어나고 있어요</div>
+        </div>
+      </div>
+      <div class="bottom-note">모든 호스트는 <strong>파티원 직접 검증</strong>을 거쳤어요</div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">4 / 6</div>
+  </div>
+</div>
+
+<!-- ══════════════ CARD 5 — 9가지 카테고리 ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">05 / 06</div>
+  <div class="card card-5">
+    <div class="deco-orb"></div>
+    <div class="content">
+      <div class="heading"><span class="hl">9가지</span> 파티 카테고리</div>
+      <div class="sub-heading">내 취향대로, 내 스타일대로</div>
+      <div class="cat-grid">
+        <div class="cat-item">
+          <span class="cat-emoji">👑</span>
+          <span class="cat-name">비주얼파티</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🎭</span>
+          <span class="cat-name">컨셉파티</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🥃</span>
+          <span class="cat-name">혼술바</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🍱</span>
+          <span class="cat-name">포틀럭</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">⚡</span>
+          <span class="cat-name">도파민파티</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">💞</span>
+          <span class="cat-name">소개팅</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🌙</span>
+          <span class="cat-name">내향인파티</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🍷</span>
+          <span class="cat-name">와인파티</span>
+        </div>
+        <div class="cat-item">
+          <span class="cat-emoji">🍺</span>
+          <span class="cat-name">소맥파티</span>
+        </div>
+      </div>
+      <div class="more-text">원하는 파티가 없다면? 직접 호스트 신청도 가능해요 →</div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">5 / 6</div>
+  </div>
+</div>
+
+<!-- ══════════════ CARD 6 — CTA ══════════════ -->
+<div class="card-wrapper">
+  <div class="card-label">06 / 06</div>
+  <div class="card card-6">
+    <div class="orb-cta-1"></div>
+    <div class="orb-cta-2"></div>
+    <div class="orb-cta-3"></div>
+    <div class="content">
+      <div class="cta-chip">🎉 지금 바로 시작하세요</div>
+      <div class="cta-title">특별한 만남,<br><span class="grad">파티원에서</span></div>
+      <div class="cta-sub">
+        여성 참가비 0원 · 전국 60곳+ 검증 호스트<br>
+        내 취향에 맞는 파티를 찾아보세요
+      </div>
+      <a class="cta-url" href="https://party.it.kr">party.it.kr</a>
+      <div class="cta-free">
+        <span class="dot"></span>
+        지금 무료로 파티 둘러보기
+      </div>
+    </div>
+    <div class="watermark">party.it.kr</div>
+    <div class="slide-no">6 / 6</div>
+  </div>
+</div>
+
+</body>
+</html>
