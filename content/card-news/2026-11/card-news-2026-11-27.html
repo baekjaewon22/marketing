@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파티원 카드뉴스 - 참가자 후기 2026-11-27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF4D6D;
+    --primary-dark: #C9184A;
+    --secondary: #FF85A1;
+    --accent: #FFB3C1;
+    --gold: #FFD166;
+    --purple: #7B2FBE;
+    --purple-light: #C77DFF;
+    --teal: #06D6A0;
+    --orange: #FF6B35;
+    --navy: #1A1A2E;
+    --dark: #16213E;
+    --text-white: #FFFFFF;
+    --text-light: rgba(255,255,255,0.85);
+    --text-muted: rgba(255,255,255,0.60);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 24px;
+  }
+
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* ── CARD 1: Cover ── */
+  .card-1 {
+    background: linear-gradient(150deg, #0D0D1A 0%, #1C0D2E 50%, #0D1A1A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+  }
+  .card-1 .b1 { width: 700px; height: 700px; background: rgba(255,77,109,0.15); top: -200px; right: -200px; }
+  .card-1 .b2 { width: 550px; height: 550px; background: rgba(123,47,190,0.20); bottom: -180px; left: -180px; }
+  .card-1 .b3 { width: 350px; height: 350px; background: rgba(6,214,160,0.08); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  .card-1 .inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-1 .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(6,214,160,0.12);
+    border: 1.5px solid rgba(6,214,160,0.45);
+    padding: 13px 34px;
+    border-radius: 50px;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 2px;
+    margin-bottom: 46px;
+  }
+  .badge-dot {
+    width: 9px; height: 9px;
+    background: var(--teal);
+    border-radius: 50%;
+  }
+  .card-1 .quote-mark {
+    font-size: 180px;
+    line-height: 0.7;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    opacity: 0.6;
+  }
+  .card-1 h1 {
+    font-size: 82px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .card-1 h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-1 .sub {
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-bottom: 54px;
+    line-height: 1.6;
+  }
+  .card-1 .stars-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 36px;
+  }
+  .star {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .card-1 .review-count {
+    font-size: 22px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .card-1 .logo-tag {
+    font-size: 24px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 2px;
+    margin-top: 20px;
+  }
+
+  /* ── CARD 2~5: Review Cards ── */
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    padding: 70px 72px 60px;
+  }
+  .rc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 54px;
+  }
+  .rc-eyebrow {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .rc-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .rc-logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* Review bubble */
+  .review-bubble {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 28px;
+    padding: 46px 52px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .review-bubble::before {
+    content: '"';
+    position: absolute;
+    top: 24px;
+    left: 44px;
+    font-size: 100px;
+    line-height: 1;
+    font-weight: 900;
+    opacity: 0.15;
+    color: #fff;
+  }
+  .review-text {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--text-light);
+    line-height: 1.65;
+    margin-top: 30px;
+    flex: 1;
+  }
+  .review-text strong {
+    font-weight: 900;
+  }
+  .review-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 42px;
+  }
+  .reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .reviewer-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+  .reviewer-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .reviewer-detail {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .review-stars {
+    display: flex;
+    gap: 6px;
+    font-size: 30px;
+  }
+
+  /* Tag chips on review cards */
+  .review-tags {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .review-tag {
+    padding: 9px 22px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CARD 2 specific ── */
+  .card-2 { background: linear-gradient(145deg, #0D1A2E 0%, #16213E 60%, #0D0D2A 100%); }
+  .card-2 .rc-eyebrow { color: var(--teal); }
+  .card-2 .review-bubble { border-color: rgba(6,214,160,0.2); }
+  .card-2 .reviewer-avatar { background: linear-gradient(135deg, #06D6A0, #0096C7); }
+  .card-2 .review-tag-1 { background: rgba(6,214,160,0.15); border: 1px solid rgba(6,214,160,0.4); color: var(--teal); }
+
+  /* ── CARD 3 specific ── */
+  .card-3 { background: linear-gradient(145deg, #1A0D2E 0%, #2A1245 60%, #0D0D1A 100%); }
+  .card-3 .rc-eyebrow { color: var(--purple-light); }
+  .card-3 .review-bubble { border-color: rgba(199,125,255,0.2); }
+  .card-3 .reviewer-avatar { background: linear-gradient(135deg, #7B2FBE, #C77DFF); }
+  .card-3 .review-tag-1 { background: rgba(199,125,255,0.15); border: 1px solid rgba(199,125,255,0.4); color: var(--purple-light); }
+
+  /* ── CARD 4 specific ── */
+  .card-4 { background: linear-gradient(145deg, #1A0A14 0%, #2A1020 60%, #0D0D1A 100%); }
+  .card-4 .rc-eyebrow { color: var(--secondary); }
+  .card-4 .review-bubble { border-color: rgba(255,133,161,0.2); }
+  .card-4 .reviewer-avatar { background: linear-gradient(135deg, #FF4D6D, #FF85A1); }
+  .card-4 .review-tag-1 { background: rgba(255,77,109,0.15); border: 1px solid rgba(255,77,109,0.4); color: var(--secondary); }
+
+  /* ── CARD 5 specific ── */
+  .card-5 { background: linear-gradient(145deg, #1A1200 0%, #2A1E00 60%, #0D0D1A 100%); }
+  .card-5 .rc-eyebrow { color: var(--gold); }
+  .card-5 .review-bubble { border-color: rgba(255,209,102,0.2); }
+  .card-5 .reviewer-avatar { background: linear-gradient(135deg, #FF6B35, #FFD166); }
+  .card-5 .review-tag-1 { background: rgba(255,209,102,0.15); border: 1px solid rgba(255,209,102,0.4); color: var(--gold); }
+
+  /* ── CARD 6: CTA ── */
+  .card-6 {
+    background: linear-gradient(150deg, #0D0D1A 0%, #1A0A2E 40%, #0D1A1A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-6 .b1 { width: 700px; height: 700px; background: rgba(255,77,109,0.18); top: -220px; left: -220px; }
+  .card-6 .b2 { width: 600px; height: 600px; background: rgba(123,47,190,0.18); bottom: -200px; right: -200px; }
+  .card-6 .b3 { width: 300px; height: 300px; background: rgba(6,214,160,0.08); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  .card-6 .inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px;
+  }
+  .card-6 .cta-label {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--teal);
+    margin-bottom: 32px;
+  }
+  .card-6 h2 {
+    font-size: 78px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 28px;
+  }
+  .card-6 h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-6 .cta-desc {
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.65;
+    margin-bottom: 60px;
+  }
+  .card-6 .cta-desc strong {
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(90deg, var(--primary), var(--purple));
+    padding: 28px 72px;
+    border-radius: 60px;
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 36px;
+    box-shadow: 0 20px 60px rgba(255,77,109,0.35);
+  }
+  .cta-btn .arrow {
+    font-size: 32px;
+  }
+  .card-6 .url-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    padding: 16px 44px;
+    border-radius: 50px;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+    margin-bottom: 50px;
+  }
+  .card-6 .bottom-badges {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .bottom-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+  .bottom-badge .ic { font-size: 22px; }
+
+  /* Stats strip for card 5 */
+  .stats-strip {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .stat-block {
+    flex: 1;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* Highlight keyword */
+  .hl-pink { color: var(--secondary); font-weight: 900; }
+  .hl-teal { color: var(--teal); font-weight: 900; }
+  .hl-gold { color: var(--gold); font-weight: 900; }
+  .hl-purple { color: var(--purple-light); font-weight: 900; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     CARD 1 — Cover
+═══════════════════════════════════════ -->
+<div class="card card-1">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="inner">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      REAL REVIEW
+    </div>
+    <div class="quote-mark">"</div>
+    <h1>진짜 후기<br><em>직접 경험했어요</em></h1>
+    <p class="sub">파티원 참가자들의<br>생생한 이야기를 담았습니다</p>
+    <div class="stars-row">
+      <div class="star">⭐</div>
+      <div class="star">⭐</div>
+      <div class="star">⭐</div>
+      <div class="star">⭐</div>
+      <div class="star">⭐</div>
+    </div>
+    <p class="review-count">만족도 4.8 / 5.0 · 누적 후기 2,300+</p>
+    <p class="logo-tag">party.it.kr</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 2 — 후기 1: 처음 혼자 간 후기
+═══════════════════════════════════════ -->
+<div class="card card-2 review-card">
+  <div class="rc-header">
+    <div>
+      <p class="rc-eyebrow">REVIEW #01</p>
+      <p class="rc-title">처음 혼자 갔는데<br>정말 괜찮았어요</p>
+    </div>
+    <p class="rc-logo">파티원</p>
+  </div>
+
+  <div class="review-tags">
+    <span class="review-tag review-tag-1">🌱 첫 참가</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">내향인파티</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">강남</span>
+  </div>
+
+  <div class="review-bubble">
+    <p class="review-text">
+      솔직히 <strong>혼자 가는 게 너무 떨렸어요.</strong><br>
+      근데 도착하니까 진행자분이<br>
+      바로 반겨주시더라고요 😊<br><br>
+      무엇보다 <span class="hl-teal">참가비가 진짜 0원</span>이라서<br>
+      부담 없이 도전할 수 있었어요.<br>
+      다음 파티도 이미 신청했어요!
+    </p>
+    <div class="review-meta">
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">🌿</div>
+        <div>
+          <p class="reviewer-name">지연 님 · 25세</p>
+          <p class="reviewer-detail">직장인 | 서울 거주</p>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 3 — 후기 2: 비주얼파티 후기
+═══════════════════════════════════════ -->
+<div class="card card-3 review-card">
+  <div class="rc-header">
+    <div>
+      <p class="rc-eyebrow">REVIEW #02</p>
+      <p class="rc-title">비주얼파티에서<br>진짜 인연을 만났어요</p>
+    </div>
+    <p class="rc-logo">파티원</p>
+  </div>
+
+  <div class="review-tags">
+    <span class="review-tag review-tag-1">✨ 비주얼파티</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">홍대</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">2차 포함</span>
+  </div>
+
+  <div class="review-bubble">
+    <p class="review-text">
+      같이 간 친구도 없이 혼자 갔는데<br>
+      <strong>다들 적극적으로 말 걸어줘서</strong><br>
+      어색함이 금방 사라졌어요.<br><br>
+      <span class="hl-purple">전국 60곳+ 중</span> 집 근처로<br>
+      고를 수 있어서 편리했고요.<br>
+      2차까지 함께한 사람들이랑<br>
+      지금도 연락하고 있어요 💜
+    </p>
+    <div class="review-meta">
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">🦋</div>
+        <div>
+          <p class="reviewer-name">민서 님 · 28세</p>
+          <p class="reviewer-detail">대학원생 | 경기 거주</p>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 4 — 후기 3: 소개팅 로테이션 파티
+═══════════════════════════════════════ -->
+<div class="card card-4 review-card">
+  <div class="rc-header">
+    <div>
+      <p class="rc-eyebrow">REVIEW #03</p>
+      <p class="rc-title">소개팅 로테이션<br>생각보다 훨씬 재밌어요</p>
+    </div>
+    <p class="rc-logo">파티원</p>
+  </div>
+
+  <div class="review-tags">
+    <span class="review-tag review-tag-1">💘 소개팅 로테이션</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">이태원</span>
+    <span class="review-tag" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);">24~29년생</span>
+  </div>
+
+  <div class="review-bubble">
+    <p class="review-text">
+      매칭앱은 질렸고, 소개팅은<br>
+      너무 부담스럽잖아요. 근데 여기는<br>
+      <strong>게임처럼 돌아가면서 얘기하니까</strong><br>
+      어색하지 않고 진짜 편했어요 😊<br><br>
+      <span class="hl-pink">여성 무료</span>라 친구들이랑<br>
+      가볍게 나온 게 최고였어요 🩷
+    </p>
+    <div class="review-meta">
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">🌸</div>
+        <div>
+          <p class="reviewer-name">수아 님 · 26세</p>
+          <p class="reviewer-detail">취업준비생 | 인천 거주</p>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 5 — 후기 4 + 만족도 통계
+═══════════════════════════════════════ -->
+<div class="card card-5 review-card">
+  <div class="rc-header">
+    <div>
+      <p class="rc-eyebrow">REVIEW #04</p>
+      <p class="rc-title">도파민파티<br>진짜 에너지 넘쳐요</p>
+    </div>
+    <p class="rc-logo">파티원</p>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-block" style="background:rgba(255,209,102,0.10);border-right:1px solid rgba(255,255,255,0.08)">
+      <p class="stat-num" style="color:var(--gold)">4.8</p>
+      <p class="stat-label">평균 만족도</p>
+    </div>
+    <div class="stat-block" style="background:rgba(6,214,160,0.08);border-right:1px solid rgba(255,255,255,0.08)">
+      <p class="stat-num" style="color:var(--teal)">94%</p>
+      <p class="stat-label">재참가 의향</p>
+    </div>
+    <div class="stat-block" style="background:rgba(255,133,161,0.08)">
+      <p class="stat-num" style="color:var(--secondary)">88%</p>
+      <p class="stat-label">지인 추천 의향</p>
+    </div>
+  </div>
+
+  <div class="review-bubble">
+    <p class="review-text">
+      신나는 음악에 미션 게임까지!<br>
+      <strong>처음 보는 사람들인데 금방 친해져요.</strong><br><br>
+      무엇보다 <span class="hl-gold">검증된 호스트</span>가 운영하니까<br>
+      안전하게 즐길 수 있었어요.<br>
+      친구들한테 계속 추천 중 🔥
+    </p>
+    <div class="review-meta">
+      <div class="reviewer-info">
+        <div class="reviewer-avatar">🔥</div>
+        <div>
+          <p class="reviewer-name">예린 님 · 24세</p>
+          <p class="reviewer-detail">대학생 | 부산 거주</p>
+        </div>
+      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CARD 6 — CTA
+═══════════════════════════════════════ -->
+<div class="card card-6">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="inner">
+    <p class="cta-label">JOIN NOW</p>
+    <h2>나도 이런 경험<br><em>만들고 싶다면</em></h2>
+    <p class="cta-desc">
+      <strong>여성 참가비 0원</strong> · 전국 60곳+ 검증 호스트<br>
+      지금 바로 파티를 찾아보세요
+    </p>
+    <div class="cta-btn">
+      지금 파티 보러 가기 <span class="arrow">→</span>
+    </div>
+    <div class="url-chip">🔗 party.it.kr</div>
+    <div class="bottom-badges">
+      <div class="bottom-badge"><span class="ic">🎉</span> 9가지 파티 카테고리</div>
+      <div class="bottom-badge"><span class="ic">💸</span> 여성 참가비 0원</div>
+      <div class="bottom-badge"><span class="ic">🛡️</span> 검증된 호스트</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
